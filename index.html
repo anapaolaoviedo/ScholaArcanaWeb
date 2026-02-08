@@ -1,0 +1,1033 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Schola Arcana — 17-Week Cathedral Semester</title>
+  <meta name="description" content="Axioms-first, concept-first 17-week plan: Logic + Discrete + TOC + Linear Algebra + Continuity/Probability + Quantum + Projects + ETH/Master’s dossier." />
+  <style>
+    :root{
+      --bg:#fff7fb;
+      --bg2:#ffe9f4;
+      --card:#ffffffcc;
+      --ink:#1f1630;
+      --muted:#5b4b66;
+      --pink:#ff4da6;
+      --pink2:#ff77c2;
+      --lav:#b18cff;
+      --mint:#5fe2c2;
+      --line:#f2c9df;
+      --shadow: 0 18px 40px rgba(31,22,48,.10);
+      --shadow2: 0 10px 24px rgba(31,22,48,.08);
+      --radius: 22px;
+      --radius2: 16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--ink);
+      background:
+        radial-gradient(1200px 700px at 10% 10%, #ffe0f0 0%, transparent 60%),
+        radial-gradient(1000px 700px at 90% 20%, #f0e3ff 0%, transparent 55%),
+        radial-gradient(900px 600px at 50% 90%, #e6fff7 0%, transparent 60%),
+        linear-gradient(180deg, var(--bg) 0%, #ffffff 100%);
+      overflow-x:hidden;
+    }
+    a{color:inherit}
+    .wrap{max-width:1280px;margin:0 auto;padding:28px 18px 70px}
+    .hero{
+      position:relative;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background: linear-gradient(135deg, #ffffffcc, #fff0f8cc);
+      box-shadow:var(--shadow);
+      padding:28px 22px;
+      overflow:hidden;
+    }
+    .hero:before{
+      content:"";
+      position:absolute; inset:-40px -60px auto auto;
+      width:280px;height:280px;
+      background: radial-gradient(circle at 30% 30%, #ffb3da 0%, transparent 55%),
+                  radial-gradient(circle at 70% 70%, #c7b0ff 0%, transparent 55%);
+      filter: blur(2px);
+      transform: rotate(12deg);
+      opacity:.9;
+      pointer-events:none;
+    }
+    .hero h1{
+      margin:0 0 8px;
+      font-size: clamp(28px, 3.3vw, 44px);
+      letter-spacing:-.02em;
+      line-height:1.05;
+    }
+    .muted{color:var(--muted)}
+    .sparkle{
+      display:inline-block;
+      background: linear-gradient(135deg, var(--pink), var(--lav));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+      font-weight:900;
+    }
+    .badgeRow{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+    .badge{
+      border:1px solid var(--line);
+      background:#fff;
+      border-radius:999px;
+      padding:8px 12px;
+      font-size:13px;
+      color:var(--muted);
+      display:flex; gap:8px; align-items:center;
+      box-shadow:0 8px 18px rgba(31,22,48,.06);
+    }
+    .dot{width:8px;height:8px;border-radius:50%;}
+    .dot.pink{background:var(--pink)}
+    .dot.lav{background:var(--lav)}
+    .dot.mint{background:var(--mint)}
+    .ctaRow{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+    .btn{
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, #fff, #fff7fb);
+      border-radius:999px;
+      padding:10px 14px;
+      font-weight:750;
+      font-size:14px;
+      cursor:pointer;
+      box-shadow:var(--shadow2);
+      transition: transform .08s ease, border-color .2s ease;
+      user-select:none;
+    }
+    .btn:hover{transform: translateY(-1px); border-color:#f0a7cd}
+    .btn.primary{
+      border-color: transparent;
+      background: linear-gradient(135deg, var(--pink), var(--pink2));
+      color:white;
+    }
+    .btn.ghost{background:transparent; box-shadow:none;}
+    .grid{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns: 1.35fr .65fr;
+      gap:14px;
+    }
+    @media (max-width: 980px){ .grid{grid-template-columns:1fr} }
+    .card{
+      border:1px solid var(--line);
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow2);
+      padding:16px;
+      backdrop-filter: blur(8px);
+    }
+    .card h2{
+      margin:0 0 10px;
+      font-size:18px;
+      letter-spacing:-.01em;
+      display:flex; align-items:center; gap:10px;
+    }
+    .pill{
+      font-family:var(--mono);
+      font-size:12px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:#fff;
+      color:var(--muted);
+      white-space:nowrap;
+    }
+    .kpiRow{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:10px;
+      margin-top:12px;
+    }
+    @media (max-width: 700px){ .kpiRow{grid-template-columns:1fr} }
+    .kpi{
+      border:1px solid var(--line);
+      background:#fff;
+      border-radius:var(--radius2);
+      padding:12px;
+      box-shadow:0 8px 16px rgba(31,22,48,.06);
+    }
+    .kpi .label{font-size:12px;color:var(--muted);margin-bottom:6px}
+    .kpi .value{font-weight:900;font-size:16px}
+    .kpi .sub{font-size:12px;color:var(--muted);margin-top:4px;line-height:1.45}
+    .section{margin-top:14px;}
+
+    /* table */
+    .tableWrap{overflow:auto; border-radius:18px; border:1px solid var(--line); background:#fff}
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      min-width: 1200px;
+      font-size:13px;
+    }
+    thead th{
+      position:sticky; top:0;
+      background: linear-gradient(180deg, #fff, #fff7fb);
+      border-bottom:1px solid var(--line);
+      text-align:left;
+      padding:12px 12px;
+      font-size:12px;
+      color:var(--muted);
+      letter-spacing:.03em;
+      text-transform:uppercase;
+      z-index:1;
+    }
+    tbody td{
+      vertical-align:top;
+      padding:12px 12px;
+      border-bottom:1px solid #f7d8e8;
+      color:var(--ink);
+      background:#fff;
+      line-height:1.45;
+    }
+    tbody tr:hover td{background:#fff7fb}
+    .wk{font-family:var(--mono); font-weight:900; color:#3a2449;}
+    .chip{
+      display:inline-flex; align-items:center; gap:8px;
+      border:1px solid var(--line);
+      background:#fff;
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:12px;
+      color:var(--muted);
+      margin:2px 6px 2px 0;
+      white-space:nowrap;
+    }
+    .chip b{color:var(--ink)}
+    .mini{margin-top:8px; display:flex; flex-wrap:wrap; gap:6px;}
+    code.inline{
+      font-family:var(--mono);
+      background:#fff7fb;
+      border:1px solid var(--line);
+      padding:2px 6px;
+      border-radius:8px;
+      color:#3a2449;
+      font-size:12px;
+    }
+
+    /* accordion */
+    .accordion{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:#fff;
+      overflow:hidden;
+      box-shadow:var(--shadow2);
+    }
+    details{border-top:1px solid #f7d8e8}
+    details:first-child{border-top:none}
+    summary{
+      list-style:none;
+      cursor:pointer;
+      padding:14px 16px;
+      font-weight:900;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:10px;
+    }
+    summary::-webkit-details-marker{display:none}
+    .summaryRight{display:flex; gap:8px; align-items:center}
+    .caret{
+      width:10px;height:10px; border-right:2px solid var(--muted); border-bottom:2px solid var(--muted);
+      transform: rotate(-45deg);
+      transition:.12s ease;
+      margin-left:6px;
+    }
+    details[open] .caret{transform: rotate(45deg)}
+    .content{padding:0 16px 16px; color:var(--muted)}
+    .content ul{margin:10px 0 0 18px}
+    .content li{margin:8px 0}
+
+    /* modals */
+    .modal{
+      position:fixed; inset:0;
+      display:none;
+      align-items:center; justify-content:center;
+      background: rgba(31,22,48,.35);
+      padding:18px;
+      z-index:99;
+    }
+    .modal[aria-hidden="false"]{display:flex}
+    .modalCard{
+      width:min(980px, 100%);
+      border-radius:var(--radius);
+      background: linear-gradient(135deg, #ffffff, #fff3fa);
+      border:1px solid var(--line);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      max-height: min(84vh, 820px);
+      display:flex; flex-direction:column;
+    }
+    .modalHead{
+      padding:16px 16px 12px;
+      border-bottom:1px solid #f7d8e8;
+      display:flex; align-items:flex-start; justify-content:space-between; gap:12px;
+    }
+    .modalHead h3{margin:0;font-size:18px}
+    .close{
+      border:none; background:transparent; cursor:pointer;
+      font-size:18px; padding:6px 10px; border-radius:12px;
+    }
+    .close:hover{background:#ffe6f2}
+    .modalBody{padding:14px 16px 18px; overflow:auto}
+
+    .bookGrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    @media (max-width: 760px){ .bookGrid{grid-template-columns:1fr} }
+    .book{
+      border:1px solid var(--line);
+      background:#fff;
+      border-radius:18px;
+      padding:12px;
+      box-shadow:0 10px 20px rgba(31,22,48,.06);
+    }
+    .book .tag{
+      display:inline-block;
+      font-family:var(--mono);
+      font-size:11px;
+      color:var(--muted);
+      border:1px solid var(--line);
+      padding:4px 8px;
+      border-radius:999px;
+      background:#fff7fb;
+      margin-bottom:8px;
+    }
+    .book h4{margin:6px 0 6px;font-size:14px}
+    .book p{margin:0;color:var(--muted);font-size:12px;line-height:1.45}
+    .book a{
+      display:inline-flex; gap:8px; align-items:center;
+      margin-top:10px;
+      font-weight:900;
+      color: var(--pink);
+      text-decoration:none;
+    }
+    .book a:hover{text-decoration:underline}
+
+    .topicGrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    @media (max-width: 860px){ .topicGrid{grid-template-columns:1fr} }
+    .topicCard{
+      border:1px solid var(--line);
+      background:#fff;
+      border-radius:18px;
+      padding:12px;
+      box-shadow:0 10px 20px rgba(31,22,48,.06);
+    }
+    .topicCard h4{margin:0 0 8px;font-size:14px}
+    .topicCard ul{margin:0 0 0 18px; color:var(--muted); line-height:1.65}
+    .topicCard .meta{margin-top:10px; display:flex; flex-wrap:wrap; gap:6px}
+    footer{
+      margin-top:18px;
+      color:var(--muted);
+      font-size:12px;
+      text-align:center;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <h1><span class="sparkle">Schola Arcana</span> — Cathedral Semester (17 Weeks)</h1>
+      <p class="muted" style="margin:0;max-width:84ch">
+        Axioms-first, concept-first: <b>Logic & Proof</b> + <b>Set/Discrete</b> + <b>TOC (Sipser)</b> + <b>Linear Algebra (Axler)</b> +
+        <b>Continuity/Probability</b> + <b>Quantum</b>, with projects + an ETH/master’s dossier that is actually publishable.
+      </p>
+
+      <div class="badgeRow">
+        <div class="badge"><span class="dot pink"></span> 10–12 hrs/week (weekends optional)</div>
+        <div class="badge"><span class="dot lav"></span> Axioms lane explicit (not “assumed”)</div>
+        <div class="badge"><span class="dot mint"></span> 2 flagship projects + weekly proof artifacts</div>
+      </div>
+
+      <div class="ctaRow">
+        
+        <button class="btn primary" id="openBooks">Textbooks (recommended)</button>
+        <button class="btn" id="openTopics">All topics map (everything exists)</button>
+        <a class="btn" href="topics.html">Topics Atlas</a>
+        <a class="btn" href="vault.html">Proof Vault</a>
+        <button class="btn" id="jumpTable">Jump to 17-week table</button>
+        <button class="btn" id="jumpProjects">Projects + tech stack</button>
+        <button class="btn" id="jumpDossier">Dossier milestones</button>
+        <button class="btn ghost" id="printBtn">Print / PDF</button>
+      </div>
+
+      <div class="kpiRow">
+        <div class="kpi">
+          <div class="label">Weekly split (designed for SWE-heavy semester)</div>
+          <div class="value">Foundations 4h · Structure 4h · Quantum+Dossier 2–3h</div>
+          <div class="sub"><b>Foundations 4h</b> = TOC (2.5h) + Logic/Set/Discrete (1.5h)</div>
+        </div>
+        <div class="kpi">
+          <div class="label">Weekly output rule (sacred)</div>
+          <div class="value">1 proof artifact + drills</div>
+          <div class="sub">Target: <b>TOC 8–12 ex</b> · <b>Math 8–12 ex</b> · <b>Quantum 2–5</b> + <b>1 write-up</b> (LaTeX)</div>
+        </div>
+        <div class="kpi">
+          <div class="label">End-of-semester assets</div>
+          <div class="value">2 projects · CV · SOP · writing sample PDF</div>
+          <div class="sub">Portfolio repo clean, pinned, and coherent for ETH/master’s.</div>
+        </div>
+      </div>
+    </header>
+
+    <section class="grid section">
+      <div class="card">
+        <h2>Cathedral rules <span class="pill">how this stays sane</span></h2>
+        <p class="muted" style="margin:0;max-width:95ch">
+          The earlier version felt light on logic/discrete because TOC + LA tends to dominate.
+          This version hard-bakes an <b>Axioms & Discrete lane</b> into every week.
+          Sipser uses proof machinery constantly, but now you explicitly learn the proof machinery.
+        </p>
+        <div class="mini">
+          <span class="chip"><b>Foundations:</b> Logic/Set/Discrete + TOC</span>
+          <span class="chip"><b>Structure:</b> Linear Algebra + light Algebra/Graphs</span>
+          <span class="chip"><b>Continuity/Prob:</b> alternating lane</span>
+          <span class="chip"><b>Quantum:</b> weekly thread (small, consistent)</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Weekly “proof quota” <span class="pill">ETH-coded</span></h2>
+        <ul class="muted" style="margin:10px 0 0 18px;line-height:1.7">
+          <li><b>1 proof artifact/week</b> (LaTeX). Could be a pumping lemma proof, reduction proof, or a linear algebra theorem.</li>
+          <li><b>1 axioms page</b> every 2 weeks (your words): “axioms → structures → what must be true”.</li>
+          <li>If a topic feels boring: ask <b>“what axioms is this built on?”</b></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card section" id="tableSection">
+      <h2>17-week table <span class="pill">Foundations are explicit now</span></h2>
+      <p class="muted" style="margin:0 0 10px;max-width:100ch">
+        Foundations is split into two lanes: <b>Logic/Set/Discrete (axioms-first)</b> + <b>TOC (Sipser)</b>.
+        This is the missing part you were asking for.
+      </p>
+
+      <div class="tableWrap" role="region" aria-label="17-week plan table">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:78px">Week</th>
+              <th>Foundations A (Logic/Set/Discrete — axioms lane)</th>
+              <th>Foundations B (TOC — Sipser)</th>
+              <th>Structure (Linear Algebra — Axler + light Algebra/Graphs)</th>
+              <th>Continuity / Probability</th>
+              <th>Quantum Thread</th>
+              <th>Targets (exercises + artifact)</th>
+              <th>Milestones (Projects + Dossier)</th>
+            </tr>
+          </thead>
+          <tbody id="planBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="grid section" id="projectsSection">
+      <div class="card">
+        <h2>Projects <span class="pill">2 flagship builds</span></h2>
+
+        <div class="accordion">
+          <details open>
+            <summary>
+              Project 1 — Automata Lab (Weeks 1–8)
+              <span class="summaryRight"><span class="pill">TOC + SWE</span><span class="caret"></span></span>
+            </summary>
+            <div class="content">
+              <p style="margin:0 0 8px">
+                Build a clean, documented tool: <b>Regex → NFA → DFA + Visualization</b>. This is “theory made concrete”.
+              </p>
+              <ul>
+                <li><b>Core features:</b> regex parser → Thompson NFA → subset construction DFA → simulate strings → Graphviz export.</li>
+                <li><b>Portfolio polish:</b> README, screenshots, examples, test suite.</li>
+                <li><b>Stretch:</b> DFA minimization + Myhill–Nerode explanation page.</li>
+              </ul>
+            </div>
+          </details>
+
+          <details>
+            <summary>
+              Project 2 — Quantum Mini-Simulator (Weeks 9–17)
+              <span class="summaryRight"><span class="pill">LA + QC</span><span class="caret"></span></span>
+            </summary>
+            <div class="content">
+              <p style="margin:0 0 8px">
+                Build a tiny simulator for <b>2–3 qubits</b>, then demonstrate <b>Deutsch–Jozsa</b> and <b>Grover</b>.
+              </p>
+              <ul>
+                <li><b>Core features:</b> state vectors, tensor products, unitary gates (H, X, Z, CNOT), measurement.</li>
+                <li><b>Demos:</b> Deutsch–Jozsa (small oracles), Grover (N=4 or N=8).</li>
+                <li><b>Stretch:</b> amplitude visualization, circuit DSL.</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Tech stack <span class="pill">finishable + clean</span></h2>
+        <p class="muted" style="margin:0 0 12px">
+          Your SWE degree already trains software engineering; this stack is chosen to produce research-flavored artifacts.
+        </p>
+        <ul class="muted" style="margin:0 0 0 18px;line-height:1.7">
+          <li><b>Language:</b> Python 3.11+</li>
+          <li><b>Automata Lab:</b> <code class="inline">graphviz</code>/<code class="inline">pydot</code>, <code class="inline">pytest</code></li>
+          <li><b>Quantum simulator:</b> Python + <code class="inline">numpy</code>, optional <code class="inline">matplotlib</code></li>
+          <li><b>Docs:</b> Markdown README + LaTeX proofs/writing sample</li>
+          <li><b>Repo hygiene:</b> examples folder, tests, consistent formatting</li>
+        </ul>
+        <div class="mini" style="margin-top:12px">
+          <span class="chip"><b>Artifact cadence:</b> weekly proof PDF</span>
+          <span class="chip"><b>Optional:</b> GitHub Pages host this page</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="card section" id="dossierSection">
+      <h2>Dossier milestones <span class="pill">ETH + Master’s</span></h2>
+      <p class="muted" style="margin:0 0 10px;max-width:100ch">
+        Built gradually so you never panic later. Goal: <b>CV</b>, <b>SOP draft</b>, <b>writing sample (10–15 pages)</b>, and a portfolio repo proving mathematical maturity.
+      </p>
+
+      <div class="accordion">
+        <details open>
+          <summary>
+            By Week 4 (early traction)
+            <span class="summaryRight"><span class="pill">identity</span><span class="caret"></span></span>
+          </summary>
+          <div class="content">
+            <ul>
+              <li><b>Portfolio repo created</b> (proofs folder + logs folder + projects).</li>
+              <li><b>CV v1</b> skeleton complete.</li>
+              <li><b>Writing sample topic chosen</b>.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            By Week 8 (midpoint checkpoint)
+            <span class="summaryRight"><span class="pill">proof</span><span class="caret"></span></span>
+          </summary>
+          <div class="content">
+            <ul>
+              <li><b>Project 1 shipped</b> with README + screenshots.</li>
+              <li><b>SOP outline</b> (bullets) + first paragraph drafted.</li>
+              <li><b>Writing sample intro</b> + 2 pages drafted.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            Weeks 9–14 (coherence window)
+            <span class="summaryRight"><span class="pill">research voice</span><span class="caret"></span></span>
+          </summary>
+          <div class="content">
+            <ul>
+              <li><b>SOP ugly draft done</b> (Week 10) → coherent v2 (Week 13–14).</li>
+              <li><b>Writing sample sections 1–3</b> drafted (6–9 pages).</li>
+              <li><b>Project 2 core features</b> implemented (tensor + CNOT + DJ + Grover).</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            Week 16–17 packaging
+            <span class="summaryRight"><span class="pill">final</span><span class="caret"></span></span>
+          </summary>
+          <div class="content">
+            <ul>
+              <li><b>Writing sample finalized</b> (10–15 pages PDF).</li>
+              <li><b>CV final</b> formatted + consistent with math/theory identity.</li>
+              <li><b>SOP final draft</b> admissions-ready.</li>
+              <li><b>Portfolio repo cleaned</b>: pinned projects, proofs, weekly logs, releases tagged.</li>
+            </ul>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <footer>
+      Pink, but lethal. 💗 Your SWE degree runs in the background; your <b>mathematical identity</b> runs the show.
+      <br/><span class="muted">Tip: host this page on GitHub Pages so your study system is literally public-proof.</span>
+    </footer>
+  </div>
+
+  <!-- TEXTBOOKS MODAL -->
+  <div class="modal" id="booksModal" aria-hidden="true" role="dialog" aria-label="Recommended textbooks">
+    <div class="modalCard">
+      <div class="modalHead">
+        <div>
+          <h3>Recommended textbooks (curated buttons)</h3>
+          <div class="muted" style="font-size:13px;margin-top:4px">
+            These are the canonical picks for your Cathedral. You can replace the links with your own PDFs/library links.
+          </div>
+        </div>
+        <button class="close" data-close="books" aria-label="Close">✕</button>
+      </div>
+      <div class="modalBody">
+        <div class="bookGrid">
+          <div class="book">
+            <div class="tag">Logic & Proof (Foundations A)</div>
+            <h4>Velleman — <i>How to Prove It</i></h4>
+            <p>Quantifiers, proof techniques, mathematical language. Exactly “think like a mathematician.”</p>
+            <a href="#" onclick="return false;">Add link →</a>
+          </div>
+          <div class="book">
+            <div class="tag">Set Theory (Foundations A)</div>
+            <h4>Halmos — <i>Naive Set Theory</i></h4>
+            <p>Sets, relations, functions, cardinality, equivalence relations. Elegant and axioms-friendly.</p>
+            <a href="#" onclick="return false;">Add link →</a>
+          </div>
+          <div class="book">
+            <div class="tag">Discrete Math (Foundations A)</div>
+            <h4>Graham–Knuth–Patashnik — <i>Concrete Mathematics</i></h4>
+            <p>Recurrences, generating functions, discrete thinking that directly feeds TOC/algorithms/QC.</p>
+            <a href="#" onclick="return false;">Add link →</a>
+          </div>
+          <div class="book">
+            <div class="tag">TOC (Foundations B)</div>
+            <h4>Sipser — <i>Introduction to the Theory of Computation</i></h4>
+            <p>Automata → computability → complexity. Your spine.</p>
+            <a href="#" onclick="return false;">Add link →</a>
+          </div>
+          <div class="book">
+            <div class="tag">Linear Algebra (Structure)</div>
+            <h4>Axler — <i>Linear Algebra Done Right</i></h4>
+            <p>Axioms-first: linear maps before matrices. Perfect quantum backbone.</p>
+            <a href="#" onclick="return false;">Add link →</a>
+          </div>
+          <div class="book">
+            <div class="tag">Analysis (Continuity, selective)</div>
+            <h4>Abbott — <i>Understanding Analysis</i></h4>
+            <p>Rigorous but humane. Great for “why is calculus true?” energy.</p>
+            <a href="#" onclick="return false;">Add link →</a>
+          </div>
+          <div class="book">
+            <div class="tag">Probability (Part IV)</div>
+            <h4>Blitzstein — <i>Introduction to Probability</i></h4>
+            <p>Problem-based intuition. Pairs beautifully with quantum and AI theory.</p>
+            <a href="#" onclick="return false;">Add link →</a>
+          </div>
+          <div class="book">
+            <div class="tag">Quantum (Specialization)</div>
+            <h4>Nielsen &amp; Chuang — <i>Quantum Computation and Quantum Information</i></h4>
+            <p>The standard. Postulates → circuits → algorithms. Heavy but definitive.</p>
+            <a href="#" onclick="return false;">Add link →</a>
+          </div>
+          <div class="book">
+            <div class="tag">Info Theory (optional bridge)</div>
+            <h4>MacKay — <i>Information Theory, Inference, and Learning Algorithms</i></h4>
+            <p>Entropy/information as structure. Great for theory-minded AI/QC framing.</p>
+            <a href="#" onclick="return false;">Add link →</a>
+          </div>
+          <div class="book">
+            <div class="tag">Abstract Algebra (light seasoning)</div>
+            <h4>Gallian — <i>Contemporary Abstract Algebra</i></h4>
+            <p>Groups/fields/symmetry. Useful for crypto + QC intuition.</p>
+            <a href="#" onclick="return false;">Add link →</a>
+          </div>
+        </div>
+
+        <div class="muted" style="margin-top:14px;font-size:12px;line-height:1.55">
+          Your Notion list can live here:
+          <span class="chip"><b>Notion:</b> <a href="https://www.notion.so/textbook-suggestion-2f5567f8bba6806cb57ecd2ad315e414?pvs=21" target="_blank" rel="noreferrer">textbook suggestion page</a></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOPICS MAP MODAL -->
+  <div class="modal" id="topicsModal" aria-hidden="true" role="dialog" aria-label="All topics map">
+    <div class="modalCard">
+      <div class="modalHead">
+        <div>
+          <h3>All topics map (so you can see the whole universe)</h3>
+          <div class="muted" style="font-size:13px;margin-top:4px">
+            This is the “even if I don’t master it yet, I want to know it exists” catalogue. Use it like a map, not a checklist.
+          </div>
+        </div>
+        <button class="close" data-close="topics" aria-label="Close">✕</button>
+      </div>
+      <div class="modalBody">
+        <div class="topicGrid" id="topicGrid"></div>
+        <div class="muted" style="margin-top:12px;font-size:12px;line-height:1.55">
+          Tip: pick <b>one</b> specialization at a time. The map exists to reduce anxiety, not create it.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ---------- navigation ----------
+    document.getElementById("jumpTable").onclick = () => document.getElementById("tableSection").scrollIntoView({behavior:"smooth"});
+    document.getElementById("jumpProjects").onclick = () => document.getElementById("projectsSection").scrollIntoView({behavior:"smooth"});
+    document.getElementById("jumpDossier").onclick = () => document.getElementById("dossierSection").scrollIntoView({behavior:"smooth"});
+    document.getElementById("printBtn").onclick = () => window.print();
+
+    // ---------- modals ----------
+    const booksModal = document.getElementById("booksModal");
+    const topicsModal = document.getElementById("topicsModal");
+
+    function show(modal){ modal.setAttribute("aria-hidden","false"); }
+    function hide(modal){ modal.setAttribute("aria-hidden","true"); }
+
+    document.getElementById("openBooks").addEventListener("click", ()=>show(booksModal));
+    document.getElementById("openTopics").addEventListener("click", ()=>show(topicsModal));
+
+    document.querySelectorAll(".close").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        const which = btn.getAttribute("data-close");
+        if(which==="books") hide(booksModal);
+        if(which==="topics") hide(topicsModal);
+      });
+    });
+
+    [booksModal, topicsModal].forEach(modal=>{
+      modal.addEventListener("click", (e)=>{ if(e.target === modal) hide(modal); });
+    });
+    window.addEventListener("keydown", (e)=>{
+      if(e.key==="Escape"){ hide(booksModal); hide(topicsModal); }
+    });
+
+    // ---------- 17-week plan data ----------
+    // Targets shorthand:
+    // TOC exercises: 8–12/week
+    // Axioms lane: 6–10 problems OR 4–8 short proofs (depends on week)
+    // Axler: 8–12/week
+    // Quantum: 2–5/week
+    // Artifact: 1 proof/write-up (LaTeX) per week
+    const weeks = [
+      {w:1,
+        A:"Logic: propositions, connectives, truth tables · implication vs equivalence · proof vocabulary",
+        B:"DFA definition + regular languages (Sipser 1.1)",
+        S:"Vector space axioms · subspaces (Axler 1)",
+        C:"—",
+        Q:"Qubit as unit vector · basis states",
+        T:"Axioms: 6 drills + 2 short proofs · TOC: 8 ex · Axler: 8 ex · QC: 2 · Artifact: 1 proof PDF",
+        M:"P1: repo + spec · Dossier: portfolio repo + LaTeX template"
+      },
+      {w:2,
+        A:"Predicate logic: ∀/∃ · translating English↔logic · basic inference patterns",
+        B:"NFA + equivalence intuition (Sipser 1.2)",
+        S:"Linear independence · basis · dimension (Axler 2)",
+        C:"—",
+        Q:"Measurement + Born rule intuition",
+        T:"Axioms: 6 drills + 2 proofs · TOC: 10 · Axler: 10 · QC: 2–3 · Artifact: 1 proof PDF",
+        M:"P1: regex parsing or Thompson start · Dossier: CV skeleton"
+      },
+      {w:3,
+        A:"Proof methods: contrapositive, contradiction · induction (weak/strong) mini-set",
+        B:"Regular operations + closure (Sipser 1.3)",
+        S:"Linear maps · kernel/image (Axler 3)",
+        C:"—",
+        Q:"Gates as matrices: X, Z, H (unitary vibe)",
+        T:"Axioms: 4 proofs (short) · TOC: 10 · Axler: 8 · QC: 3 · Artifact: 1 proof PDF",
+        M:"P1: NFA simulation + tests · Dossier: choose writing sample topic"
+      },
+      {w:4,
+        A:"Set basics: subsets, power set · relations · equivalence relations & quotients",
+        B:"Pumping lemma (regular) · Myhill–Nerode (optional) (Sipser 1.4 + optional)",
+        S:"Rank-nullity theorem + isomorphisms (Axler 3)",
+        C:"—",
+        Q:"Circuits + interference intuition",
+        T:"Axioms: 6 set problems · TOC: 8–10 · Axler: 10 · QC: 3 · Artifact: 1 proof PDF",
+        M:"P1: subset construction NFA→DFA · Dossier: CV v1 done"
+      },
+      {w:5,
+        A:"Functions as mappings: injective/surjective/bijective · composition · inverses",
+        B:"CFG definitions + examples (Sipser 2.1)",
+        S:"Eigenvalues/eigenvectors begin (Axler 5 start)",
+        C:"Continuity taste: limits as logic (3 conceptual)",
+        Q:"Tensor product intuition (slow start)",
+        T:"Axioms: 6 function problems · TOC: 10 · Axler: 8 · Calc: 3 · QC: 2 · Artifact: 1 write-up",
+        M:"P1: visualization plan · Dossier: SOP outline (bullets)"
+      },
+      {w:6,
+        A:"Counting I: sum/product rule · injections/bijections as proof tools",
+        B:"Pushdown automata (Sipser 2.2)",
+        S:"Diagonalization intuition (Axler 5)",
+        C:"Continuity: derivative as definition (3 problems)",
+        Q:"2-qubit states · CNOT",
+        T:"Discrete: 8 problems · TOC: 8–10 · Axler: 8 · Calc: 3 · QC: 2 · Artifact: 1 proof PDF",
+        M:"P1: Graphviz visualization working · Dossier: writing intro (1 page)"
+      },
+      {w:7,
+        A:"Counting II: binomial coefficients · combinatorial proofs · recurrences intro",
+        B:"CFL pumping lemma + closure (Sipser 2.3)",
+        S:"Inner product spaces begin (Axler 6)",
+        C:"Continuity: integrals as construction (conceptual)",
+        Q:"Bell states + entanglement",
+        T:"Discrete: 10 problems · TOC: 10 · Axler: 10 · QC: 3 · Artifact: 1 proof PDF",
+        M:"P1: pipeline mostly complete · Dossier: SOP paragraph 1"
+      },
+      {w:8,
+        A:"Recurrences: solving small ones · invariants mindset (what can’t change?)",
+        B:"Turing machine definition + computation (Sipser 3.1)",
+        S:"Orthonormal bases + Gram–Schmidt (Axler 6)",
+        C:"—",
+        Q:"Measurement on entangled systems",
+        T:"Discrete: 8 problems · TOC: 8 · Axler: 8 · QC: 2 · Artifact: 1 proof PDF",
+        M:"P1: ship + README + screenshots · Dossier: add Project1 to CV"
+      },
+      {w:9,
+        A:"Graph theory I: graphs, degrees, paths, cycles · trees intro",
+        B:"Decidable vs recognizable (Sipser 4.1)",
+        S:"Orthogonal complements + projections (Axler 6)",
+        C:"Probability: axioms + conditional prob (8 problems)",
+        Q:"Teleportation (concept + math sketch)",
+        T:"Graphs: 8 problems · TOC: 10 · Axler: 8 · Prob: 8 · QC: 3 · Artifact: 1 write-up",
+        M:"P2: repo + state vector class · Dossier: writing sample sec1 (2 pages)"
+      },
+      {w:10,
+        A:"Graph theory II: spanning trees · BFS/DFS as structure (not coding-heavy)",
+        B:"Halting problem + mapping reductions (Sipser 4.2)",
+        S:"Unitary operators intro + spectral intuition (Axler 6/7 vibe)",
+        C:"Probability: expectation + linearity (10 problems)",
+        Q:"Postulates written formally",
+        T:"Graphs: 6 problems · TOC: 8 · Axler: 6–8 · Prob: 10 · QC: 2 · Artifact: 1 reduction proof",
+        M:"P2: 1-qubit gates + measurement · Dossier: SOP ugly draft done"
+      },
+      {w:11,
+        A:"Generating functions (light): idea + 2–3 examples · why they work",
+        B:"Rice’s theorem intuition + reductions mindset (Sipser 5.1)",
+        S:"Algebra seasoning: groups + symmetry (1 focused week)",
+        C:"Probability: variance (8 problems)",
+        Q:"Circuit model + universality idea",
+        T:"Discrete: 6 problems · TOC: 8–10 · Algebra: 6 · Prob: 8 · QC: 2 · Artifact: 1 theorem write-up",
+        M:"P2: tensor product + CNOT · Dossier: CV v2 polished"
+      },
+      {w:12,
+        A:"Set/logic recap sheet: axioms → structures (1 page, your words)",
+        B:"Complexity begins: P, NP, verifiers (Sipser 7.1)",
+        S:"LA maintenance: hardest problems review",
+        C:"Probability: RVs + distributions (10 problems)",
+        Q:"Deutsch–Jozsa algorithm",
+        T:"Axioms: 1-page sheet · TOC: 10 · LA: 6 · Prob: 10 · QC: 2–3 · Artifact: 1 proof PDF",
+        M:"P2: run Deutsch–Jozsa · Dossier: writing sample sec2 (2–3 pages)"
+      },
+      {w:13,
+        A:"Reduction templates: ‘show A ≤p B’ as a proof schema (with examples)",
+        B:"SAT/3SAT + poly reductions (Sipser 7.3)",
+        S:"Graphs seasoning: flows/cuts (reduction-friendly)",
+        C:"Probability: conditioning mastery + Bayes (8 problems)",
+        Q:"Grover (conceptual)",
+        T:"Foundations: 3 reduction drills · TOC: 8 · Graphs: 6 · Prob: 8 · QC: 2 · Artifact: 1 NP-reduction write-up",
+        M:"P2: Grover for N=4 · Dossier: SOP v2 coherent"
+      },
+      {w:14,
+        A:"Proof by invariant + potential function taste (algorithmic thinking, math-first)",
+        B:"CLIQUE/VC/SUBSET SUM (Sipser 7.4)",
+        S:"LA maintenance: inner product review",
+        C:"Probability: Markov chains intro (8 problems)",
+        Q:"Grover amplitude amplification math",
+        T:"Foundations: 4 invariant proofs (short) · TOC: 8 · LA: 6 · Prob: 8 · QC: 3 · Artifact: 1 NP-completeness sketch",
+        M:"P2: visualize amplitudes · Dossier: writing sample sec3 (2–3 pages)"
+      },
+      {w:15,
+        A:"Continuity/analysis taste: convergence + compactness (why ‘limit’ is disciplined)",
+        B:"Space complexity intuition + PSPACE (conceptual)",
+        S:"Analysis seasoning continues OR graph theory recap (pick what feels alive)",
+        C:"Probability: stationary distributions intuition (8 problems)",
+        Q:"BQP intuition (reading notes)",
+        T:"Analysis: 4 problems · TOC: 6–8 · Prob: 8 · QC notes · Artifact: 1 concept essay (1–2 pages)",
+        M:"P2: polish simulator · Dossier: CV final formatting"
+      },
+      {w:16,
+        A:"Synthesis sheet: axioms → computation → complexity (your words)",
+        B:"Review hardest proofs + redo toughest exercises (Sipser)",
+        S:"Math summary sheet: LA axioms → key theorems",
+        C:"Probability: concentration intuition (optional 6–8)",
+        Q:"Shor (conceptual 2-page write-up)",
+        T:"TOC: 10 review · Prob: 6–8 · 2 summary sheets · Artifact: 1 master proof",
+        M:"P2: final README + demo · Dossier: writing sample final draft (10–15p)"
+      },
+      {w:17,
+        A:"Packaging: 1-page Foundations index (topics + links)",
+        B:"Packaging: 1-page TOC index (topics + links)",
+        S:"Packaging: 1-page Math index (topics + links)",
+        C:"Packaging: 1-page Prob/Calc index (optional)",
+        Q:"Packaging: 1-page QC index (topics + links)",
+        T:"No new drills — polish artifacts",
+        M:"Dossier: CV final + SOP final draft + writing sample PDF + portfolio cleaned"
+      }
+    ];
+
+    const planBody = document.getElementById("planBody");
+    function row(w){
+      return `
+        <tr>
+          <td class="wk">W${w.w}</td>
+          <td>${w.A}</td>
+          <td>${w.B}</td>
+          <td>${w.S}</td>
+          <td>${w.C}</td>
+          <td>${w.Q}</td>
+          <td>${w.T}<div class="mini">
+              <span class="chip"><b>Weekly artifact:</b> 1 LaTeX proof/write-up</span>
+            </div>
+          </td>
+          <td>${w.M}</td>
+        </tr>`;
+    }
+    planBody.innerHTML = weeks.map(row).join("");
+
+    // ---------- topics map ----------
+    const topicMap = [
+      {
+        title:"Logic & Proof (axioms lane)",
+        items:[
+          "Propositional logic: connectives, truth tables, equivalence",
+          "Predicate logic: ∀/∃, scope, translating statements",
+          "Inference + proof templates: direct, contrapositive, contradiction",
+          "Induction: weak/strong, well-ordering principle",
+          "Proof by invariant / potential function (algorithmic proofs)",
+          "Axiomatic systems vs theorems (what is assumed vs derived)"
+        ],
+        chips:["Foundations","Axioms","Proofcraft"]
+      },
+      {
+        title:"Set Theory & Functions (ZFC-lite)",
+        items:[
+          "Sets, subsets, power set, Cartesian product",
+          "Relations, equivalence relations, partitions, quotients",
+          "Functions: injective/surjective/bijective, inverses, composition",
+          "Cardinality: finite, countable, uncountable (Cantor taste)",
+          "Construction mindset: building objects from rules"
+        ],
+        chips:["Foundations","Objects","Structure"]
+      },
+      {
+        title:"Discrete Mathematics (Concrete-thinking)",
+        items:[
+          "Counting: sum/product rule, bijections, inclusion–exclusion",
+          "Recurrences + solving strategies",
+          "Generating functions (light → real)",
+          "Graph theory: trees, connectivity, matchings/flows (later)",
+          "Discrete probability basics",
+          "Invariants & extremal arguments"
+        ],
+        chips:["Foundations","Discrete","Feeds TOC/QC/AI"]
+      },
+      {
+        title:"Theory of Computation (Sipser core)",
+        items:[
+          "Automata: DFA, NFA, regex, Myhill–Nerode",
+          "Regular languages: closure, pumping lemma",
+          "CFLs: CFGs, PDAs, pumping lemma",
+          "Turing machines: definitions, variants",
+          "Decidability vs recognizability",
+          "Undecidability: halting, Rice, reductions",
+          "Complexity: P, NP, NP-completeness, PSPACE intuition"
+        ],
+        chips:["Foundations","TOC","Reductions"]
+      },
+      {
+        title:"Linear Algebra (Axler vibe)",
+        items:[
+          "Vector spaces + subspaces (axioms of space)",
+          "Linear maps, kernel/image, rank-nullity",
+          "Eigenvalues/eigenvectors, diagonalization intuition",
+          "Inner products, orthogonality, Gram–Schmidt",
+          "Unitary/normal operators (QC backbone)",
+          "Spectral intuition (selected)"
+        ],
+        chips:["Structure","QC backbone","Axioms-first"]
+      },
+      {
+        title:"Abstract Algebra (light but meaningful)",
+        items:[
+          "Groups: axioms, homomorphisms, symmetry",
+          "Rings/fields: structures enabling arithmetic",
+          "Modular arithmetic taste (crypto bridge)",
+          "Why structure > symbol pushing"
+        ],
+        chips:["Structure","Crypto bridge","Symmetry"]
+      },
+      {
+        title:"Continuity & Analysis (selective)",
+        items:[
+          "Limits as definitions (ε–δ intuition)",
+          "Continuity and why it matters",
+          "Derivative as definition (not rules-first)",
+          "Integral as construction + FTC intuition",
+          "Metric spaces taste: convergence, compactness"
+        ],
+        chips:["Continuity","Why calculus is true","Selective"]
+      },
+      {
+        title:"Probability & Stochastic Structures",
+        items:[
+          "Kolmogorov axioms",
+          "Conditional probability + Bayes",
+          "Random variables, distributions",
+          "Expectation/variance (linearity is power)",
+          "Markov chains, stationary intuition",
+          "Concentration intuition (optional)"
+        ],
+        chips:["Probability","AI/QC","Uncertainty"]
+      },
+      {
+        title:"Quantum Computing / Quantum Info",
+        items:[
+          "Postulates: states, unitary evolution, measurement, tensor products",
+          "Bra-ket notation, amplitudes as geometry",
+          "Gates + circuits: H, X, Z, CNOT",
+          "Entanglement, Bell states, teleportation",
+          "Deutsch–Jozsa, Grover, Shor (conceptual)",
+          "BQP intuition (no rabbit holes)"
+        ],
+        chips:["Quantum","Linear algebra","Algorithms"]
+      },
+      {
+        title:"Physics (optional, math-friendly)",
+        items:[
+          "Linear systems + oscillations (eigen intuition)",
+          "Lagrangian principle taste: action minimization",
+          "Waves/interference as intuition for QC",
+          "Basic electromagnetism vector calculus taste (optional)"
+        ],
+        chips:["Optional","Intuition booster","Not required"]
+      },
+      {
+        title:"Algorithms / AI / Cyber (kept warm)",
+        items:[
+          "Algorithms: invariants, correctness proofs, complexity mindset",
+          "AI theory: gradient descent, generalization, bias/variance (light)",
+          "Cybersecurity (math-friendly): crypto basics, hardness intuition",
+          "SWE is handled by your degree + projects"
+        ],
+        chips:["Maintenance","Career power","Don’t overload"]
+      }
+    ];
+
+    const topicGrid = document.getElementById("topicGrid");
+    function renderTopicCard(t){
+      const li = t.items.map(x=>`<li>${x}</li>`).join("");
+      const chips = t.chips.map(c=>`<span class="chip">${c}</span>`).join("");
+      return `
+        <div class="topicCard">
+          <h4>${t.title}</h4>
+          <ul>${li}</ul>
+          <div class="meta">${chips}</div>
+        </div>
+      `;
+    }
+    topicGrid.innerHTML = topicMap.map(renderTopicCard).join("");
+  </script>
+</body>
+</html>
