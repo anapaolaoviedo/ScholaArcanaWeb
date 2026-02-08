@@ -1,0 +1,720 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Schola Arcana — Cathedral Journal</title>
+  <meta name="description" content="Weekly/daily research journal: what I learned, what confused me, questions, revisits, and proof links. Autosave + export." />
+  <style>
+    :root{
+      --bg:#fff7fb;
+      --bg2:#ffe9f4;
+      --card:#ffffffcc;
+      --ink:#1f1630;
+      --muted:#5b4b66;
+      --pink:#ff4da6;
+      --pink2:#ff77c2;
+      --lav:#b18cff;
+      --mint:#5fe2c2;
+      --gold:#ffd36e;
+      --line:#f2c9df;
+      --shadow: 0 18px 40px rgba(31,22,48,.10);
+      --shadow2: 0 10px 24px rgba(31,22,48,.08);
+      --radius: 22px;
+      --radius2: 16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--ink);
+      background:
+        radial-gradient(1200px 700px at 10% 10%, #ffe0f0 0%, transparent 60%),
+        radial-gradient(1000px 700px at 90% 20%, #f0e3ff 0%, transparent 55%),
+        radial-gradient(900px 600px at 50% 90%, #e6fff7 0%, transparent 60%),
+        linear-gradient(180deg, var(--bg) 0%, #ffffff 100%);
+      overflow-x:hidden;
+    }
+    a{color:inherit}
+    .wrap{max-width:1200px;margin:0 auto;padding:26px 18px 70px}
+    .hero{
+      position:relative;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background: linear-gradient(135deg, #ffffffcc, #fff0f8cc);
+      box-shadow:var(--shadow);
+      padding:24px 22px;
+      overflow:hidden;
+    }
+    .hero:before{
+      content:"";
+      position:absolute; inset:-45px -70px auto auto;
+      width:320px;height:320px;
+      background:
+        radial-gradient(circle at 30% 30%, #ffb3da 0%, transparent 58%),
+        radial-gradient(circle at 70% 70%, #c7b0ff 0%, transparent 58%);
+      filter: blur(2px);
+      transform: rotate(14deg);
+      opacity:.9;
+      pointer-events:none;
+    }
+    .sparkle{
+      display:inline-block;
+      background: linear-gradient(135deg, var(--pink), var(--lav));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+      font-weight:950;
+      letter-spacing:-.01em;
+    }
+    .hero h1{
+      margin:0 0 8px;
+      font-size: clamp(26px, 3.0vw, 42px);
+      letter-spacing:-.02em;
+      line-height:1.05;
+    }
+    .muted{color:var(--muted)}
+    .row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:12px}
+    .badge{
+      border:1px solid var(--line);
+      background:#fff;
+      border-radius:999px;
+      padding:8px 12px;
+      font-size:13px;
+      color:var(--muted);
+      display:flex; gap:8px; align-items:center;
+      box-shadow:0 8px 18px rgba(31,22,48,.06);
+    }
+    .dot{width:8px;height:8px;border-radius:50%}
+    .dot.pink{background:var(--pink)}
+    .dot.lav{background:var(--lav)}
+    .dot.mint{background:var(--mint)}
+    .dot.gold{background:var(--gold)}
+
+    .btn{
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, #fff, #fff7fb);
+      border-radius:999px;
+      padding:10px 14px;
+      font-weight:900;
+      font-size:13px;
+      cursor:pointer;
+      box-shadow:0 10px 18px rgba(31,22,48,.06);
+      transition: transform .08s ease, border-color .2s ease;
+      user-select:none;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+    }
+    .btn:hover{transform: translateY(-1px); border-color:#f0a7cd}
+    .btn.primary{
+      border-color: transparent;
+      background: linear-gradient(135deg, var(--pink), var(--pink2));
+      color:white;
+    }
+    .btn.ghost{background:transparent; box-shadow:none;}
+    .pill{
+      font-family:var(--mono);
+      font-size:12px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:#fff;
+      color:var(--muted);
+      white-space:nowrap;
+    }
+
+    .layout{
+      margin-top:14px;
+      display:grid;
+      grid-template-columns: 320px 1fr;
+      gap:12px;
+      align-items:start;
+    }
+    @media (max-width: 980px){ .layout{grid-template-columns:1fr} }
+
+    .card{
+      border:1px solid var(--line);
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow2);
+      padding:14px;
+      backdrop-filter: blur(8px);
+    }
+    .card h2{
+      margin:0 0 10px;
+      font-size:16px;
+      letter-spacing:-.01em;
+      display:flex; align-items:center; gap:10px;
+    }
+
+    .weekList{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      max-height: min(72vh, 720px);
+      overflow:auto;
+      padding-right:4px;
+    }
+    .weekBtn{
+      border:1px solid var(--line);
+      background:#fff;
+      border-radius:18px;
+      padding:10px 12px;
+      cursor:pointer;
+      box-shadow:0 10px 18px rgba(31,22,48,.05);
+      transition:.12s ease;
+      text-align:left;
+    }
+    .weekBtn:hover{transform: translateY(-1px); border-color:#f0a7cd}
+    .weekBtn[aria-current="true"]{
+      background: linear-gradient(135deg, #ffe2f2, #f2e8ff);
+      border-color:#f0a7cd;
+    }
+    .weekBtn .top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .wk{
+      font-family:var(--mono);
+      font-weight:950;
+      color:#3a2449;
+      font-size:12px;
+    }
+    .tiny{font-size:12px;color:var(--muted);line-height:1.45;margin-top:6px}
+    .countPill{
+      font-family:var(--mono);
+      font-size:11px;
+      border:1px solid var(--line);
+      padding:4px 8px;
+      border-radius:999px;
+      background:#fff7fb;
+      color:var(--muted);
+      white-space:nowrap;
+    }
+
+    .editorGrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    @media (max-width: 980px){ .editorGrid{grid-template-columns:1fr} }
+
+    label{display:block;font-size:12px;color:var(--muted);margin:0 0 6px}
+    textarea, input, select{
+      width:100%;
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:#fff;
+      padding:12px;
+      font-family:var(--sans);
+      outline:none;
+      box-shadow:0 10px 18px rgba(31,22,48,.05);
+    }
+    textarea{min-height:120px;resize:vertical;line-height:1.5}
+    textarea:focus, input:focus, select:focus{border-color:#f0a7cd}
+    .row2{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .tagRow{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+    .chip{
+      display:inline-flex; align-items:center; gap:8px;
+      border:1px solid var(--line);
+      background:#fff;
+      padding:7px 10px;
+      border-radius:999px;
+      font-size:12px;
+      color:var(--muted);
+      cursor:pointer;
+      user-select:none;
+      transition:.12s ease;
+      box-shadow:0 10px 18px rgba(31,22,48,.05);
+    }
+    .chip[aria-pressed="true"]{
+      background: linear-gradient(135deg, #ffe2f2, #f2e8ff);
+      border-color:#f0a7cd;
+      color:#3a2449;
+    }
+    .chip b{color:var(--ink)}
+    .stats{
+      display:grid;
+      grid-template-columns: repeat(3,1fr);
+      gap:10px;
+      margin-top:10px;
+    }
+    @media (max-width: 760px){ .stats{grid-template-columns:1fr} }
+    .stat{
+      border:1px solid var(--line);
+      background:#fff;
+      border-radius:18px;
+      padding:12px;
+      box-shadow:0 10px 18px rgba(31,22,48,.05);
+    }
+    .stat .label{font-size:12px;color:var(--muted);margin-bottom:6px}
+    .stat .value{font-weight:950;font-size:18px}
+    .stat .sub{font-size:12px;color:var(--muted);margin-top:4px;line-height:1.45}
+
+    .hr{
+      height:1px;
+      background:#f7d8e8;
+      margin:12px 0;
+      border:none;
+    }
+
+    footer{
+      margin-top:16px;
+      color:var(--muted);
+      font-size:12px;
+      text-align:center;
+      line-height:1.55;
+    }
+    mark{
+      background: linear-gradient(135deg,#ffe2f2,#f2e8ff);
+      padding:0 2px;
+      border-radius:6px;
+    }
+    @media print{
+      .layout > :first-child {display:none !important}
+      .row, .stats, #exportAll {display:none !important}
+      body{background:#fff}
+      .hero, .card{box-shadow:none}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <h1><span class="sparkle">Schola Arcana</span> — Cathedral Journal</h1>
+      <p class="muted" style="margin:0;max-width:95ch">
+        Your weekly/daily lab notebook: what you learned, confusion, questions, revisit list, and proof links.
+        Autosaves locally. Exports to Markdown so your “thinking trail” is portfolio-grade.
+      </p>
+
+      <div class="row">
+        <div class="badge"><span class="dot pink"></span> Weekly reflection = research maturity</div>
+        <div class="badge"><span class="dot lav"></span> Questions become reading goals</div>
+        <div class="badge"><span class="dot mint"></span> Autosave (no login)</div>
+        <div class="badge"><span class="dot gold"></span> Export → Notion/GitHub</div>
+      </div>
+
+      <div class="row" style="margin-top:12px">
+        <a class="btn ghost" href="index.html">← Back to Cathedral Semester</a>
+        <a class="btn ghost" href="vault.html">→ Proof Vault</a>
+        <button class="btn primary" id="exportAll">Export all (Markdown)</button>
+        <button class="btn" id="resetAll">Reset journal</button>
+        <button class="btn ghost" id="printBtn">Print / PDF</button>
+      </div>
+    </header>
+
+    <section class="layout">
+      <!-- LEFT: week navigation -->
+      <aside class="card">
+        <h2>Weeks <span class="pill">W1–W17</span></h2>
+
+        <div class="weekList" id="weekList"></div>
+
+        <hr class="hr"/>
+
+        <div class="tiny">
+          Quick ritual (2–4 min):<br/>
+          1) “What did I <b>actually</b> understand?”<br/>
+          2) “Where did the proof <b>break</b>?”<br/>
+          3) “What question would I ask a professor?”<br/>
+        </div>
+      </aside>
+
+      <!-- RIGHT: editor -->
+      <main class="card">
+        <div class="row2" style="justify-content:space-between;align-items:flex-end">
+          <div>
+            <h2 style="margin:0">Entry editor <span class="pill" id="currentWeekPill">W1</span></h2>
+            <div class="tiny" id="weekHint">Pick a week. Write like a researcher.</div>
+          </div>
+
+          <div class="row2">
+            <button class="btn" id="exportWeek">Export week</button>
+            <button class="btn" id="clearWeek">Clear week</button>
+          </div>
+        </div>
+
+        <hr class="hr"/>
+
+        <div class="editorGrid">
+          <div>
+            <label for="learned">What I learned (bullet it if you want)</label>
+            <textarea id="learned" placeholder="- I finally understand why subset construction works...\n- Rank-nullity clicked when I thought of kernel as 'lost information'..."></textarea>
+
+            <div style="height:10px"></div>
+
+            <label for="confused">What I didn’t understand (be honest)</label>
+            <textarea id="confused" placeholder="- Myhill–Nerode feels foggy...\n- I can compute Gram–Schmidt but the *why* is blurry..."></textarea>
+
+            <div style="height:10px"></div>
+
+            <label for="questions">Questions I have (these are future reading goals)</label>
+            <textarea id="questions" placeholder="- How does Rice’s theorem generalize the halting-style argument?\n- What exactly makes a measurement 'projective' vs POVM?"></textarea>
+          </div>
+
+          <div>
+            <label for="revisit">What I want to revisit (next week’s warm-up)</label>
+            <textarea id="revisit" placeholder="- Redo 2 hardest Sipser exercises\n- Rewrite proof in cleaner structure\n- Review definitions: kernel/image"></textarea>
+
+            <div style="height:10px"></div>
+
+            <div class="row2">
+              <div style="flex:1 1 160px">
+                <label for="hours">Hours studied (optional)</label>
+                <input id="hours" type="number" step="0.5" min="0" placeholder="10" />
+              </div>
+              <div style="flex:1 1 200px">
+                <label for="mood">How did it feel? (optional)</label>
+                <select id="mood">
+                  <option value="">—</option>
+                  <option>flow state</option>
+                  <option>productive but tired</option>
+                  <option>confused but curious</option>
+                  <option>stuck + annoyed</option>
+                  <option>low energy</option>
+                  <option>elite</option>
+                </select>
+              </div>
+            </div>
+
+            <div style="height:10px"></div>
+
+            <label for="proofLink">Proof artifact link/path (optional)</label>
+            <input id="proofLink" type="text" placeholder="proofs/week-07_pumping-lemma-cfl.pdf" />
+
+            <div style="height:10px"></div>
+
+            <label>Tags (optional)</label>
+            <div class="tagRow" id="tagRow">
+              <div class="chip" role="button" tabindex="0" data-tag="Sipser" aria-pressed="false"><b>Sipser</b></div>
+              <div class="chip" role="button" tabindex="0" data-tag="Axler" aria-pressed="false"><b>Axler</b></div>
+              <div class="chip" role="button" tabindex="0" data-tag="Logic" aria-pressed="false"><b>Logic</b></div>
+              <div class="chip" role="button" tabindex="0" data-tag="Discrete" aria-pressed="false"><b>Discrete</b></div>
+              <div class="chip" role="button" tabindex="0" data-tag="Quantum" aria-pressed="false"><b>Quantum</b></div>
+              <div class="chip" role="button" tabindex="0" data-tag="Probability" aria-pressed="false"><b>Probability</b></div>
+              <div class="chip" role="button" tabindex="0" data-tag="Meta/Synthesis" aria-pressed="false"><b>Meta</b></div>
+            </div>
+
+            <div class="stats">
+              <div class="stat">
+                <div class="label">Weeks with entries</div>
+                <div class="value" id="weeksFilled">—</div>
+                <div class="sub">Any field counts as “an entry”.</div>
+              </div>
+              <div class="stat">
+                <div class="label">Total hours logged</div>
+                <div class="value" id="totalHours">—</div>
+                <div class="sub">Optional, but great for realism.</div>
+              </div>
+              <div class="stat">
+                <div class="label">Top tags</div>
+                <div class="value" id="topTags">—</div>
+                <div class="sub">Shows what you actually focused on.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr class="hr"/>
+
+        <div class="tiny">
+          Pro move: end each week with one sentence: <mark>“If I had to teach this to someone, I’d say…”</mark>
+        </div>
+      </main>
+    </section>
+
+    <footer>
+      Save as <span style="font-family:var(--mono);background:#fff7fb;border:1px solid var(--line);padding:2px 6px;border-radius:8px">journal.html</span>.
+      Add a button in <span style="font-family:var(--mono)">index.html</span> to open it.
+    </footer>
+  </div>
+
+  <script>
+    const STORAGE_KEY = "schola_arcana_journal_v1";
+
+    const EMPTY = () => ({
+      learned:"",
+      confused:"",
+      questions:"",
+      revisit:"",
+      hours:"",
+      mood:"",
+      proofLink:"",
+      tags:[]
+    });
+
+    function loadAll(){
+      try{
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if(!raw){
+          const init = {};
+          for(let w=1; w<=17; w++) init[w] = EMPTY();
+          return init;
+        }
+        const parsed = JSON.parse(raw);
+        // ensure all weeks exist
+        for(let w=1; w<=17; w++){
+          if(!parsed[w]) parsed[w] = EMPTY();
+          // ensure keys exist
+          parsed[w] = { ...EMPTY(), ...parsed[w] };
+          if(!Array.isArray(parsed[w].tags)) parsed[w].tags = [];
+        }
+        return parsed;
+      }catch{
+        const init = {};
+        for(let w=1; w<=17; w++) init[w] = EMPTY();
+        return init;
+      }
+    }
+
+    function saveAll(db){
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(db));
+    }
+
+    let DB = loadAll();
+    let currentWeek = 1;
+
+    const weekList = document.getElementById("weekList");
+    const currentWeekPill = document.getElementById("currentWeekPill");
+    const weekHint = document.getElementById("weekHint");
+
+    const learned = document.getElementById("learned");
+    const confused = document.getElementById("confused");
+    const questions = document.getElementById("questions");
+    const revisit = document.getElementById("revisit");
+    const hours = document.getElementById("hours");
+    const mood = document.getElementById("mood");
+    const proofLink = document.getElementById("proofLink");
+
+    const weeksFilled = document.getElementById("weeksFilled");
+    const totalHours = document.getElementById("totalHours");
+    const topTags = document.getElementById("topTags");
+
+    const tagChips = Array.from(document.querySelectorAll(".chip[data-tag]"));
+
+    function weekHasContent(w){
+      const e = DB[w];
+      if(!e) return false;
+      const anyText = (e.learned||e.confused||e.questions||e.revisit||e.proofLink||e.mood||"").trim().length > 0;
+      const anyTags = (e.tags && e.tags.length>0);
+      const anyHours = String(e.hours||"").trim().length > 0;
+      return anyText || anyTags || anyHours;
+    }
+
+    function weekPreview(w){
+      const e = DB[w];
+      const bits = [];
+      if((e.learned||"").trim()) bits.push("learned");
+      if((e.confused||"").trim()) bits.push("confusion");
+      if((e.questions||"").trim()) bits.push("questions");
+      if((e.revisit||"").trim()) bits.push("revisit");
+      if((e.tags||[]).length) bits.push(`${e.tags.length} tag(s)`);
+      if(String(e.hours||"").trim()) bits.push(`${e.hours}h`);
+      return bits.length ? bits.join(" · ") : "—";
+    }
+
+    function renderWeekList(){
+      weekList.innerHTML = "";
+      for(let w=1; w<=17; w++){
+        const filled = weekHasContent(w);
+        const btn = document.createElement("button");
+        btn.className = "weekBtn";
+        btn.setAttribute("aria-current", w===currentWeek ? "true" : "false");
+        btn.innerHTML = `
+          <div class="top">
+            <div class="wk">W${String(w).padStart(2,"0")}</div>
+            <div class="countPill">${filled ? "filled" : "empty"}</div>
+          </div>
+          <div class="tiny">${weekPreview(w)}</div>
+        `;
+        btn.onclick = ()=>selectWeek(w);
+        weekList.appendChild(btn);
+      }
+    }
+
+    function setChipState(){
+      const tags = new Set(DB[currentWeek].tags || []);
+      tagChips.forEach(ch=>{
+        const t = ch.getAttribute("data-tag");
+        ch.setAttribute("aria-pressed", tags.has(t) ? "true" : "false");
+      });
+    }
+
+    function selectWeek(w){
+      currentWeek = w;
+      currentWeekPill.textContent = `W${w}`;
+      weekHint.textContent = w===17
+        ? "Week 17 = synthesis + packaging. Write what you’d tell admissions."
+        : "Write like a researcher. Short + precise beats long + vague.";
+
+      const e = DB[w];
+      learned.value = e.learned || "";
+      confused.value = e.confused || "";
+      questions.value = e.questions || "";
+      revisit.value = e.revisit || "";
+      hours.value = e.hours || "";
+      mood.value = e.mood || "";
+      proofLink.value = e.proofLink || "";
+
+      setChipState();
+      renderWeekList();
+      renderStats();
+      syncUrl();
+    }
+
+    function updateCurrentFromInputs(){
+      const e = DB[currentWeek];
+      e.learned = learned.value;
+      e.confused = confused.value;
+      e.questions = questions.value;
+      e.revisit = revisit.value;
+      e.hours = hours.value;
+      e.mood = mood.value;
+      e.proofLink = proofLink.value;
+      saveAll(DB);
+      renderWeekList();
+      renderStats();
+    }
+
+    // autosave on input
+    [learned, confused, questions, revisit, hours, mood, proofLink].forEach(el=>{
+      el.addEventListener("input", updateCurrentFromInputs);
+      el.addEventListener("change", updateCurrentFromInputs);
+    });
+
+    // tag chips
+    function toggleTagChip(el){
+      const t = el.getAttribute("data-tag");
+      const e = DB[currentWeek];
+      const set = new Set(e.tags || []);
+      if(set.has(t)) set.delete(t);
+      else set.add(t);
+      e.tags = Array.from(set);
+      saveAll(DB);
+      setChipState();
+      renderWeekList();
+      renderStats();
+    }
+    tagChips.forEach(ch=>{
+      ch.addEventListener("click", ()=>toggleTagChip(ch));
+      ch.addEventListener("keydown", (e)=>{
+        if(e.key==="Enter" || e.key===" "){ e.preventDefault(); toggleTagChip(ch); }
+      });
+    });
+
+    function renderStats(){
+      let filled = 0;
+      let hoursSum = 0;
+      const tagCount = new Map();
+
+      for(let w=1; w<=17; w++){
+        if(weekHasContent(w)) filled++;
+        const h = parseFloat(DB[w].hours);
+        if(!isNaN(h)) hoursSum += h;
+        (DB[w].tags||[]).forEach(t=>{
+          tagCount.set(t, (tagCount.get(t)||0)+1);
+        });
+      }
+
+      weeksFilled.textContent = `${filled} / 17`;
+      totalHours.textContent = hoursSum ? `${hoursSum.toFixed(1)} h` : "—";
+
+      const top = Array.from(tagCount.entries()).sort((a,b)=>b[1]-a[1]).slice(0,3);
+      topTags.textContent = top.length ? top.map(([t,c])=>`${t} (${c})`).join(", ") : "—";
+    }
+
+    function escapeMd(s){ return String(s||"").replace(/\r\n/g,"\n").trim(); }
+
+    function weekToMarkdown(w){
+      const e = DB[w];
+      const tags = (e.tags||[]).length ? (e.tags||[]).join(", ") : "—";
+      const h = String(e.hours||"").trim() ? e.hours : "—";
+      const m = String(e.mood||"").trim() ? e.mood : "—";
+      const p = String(e.proofLink||"").trim() ? e.proofLink : "—";
+
+      return `## Week ${w}
+
+**Tags:** ${tags}  
+**Hours:** ${h}  
+**Mood:** ${m}  
+**Proof:** ${p}
+
+### What I learned
+${escapeMd(e.learned) || "—"}
+
+### What I didn't understand
+${escapeMd(e.confused) || "—"}
+
+### Questions
+${escapeMd(e.questions) || "—"}
+
+### Revisit list
+${escapeMd(e.revisit) || "—"}
+
+`;
+    }
+
+    async function copyText(text, btn){
+      try{
+        await navigator.clipboard.writeText(text);
+        if(btn){
+          const old = btn.textContent;
+          btn.textContent = "Copied ✨";
+          setTimeout(()=>btn.textContent = old, 900);
+        }
+      }catch{
+        alert("Could not copy automatically. You can manually copy from the text box.");
+      }
+    }
+
+    document.getElementById("exportWeek").onclick = ()=> {
+      const md = weekToMarkdown(currentWeek);
+      copyText(md, document.getElementById("exportWeek"));
+    };
+
+    document.getElementById("exportAll").onclick = ()=> {
+      const md = `# Schola Arcana — Cathedral Journal (17 Weeks)\n\n` + Array.from({length:17}, (_,i)=>weekToMarkdown(i+1)).join("\n");
+      copyText(md, document.getElementById("exportAll"));
+    };
+
+    document.getElementById("clearWeek").onclick = ()=> {
+      if(confirm(`Clear Week ${currentWeek}?`)){
+        DB[currentWeek] = EMPTY();
+        saveAll(DB);
+        selectWeek(currentWeek);
+      }
+    };
+
+    document.getElementById("resetAll").onclick = ()=> {
+      if(confirm("Reset the entire journal (all weeks)?")){
+        for(let w=1; w<=17; w++) DB[w] = EMPTY();
+        saveAll(DB);
+        selectWeek(1);
+      }
+    };
+
+    document.getElementById("printBtn").onclick = ()=> window.print();
+
+    // URL sync: ?w=7
+    function syncUrl(){
+      const params = new URLSearchParams();
+      params.set("w", String(currentWeek));
+      history.replaceState(null, "", `${location.pathname}?${params.toString()}`);
+    }
+    function loadUrl(){
+      const params = new URLSearchParams(location.search);
+      const w = parseInt(params.get("w"), 10);
+      if(!isNaN(w) && w>=1 && w<=17) currentWeek = w;
+    }
+
+    // boot
+    loadUrl();
+    renderWeekList();
+    selectWeek(currentWeek);
+
+  </script>
+</body>
+</html>
