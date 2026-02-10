@@ -254,6 +254,92 @@
     }
 
     footer{margin-top:18px;color:var(--muted);font-size:12px;text-align:center}
+
+    /* -------- Saved Entry Cards -------- */
+    .entryCard{
+      border:1px solid #f7d8e8;
+      background:#fff;
+      border-radius:18px;
+      padding:12px;
+      box-shadow:0 10px 20px rgba(31,22,48,.05);
+      margin-bottom:10px;
+      cursor:pointer;
+      transition: transform .08s ease, border-color .2s ease, box-shadow .2s ease;
+    }
+    .entryCard:hover{
+      transform: translateY(-1px);
+      border-color:#f0a7cd;
+      box-shadow:0 14px 26px rgba(31,22,48,.08);
+    }
+    .entryTitle{font-weight:950}
+    .entrySession{font-size:12px;margin-top:6px}
+    .entryPreview{margin-top:8px}
+
+    /* -------- Modal -------- */
+    .modal{
+      position:fixed; inset:0;
+      display:none;
+      align-items:center; justify-content:center;
+      background: rgba(31,22,48,.35);
+      padding:18px;
+      z-index:9999;
+    }
+    .modal[aria-hidden="false"]{display:flex}
+    .modalCard{
+      width:min(980px, 100%);
+      border-radius:var(--radius);
+      background: linear-gradient(135deg, #ffffff, #fff3fa);
+      border:1px solid var(--line);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      max-height: min(84vh, 860px);
+      display:flex; flex-direction:column;
+    }
+    .modalHead{
+      padding:16px 16px 12px;
+      border-bottom:1px solid #f7d8e8;
+      display:flex; align-items:flex-start; justify-content:space-between; gap:12px;
+    }
+    .modalHead h3{margin:0;font-size:18px}
+    .modalActions{display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end}
+    .close{
+      border:none; background:transparent; cursor:pointer;
+      font-size:18px; padding:6px 10px; border-radius:12px;
+    }
+    .close:hover{background:#ffe6f2}
+    .modalBody{padding:14px 16px 18px; overflow:auto}
+
+    .field{
+      margin-top:12px;
+      border:1px solid #f7d8e8;
+      background:#fff;
+      border-radius:18px;
+      padding:12px;
+      box-shadow:0 10px 20px rgba(31,22,48,.05);
+    }
+    .fieldLabel{
+      font-weight:950;
+      font-size:12px;
+      color:var(--ink);
+      margin-bottom:6px;
+    }
+    .fieldValue{
+      font-size:12px;
+      color:var(--muted);
+      white-space:pre-wrap;
+      line-height:1.65;
+    }
+    .metaRow{
+      display:flex; flex-wrap:wrap; gap:8px;
+      margin-top:10px;
+    }
+    .linkLine{
+      margin-top:8px;
+      font-size:12px;
+      color:var(--muted);
+      word-break:break-word;
+    }
+    .linkLine b{color:var(--ink)}
   </style>
 </head>
 
@@ -294,7 +380,6 @@
         </div>
       </div>
     </header>
-
 
     <section class="grid" style="margin-top:16px">
 
@@ -391,7 +476,6 @@
 
       </div>
 
-
       <div class="card">
         <h2>Weekly scoreboard <span class="pill">evidence</span></h2>
 
@@ -464,6 +548,24 @@
 
   <div class="toast" id="toast">Saved ✨</div>
 
+  <!-- Entry Modal -->
+  <div class="modal" id="entryModal" aria-hidden="true" role="dialog" aria-label="Saved entry details">
+    <div class="modalCard">
+      <div class="modalHead">
+        <div>
+          <h3 id="modalTitle">Entry</h3>
+          <div class="muted" id="modalSub" style="font-size:13px;margin-top:4px"></div>
+        </div>
+        <div class="modalActions">
+          <button class="btn" id="modalEditBtn" type="button">Edit (load into form)</button>
+          <button class="btn" id="modalDeleteBtn" type="button">Delete</button>
+          <button class="close" id="modalCloseBtn" aria-label="Close">✕</button>
+        </div>
+      </div>
+      <div class="modalBody" id="modalBody"></div>
+    </div>
+  </div>
+
   <script>
     // ---------- helpers ----------
     const $ = (id)=>document.getElementById(id);
@@ -505,7 +607,7 @@
 
     function gather(){
       return {
-        id: crypto.randomUUID(),
+        id: (crypto && crypto.randomUUID) ? crypto.randomUUID() : String(Date.now()) + "_" + Math.random().toString(16).slice(2),
         date: $("date").value,
         entryType: $("entryType").value,
         week: $("week").value,
@@ -544,8 +646,8 @@
 
     function validate(entry){
       if(!entry.date) return "Pick a date.";
-      if(!entry.learned && !entry.confusion && !entry.questions && !entry.revisit && !entry.synthesis){
-        return "Write at least one field (learned/confusion/questions/revisit/synthesis).";
+      if(!entry.learned && !entry.confusion && !entry.questions && !entry.revisit && !entry.synthesis && !entry.axioms){
+        return "Write at least one field (learned/confusion/questions/revisit/axioms/synthesis).";
       }
       if(entry.entryType === "weekly" && !entry.week){
         return "Weekly synthesis entries should include the week number.";
@@ -579,49 +681,214 @@
         .replaceAll("'","&#039;");
     }
 
-    function renderEntries(){
-      const all = readAll();
-      const box = $("entries");
-      const pill = $("countPill");
-      pill.textContent = String(all.length);
+    // ---------- Modal logic ----------
+    const modal = $("entryModal");
+    let selectedEntryId = null;
 
-      if(all.length === 0){
-        box.innerHTML = `<div class="tiny">No entries yet. Your first entry is the beginning of the Cathedral.</div>`;
-        return;
-      }
-
-      // newest first
-      const sorted = [...all].sort((a,b)=> (b.date||"").localeCompare(a.date||""));
-
-      box.innerHTML = sorted.slice(0, 18).map(e=>{
-        const tag = e.entryType === "weekly" ? "Weekly" : "Daily";
-        const w = e.week ? ` · W${escapeHtml(e.week)}` : "";
-        const title = `${escapeHtml(e.date)} · ${tag}${w}`;
-
-        const learned = e.learned ? `<div class="tiny"><b style="color:var(--ink)">Learned:</b> ${escapeHtml(e.learned).slice(0, 120)}${e.learned.length>120?"…":""}</div>` : "";
-        const conf = e.confusion ? `<div class="tiny"><b style="color:var(--ink)">Confusion:</b> ${escapeHtml(e.confusion).slice(0, 120)}${e.confusion.length>120?"…":""}</div>` : "";
-
-        return `
-          <div style="border:1px solid #f7d8e8;background:#fff;border-radius:18px;padding:12px;box-shadow:0 10px 20px rgba(31,22,48,.05);margin-bottom:10px">
-            <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start">
-              <div style="font-weight:950">${title}</div>
-              <button class="btn" style="padding:8px 10px;font-size:12px" onclick="deleteEntry('${e.id}')">Delete</button>
-            </div>
-            <div class="muted" style="font-size:12px;margin-top:6px">${escapeHtml(e.session||"")}</div>
-            <div style="margin-top:8px">${learned}${conf}</div>
-          </div>
-        `;
-      }).join("");
+    function showModal(){
+      modal.setAttribute("aria-hidden","false");
+    }
+    function hideModal(){
+      modal.setAttribute("aria-hidden","true");
+      selectedEntryId = null;
+      $("modalBody").innerHTML = "";
     }
 
-    // global for onclick
-    window.deleteEntry = function(id){
+    function fieldBlock(label, value){
+      const v = (value || "").trim();
+      if(!v) return "";
+      return `
+        <div class="field">
+          <div class="fieldLabel">${escapeHtml(label)}</div>
+          <div class="fieldValue">${escapeHtml(v)}</div>
+        </div>
+      `;
+    }
+
+    function chip(name, ok){
+      return `<span class="chip">${ok ? "✓" : "—"} ${escapeHtml(name)}</span>`;
+    }
+
+    function linkLine(label, url){
+      const u = (url || "").trim();
+      if(!u) return "";
+      const safe = escapeHtml(u);
+      return `<div class="linkLine"><b>${escapeHtml(label)}:</b> <a href="${safe}" target="_blank" rel="noreferrer">${safe}</a></div>`;
+    }
+
+    function openEntry(id){
+      const all = readAll();
+      const e = all.find(x=>x.id === id);
+      if(!e){ toast("Entry not found"); return; }
+
+      selectedEntryId = id;
+
+      const tag = e.entryType === "weekly" ? "Weekly" : "Daily";
+      const w = e.week ? ` · W${escapeHtml(e.week)}` : "";
+      $("modalTitle").textContent = `${e.date} · ${tag}${w}`;
+
+      const subParts = [];
+      if(e.session) subParts.push(e.session);
+      if(e.mood) subParts.push(`mood: ${e.mood}`);
+      if(e.energy) subParts.push(`energy: ${e.energy}`);
+      if(e.createdAt) subParts.push(`saved: ${new Date(e.createdAt).toLocaleString()}`);
+      $("modalSub").textContent = subParts.join(" · ");
+
+      const checks = e.checks || {};
+      const links  = e.links || {};
+
+      const checkRow = `
+        <div class="field">
+          <div class="fieldLabel">Scoreboard</div>
+          <div class="metaRow">
+            ${chip("TOC", checks.toc)}
+            ${chip("Logic/Discrete", checks.axioms)}
+            ${chip("Proof artifact", checks.proof)}
+            ${chip("Axler", checks.axler)}
+            ${chip("Struct sheet", checks.struct)}
+            ${chip("Review", checks.review)}
+            ${chip("Quantum", checks.qc)}
+            ${chip("Project", checks.project)}
+            ${chip("Dossier", checks.dossier)}
+          </div>
+        </div>
+      `;
+
+      const linksBlock = `
+        <div class="field">
+          <div class="fieldLabel">Links</div>
+          ${linkLine("Proof PDF", links.proof)}
+          ${linkLine("Commit / PR", links.commit)}
+          ${linkLine("Reading pages", links.pages)}
+          ${(!links.proof && !links.commit && !links.pages) ? `<div class="fieldValue">—</div>` : ``}
+        </div>
+      `;
+
+      $("modalBody").innerHTML =
+        fieldBlock("Axioms header ritual", e.axioms) +
+        fieldBlock("Learned", e.learned) +
+        fieldBlock("Confusion", e.confusion) +
+        fieldBlock("Questions", e.questions) +
+        fieldBlock("Revisit", e.revisit) +
+        fieldBlock("Weekly synthesis", e.synthesis) +
+        checkRow +
+        linksBlock;
+
+      showModal();
+    }
+
+    function loadEntryIntoForm(id){
+      const all = readAll();
+      const e = all.find(x=>x.id === id);
+      if(!e){ toast("Entry not found"); return; }
+
+      // metadata
+      $("date").value = e.date || $("date").value;
+      $("entryType").value = e.entryType || "daily";
+      $("week").value = e.week || "";
+      $("session").value = e.session || "";
+      $("mood").value = e.mood || "";
+      $("energy").value = e.energy || "";
+
+      // core fields
+      $("learned").value = e.learned || "";
+      $("confusion").value = e.confusion || "";
+      $("questions").value = e.questions || "";
+      $("revisit").value = e.revisit || "";
+      $("axioms").value = e.axioms || "";
+      $("synthesis").value = e.synthesis || "";
+
+      // checks
+      const c = e.checks || {};
+      $("c_toc").checked = !!c.toc;
+      $("c_axioms").checked = !!c.axioms;
+      $("c_proof").checked = !!c.proof;
+      $("c_axler").checked = !!c.axler;
+      $("c_struct").checked = !!c.struct;
+      $("c_review").checked = !!c.review;
+      $("c_qc").checked = !!c.qc;
+      $("c_project").checked = !!c.project;
+      $("c_dossier").checked = !!c.dossier;
+
+      // links
+      const l = e.links || {};
+      $("proofLink").value = l.proof || "";
+      $("commitLink").value = l.commit || "";
+      $("pages").value = l.pages || "";
+
+      // scroll to top (form) and close modal
+      hideModal();
+      window.scrollTo({top:0, behavior:"smooth"});
+      toast("Loaded into form");
+    }
+
+    function deleteEntryById(id){
       const all = readAll();
       const next = all.filter(e=>e.id !== id);
       writeAll(next);
       renderEntries();
       toast("Deleted");
     }
+
+    // modal controls
+    $("modalCloseBtn").addEventListener("click", hideModal);
+    modal.addEventListener("click", (e)=>{ if(e.target === modal) hideModal(); });
+    window.addEventListener("keydown", (e)=>{ if(e.key === "Escape") hideModal(); });
+
+    $("modalEditBtn").addEventListener("click", ()=>{
+      if(!selectedEntryId) return;
+      loadEntryIntoForm(selectedEntryId);
+    });
+
+    $("modalDeleteBtn").addEventListener("click", ()=>{
+      if(!selectedEntryId) return;
+      if(!confirm("Delete this entry? This cannot be undone.")) return;
+      deleteEntryById(selectedEntryId);
+      hideModal();
+    });
+
+    // ---------- Rendering saved entries list ----------
+    function renderEntries(){
+      const all = readAll();
+      const box = $("entries");
+      $("countPill").textContent = String(all.length);
+
+      if(all.length === 0){
+        box.innerHTML = `<div class="tiny">No entries yet. Your first entry is the beginning of the Cathedral.</div>`;
+        return;
+      }
+
+      const sorted = [...all].sort((a,b)=>{
+        const d = (b.date||"").localeCompare(a.date||"");
+        if(d !== 0) return d;
+        return (b.createdAt||"").localeCompare(a.createdAt||"");
+      });
+
+      box.innerHTML = sorted.slice(0, 50).map(e=>{
+        const tag = e.entryType === "weekly" ? "Weekly" : "Daily";
+        const w = e.week ? ` · W${escapeHtml(e.week)}` : "";
+        const title = `${escapeHtml(e.date)} · ${tag}${w}`;
+
+        const session = escapeHtml(e.session || "");
+        const previewSource =
+          (e.learned || e.synthesis || e.questions || e.axioms || e.confusion || e.revisit || "").trim();
+        const preview = escapeHtml(previewSource).slice(0, 140) + (previewSource.length > 140 ? "…" : "");
+
+        return `
+          <div class="entryCard" role="button" tabindex="0" onclick="openEntry('${e.id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault(); openEntry('${e.id}');}">
+            <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start">
+              <div class="entryTitle">${title}</div>
+              <span class="pill">Open</span>
+            </div>
+            <div class="muted entrySession">${session}</div>
+            <div class="tiny entryPreview">${preview}</div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    // expose openEntry for inline onclick
+    window.openEntry = openEntry;
 
     // ---------- actions ----------
     $("saveBtn").addEventListener("click", ()=>{
@@ -635,7 +902,6 @@
       renderEntries();
       toast("Saved ✨");
 
-      // if daily, keep momentum: don't reset date/type/week
       resetForm();
     });
 
@@ -668,7 +934,7 @@
     // render on load
     renderEntries();
 
-    // quality-of-life: if entryType weekly, nudge week selection
+    // QoL: if entryType weekly, nudge week selection
     $("entryType").addEventListener("change", ()=>{
       if($("entryType").value === "weekly" && !$("week").value){
         $("week").value = "1";
