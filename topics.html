@@ -1,1418 +1,334 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Schola Arcana — Topics Atlas</title>
-  <meta name="description" content="A pink, aesthetic, ultra-specific topics atlas for Logic, Discrete Math, TOC, Linear Algebra, Quantum, Probability, Analysis, Physics, Algorithms, AI, Crypto, and more." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=JetBrains+Mono:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --bg:#fff7fb;
-      --card:#ffffffcc;
-      --ink:#1f1630;
-      --muted:#5b4b66;
-
-      --pink:#ff4da6;
-      --pink2:#ff77c2;
-      --lav:#b18cff;
-      --mint:#5fe2c2;
-      --gold:#ffd36e;
-
-      --line:#f2c9df;
-      --shadow: 0 18px 40px rgba(31,22,48,.10);
-      --shadow2: 0 10px 24px rgba(31,22,48,.08);
-
-      --radius:22px;
-      --radius2:16px;
-
-      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
-      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:var(--sans);
-      color:var(--ink);
-      background:
-        radial-gradient(1200px 700px at 10% 10%, #ffe0f0 0%, transparent 60%),
-        radial-gradient(1000px 700px at 90% 20%, #f0e3ff 0%, transparent 55%),
-        radial-gradient(900px 600px at 50% 90%, #e6fff7 0%, transparent 60%),
-        linear-gradient(180deg, var(--bg) 0%, #ffffff 100%);
-      overflow-x:hidden;
-    }
-    a{color:inherit}
-    .wrap{max-width:1320px;margin:0 auto;padding:26px 18px 70px}
-    .hero{
-      position:relative;
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      background: linear-gradient(135deg, #ffffffcc, #fff0f8cc);
-      box-shadow:var(--shadow);
-      padding:26px 22px;
-      overflow:hidden;
-    }
-    .hero:before{
-      content:"";
-      position:absolute; inset:-50px -70px auto auto;
-      width:320px;height:320px;
-      background:
-        radial-gradient(circle at 30% 30%, #ffb3da 0%, transparent 58%),
-        radial-gradient(circle at 70% 70%, #c7b0ff 0%, transparent 58%);
-      filter: blur(2px);
-      transform: rotate(14deg);
-      opacity:.9;
-      pointer-events:none;
-    }
-    .sparkle{
-      display:inline-block;
-      background: linear-gradient(135deg, var(--pink), var(--lav));
-      -webkit-background-clip:text;
-      background-clip:text;
-      color:transparent;
-      font-weight:950;
-      letter-spacing:-.01em;
-    }
-    .hero h1{
-      margin:0 0 8px;
-      font-size: clamp(26px, 3.2vw, 44px);
-      letter-spacing:-.02em;
-      line-height:1.05;
-    }
-    .muted{color:var(--muted)}
-    .row{
-      display:flex; flex-wrap:wrap; gap:10px; align-items:center;
-      margin-top:14px;
-    }
-    .badge{
-      border:1px solid var(--line);
-      background:#fff;
-      border-radius:999px;
-      padding:8px 12px;
-      font-size:13px;
-      color:var(--muted);
-      display:flex; gap:8px; align-items:center;
-      box-shadow:0 8px 18px rgba(31,22,48,.06);
-    }
-    .dot{width:8px;height:8px;border-radius:50%;}
-    .dot.pink{background:var(--pink)}
-    .dot.lav{background:var(--lav)}
-    .dot.mint{background:var(--mint)}
-    .dot.gold{background:var(--gold)}
-
-    .controls{
-      margin-top:14px;
-      display:grid;
-      grid-template-columns: 1.25fr .75fr;
-      gap:12px;
-    }
-    @media (max-width: 980px){ .controls{grid-template-columns:1fr} }
-
-    .card{
-      border:1px solid var(--line);
-      background: var(--card);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow2);
-      padding:14px;
-      backdrop-filter: blur(8px);
-    }
-    .card h2{
-      margin:0 0 10px;
-      font-size:16px;
-      letter-spacing:-.01em;
-      display:flex; align-items:center; gap:10px;
-    }
-    .pill{
-      font-family:var(--mono);
-      font-size:12px;
-      padding:6px 10px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background:#fff;
-      color:var(--muted);
-      white-space:nowrap;
-    }
-
-    .searchRow{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
-    .search{
-      flex:1 1 320px;
-      position:relative;
-    }
-    .search input{
-      width:100%;
-      padding:12px 12px 12px 40px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background:#fff;
-      outline:none;
-      box-shadow:0 10px 18px rgba(31,22,48,.06);
-      font-size:14px;
-    }
-    .search input:focus{border-color:#f0a7cd}
-    .searchIcon{
-      position:absolute; left:14px; top:50%; transform:translateY(-50%);
-      width:16px;height:16px; opacity:.55;
-      border:2px solid var(--muted); border-radius:50%;
-    }
-    .searchIcon:after{
-      content:"";
-      position:absolute; width:9px; height:2px; background:var(--muted);
-      bottom:-6px; right:-7px; transform: rotate(45deg);
-      border-radius:2px;
-      opacity:.8;
-    }
-
-    .btn{
-      border:1px solid var(--line);
-      background: linear-gradient(180deg, #fff, #fff7fb);
-      border-radius:999px;
-      padding:10px 14px;
-      font-weight:850;
-      font-size:13px;
-      cursor:pointer;
-      box-shadow:0 10px 18px rgba(31,22,48,.06);
-      transition: transform .08s ease, border-color .2s ease;
-      user-select:none;
-    }
-    .btn:hover{transform: translateY(-1px); border-color:#f0a7cd}
-    .btn.primary{
-      border-color: transparent;
-      background: linear-gradient(135deg, var(--pink), var(--pink2));
-      color:white;
-    }
-    .btn.ghost{background:transparent; box-shadow:none;}
-
-    .filterRow{
-      display:flex; gap:8px; flex-wrap:wrap; align-items:center;
-      margin-top:10px;
-    }
-    .chip{
-      display:inline-flex; align-items:center; gap:8px;
-      border:1px solid var(--line);
-      background:#fff;
-      padding:7px 10px;
-      border-radius:999px;
-      font-size:12px;
-      color:var(--muted);
-      cursor:pointer;
-      user-select:none;
-      transition:.12s ease;
-      box-shadow:0 10px 18px rgba(31,22,48,.05);
-    }
-    .chip[aria-pressed="true"]{
-      background: linear-gradient(135deg, #ffe2f2, #f2e8ff);
-      border-color:#f0a7cd;
-      color:#3a2449;
-    }
-    .chip b{color:var(--ink)}
-    .tiny{font-size:12px;color:var(--muted);line-height:1.5}
-
-    /* Atlas layout */
-    .atlas{
-      margin-top:14px;
-      display:grid;
-      grid-template-columns: 1fr 340px;
-      gap:12px;
-      align-items:start;
-    }
-    @media (max-width: 1080px){ .atlas{grid-template-columns:1fr} }
-
-    .panel{
-      border:1px solid var(--line);
-      background:#fff;
-      border-radius:var(--radius);
-      box-shadow:var(--shadow2);
-      overflow:hidden;
-    }
-
-    /* Accordion sections */
-    details{border-top:1px solid #f7d8e8}
-    details:first-child{border-top:none}
-    summary{
-      list-style:none;
-      cursor:pointer;
-      padding:14px 16px;
-      font-weight:950;
-      display:flex; align-items:center; justify-content:space-between;
-      gap:10px;
-      background: linear-gradient(180deg, #fff, #fff7fb);
-    }
-    summary::-webkit-details-marker{display:none}
-    .caret{
-      width:10px;height:10px; border-right:2px solid var(--muted); border-bottom:2px solid var(--muted);
-      transform: rotate(-45deg);
-      transition:.12s ease;
-      margin-left:6px;
-    }
-    details[open] .caret{transform: rotate(45deg)}
-    .secMeta{
-      display:flex; flex-wrap:wrap; gap:6px; align-items:center;
-      padding:0 16px 14px;
-      background:#fff;
-    }
-    .tag{
-      font-family:var(--mono);
-      font-size:11px;
-      padding:5px 9px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background:#fff;
-      color:var(--muted);
-      white-space:nowrap;
-    }
-    .tag.pink{background:#fff0f8}
-    .tag.lav{background:#f4eeff}
-    .tag.mint{background:#edfffb}
-    .tag.gold{background:#fff7e1}
-
-    .topics{
-      padding:0 16px 16px;
-      color:var(--muted);
-    }
-
-    /* Topic list */
-    .topicGroup{
-      margin:14px 0 18px;
-      padding:12px 12px;
-      border:1px solid #f7d8e8;
-      border-radius:18px;
-      background: #fff;
-      box-shadow:0 10px 18px rgba(31,22,48,.04);
-    }
-    .topicGroup h3{
-      margin:0 0 8px;
-      font-size:14px;
-      letter-spacing:-.01em;
-      color:#2b1a3a;
-      display:flex; gap:8px; align-items:center; flex-wrap:wrap;
-    }
-    .topicGroup h3 .pill{padding:5px 9px;font-size:11px}
-    .list{
-      margin:0;
-      padding-left:18px;
-      line-height:1.65;
-      font-size:13px;
-    }
-    .list li{margin:6px 0}
-    .list li mark{
-      background: linear-gradient(135deg, #ffe2f2, #f2e8ff);
-      padding:0 2px;
-      border-radius:6px;
-    }
-    .kbd{
-      font-family:var(--mono);
-      font-size:12px;
-      background:#fff7fb;
-      border:1px solid var(--line);
-      padding:2px 6px;
-      border-radius:8px;
-      color:#3a2449;
-    }
-
-    /* Right sidebar */
-    .sidebar{
-      position:sticky;
-      top:12px;
-      border:1px solid var(--line);
-      background: var(--card);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow2);
-      padding:14px;
-      backdrop-filter: blur(8px);
-    }
-    .sidebar h3{margin:0 0 10px;font-size:15px;letter-spacing:-.01em}
-    .stat{
-      border:1px solid var(--line);
-      background:#fff;
-      border-radius:18px;
-      padding:12px;
-      margin-bottom:10px;
-      box-shadow:0 10px 18px rgba(31,22,48,.05);
-    }
-    .stat .label{font-size:12px;color:var(--muted);margin-bottom:6px}
-    .stat .value{font-weight:950;font-size:18px}
-    .stat .sub{font-size:12px;color:var(--muted);margin-top:4px;line-height:1.45}
-
-    .quickLinks{display:flex;flex-direction:column;gap:8px;margin-top:8px}
-    .linkBtn{
-      text-align:left;
-      border:1px solid var(--line);
-      background:#fff;
-      border-radius:14px;
-      padding:10px 12px;
-      cursor:pointer;
-      font-weight:850;
-      box-shadow:0 10px 18px rgba(31,22,48,.05);
-      transition:.1s ease;
-    }
-    .linkBtn:hover{transform: translateY(-1px); border-color:#f0a7cd}
-    .linkBtn span{display:block;font-weight:650;color:var(--muted);font-size:12px;margin-top:4px}
-
-    footer{
-      margin-top:16px;
-      color:var(--muted);
-      font-size:12px;
-      text-align:center;
-      line-height:1.55;
-    }
-
-    /* Print */
-    @media print{
-      .controls,.sidebar,.row .btn,.row .badge{display:none !important}
-      body{background:#fff}
-      .hero{box-shadow:none}
-      .panel{box-shadow:none}
-      .topicGroup{box-shadow:none}
-    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    :root{--ink:#1a1814;--ink-soft:#3d3a34;--ink-muted:#7a7670;--ink-faint:#b8b4ad;--parchment:#faf8f3;--parchment-warm:#f2ede4;--parchment-deep:#e8e1d5;--pink:#e8546a;--pink-soft:#f0b8c2;--pink-faint:#faedf0;--gold:#c9923a;--gold-faint:#fdf3e7;--purple:#6b4fa0;--purple-faint:#f0ecf8;--teal:#2a8a7f;--teal-faint:#eaf5f4;--border:#ddd8ce;}
+    html{font-size:16px;scroll-behavior:smooth;}
+    body{background:var(--parchment);color:var(--ink);font-family:'Inter',sans-serif;font-weight:300;line-height:1.7;overflow-x:hidden;}
+    body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:1000;opacity:.4;}
+    a{color:inherit;text-decoration:none;}
+    nav{padding:18px 48px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--parchment);position:sticky;top:0;z-index:100;}
+    .nav-brand{font-family:'EB Garamond',serif;font-size:1.1rem;letter-spacing:.02em;}
+    .nav-brand span{color:var(--pink);}
+    .nav-links{display:flex;gap:28px;list-style:none;}
+    .nav-links a{font-size:.78rem;color:var(--ink-muted);letter-spacing:.06em;text-transform:uppercase;transition:color .2s;}
+    .nav-links a:hover,.nav-links a.active{color:var(--pink);}
+    .hero{max-width:860px;margin:0 auto;padding:72px 48px 48px;border-bottom:1px solid var(--border);}
+    .hero h1{font-family:'EB Garamond',serif;font-size:3.2rem;font-weight:400;line-height:1.15;letter-spacing:-.01em;margin-bottom:8px;}
+    .hero h1 em{font-style:italic;color:var(--pink);}
+    .hero-sub{font-family:'EB Garamond',serif;font-size:1.2rem;font-style:italic;color:var(--ink-muted);margin-bottom:20px;}
+    .hero-meta{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:20px;}
+    .tag-pill{font-size:.72rem;padding:4px 12px;border-radius:20px;letter-spacing:.05em;text-transform:uppercase;font-weight:500;}
+    .tp-pink{background:var(--pink-faint);color:var(--pink);border:1px solid var(--pink-soft);}
+    .tp-gold{background:var(--gold-faint);color:var(--gold);border:1px solid #e8c88a;}
+    .tp-purple{background:var(--purple-faint);color:var(--purple);border:1px solid #c4b3e0;}
+    .tp-teal{background:var(--teal-faint);color:var(--teal);border:1px solid #9fd4cf;}
+    .tp-gray{background:var(--parchment-deep);color:var(--ink-muted);border:1px solid var(--border);}
+    .btn{font-size:.78rem;padding:8px 16px;border-radius:20px;border:1px solid var(--border);background:#fff;color:var(--ink-soft);cursor:pointer;letter-spacing:.04em;text-transform:uppercase;font-weight:500;transition:border-color .2s,color .2s;font-family:'Inter',sans-serif;display:inline-flex;align-items:center;gap:6px;}
+    .btn:hover{border-color:var(--pink-soft);color:var(--pink);}
+    .btn.primary{background:var(--pink);border-color:var(--pink);color:#fff;}
+    .btn.primary:hover{background:#d44460;}
+    .hero-btns{display:flex;flex-wrap:wrap;gap:10px;}
+    .main{max-width:1100px;margin:0 auto;padding:32px 48px 80px;}
+    .controls{display:grid;grid-template-columns:1fr 280px;gap:14px;margin-bottom:24px;}
+    @media(max-width:900px){.controls{grid-template-columns:1fr;}}
+    .panel{border:1px solid var(--border);border-radius:12px;background:#fff;padding:18px 22px;}
+    .panel h2{font-family:'EB Garamond',serif;font-size:1.1rem;font-weight:400;color:var(--ink);margin-bottom:12px;}
+    .search-row{display:flex;gap:10px;align-items:center;margin-bottom:10px;}
+    .search-wrap{flex:1;position:relative;}
+    .search-wrap input{width:100%;padding:9px 12px 9px 36px;border-radius:20px;border:1px solid var(--border);background:var(--parchment);font-size:.88rem;font-family:'Inter',sans-serif;outline:none;color:var(--ink);}
+    .search-wrap input:focus{border-color:var(--pink-soft);}
+    .search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:13px;height:13px;border:1.5px solid var(--ink-muted);border-radius:50%;opacity:.5;}
+    .search-icon::after{content:'';position:absolute;width:7px;height:1.5px;background:var(--ink-muted);bottom:-5px;right:-5px;transform:rotate(45deg);border-radius:2px;}
+    .filter-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px;}
+    .chip{display:inline-flex;align-items:center;border:1px solid var(--border);background:var(--parchment-warm);padding:4px 12px;border-radius:20px;font-size:.72rem;color:var(--ink-muted);cursor:pointer;user-select:none;transition:.15s ease;font-weight:500;letter-spacing:.04em;}
+    .chip[aria-pressed="true"]{background:var(--pink-faint);border-color:var(--pink-soft);color:var(--pink);}
+    .tiny{font-size:.78rem;color:var(--ink-muted);line-height:1.6;}
+    kbd{font-family:'JetBrains Mono',monospace;font-size:.7rem;background:var(--parchment-deep);padding:2px 6px;border-radius:4px;color:var(--ink-soft);}
+    .atlas-layout{display:grid;grid-template-columns:1fr 220px;gap:14px;align-items:start;}
+    @media(max-width:900px){.atlas-layout{grid-template-columns:1fr;}}
+    .atlas-panel{border:1px solid var(--border);border-radius:12px;overflow:hidden;background:#fff;}
+    details{border-top:1px solid var(--parchment-deep);}
+    details:first-child{border-top:none;}
+    summary{list-style:none;cursor:pointer;padding:14px 18px;font-weight:500;font-size:.9rem;color:var(--ink);display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--parchment-warm);transition:background .15s;}
+    summary::-webkit-details-marker{display:none;}
+    summary:hover{background:var(--parchment-deep);}
+    .caret{width:8px;height:8px;border-right:1.5px solid var(--ink-muted);border-bottom:1.5px solid var(--ink-muted);transform:rotate(-45deg);transition:.12s ease;flex-shrink:0;}
+    details[open] .caret{transform:rotate(45deg);}
+    .sec-meta{display:flex;flex-wrap:wrap;gap:6px;padding:10px 18px;border-bottom:1px solid var(--parchment-deep);}
+    .sec-tag{font-family:'JetBrains Mono',monospace;font-size:.68rem;padding:3px 9px;border-radius:20px;border:1px solid var(--border);background:var(--parchment);color:var(--ink-muted);}
+    .sec-tag.pink{background:var(--pink-faint);color:var(--pink);border-color:var(--pink-soft);}
+    .sec-tag.lav{background:var(--purple-faint);color:var(--purple);border-color:#c4b3e0;}
+    .sec-tag.gold{background:var(--gold-faint);color:var(--gold);border-color:#e8c88a;}
+    .topics-body{padding:14px 18px;}
+    .topic-group{margin-bottom:16px;padding:12px 14px;border-radius:10px;border:1px solid var(--border);background:var(--parchment);}
+    .topic-group:last-child{margin-bottom:0;}
+    .topic-group h3{font-family:'EB Garamond',serif;font-size:.98rem;font-weight:500;color:var(--ink);margin-bottom:8px;display:flex;flex-wrap:wrap;align-items:center;gap:6px;}
+    .topic-group h3 .pill{font-family:'JetBrains Mono',monospace;font-size:.65rem;padding:2px 7px;border-radius:12px;border:1px solid var(--border);background:#fff;color:var(--ink-muted);}
+    .topic-list{margin:0 0 0 18px;line-height:1.7;font-size:.83rem;color:var(--ink-muted);}
+    .topic-list li{margin:4px 0;}
+    mark{background:var(--pink-faint);padding:0 2px;border-radius:3px;}
+    .sidebar{position:sticky;top:80px;}
+    .stat-card{border:1px solid var(--border);border-radius:10px;background:#fff;padding:14px 16px;margin-bottom:10px;}
+    .stat-label{font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-faint);margin-bottom:4px;font-weight:500;}
+    .stat-value{font-family:'EB Garamond',serif;font-size:1.5rem;color:var(--ink);margin-bottom:2px;}
+    .stat-sub{font-size:.75rem;color:var(--ink-muted);}
+    .jump-links{display:flex;flex-direction:column;gap:6px;margin-top:4px;}
+    .link-btn{text-align:left;border:1px solid var(--border);background:var(--parchment-warm);border-radius:8px;padding:8px 12px;cursor:pointer;font-size:.8rem;font-weight:500;color:var(--ink-soft);font-family:'Inter',sans-serif;transition:border-color .15s,color .15s;}
+    .link-btn:hover{border-color:var(--pink-soft);color:var(--pink);}
+    .link-btn span{display:block;font-size:.68rem;color:var(--ink-faint);margin-top:2px;font-weight:400;}
+    .no-results{padding:24px;text-align:center;font-family:'EB Garamond',serif;font-style:italic;color:var(--ink-muted);font-size:1rem;}
+    .footnote{font-size:.78rem;color:var(--ink-faint);font-style:italic;font-family:'EB Garamond',serif;text-align:center;padding:32px 0 0;border-top:1px solid var(--border);margin-top:48px;}
+    @media print{.controls,.sidebar,.hero-btns,.hero-meta{display:none!important;}body{background:#fff;}}
+    @media(max-width:640px){nav{padding:16px 20px;}.hero{padding:48px 20px 32px;}.main{padding:24px 20px 60px;}}
   </style>
 </head>
-
 <body>
-  <div class="wrap">
-    <header class="hero">
-      <h1><span class="sparkle">Schola Arcana</span> — Topics Atlas</h1>
-      <p class="muted" style="margin:0;max-width:92ch">
-        This is your “I want to see the whole universe” map: ultra-specific topic inventory across
-        <b>Logic</b>, <b>Discrete Math</b>, <b>TOC</b>, <b>Linear Algebra</b>, <b>Analysis</b>, <b>Probability</b>, <b>Quantum</b>,
-        plus “kept warm” lanes (algorithms, AI theory, crypto, physics).
-      </p>
+<nav>
+  <a href="index.html" class="nav-brand">Schola <span>Arcana</span></a>
+  <ul class="nav-links">
+    <li><a href="topics.html" class="active">Atlas</a></li>
+    <li><a href="vault.html">Proof Vault</a></li>
+    <li><a href="jorunal.html">Journal</a></li>
+    <li><a href="dossier.html">Dossier</a></li>
+    <li><a href="log.html">Log</a></li>
+  </ul>
+</nav>
 
-      <div class="row">
-        <div class="badge"><span class="dot pink"></span> Search everything</div>
-        <div class="badge"><span class="dot lav"></span> Filter by lane</div>
-        <div class="badge"><span class="dot mint"></span> Use as a map, not a checklist</div>
-        <div class="badge"><span class="dot gold"></span> Print-friendly</div>
+<div class="hero">
+  <h1>Topics <em>Atlas</em></h1>
+  <div class="hero-sub">a map of the universe — use it to reduce anxiety, not to induce it</div>
+  <div class="hero-meta">
+    <span class="tag-pill tp-pink">search everything</span>
+    <span class="tag-pill tp-purple">filter by lane</span>
+    <span class="tag-pill tp-gold">map, not checklist</span>
+    <span class="tag-pill tp-teal">print-friendly</span>
+  </div>
+  <div class="hero-btns">
+    <a class="btn" href="index.html">← Cathedral</a>
+    <button class="btn primary" id="expandAll">Expand all</button>
+    <button class="btn" id="collapseAll">Collapse all</button>
+    <button class="btn" id="clearAll">Clear filters</button>
+    <button class="btn" id="printBtn">Print</button>
+  </div>
+</div>
+
+<div class="main">
+  <div class="controls">
+    <div class="panel">
+      <h2>Search & filters</h2>
+      <div class="search-row">
+        <div class="search-wrap">
+          <span class="search-icon" aria-hidden="true"></span>
+          <input id="q" type="text" placeholder="pumping lemma, Henkin, spectral theorem, tensor product, Markov..."/>
+        </div>
+        <button class="btn" id="copyLink">Share link</button>
       </div>
-
-      <div class="row" style="margin-top:12px">
-        <a class="btn" href="index.html">MAIN PAGE</a>
-        <button class="btn primary" id="expandAll">Expand all</button>
-        <button class="btn" id="collapseAll">Collapse all</button>
-        <button class="btn" id="clearAll">Clear filters</button>
-        <button class="btn ghost" id="printBtn">Print / PDF</button>
+      <div class="filter-row">
+        <div class="chip" role="button" tabindex="0" data-filter="foundations" aria-pressed="false">Foundations</div>
+        <div class="chip" role="button" tabindex="0" data-filter="discrete" aria-pressed="false">Discrete</div>
+        <div class="chip" role="button" tabindex="0" data-filter="toc" aria-pressed="false">TOC</div>
+        <div class="chip" role="button" tabindex="0" data-filter="linalg" aria-pressed="false">Linear Algebra</div>
+        <div class="chip" role="button" tabindex="0" data-filter="analysis" aria-pressed="false">Analysis</div>
+        <div class="chip" role="button" tabindex="0" data-filter="prob" aria-pressed="false">Probability</div>
+        <div class="chip" role="button" tabindex="0" data-filter="qc" aria-pressed="false">Quantum</div>
+        <div class="chip" role="button" tabindex="0" data-filter="algos" aria-pressed="false">Algorithms</div>
+        <div class="chip" role="button" tabindex="0" data-filter="ai" aria-pressed="false">AI theory</div>
+        <div class="chip" role="button" tabindex="0" data-filter="crypto" aria-pressed="false">Crypto</div>
+        <div class="chip" role="button" tabindex="0" data-filter="physics" aria-pressed="false">Physics</div>
       </div>
-    </header>
-
-    <section class="controls">
-      <div class="card">
-        <h2>Search & filters <span class="pill">instant map</span></h2>
-        <div class="searchRow">
-          <div class="search">
-            <span class="searchIcon" aria-hidden="true"></span>
-            <input id="q" type="text" placeholder="Search: e.g. ‘pumping lemma’, ‘spectral theorem’, ‘Markov’, ‘tensor product’, ‘ε–δ’..." />
-          </div>
-          <button class="btn" id="copyLink">Copy share link</button>
-        </div>
-
-        <div class="filterRow" aria-label="Filters">
-          <div class="chip" role="button" tabindex="0" data-filter="foundations" aria-pressed="false"><b>Foundations</b> (logic/set)</div>
-          <div class="chip" role="button" tabindex="0" data-filter="discrete" aria-pressed="false"><b>Discrete</b></div>
-          <div class="chip" role="button" tabindex="0" data-filter="toc" aria-pressed="false"><b>TOC</b></div>
-          <div class="chip" role="button" tabindex="0" data-filter="linalg" aria-pressed="false"><b>Linear Algebra</b></div>
-          <div class="chip" role="button" tabindex="0" data-filter="analysis" aria-pressed="false"><b>Analysis/Calc</b></div>
-          <div class="chip" role="button" tabindex="0" data-filter="prob" aria-pressed="false"><b>Probability</b></div>
-          <div class="chip" role="button" tabindex="0" data-filter="qc" aria-pressed="false"><b>Quantum</b></div>
-          <div class="chip" role="button" tabindex="0" data-filter="algos" aria-pressed="false"><b>Algorithms</b></div>
-          <div class="chip" role="button" tabindex="0" data-filter="ai" aria-pressed="false"><b>AI theory</b></div>
-          <div class="chip" role="button" tabindex="0" data-filter="crypto" aria-pressed="false"><b>Crypto/Security</b></div>
-          <div class="chip" role="button" tabindex="0" data-filter="physics" aria-pressed="false"><b>Physics</b></div>
-        </div>
-
-        <p class="tiny" style="margin:10px 0 0">
-          Keyboard: <span class="kbd">/</span> focuses search • <span class="kbd">Esc</span> clears search •
-          Click a filter to show only those lanes • You can multi-select filters.
-        </p>
-      </div>
-
-      <div class="card">
-        <h2>How to read this atlas <span class="pill">you-coded</span></h2>
-        <ul class="tiny" style="margin:10px 0 0 18px;line-height:1.75">
-          <li><b>Axioms → objects → structures → theorems → methods.</b></li>
-          <li>If something feels “random”: ask <b>what invariant</b> or <b>what universal property</b> is hiding.</li>
-          <li>Mastery ≠ completion. The map exists to reduce anxiety: you can point and say “I know what that is.”</li>
-        </ul>
-      </div>
-    </section>
-
-    <section class="atlas">
-      <!-- MAIN ATLAS -->
-      <div class="panel" id="atlasPanel" aria-label="Topics atlas"></div>
-
-      <!-- SIDEBAR -->
-      <aside class="sidebar">
-        <h3>Atlas stats</h3>
-        <div class="stat">
-          <div class="label">Visible topics</div>
-          <div class="value" id="visibleCount">—</div>
-          <div class="sub">Based on your current search + filters.</div>
-        </div>
-        <div class="stat">
-          <div class="label">Total topics in atlas</div>
-          <div class="value" id="totalCount">—</div>
-          <div class="sub">This is intentionally huge. You’re building a map of existence.</div>
-        </div>
-
-        <h3 style="margin-top:12px">Jump to lane</h3>
-        <div class="quickLinks" id="quickLinks"></div>
-
-        <div class="stat" style="margin-top:12px">
-          <div class="label">Pro tip</div>
-          <div class="sub">
-            Use this page as your “What exists?” reference. Your semester plan is your “What I do now?”.
-          </div>
-        </div>
-      </aside>
-    </section>
-
-    <footer>
-      <b>Schola Arcana Topics Atlas</b> — pink, but lethal. 💗<br/>
-      Save as <span class="kbd">topics.html</span> and link it from your main <span class="kbd">index.html</span>.
-    </footer>
+      <p class="tiny">Keyboard: <kbd>/</kbd> focus search · <kbd>Esc</kbd> clear · click filters to isolate lanes · multi-select works</p>
+    </div>
+    <div class="panel">
+      <h2>How to read this</h2>
+      <ul style="margin:0 0 0 16px;font-size:.83rem;color:var(--ink-muted);line-height:1.75;">
+        <li>Axioms → objects → structures → theorems → methods</li>
+        <li>If something feels random: ask what invariant or universal property is hiding</li>
+        <li>Mastery ≠ completion — the map exists so you can point and say "I know what that is"</li>
+      </ul>
+    </div>
   </div>
 
-  <script>
-    // ===========================
-    // DATA (ULTRA-SPECIFIC TOPICS)
-    // ===========================
-    // Each section has: id, title, tags, groups[{title, bullets[], tags?}]
-    // Keep bullets super granular. That's the point.
+  <div class="atlas-layout">
+    <div class="atlas-panel" id="atlasPanel" aria-label="Topics atlas"></div>
+    <aside class="sidebar">
+      <div class="stat-card">
+        <div class="stat-label">Visible topics</div>
+        <div class="stat-value" id="visibleCount">—</div>
+        <div class="stat-sub">Current search + filters</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Total in atlas</div>
+        <div class="stat-value" id="totalCount">—</div>
+        <div class="stat-sub">Intentionally huge. You're mapping existence.</div>
+      </div>
+      <div class="stat-card" style="margin-bottom:8px;">
+        <div class="stat-label">Jump to lane</div>
+      </div>
+      <div class="jump-links" id="quickLinks"></div>
+    </aside>
+  </div>
 
-    const SECTIONS = [
-      {
-        id:"logic",
-        title:"Logic & Proof (Foundations)",
-        laneTags:["foundations"],
-        chips:[["Foundations","pink"],["Axioms-first","lav"],["Proofcraft","gold"]],
-        groups:[
-          { title:"Propositional logic",
-            bullets:[
-              "Syntax vs semantics (formulas vs truth)",
-              "Connectives: ¬, ∧, ∨, →, ↔",
-              "Truth tables + tautology/contradiction/contingency",
-              "Logical equivalence laws (De Morgan, absorption, distributivity)",
-              "Normal forms: CNF, DNF (idea + construction)",
-              "Implication traps: ‘if’ vs ‘only if’ vs ‘iff’",
-              "Satisfiability vs validity",
-              "Horn clauses (preview for CS/logic programming)"
-            ],
-            tags:["foundations"]
-          },
-          { title:"Predicate logic",
-            bullets:[
-              "Quantifiers: ∀, ∃; scope + binding variables",
-              "Negating quantified statements (the most common failure mode)",
-              "Free vs bound variables",
-              "Translating English/math statements into logic (practice set)",
-              "Uniqueness quantifier (‘∃!’) patterns",
-              "Using quantifiers to define: injective/surjective, partial orders, etc.",
-              "Counterexamples as ‘witnesses’"
-            ],
-            tags:["foundations"]
-          },
-          { title:"Proof methods (your toolkit)",
-            bullets:[
-              "Direct proof (structure + template)",
-              "Contrapositive proofs (especially for implications)",
-              "Proof by contradiction (and what can go wrong)",
-              "Proof by cases (finite partition of possibilities)",
-              "Induction: weak induction, strong induction",
-              "Well-ordering principle (equivalent to induction)",
-              "Invariants (something that cannot change)",
-              "Monovariants (a quantity that always increases/decreases)",
-              "Extremal principle (choose minimal/maximal counterexample)",
-              "Pigeonhole principle (basic + strong forms)",
-              "Diagonalization as a proof technique (Cantor/Gödel vibes)",
-              "Reduction as a proof technique (core for TOC/complexity)"
-            ],
-            tags:["foundations","discrete","toc"]
-          },
-          { title:"Axiomatic thinking (meta)",
-            bullets:[
-              "Axioms vs definitions vs theorems vs corollaries",
-              "Consistency vs completeness (informal intuition)",
-              "Models of a theory (satisfying axioms)",
-              "Independence of axioms (taste)",
-              "Constructing objects by universal properties (preview for category theory)",
-              "‘What are we allowed to assume?’ as a habit"
-            ],
-            tags:["foundations"]
-          }
-        ]
-      },
+  <div class="footnote">
+    pink, but lethal. 💗 use this page as "what exists?" — your week table is "what I do now?"<br>
+    <span style="font-size:.72rem;margin-top:6px;display:block;">schola arcana · topics atlas · map of the mathematical universe</span>
+  </div>
+</div>
 
-      {
-        id:"sets",
-        title:"Set Theory & Functions (Foundations)",
-        laneTags:["foundations"],
-        chips:[["Objects","pink"],["Structure","lav"],["ZFC-lite","gold"]],
-        groups:[
-          { title:"Core set operations",
-            bullets:[
-              "Membership (∈) and subset (⊆) distinction",
-              "Union/intersection/complement; set difference",
-              "Power set P(X)",
-              "Cartesian product X×Y",
-              "Indexed unions/intersections (⋃, ⋂)",
-              "Disjoint unions (tagged copies) idea"
-            ],
-            tags:["foundations"]
-          },
-          { title:"Relations",
-            bullets:[
-              "Binary relation as subset of X×X",
-              "Reflexive/symmetric/antisymmetric/transitive",
-              "Equivalence relations and partitions",
-              "Quotient set X/~ and canonical projection map",
-              "Partial orders (posets): ≤ as a relation",
-              "Hasse diagrams (posets visualization)",
-              "Total orders vs partial orders"
-            ],
-            tags:["foundations","discrete"]
-          },
-          { title:"Functions as mappings (not formulas)",
-            bullets:[
-              "Domain/codomain/image",
-              "Injective/surjective/bijective",
-              "Inverse function (exists iff bijection)",
-              "Composition and associativity",
-              "Restriction/extension of a function",
-              "Preimage (pullback) f^{-1}(S) vs inverse function",
-              "Images of unions/intersections (what distributes, what doesn’t)"
-            ],
-            tags:["foundations","discrete"]
-          },
-          { title:"Cardinality (taste)",
-            bullets:[
-              "Finite vs infinite sets",
-              "Countable sets: ℕ, ℤ, ℚ constructions (idea)",
-              "Uncountability: Cantor diagonal argument (ℝ vs ℕ)",
-              "Cardinal arithmetic taste: |A×B| for countable A,B",
-              "Power set theorem: |P(A)| > |A| (Cantor)"
-            ],
-            tags:["foundations"]
-          }
-        ]
-      },
+<script>
+  const SECTIONS = [
+    {id:"logic",title:"Logic & Proof (Foundations)",laneTags:["foundations"],chips:[["Foundations","pink"],["Axioms-first","lav"],["Proofcraft","gold"]],groups:[
+      {title:"Propositional logic",bullets:["Syntax vs semantics (formulas vs truth)","Connectives: ¬, ∧, ∨, →, ↔","Truth tables + tautology/contradiction/contingency","Logical equivalence laws (De Morgan, absorption, distributivity)","Normal forms: CNF, DNF","Implication traps: 'if' vs 'only if' vs 'iff'","Satisfiability vs validity","Horn clauses (preview for logic programming)"],tags:["foundations"]},
+      {title:"Predicate logic",bullets:["Quantifiers: ∀, ∃; scope + binding variables","Negating quantified statements (the most common failure mode)","Free vs bound variables","Translating English/math statements into logic","Uniqueness quantifier ('∃!') patterns","Counterexamples as witnesses"],tags:["foundations"]},
+      {title:"Mathematical logic (Enderton)",bullets:["First-order languages: syntax, terms, formulas, sentences","Structures and truth: M ⊨ φ","Validity and logical consequence","Formal proof systems: axioms, rules, derivations","Soundness theorem: if Γ ⊢ φ then Γ ⊨ φ","Consistency and maximal consistent sets (Lindenbaum's lemma)","Henkin constants and witnesses","Completeness theorem: if Γ ⊨ φ then Γ ⊢ φ ★","Compactness theorem and consequences","Löwenheim-Skolem theorems","Non-standard models of arithmetic"],tags:["foundations"]},
+      {title:"Proof methods (your toolkit)",bullets:["Direct proof (structure + template)","Contrapositive proofs","Proof by contradiction","Proof by cases","Induction: weak, strong, structural","Invariants (something that cannot change)","Monovariants (always increases/decreases)","Pigeonhole principle (basic + strong)","Diagonalization as a proof technique","Reduction as a proof technique"],tags:["foundations","discrete","toc"]},
+      {title:"Axiomatic thinking (meta)",bullets:["Axioms vs definitions vs theorems vs corollaries","Consistency vs completeness","Models of a theory (satisfying axioms)","Independence of axioms (taste)","Constructing objects by universal properties"],tags:["foundations"]}
+    ]},
+    {id:"math-logic",title:"Mathematical Logic & Incompleteness",laneTags:["foundations"],chips:[["Gödel","pink"],["Foundations of math","lav"],["ILLC prep","gold"]],groups:[
+      {title:"Gödel incompleteness theorems",bullets:["Gödel numbering — encoding formulas as natural numbers","Representability: recursive functions in Peano arithmetic","The Gödel sentence: 'I am not provable'","First incompleteness theorem: no consistent system proves all arithmetical truths","Second incompleteness theorem: no system proves its own consistency","Connection to the halting problem — incompleteness as undecidability in disguise"],tags:["foundations","toc"]},
+      {title:"Model theory (taste)",bullets:["Isomorphism and elementary equivalence","Categoricity (when does a theory have a unique model?)","Compactness applications: non-standard models","Ultraproducts taste","Definability"],tags:["foundations"]},
+      {title:"Proof theory (taste)",bullets:["Sequent calculus","Cut elimination","Curry-Howard correspondence (proofs as programs)","Normalization","Type theory bridge"],tags:["foundations"]}
+    ]},
+    {id:"sets",title:"Set Theory & Functions",laneTags:["foundations"],chips:[["Objects","pink"],["Structure","lav"],["ZFC-lite","gold"]],groups:[
+      {title:"Core set operations",bullets:["Membership (∈) and subset (⊆) distinction","Union/intersection/complement; set difference","Power set P(X)","Cartesian product X×Y","Indexed unions/intersections","Disjoint unions (tagged copies)"],tags:["foundations"]},
+      {title:"Relations",bullets:["Binary relation as subset of X×X","Reflexive/symmetric/antisymmetric/transitive","Equivalence relations and partitions","Quotient set X/~ and canonical projection","Partial orders (posets)","Total orders vs partial orders"],tags:["foundations","discrete"]},
+      {title:"Functions as mappings (not formulas)",bullets:["Domain/codomain/image","Injective/surjective/bijective","Inverse function (exists iff bijection)","Composition and associativity","Preimage f^{-1}(S) vs inverse function"],tags:["foundations","discrete"]},
+      {title:"Cardinality",bullets:["Finite vs infinite sets","Countable sets: ℕ, ℤ, ℚ","Uncountability: Cantor diagonal argument","Power set theorem: |P(A)| > |A|"],tags:["foundations"]}
+    ]},
+    {id:"discrete",title:"Discrete Mathematics",laneTags:["discrete"],chips:[["Discrete","pink"],["Invariants","lav"],["Concrete Math energy","gold"]],groups:[
+      {title:"Counting & combinatorics",bullets:["Sum rule / product rule","Permutations and combinations","Binomial coefficients and identities","Combinatorial proofs (count same set two ways)","Inclusion–exclusion principle","Pigeonhole principle (and strong pigeonhole)","Stars and bars","Catalan numbers (taste)","Double counting + bijections as proof tools"],tags:["discrete"]},
+      {title:"Recurrences",bullets:["Defining recurrences from counting","Solving linear recurrences","Characteristic equation method","Master theorem taste","Recurrences from algorithms"],tags:["discrete","algos"]},
+      {title:"Graph theory (foundational)",bullets:["Graph definitions: simple, multigraph, directed","Degree, handshake lemma","Paths, cycles, connectivity","Trees: equivalent definitions","BFS/DFS as structural explorations","Bipartite graphs","Planarity taste"],tags:["discrete","algos"]},
+      {title:"Graph theory (deeper)",bullets:["Matchings + Hall's marriage theorem (taste)","Max-flow/min-cut theorem","Spectral graph theory taste: adjacency/Laplacian eigenvalues","Expanders (preview for complexity)"],tags:["discrete","toc","crypto"]},
+      {title:"Discrete probability (bridge)",bullets:["Sample spaces and events (finite)","Conditional probability on finite spaces","Linearity of expectation","Indicator random variables","Birthday paradox (taste)","Markov chains preview"],tags:["discrete","prob"]}
+    ]},
+    {id:"toc",title:"Theory of Computation (Sipser spine)",laneTags:["toc"],chips:[["TOC","pink"],["Reductions","lav"],["Limits of computation","gold"]],groups:[
+      {title:"Regular languages & automata",bullets:["DFA definition (5-tuple) and acceptance","NFA definition and subset construction","Regular expressions and equivalence to automata","Closure properties: union, concat, star, complement, intersection","Pumping lemma for regular languages"],tags:["toc","discrete"]},
+      {title:"Context-free languages",bullets:["CFG definition","Parse trees and ambiguity","PDA definition and acceptance","Equivalence of CFGs and PDAs","Pumping lemma for CFLs","Closure properties (what's in, what's not)"],tags:["toc","discrete"]},
+      {title:"Turing machines",bullets:["TM definition; configurations and computation histories","Variants: multi-tape, nondeterministic TM","Enumerators and recognizable languages","Church–Turing thesis"],tags:["toc"]},
+      {title:"Decidability & recognizability",bullets:["Decidable languages vs recognizable languages","Mapping reductions (≤_m) and their purpose","Halting problem (A_TM) and diagonalization","Undecidable problems: E_TM, EQ_TM","Rice's theorem (semantic properties are undecidable)"],tags:["toc"]},
+      {title:"Complexity theory",bullets:["Time complexity as resource-bounded computation","Class P","Class NP and polynomial-time verifiers","NP-completeness: reductions as proof schema","Cook–Levin theorem (SAT is NP-complete) (conceptual)","Classic NP-complete problems: 3SAT, CLIQUE, VC, SUBSET-SUM","PSPACE, Savitch theorem (taste)","Hierarchy theorems (taste)","Randomized classes: BPP (taste)","Circuit complexity (taste)"],tags:["toc","algos","crypto"]}
+    ]},
+    {id:"linalg",title:"Linear Algebra (Axler + deeper structure)",laneTags:["linalg"],chips:[["Structure","pink"],["QC backbone","lav"],["Axioms of space","gold"]],groups:[
+      {title:"Vector spaces & linear maps",bullets:["Vector space axioms; subspaces","Span, linear independence, basis","Dimension and coordinates","Linear map definition; range/image and null space/kernel","Rank-nullity theorem","Isomorphisms and invariants under change of basis","Dual space V* (taste)"],tags:["linalg"]},
+      {title:"Matrices (as representations)",bullets:["Matrix of a linear map relative to bases","Change-of-basis matrices","Row reduction (interpretation)","Determinant as scaling/orientation (taste)","Trace as invariant (taste)"],tags:["linalg"]},
+      {title:"Eigenvalues and structure",bullets:["Eigenvalues/eigenvectors definition","Invariant subspaces","Diagonalization","Jordan form taste","Spectral theorem (real symmetric / complex normal)"],tags:["linalg","qc"]},
+      {title:"Inner product spaces",bullets:["Inner product axioms","Norm, distance, orthogonality","Orthonormal bases","Gram–Schmidt","Orthogonal projection and least squares","Unitary/orthogonal operators"],tags:["linalg","qc"]},
+      {title:"Linear operators (advanced)",bullets:["Adjoint operator","Self-adjoint (Hermitian) operators","Normal operators","Spectral decomposition and measurement intuition","Singular value decomposition (SVD)"],tags:["linalg","qc","ai"]}
+    ]},
+    {id:"analysis",title:"Calculus & Real Analysis (selective)",laneTags:["analysis"],chips:[["Continuity","pink"],["Why calculus is true","lav"],["Selective rigor","gold"]],groups:[
+      {title:"Limits & continuity",bullets:["Limit definition (ε–δ)","Continuity definition and properties","Intermediate value theorem","Compactness intuition"],tags:["analysis"]},
+      {title:"Sequences & series",bullets:["Convergence definitions","Cauchy sequences","Series tests (comparison, ratio, root)","Power series + radius of convergence","Uniform convergence taste"],tags:["analysis","discrete"]},
+      {title:"Metric spaces",bullets:["Metric definition","Open/closed sets","Compactness (Heine–Borel taste)","Continuity in metric spaces","Completeness (Banach taste)"],tags:["analysis"]}
+    ]},
+    {id:"prob",title:"Probability & Stochastic Structures",laneTags:["prob"],chips:[["Uncertainty","pink"],["Markov love","lav"],["AI/QC bridge","gold"]],groups:[
+      {title:"Foundations",bullets:["Probability space (Ω, F, P) (axioms)","Conditional probability; law of total probability","Bayes' theorem (as inversion)","Independence","Counting-based probability"],tags:["prob"]},
+      {title:"Random variables",bullets:["Discrete RVs: PMF, CDF","Expectation and linearity","Variance, covariance","Common distributions: Bernoulli, Binomial, Geometric, Poisson"],tags:["prob"]},
+      {title:"Limit theorems (taste)",bullets:["Law of large numbers","Central limit theorem","Concentration inequalities: Markov, Chebyshev, Chernoff"],tags:["prob","ai"]},
+      {title:"Markov chains",bullets:["Transition matrix and state graph","Irreducible, aperiodic, recurrent/transient (taste)","Stationary distribution","Detailed balance and reversibility (taste)","Mixing time taste"],tags:["prob","discrete"]}
+    ]},
+    {id:"qc",title:"Quantum Computing & Quantum Information",laneTags:["qc"],chips:[["Quantum","pink"],["Linear algebra in motion","lav"],["Algorithms & info","gold"]],groups:[
+      {title:"Postulates & formalism",bullets:["State vectors in complex Hilbert space","Global phase vs relative phase","Bra-ket notation: ⟨ψ| and |ψ⟩","Inner products and probability amplitudes","Unitary evolution and reversibility","Measurement postulate and Born rule","Composite systems and tensor products"],tags:["qc","linalg"]},
+      {title:"Single-qubit geometry",bullets:["Computational basis |0⟩, |1⟩","Bloch sphere intuition","Pauli matrices X, Y, Z","Hadamard gate H and basis change","Measurement in different bases"],tags:["qc"]},
+      {title:"Multi-qubit phenomena",bullets:["Tensor products explicitly (2-qubit basis states)","Entanglement vs separability","Bell states","CNOT gate and controlled operations","No-cloning theorem (conceptual proof)"],tags:["qc"]},
+      {title:"Circuits and universality",bullets:["Circuit model as composing unitaries","Universal gate sets (taste)","Quantum teleportation (protocol + math)"],tags:["qc"]},
+      {title:"Quantum algorithms",bullets:["Deutsch–Jozsa algorithm","Grover search (amplitude amplification)","Quantum Fourier transform (QFT) concept","Shor (high-level: period finding + QFT)","BQP (complexity class intuition)"],tags:["qc","toc"]},
+      {title:"Quantum information (taste)",bullets:["Noise models: bit flip, phase flip, depolarizing","Basic error correction (Shor code taste)","Von Neumann entropy taste","Quantum channels and CPTP maps taste"],tags:["qc"]}
+    ]},
+    {id:"algos",title:"Algorithms & Algorithmic Proofs",laneTags:["algos"],chips:[["Algorithms","pink"],["Proof of correctness","lav"],["Complexity mindset","gold"]],groups:[
+      {title:"Proof patterns for algorithms",bullets:["Loop invariants (design + proof)","Exchange arguments (greedy proofs)","Cut property proofs (MST)","Amortized analysis taste (potential method)","Adversary arguments taste"],tags:["algos","discrete"]},
+      {title:"Algorithmic paradigms",bullets:["Divide and conquer (recurrence-driven reasoning)","Greedy algorithms (matroid taste)","Dynamic programming (optimal substructure + overlap)","Graph algorithms: BFS, DFS, shortest paths","Max flow as a unifying tool"],tags:["algos","discrete"]},
+      {title:"Complexity & reductions (bridge to TOC)",bullets:["Big-O, Big-Ω, Big-Θ as statements","Polynomial-time reductions as translations","NP-completeness as a universal hardness certificate"],tags:["algos","toc"]}
+    ]},
+    {id:"crypto",title:"Cryptography & Security",laneTags:["crypto"],chips:[["Security","pink"],["Hardness intuition","lav"],["Number theory taste","gold"]],groups:[
+      {title:"Core crypto primitives",bullets:["One-way functions","Hash functions: preimage vs collision resistance","Digital signatures (idea)","Key exchange (Diffie–Hellman concept)"],tags:["crypto","toc"]},
+      {title:"Number theory taste",bullets:["Modular arithmetic, congruences","Euler's theorem and Fermat's little theorem","RSA high-level (trapdoor functions)","Elliptic curves taste"],tags:["crypto","discrete"]},
+      {title:"Security thinking",bullets:["Threat models (define the adversary)","Reductions in security proofs","Kerckhoffs's principle","Attack surfaces and invariants"],tags:["crypto","foundations"]}
+    ]},
+    {id:"physics",title:"Physics (optional, quantum-friendly intuition)",laneTags:["physics"],chips:[["Optional","pink"],["Intuition booster","lav"],["Math resonance","gold"]],groups:[
+      {title:"Waves & interference (QC intuition)",bullets:["Superposition principle","Interference patterns as phase effects","Fourier intuition (connects to QFT conceptually)"],tags:["physics","qc"]},
+      {title:"Classical mechanics taste",bullets:["Principle of least action (taste)","Conservation laws as invariants","Symmetry → conservation (Noether taste)"],tags:["physics","foundations"]}
+    ]}
+  ];
 
-      {
-        id:"discrete",
-        title:"Discrete Mathematics (Concrete-thinking)",
-        laneTags:["discrete"],
-        chips:[["Discrete","pink"],["Invariants","lav"],["Concrete Math energy","gold"]],
-        groups:[
-          { title:"Counting & combinatorics (core)",
-            bullets:[
-              "Sum rule / product rule",
-              "Permutations and combinations",
-              "Binomial coefficients and identities",
-              "Combinatorial proofs (prove identity by counting same set two ways)",
-              "Inclusion–exclusion principle",
-              "Pigeonhole principle (and strong pigeonhole)",
-              "Stars and bars (compositions/weak compositions)",
-              "Derangements (idea)",
-              "Catalan numbers (taste: Dyck paths, balanced parentheses)",
-              "Double counting + bijections as proof tools"
-            ],
-            tags:["discrete"]
-          },
-          { title:"Recurrences",
-            bullets:[
-              "Defining recurrences from counting",
-              "Solving linear recurrences (simple cases)",
-              "Characteristic equation method (taste)",
-              "Divide-and-conquer recurrences (Master theorem taste)",
-              "Recurrences from algorithms (mergesort, quicksort expected)",
-              "Generating functions as recurrence solvers (bridge)"
-            ],
-            tags:["discrete","algos"]
-          },
-          { title:"Generating functions (light → real)",
-            bullets:[
-              "Ordinary generating functions (OGF) definition",
-              "Coefficient extraction idea",
-              "Convolution product corresponds to sequence sums",
-              "Using OGFs to solve simple recurrences",
-              "Partition function taste",
-              "Exponential generating functions (EGF) taste"
-            ],
-            tags:["discrete"]
-          },
-          { title:"Graph theory (foundational)",
-            bullets:[
-              "Graph definitions: simple, multigraph, directed",
-              "Degree, handshake lemma",
-              "Paths, cycles, connectivity",
-              "Trees: equivalent definitions",
-              "Spanning trees",
-              "BFS/DFS as structural explorations",
-              "Bipartite graphs",
-              "Planarity taste (K_5, K_{3,3} mention)",
-              "Graph invariants: diameter, girth, chromatic number (taste)"
-            ],
-            tags:["discrete","algos"]
-          },
-          { title:"Graph theory (deeper, later)",
-            bullets:[
-              "Matchings: maximum matching idea",
-              "Hall’s marriage theorem (taste)",
-              "Flows: max-flow/min-cut theorem",
-              "Cuts and connectivity (Menger taste)",
-              "Spectral graph theory taste: adjacency/Laplacian eigenvalues",
-              "Random graphs (Erdős–Rényi taste)",
-              "Expanders (preview for complexity/crypto)"
-            ],
-            tags:["discrete","toc","crypto"]
-          },
-          { title:"Discrete probability (bridge)",
-            bullets:[
-              "Sample spaces and events (finite)",
-              "Conditional probability on finite spaces",
-              "Linearity of expectation (the cheat code)",
-              "Indicator random variables",
-              "Birthday paradox (taste)",
-              "Markov chains preview"
-            ],
-            tags:["discrete","prob"]
-          }
-        ]
-      },
+  const atlasPanel=document.getElementById("atlasPanel");
+  const quickLinks=document.getElementById("quickLinks");
+  const filterState=new Set();
+  let query="";
 
-      {
-        id:"toc",
-        title:"Theory of Computation (Sipser spine)",
-        laneTags:["toc"],
-        chips:[["TOC","pink"],["Reductions","lav"],["Limits of computation","gold"]],
-        groups:[
-          { title:"Regular languages & automata",
-            bullets:[
-              "DFA definition (5-tuple) and acceptance",
-              "NFA definition and subset construction",
-              "Regular expressions and equivalence to automata",
-              "Closure properties: union, concat, star, complement, intersection",
-              "Pumping lemma for regular languages (how to use, how to fail)",
-              "Myhill–Nerode theorem (equivalence classes) (taste→real)",
-              "Minimization of DFA (idea + algorithm taste)"
-            ],
-            tags:["toc","discrete"]
-          },
-          { title:"Context-free languages",
-            bullets:[
-              "CFG definition: variables, terminals, productions, start symbol",
-              "Parse trees and ambiguity",
-              "Chomsky Normal Form (CNF) (taste)",
-              "Pushdown automata and equivalence to CFG",
-              "Closure properties for CFLs (which fail?)",
-              "Pumping lemma for CFLs",
-              "Deterministic CFLs (DCFL) taste"
-            ],
-            tags:["toc","discrete"]
-          },
-          { title:"Turing machines",
-            bullets:[
-              "TM definition; configurations and computation histories",
-              "Variants: multi-tape, nondeterministic TM (equivalence idea)",
-              "Enumerators and recognizable languages",
-              "Church–Turing thesis (philosophical positioning)"
-            ],
-            tags:["toc"]
-          },
-          { title:"Decidability & recognizability",
-            bullets:[
-              "Decidable languages vs recognizable languages",
-              "Mapping reductions (≤_m) and their purpose",
-              "Halting problem (A_TM) and diagonalization vibe",
-              "Undecidable problems: E_TM, EQ_TM (taste)",
-              "Rice’s theorem (semantic properties are undecidable)",
-              "Post correspondence problem (PCP) taste"
-            ],
-            tags:["toc"]
-          },
-          { title:"Complexity theory (core)",
-            bullets:[
-              "Time complexity as resource-bounded computation",
-              "Class P",
-              "Class NP and polynomial-time verifiers",
-              "NP-completeness: reductions as proof schema",
-              "Cook–Levin theorem (SAT is NP-complete) (conceptual)",
-              "Classic NP-complete problems: 3SAT, CLIQUE, VC, SUBSET-SUM",
-              "coNP (taste), NP ∩ coNP (taste)",
-              "Space complexity: PSPACE, Savitch theorem (conceptual taste)",
-              "Hierarchy theorems (taste)",
-              "Randomized classes: BPP (taste)",
-              "Interactive proofs (taste)",
-              "Circuit complexity (taste)"
-            ],
-            tags:["toc","algos","crypto"]
-          }
-        ]
-      },
+  function esc(s){return s.replace(/[&<>"']/g,(c)=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));}
+  function hi(text,q){if(!q)return esc(text);const re=new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")})`,"ig");return esc(text).replace(re,"<mark>$1</mark>");}
 
-      {
-        id:"linalg",
-        title:"Linear Algebra (Axler + deeper structure)",
-        laneTags:["linalg"],
-        chips:[["Structure","pink"],["QC backbone","lav"],["Axioms of space","gold"]],
-        groups:[
-          { title:"Vector spaces & linear maps",
-            bullets:[
-              "Vector space axioms; subspaces",
-              "Span, linear independence, basis",
-              "Dimension and coordinates (conceptual)",
-              "Linear map definition; range/image and null space/kernel",
-              "Rank-nullity theorem",
-              "Isomorphisms and invariants under change of basis",
-              "Dual space V* (taste) and linear functionals"
-            ],
-            tags:["linalg"]
-          },
-          { title:"Matrices (as representations, not the concept)",
-            bullets:[
-              "Matrix of a linear map relative to bases",
-              "Change-of-basis matrices",
-              "Row reduction as solving linear systems (interpretation)",
-              "Determinant as scaling/orientation (taste, not computation-heavy)",
-              "Trace as invariant (sum of eigenvalues) (taste)"
-            ],
-            tags:["linalg"]
-          },
-          { title:"Eigenvalues and structure",
-            bullets:[
-              "Eigenvalues/eigenvectors definition",
-              "Invariant subspaces",
-              "Diagonalization (when possible)",
-              "Jordan form taste (existence only)",
-              "Minimal polynomial taste",
-              "Spectral theorem (real symmetric / complex normal) (core for QC intuition)"
-            ],
-            tags:["linalg","qc"]
-          },
-          { title:"Inner product spaces",
-            bullets:[
-              "Inner product axioms",
-              "Norm, distance, orthogonality",
-              "Orthonormal bases",
-              "Gram–Schmidt",
-              "Orthogonal projection and least squares",
-              "Unitary/orthogonal operators"
-            ],
-            tags:["linalg","qc"]
-          },
-          { title:"Linear operators (advanced taste)",
-            bullets:[
-              "Adjoint operator",
-              "Self-adjoint (Hermitian) operators",
-              "Normal operators",
-              "Spectral decomposition and measurement intuition",
-              "Singular value decomposition (SVD) (bridge to ML)"
-            ],
-            tags:["linalg","qc","ai"]
-          }
-        ]
-      },
-
-      {
-        id:"analysis",
-        title:"Calculus & Real Analysis (selective but real)",
-        laneTags:["analysis"],
-        chips:[["Continuity","pink"],["Why calculus is true","lav"],["Selective rigor","gold"]],
-        groups:[
-          { title:"Limits & continuity",
-            bullets:[
-              "Limit definition (ε–δ) (conceptual discipline)",
-              "Limit laws derived (not assumed)",
-              "Continuity definition and properties",
-              "Intermediate value theorem (IVT) idea",
-              "Compactness intuition (preview)"
-            ],
-            tags:["analysis"]
-          },
-          { title:"Differentiation",
-            bullets:[
-              "Derivative definition",
-              "Mean value theorem (MVT) idea",
-              "Taylor theorem taste (as local approximation)",
-              "Convexity and second derivative tests (idea)",
-              "Optimization as a rigorous consequence (bridge to AI)"
-            ],
-            tags:["analysis","ai"]
-          },
-          { title:"Integration",
-            bullets:[
-              "Riemann sums and construction of the integral",
-              "Fundamental theorem of calculus (FTC) why it’s true (idea + proof sketch)",
-              "Improper integrals (taste)",
-              "Change of variables (conceptual)"
-            ],
-            tags:["analysis","physics"]
-          },
-          { title:"Sequences & series",
-            bullets:[
-              "Convergence definitions",
-              "Cauchy sequences",
-              "Series tests taste (comparison, ratio, root)",
-              "Power series + radius of convergence (bridge to generating functions)",
-              "Uniform convergence taste (exists, don’t dive too far)"
-            ],
-            tags:["analysis","discrete"]
-          },
-          { title:"Metric spaces (selective analysis backbone)",
-            bullets:[
-              "Metric definition",
-              "Open/closed sets",
-              "Compactness (Heine–Borel taste)",
-              "Continuity in metric spaces",
-              "Completeness (Banach taste)",
-              "Contraction mapping theorem taste"
-            ],
-            tags:["analysis"]
-          },
-          { title:"Multivariable & vector calculus (optional lane)",
-            bullets:[
-              "Partial derivatives and gradients",
-              "Jacobian as linear approximation",
-              "Chain rule in multiple dimensions",
-              "Line integrals and conservative fields taste",
-              "Divergence and curl (physical meaning taste)",
-              "Green/Stokes/Gauss theorems (existence-only taste)"
-            ],
-            tags:["analysis","physics","ai"]
-          }
-        ]
-      },
-
-      {
-        id:"prob",
-        title:"Probability & Stochastic Structures",
-        laneTags:["prob"],
-        chips:[["Uncertainty","pink"],["Markov love","lav"],["AI/QC bridge","gold"]],
-        groups:[
-          { title:"Foundations",
-            bullets:[
-              "Probability space (Ω, F, P) (axioms)",
-              "Events and sigma-algebra taste (don’t panic)",
-              "Conditional probability; law of total probability",
-              "Bayes’ theorem (as inversion)",
-              "Independence (pairwise vs mutual taste)",
-              "Counting-based probability and symmetry arguments"
-            ],
-            tags:["prob"]
-          },
-          { title:"Random variables",
-            bullets:[
-              "Discrete RVs: PMF, CDF",
-              "Expectation and linearity",
-              "Variance, covariance",
-              "MGF/PGF taste (moment generating / probability generating)",
-              "Common distributions: Bernoulli, Binomial, Geometric, Poisson"
-            ],
-            tags:["prob"]
-          },
-          { title:"Limit theorems (taste)",
-            bullets:[
-              "Law of large numbers (intuition)",
-              "Central limit theorem (intuition)",
-              "Concentration inequalities taste: Markov, Chebyshev, Chernoff"
-            ],
-            tags:["prob","ai"]
-          },
-          { title:"Markov chains",
-            bullets:[
-              "Transition matrix and state graph",
-              "Irreducible, aperiodic, recurrent/transient taste",
-              "Stationary distribution",
-              "Detailed balance and reversibility taste",
-              "Mixing time taste",
-              "Absorbing chains and hitting times"
-            ],
-            tags:["prob","discrete"]
-          },
-          { title:"Stochastic processes (optional)",
-            bullets:[
-              "Random walks on graphs (bridge to spectral ideas)",
-              "Poisson process taste",
-              "Martingales taste (exists, don’t overcommit)"
-            ],
-            tags:["prob","discrete"]
-          }
-        ]
-      },
-
-      {
-        id:"qc",
-        title:"Quantum Computing & Quantum Information",
-        laneTags:["qc"],
-        chips:[["Quantum","pink"],["Linear algebra in motion","lav"],["Algorithms & info","gold"]],
-        groups:[
-          { title:"Postulates & formalism",
-            bullets:[
-              "State vectors in complex Hilbert space (finite-dimensional)",
-              "Global phase vs relative phase",
-              "Bra-ket notation: ⟨ψ| and |ψ⟩",
-              "Inner products and probability amplitudes",
-              "Unitary evolution and reversibility",
-              "Measurement postulate (projective) and Born rule",
-              "Composite systems and tensor products",
-              "Density matrices taste (mixed states) (optional)"
-            ],
-            tags:["qc","linalg"]
-          },
-          { title:"Single-qubit geometry",
-            bullets:[
-              "Computational basis |0⟩, |1⟩",
-              "Bloch sphere intuition",
-              "Pauli matrices X, Y, Z",
-              "Hadamard gate H and basis change",
-              "Rotations Rx, Ry, Rz taste",
-              "Measurement in different bases"
-            ],
-            tags:["qc"]
-          },
-          { title:"Multi-qubit phenomena",
-            bullets:[
-              "Tensor products explicitly (2-qubit basis states)",
-              "Entanglement vs separability",
-              "Bell states",
-              "CNOT gate and controlled operations",
-              "No-cloning theorem (conceptual proof)"
-            ],
-            tags:["qc"]
-          },
-          { title:"Circuits and universality",
-            bullets:[
-              "Circuit model as composing unitaries",
-              "Universal gate sets taste (Clifford+T mention)",
-              "Reversible classical computation vs quantum computation",
-              "Toffoli gate taste",
-              "Quantum teleportation (protocol + math)"
-            ],
-            tags:["qc"]
-          },
-          { title:"Quantum algorithms (core taste → demos)",
-            bullets:[
-              "Deutsch–Jozsa algorithm",
-              "Grover search (amplitude amplification)",
-              "Quantum Fourier transform (QFT) concept",
-              "Shor (high-level structure: period finding + QFT)",
-              "Phase estimation taste (exists)",
-              "BQP (complexity class intuition)"
-            ],
-            tags:["qc","toc"]
-          },
-          { title:"Quantum error & information (taste)",
-            bullets:[
-              "Noise models taste: bit flip, phase flip, depolarizing",
-              "Basic idea of error correction codes (Shor code taste)",
-              "Entropies (von Neumann entropy taste)",
-              "Quantum channels and CPTP maps taste",
-              "No-signaling intuition"
-            ],
-            tags:["qc"]
-          }
-        ]
-      },
-
-      {
-        id:"algos",
-        title:"Algorithms & Algorithmic Proofs (kept warm, math-first)",
-        laneTags:["algos"],
-        chips:[["Algorithms","pink"],["Proof of correctness","lav"],["Complexity mindset","gold"]],
-        groups:[
-          { title:"Proof patterns for algorithms",
-            bullets:[
-              "Loop invariants (design + proof)",
-              "Exchange arguments (greedy proofs)",
-              "Cut property proofs (MST)",
-              "Amortized analysis taste (potential method)",
-              "Adversary arguments taste"
-            ],
-            tags:["algos","discrete"]
-          },
-          { title:"Algorithmic paradigms",
-            bullets:[
-              "Divide and conquer (recurrence-driven reasoning)",
-              "Greedy algorithms (matroid taste)",
-              "Dynamic programming (optimal substructure + overlap)",
-              "Graph algorithms: BFS, DFS, shortest paths",
-              "Max flow as a unifying tool"
-            ],
-            tags:["algos","discrete"]
-          },
-          { title:"Complexity & reductions (bridge to TOC)",
-            bullets:[
-              "Big-O, Big-Ω, Big-Θ as statements",
-              "Polynomial-time reductions as translations",
-              "NP-completeness as a universal hardness certificate",
-              "Approximation algorithms taste (only if curious)",
-              "Randomized algorithms taste (only if curious)"
-            ],
-            tags:["algos","toc"]
-          }
-        ]
-      },
-
-      {
-        id:"ai",
-        title:"AI Theory (kept warm, not SWE-heavy)",
-        laneTags:["ai"],
-        chips:[["AI theory","pink"],["Math-driven","lav"],["Don’t overload","gold"]],
-        groups:[
-          { title:"Optimization foundations",
-            bullets:[
-              "Gradient descent as iterative method",
-              "Convexity intuition; why convex problems are nice",
-              "Lagrange multipliers taste",
-              "Regularization (L2/L1) intuition",
-              "Hessian taste (second-order methods exist)"
-            ],
-            tags:["ai","analysis","linalg"]
-          },
-          { title:"Statistical learning theory (taste)",
-            bullets:[
-              "Train/test split and generalization",
-              "Bias-variance intuition",
-              "Overfitting and capacity",
-              "VC dimension taste (exists)",
-              "PAC learning taste (exists)"
-            ],
-            tags:["ai","prob"]
-          },
-          { title:"Probabilistic models (bridge)",
-            bullets:[
-              "Bayesian inference (conceptual)",
-              "Naive Bayes (structure)",
-              "Hidden Markov models taste",
-              "Graphical models taste"
-            ],
-            tags:["ai","prob"]
-          },
-          { title:"Reinforcement learning (taste)",
-            bullets:[
-              "Markov decision processes (MDPs)",
-              "Value functions and Bellman equations",
-              "Policy iteration vs value iteration taste",
-              "Exploration/exploitation taste"
-            ],
-            tags:["ai","prob","discrete"]
-          }
-        ]
-      },
-
-      {
-        id:"crypto",
-        title:"Cryptography & Security (math-friendly lane)",
-        laneTags:["crypto"],
-        chips:[["Security","pink"],["Hardness intuition","lav"],["Number theory taste","gold"]],
-        groups:[
-          { title:"Core crypto primitives (conceptual)",
-            bullets:[
-              "Symmetric encryption vs public-key encryption",
-              "One-way functions (why ‘easy forward, hard backward’ matters)",
-              "Hash functions: preimage vs collision resistance",
-              "Digital signatures (idea)",
-              "Key exchange (Diffie–Hellman concept)"
-            ],
-            tags:["crypto","toc"]
-          },
-          { title:"Number theory & algebra taste (useful)",
-            bullets:[
-              "Modular arithmetic, congruences",
-              "Groups modulo p (multiplicative group) taste",
-              "Euler’s theorem and Fermat’s little theorem taste",
-              "RSA high-level (trapdoor functions)",
-              "Elliptic curves taste (existence)"
-            ],
-            tags:["crypto","discrete"]
-          },
-          { title:"Security thinking (not tooling-heavy)",
-            bullets:[
-              "Threat models (define the adversary)",
-              "Reductions in security proofs (security as ‘if you break this, you solve that’)",
-              "Kerckhoffs’s principle",
-              "Attack surfaces and invariants of secure design"
-            ],
-            tags:["crypto","foundations"]
-          }
-        ]
-      },
-
-      {
-        id:"physics",
-        title:"Physics (optional, quantum-friendly intuition)",
-        laneTags:["physics"],
-        chips:[["Optional","pink"],["Intuition booster","lav"],["Math resonance","gold"]],
-        groups:[
-          { title:"Linear systems & oscillations (LA resonance)",
-            bullets:[
-              "Simple harmonic oscillator (concept)",
-              "Coupled oscillators (eigenmodes intuition)",
-              "Complex exponentials as oscillations (bridge to QC phase)"
-            ],
-            tags:["physics","linalg"]
-          },
-          { title:"Waves & interference (QC intuition)",
-            bullets:[
-              "Superposition principle",
-              "Interference patterns as phase effects",
-              "Fourier intuition (connects to QFT conceptually)"
-            ],
-            tags:["physics","qc"]
-          },
-          { title:"Classical mechanics taste",
-            bullets:[
-              "Newton vs Lagrangian formulation (principle of least action taste)",
-              "Conservation laws as invariants (energy, momentum)",
-              "Symmetry → conservation (Noether taste)"
-            ],
-            tags:["physics","foundations"]
-          },
-          { title:"Electromagnetism vector calculus taste (optional)",
-            bullets:[
-              "Divergence and curl meaning",
-              "Maxwell equations (existence-only taste)",
-              "Energy flow (Poynting vector) taste"
-            ],
-            tags:["physics","analysis"]
-          }
-        ]
-      }
-    ];
-
-    // ===========================
-    // RENDERING
-    // ===========================
-    const atlasPanel = document.getElementById("atlasPanel");
-    const quickLinks = document.getElementById("quickLinks");
-    const visibleCount = document.getElementById("visibleCount");
-    const totalCount = document.getElementById("totalCount");
-
-    const filterState = new Set(); // active lane filters
-    let query = "";
-
-    function escapeHtml(s){
-      return s.replace(/[&<>"']/g, (c)=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;" }[c]));
+  function sectionMatches(sec){
+    if(filterState.size){if(!sec.laneTags.some(t=>filterState.has(t)))return false;}
+    if(!query)return true;
+    const q=query.toLowerCase();
+    if(sec.title.toLowerCase().includes(q))return true;
+    for(const g of sec.groups){
+      if(g.title.toLowerCase().includes(q))return true;
+      for(const b of g.bullets){if(b.toLowerCase().includes(q))return true;}
     }
+    return false;
+  }
 
-    function highlight(text, q){
-      if(!q) return escapeHtml(text);
-      const re = new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`, "ig");
-      return escapeHtml(text).replace(re, "<mark>$1</mark>");
-    }
+  function render(){
+    quickLinks.innerHTML=SECTIONS.map(s=>`<button class="link-btn" data-jump="${s.id}">${esc(s.title)}<span>${s.laneTags.map(t=>t.toUpperCase()).join(" · ")}</span></button>`).join("");
 
-    function sectionMatches(sec){
-      // Lane filter
-      if(filterState.size){
-        const ok = sec.laneTags.some(t => filterState.has(t));
-        if(!ok) return false;
-      }
-      // Query match
-      if(!query) return true;
-      const q = query.toLowerCase();
-      if(sec.title.toLowerCase().includes(q)) return true;
+    let total=0,visible=0;
+    const html=SECTIONS.map((sec,idx)=>{
+      for(const g of sec.groups)total+=g.bullets.length;
+      if(!sectionMatches(sec))return"";
+      let groupHtml="";
       for(const g of sec.groups){
-        if(g.title.toLowerCase().includes(q)) return true;
-        for(const b of g.bullets){
-          if(b.toLowerCase().includes(q)) return true;
-        }
+        const bullets=g.bullets.filter(b=>{if(!query)return true;const q=query.toLowerCase();return g.title.toLowerCase().includes(q)||b.toLowerCase().includes(q)||sec.title.toLowerCase().includes(q);});
+        if(!bullets.length)continue;
+        visible+=bullets.length;
+        const pillHtml=(g.tags||[]).map(t=>`<span class="pill">${esc(t)}</span>`).join("");
+        groupHtml+=`<div class="topic-group"><h3>${esc(g.title)} ${pillHtml}</h3><ol class="topic-list">${bullets.map(b=>`<li>${hi(b,query)}</li>`).join("")}</ol></div>`;
       }
-      return false;
-    }
+      if(!groupHtml)return"";
+      const chipHtml=sec.chips.map(([label,color])=>`<span class="sec-tag ${color}">${esc(label)}</span>`).join("");
+      return`<details id="sec-${sec.id}" ${idx<2?"open":""} data-section="${sec.id}"><summary><span>${esc(sec.title)}</span><span style="display:flex;align-items:center;gap:10px;"><span style="font-family:'JetBrains Mono',monospace;font-size:.68rem;padding:3px 9px;border-radius:20px;border:1px solid var(--border);background:var(--parchment-warm);color:var(--ink-muted);">${sec.laneTags.map(t=>t.toUpperCase()).join(" · ")}</span><span class="caret" aria-hidden="true"></span></span></summary><div class="sec-meta">${chipHtml}</div><div class="topics-body">${groupHtml}</div></details>`;
+    }).join("");
 
-    function render(){
-      // build quicklinks once
-      quickLinks.innerHTML = SECTIONS.map(sec => `
-        <button class="linkBtn" data-jump="${sec.id}">
-          ${sec.title}
-          <span>${sec.laneTags.map(t=>t.toUpperCase()).join(" · ")}</span>
-        </button>
-      `).join("");
+    atlasPanel.innerHTML=html||`<div class="no-results">No matches found — clear filters or try a different search.</div>`;
+    document.getElementById("totalCount").textContent=String(total);
+    document.getElementById("visibleCount").textContent=String(visible);
 
-      // compute counts
-      let total = 0;
-      let visible = 0;
-
-      // render atlas
-      const html = SECTIONS.map((sec, idx) => {
-        // count total bullets
-        for(const g of sec.groups) total += g.bullets.length;
-
-        if(!sectionMatches(sec)) return "";
-
-        // render groups with possible query filter per bullet
-        let groupHtml = "";
-        for(const g of sec.groups){
-          // bullet-level filtering
-          const bullets = g.bullets.filter(b=>{
-            if(!query) return true;
-            const q = query.toLowerCase();
-            return g.title.toLowerCase().includes(q) || b.toLowerCase().includes(q) || sec.title.toLowerCase().includes(q);
-          });
-          if(!bullets.length) continue;
-
-          visible += bullets.length;
-
-          groupHtml += `
-            <div class="topicGroup">
-              <h3>
-                ${escapeHtml(g.title)}
-                ${g.tags ? g.tags.map(t=>`<span class="pill">${t}</span>`).join("") : ""}
-              </h3>
-              <ol class="list">
-                ${bullets.map(b=>`<li>${highlight(b, query)}</li>`).join("")}
-              </ol>
-            </div>
-          `;
-        }
-        if(!groupHtml) return "";
-
-        const chipHtml = sec.chips.map(([label, color])=>`<span class="tag ${color}">${escapeHtml(label)}</span>`).join("");
-        const openByDefault = idx < 2; // first two open by default
-        return `
-          <details id="sec-${sec.id}" ${openByDefault ? "open" : ""} data-section="${sec.id}" data-lanes="${sec.laneTags.join(",")}">
-            <summary>
-              <span>${escapeHtml(sec.title)}</span>
-              <span style="display:flex;align-items:center;gap:10px">
-                <span class="pill">${sec.laneTags.map(t=>t.toUpperCase()).join(" · ")}</span>
-                <span class="caret" aria-hidden="true"></span>
-              </span>
-            </summary>
-            <div class="secMeta">${chipHtml}</div>
-            <div class="topics">
-              ${groupHtml}
-            </div>
-          </details>
-        `;
-      }).join("");
-
-      atlasPanel.innerHTML = html || `
-        <div style="padding:18px">
-          <div class="card" style="background:#fff;border-radius:18px">
-            <h2>No matches <span class="pill">try different filters</span></h2>
-            <p class="muted" style="margin:0">
-              Your search/filters are too strict. Clear filters or shorten the search query.
-            </p>
-          </div>
-        </div>
-      `;
-
-      totalCount.textContent = String(total);
-      visibleCount.textContent = String(visible);
-
-      // bind quicklinks jump
-      document.querySelectorAll(".linkBtn").forEach(btn=>{
-        btn.onclick = ()=>{
-          const id = btn.getAttribute("data-jump");
-          const el = document.getElementById(`sec-${id}`);
-          if(el){ el.open = true; el.scrollIntoView({behavior:"smooth", block:"start"}); }
-        };
-      });
-    }
-
-    // ===========================
-    // FILTER UI
-    // ===========================
-    const chips = document.querySelectorAll(".chip[data-filter]");
-    function toggleChip(el){
-      const key = el.getAttribute("data-filter");
-      const pressed = el.getAttribute("aria-pressed") === "true";
-      el.setAttribute("aria-pressed", pressed ? "false" : "true");
-      if(pressed) filterState.delete(key);
-      else filterState.add(key);
-      render();
-      syncUrl();
-    }
-    chips.forEach(ch=>{
-      ch.addEventListener("click", ()=>toggleChip(ch));
-      ch.addEventListener("keydown", (e)=>{
-        if(e.key==="Enter" || e.key===" "){ e.preventDefault(); toggleChip(ch); }
-      });
+    document.querySelectorAll(".link-btn").forEach(btn=>{
+      btn.onclick=()=>{const id=btn.getAttribute("data-jump");const el=document.getElementById(`sec-${id}`);if(el){el.open=true;el.scrollIntoView({behavior:"smooth",block:"start"});}};
     });
+  }
 
-    // ===========================
-    // SEARCH
-    // ===========================
-    const qInput = document.getElementById("q");
-    qInput.addEventListener("input", ()=>{
-      query = qInput.value.trim();
-      render();
-      syncUrl();
-    });
+  document.querySelectorAll(".chip[data-filter]").forEach(ch=>{
+    const toggle=()=>{const key=ch.getAttribute("data-filter");const pressed=ch.getAttribute("aria-pressed")==="true";ch.setAttribute("aria-pressed",pressed?"false":"true");if(pressed)filterState.delete(key);else filterState.add(key);render();syncUrl();};
+    ch.addEventListener("click",toggle);ch.addEventListener("keydown",(e)=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();toggle();}});
+  });
 
-    window.addEventListener("keydown", (e)=>{
-      if(e.key==="/"){
-        // focus search
-        if(document.activeElement !== qInput){
-          e.preventDefault();
-          qInput.focus();
-        }
-      }
-      if(e.key==="Escape"){
-        if(document.activeElement === qInput || qInput.value){
-          qInput.value = "";
-          query = "";
-          render();
-          syncUrl();
-        }
-      }
-    });
+  const qInput=document.getElementById("q");
+  qInput.addEventListener("input",()=>{query=qInput.value.trim();render();syncUrl();});
+  window.addEventListener("keydown",(e)=>{
+    if(e.key==="/"&&document.activeElement!==qInput){e.preventDefault();qInput.focus();}
+    if(e.key==="Escape"&&(document.activeElement===qInput||qInput.value)){qInput.value="";query="";render();syncUrl();}
+  });
 
-    // ===========================
-    // EXPAND/COLLAPSE
-    // ===========================
-    document.getElementById("expandAll").onclick = ()=>{
-      document.querySelectorAll("#atlasPanel details").forEach(d=>d.open=true);
-    };
-    document.getElementById("collapseAll").onclick = ()=>{
-      document.querySelectorAll("#atlasPanel details").forEach(d=>d.open=false);
-    };
-    document.getElementById("clearAll").onclick = ()=>{
-      filterState.clear();
-      query = "";
-      qInput.value = "";
-      document.querySelectorAll(".chip[data-filter]").forEach(c=>c.setAttribute("aria-pressed","false"));
-      render();
-      syncUrl();
-    };
-    document.getElementById("printBtn").onclick = ()=>window.print();
+  document.getElementById("expandAll").onclick=()=>document.querySelectorAll("#atlasPanel details").forEach(d=>d.open=true);
+  document.getElementById("collapseAll").onclick=()=>document.querySelectorAll("#atlasPanel details").forEach(d=>d.open=false);
+  document.getElementById("clearAll").onclick=()=>{filterState.clear();query="";qInput.value="";document.querySelectorAll(".chip[data-filter]").forEach(c=>c.setAttribute("aria-pressed","false"));render();syncUrl();};
+  document.getElementById("printBtn").onclick=()=>window.print();
 
-    // ===========================
-    // SHARE LINK
-    // ===========================
-    function syncUrl(){
-      const params = new URLSearchParams();
-      if(query) params.set("q", query);
-      if(filterState.size) params.set("f", Array.from(filterState).join(","));
-      const newUrl = `${location.pathname}?${params.toString()}`;
-      history.replaceState(null, "", newUrl);
-    }
-    function loadUrl(){
-      const params = new URLSearchParams(location.search);
-      const q = params.get("q");
-      const f = params.get("f");
-      if(q){ query = q; qInput.value = q; }
-      if(f){
-        f.split(",").map(s=>s.trim()).filter(Boolean).forEach(x=>filterState.add(x));
-        document.querySelectorAll(".chip[data-filter]").forEach(c=>{
-          const key = c.getAttribute("data-filter");
-          c.setAttribute("aria-pressed", filterState.has(key) ? "true" : "false");
-        });
-      }
-    }
-    document.getElementById("copyLink").onclick = async ()=>{
-      try{
-        const url = location.href;
-        await navigator.clipboard.writeText(url);
-        const btn = document.getElementById("copyLink");
-        const old = btn.textContent;
-        btn.textContent = "Copied ✨";
-        setTimeout(()=>btn.textContent = old, 900);
-      }catch{
-        alert("Could not copy automatically. You can manually copy the URL from the address bar.");
-      }
-    };
+  function syncUrl(){const p=new URLSearchParams();if(query)p.set("q",query);if(filterState.size)p.set("f",Array.from(filterState).join(","));history.replaceState(null,"",`${location.pathname}?${p.toString()}`);}
+  function loadUrl(){const p=new URLSearchParams(location.search);const q=p.get("q");const f=p.get("f");if(q){query=q;qInput.value=q;}if(f){f.split(",").map(s=>s.trim()).filter(Boolean).forEach(x=>filterState.add(x));document.querySelectorAll(".chip[data-filter]").forEach(c=>{c.setAttribute("aria-pressed",filterState.has(c.getAttribute("data-filter"))?"true":"false");});}}
 
-    // Boot
-    loadUrl();
-    render();
-  </script>
+  document.getElementById("copyLink").onclick=async()=>{try{await navigator.clipboard.writeText(location.href);const b=document.getElementById("copyLink");const o=b.textContent;b.textContent="Copied ✓";setTimeout(()=>b.textContent=o,900);}catch{alert("Copy the URL manually from the address bar.");}};
+
+  loadUrl();render();
+</script>
 </body>
 </html>

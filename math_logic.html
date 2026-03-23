@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Schola Arcana — Mathematical Logic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=JetBrains+Mono:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1814;
+    --ink-soft: #3d3a34;
+    --ink-muted: #7a7670;
+    --ink-faint: #b8b4ad;
+    --parchment: #faf8f3;
+    --parchment-warm: #f2ede4;
+    --parchment-deep: #e8e1d5;
+    --pink: #e8546a;
+    --pink-soft: #f0b8c2;
+    --pink-faint: #faedf0;
+    --gold: #c9923a;
+    --gold-faint: #fdf3e7;
+    --purple: #6b4fa0;
+    --purple-faint: #f0ecf8;
+    --teal: #2a8a7f;
+    --teal-faint: #eaf5f4;
+    --border: #ddd8ce;
+  }
+
+  html { font-size: 16px; scroll-behavior: smooth; }
+
+  body {
+    background: var(--parchment);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* nav */
+  nav {
+    padding: 18px 48px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--parchment);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .nav-brand {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.1rem;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+  }
+
+  .nav-brand span { color: var(--pink); }
+
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.78rem;
+    color: var(--ink-muted);
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--pink); }
+
+  /* hero */
+  .hero {
+    padding: 72px 48px 48px;
+    max-width: 860px;
+    margin: 0 auto;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .breadcrumb {
+    font-size: 0.75rem;
+    color: var(--ink-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .breadcrumb a { color: var(--ink-muted); text-decoration: none; }
+  .breadcrumb a:hover { color: var(--pink); }
+  .breadcrumb span { color: var(--ink-faint); }
+
+  .hero h1 {
+    font-family: 'EB Garamond', serif;
+    font-size: 3.2rem;
+    font-weight: 400;
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--pink);
+  }
+
+  .hero-sub {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.2rem;
+    font-style: italic;
+    color: var(--ink-muted);
+    margin-bottom: 28px;
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+
+  .tag {
+    font-size: 0.72rem;
+    padding: 4px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .tag-pink { background: var(--pink-faint); color: var(--pink); border: 1px solid var(--pink-soft); }
+  .tag-gold { background: var(--gold-faint); color: var(--gold); border: 1px solid #e8c88a; }
+  .tag-purple { background: var(--purple-faint); color: var(--purple); border: 1px solid #c4b3e0; }
+  .tag-teal { background: var(--teal-faint); color: var(--teal); border: 1px solid #9fd4cf; }
+
+  .hero-manifesto {
+    background: var(--parchment-warm);
+    border-left: 3px solid var(--pink);
+    padding: 20px 24px;
+    border-radius: 0 8px 8px 0;
+    font-family: 'EB Garamond', serif;
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--ink-soft);
+    line-height: 1.7;
+  }
+
+  /* layout */
+  .main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 48px 80px;
+  }
+
+  /* section headers */
+  .section {
+    padding-top: 56px;
+  }
+
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  .section h2 {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+  }
+
+  .section-rule {
+    width: 40px;
+    height: 2px;
+    background: var(--pink);
+    margin-bottom: 28px;
+    margin-top: 12px;
+  }
+
+  .section p {
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+    margin-bottom: 24px;
+    line-height: 1.75;
+  }
+
+  /* phase cards */
+  .phase-card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    background: #fff;
+  }
+
+  .phase-header {
+    padding: 20px 24px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .phase-header:hover { background: var(--parchment-warm); }
+
+  .phase-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.1em;
+    margin-bottom: 4px;
+  }
+
+  .phase-title {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+
+  .phase-subtitle {
+    font-size: 0.82rem;
+    color: var(--ink-muted);
+  }
+
+  .phase-badge {
+    font-size: 0.7rem;
+    padding: 4px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .phase-body {
+    border-top: 1px solid var(--border);
+    padding: 24px;
+    display: none;
+  }
+
+  .phase-body.open { display: block; }
+
+  /* book cards */
+  .book-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+
+  .book-card {
+    padding: 16px 18px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--parchment);
+  }
+
+  .book-label {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+
+  .book-title {
+    font-family: 'EB Garamond', serif;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 6px;
+    font-style: italic;
+  }
+
+  .book-desc {
+    font-size: 0.82rem;
+    color: var(--ink-muted);
+    line-height: 1.6;
+  }
+
+  .book-scope {
+    margin-top: 10px;
+    font-size: 0.75rem;
+    padding: 3px 10px;
+    border-radius: 20px;
+    display: inline-block;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+  }
+
+  /* topics list */
+  .topics-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .topic-item {
+    display: grid;
+    grid-template-columns: 24px 1fr auto;
+    align-items: start;
+    gap: 12px;
+    padding: 14px 16px;
+    border-radius: 8px;
+    background: var(--parchment);
+    border: 1px solid var(--border);
+  }
+
+  .topic-check {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border);
+    margin-top: 2px;
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: #fff;
+  }
+
+  .topic-check.done {
+    background: var(--pink);
+    border-color: var(--pink);
+    position: relative;
+  }
+
+  .topic-check.done::after {
+    content: '';
+    position: absolute;
+    top: 3px; left: 5px;
+    width: 6px; height: 4px;
+    border-left: 1.5px solid white;
+    border-bottom: 1.5px solid white;
+    transform: rotate(-45deg);
+  }
+
+  .topic-name {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+
+  .topic-name strong {
+    font-weight: 500;
+    color: var(--ink);
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .topic-tag {
+    font-size: 0.68rem;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    margin-top: 2px;
+  }
+
+  /* milestone box */
+  .milestone {
+    padding: 16px 20px;
+    border-radius: 8px;
+    border-left: 3px solid;
+    font-size: 0.87rem;
+    color: var(--ink-soft);
+    line-height: 1.65;
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 1rem;
+  }
+
+  /* proof vault */
+  .vault-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 10px;
+    background: #fff;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+
+  .vault-item:hover { border-color: var(--pink-soft); }
+
+  .vault-icon {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--pink);
+    background: var(--pink-faint);
+    padding: 6px 10px;
+    border-radius: 6px;
+    flex-shrink: 0;
+    letter-spacing: 0.05em;
+  }
+
+  .vault-name {
+    font-size: 0.9rem;
+    color: var(--ink);
+    font-weight: 400;
+  }
+
+  .vault-desc {
+    font-size: 0.78rem;
+    color: var(--ink-muted);
+    margin-top: 2px;
+  }
+
+  .vault-status {
+    margin-left: auto;
+    font-size: 0.7rem;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    flex-shrink: 0;
+  }
+
+  /* weekly rule */
+  .weekly-rule {
+    background: var(--parchment-warm);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 20px;
+  }
+
+  .weekly-rule h3 {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 14px;
+  }
+
+  .rule-row {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.87rem;
+  }
+
+  .rule-row:last-child { border-bottom: none; }
+
+  .rule-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--pink);
+    min-width: 90px;
+    letter-spacing: 0.04em;
+  }
+
+  .rule-val { color: var(--ink-soft); }
+
+  /* sacred rule */
+  .sacred {
+    text-align: center;
+    padding: 32px 24px;
+    border: 1px dashed var(--border);
+    border-radius: 12px;
+    margin: 32px 0;
+    background: var(--parchment-warm);
+  }
+
+  .sacred-label {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-faint);
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+
+  .sacred-text {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.4rem;
+    font-style: italic;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+
+  .sacred-text strong { color: var(--pink); font-style: normal; }
+
+  /* progress bar */
+  .progress-section {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 20px;
+  }
+
+  .progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+
+  .progress-title {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.05rem;
+    color: var(--ink);
+  }
+
+  .progress-pct {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--pink);
+  }
+
+  .progress-track {
+    height: 4px;
+    background: var(--parchment-deep);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--pink);
+    border-radius: 2px;
+    transition: width 0.6s ease;
+  }
+
+  .progress-phases {
+    display: flex;
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .progress-phase {
+    flex: 1;
+    font-size: 0.72rem;
+    color: var(--ink-muted);
+    text-align: center;
+    padding: 6px 4px;
+    border-radius: 6px;
+    background: var(--parchment);
+    border: 1px solid var(--border);
+    letter-spacing: 0.03em;
+  }
+
+  .progress-phase.active {
+    background: var(--pink-faint);
+    border-color: var(--pink-soft);
+    color: var(--pink);
+    font-weight: 500;
+  }
+
+  /* toggle chevron */
+  .chevron {
+    color: var(--ink-faint);
+    font-size: 0.8rem;
+    transition: transform 0.2s;
+    margin-top: 4px;
+    flex-shrink: 0;
+  }
+
+  .phase-card.open .chevron { transform: rotate(180deg); }
+
+  /* footnote */
+  .footnote {
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    font-style: italic;
+    font-family: 'EB Garamond', serif;
+    text-align: center;
+    padding: 32px 0 0;
+    border-top: 1px solid var(--border);
+    margin-top: 48px;
+  }
+
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82em;
+    background: var(--parchment-deep);
+    padding: 1px 6px;
+    border-radius: 4px;
+    color: var(--ink-soft);
+  }
+
+  @media (max-width: 640px) {
+    nav { padding: 16px 20px; }
+    .hero { padding: 48px 20px 32px; }
+    .hero h1 { font-size: 2.2rem; }
+    .main { padding: 0 20px 60px; }
+    .book-grid { grid-template-columns: 1fr; }
+    .progress-phases { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">Schola <span>Arcana</span></a>
+  <ul class="nav-links">
+    <li><a href="topics.html">Atlas</a></li>
+    <li><a href="vault.html">Proof Vault</a></li>
+    <li><a href="jorunal.html">Journal</a></li>
+    <li><a href="dossier.html">Dossier</a></li>
+    <li><a href="log.html">Log</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <div class="breadcrumb">
+    <a href="index.html">Schola Arcana</a>
+    <span>›</span>
+    <span>Mathematical Logic</span>
+  </div>
+
+  <h1>Mathematical <em>Logic</em></h1>
+  <div class="hero-sub">from first-order sentences to the completeness theorem — and beyond</div>
+
+  <div class="hero-meta">
+    <span class="tag tag-pink">10 months</span>
+    <span class="tag tag-purple">ILLC prerequisite</span>
+    <span class="tag tag-gold">Oxford MFoCS</span>
+    <span class="tag tag-teal">3 phases</span>
+  </div>
+
+  <div class="hero-manifesto">
+    This is the one gap that stands between you and the programs you want. Not a wide gap — but a precise one. The completeness theorem is what separates a student who has studied logic from one who has understood it. Enderton. Oliart. Every exercise. No shortcuts. The cathedral is built proof by proof.
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- Progress -->
+  <div class="section">
+    <div class="section-label">your position</div>
+    <h2>Where you stand</h2>
+    <div class="section-rule"></div>
+
+    <div class="progress-section">
+      <div class="progress-header">
+        <div class="progress-title">Mathematical Logic — overall progress</div>
+        <div class="progress-pct" id="pct-display">0%</div>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+      </div>
+      <div class="progress-phases">
+        <div class="progress-phase active">Phase 1<br>Completeness</div>
+        <div class="progress-phase">Phase 2<br>Consequences</div>
+        <div class="progress-phase">Phase 3<br>Incompleteness</div>
+      </div>
+    </div>
+
+    <p>You have first-order logic. Syntax, semantics, structures, truth. That is the foundation — you are already standing at the right door. What lies ahead is the proof that formal provability and semantic truth coincide. That is the completeness theorem, and it is beautiful.</p>
+  </div>
+
+  <!-- Sacred rule -->
+  <div class="sacred">
+    <div class="sacred-label">weekly output rule (sacred)</div>
+    <div class="sacred-text">one proof written in full · every week · no exceptions<br><strong>Enderton exercise → LaTeX → Proof Vault</strong></div>
+  </div>
+
+  <!-- Phase 1 -->
+  <div class="section">
+    <div class="section-label">phase 1 · months 1–2</div>
+    <h2>The completeness theorem</h2>
+    <div class="section-rule"></div>
+    <p>This is the target. Every valid first-order sentence — true in every model — is formally provable. The proof constructs a canonical model from a maximal consistent set of sentences. This is the Henkin construction, and it is the specific argument the ILLC admissions board will expect you to know.</p>
+
+    <div class="phase-card" id="phase1">
+      <div class="phase-header" onclick="togglePhase('phase1')">
+        <div>
+          <div class="phase-num">PHASE 01</div>
+          <div class="phase-title">Enderton — A Mathematical Introduction to Logic</div>
+          <div class="phase-subtitle">Chapter 2 is your entire world for two months</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:10px;">
+          <span class="phase-badge tag-pink">primary text</span>
+          <span class="chevron">▼</span>
+        </div>
+      </div>
+      <div class="phase-body open" id="phase1-body">
+        <div class="book-grid">
+          <div class="book-card">
+            <div class="book-label">§2.1 — 2.3</div>
+            <div class="book-title">First-order languages</div>
+            <div class="book-desc">Variables, constants, function symbols, predicate symbols, terms, atomic formulas, well-formed formulas. The grammar of formal thought.</div>
+            <span class="book-scope tag-pink" style="background:var(--pink-faint);color:var(--pink);">week 1–2</span>
+          </div>
+          <div class="book-card">
+            <div class="book-label">§2.4 — 2.5</div>
+            <div class="book-title">Structures and truth</div>
+            <div class="book-desc">What it means for a sentence to be true in a structure. Satisfaction, models, validity. The semantic side of the theorem.</div>
+            <span class="book-scope tag-pink" style="background:var(--pink-faint);color:var(--pink);">week 3–4</span>
+          </div>
+          <div class="book-card">
+            <div class="book-label">§2.6</div>
+            <div class="book-title">Formal proofs and soundness</div>
+            <div class="book-desc">Axioms, rules of inference, formal derivations. Soundness: everything provable is valid. The easy direction — but you must know it precisely.</div>
+            <span class="book-scope tag-gold" style="background:var(--gold-faint);color:var(--gold);">week 5</span>
+          </div>
+          <div class="book-card">
+            <div class="book-label">§2.7</div>
+            <div class="book-title">The completeness theorem</div>
+            <div class="book-desc">The Henkin construction. Build a maximal consistent set. Construct the term model. Every valid sentence is provable. This is the crown of Phase 1.</div>
+            <span class="book-scope tag-purple" style="background:var(--purple-faint);color:var(--purple);">week 6–8</span>
+          </div>
+        </div>
+
+        <div class="weekly-rule">
+          <h3>How to work through Enderton</h3>
+          <div class="rule-row">
+            <span class="rule-label">each session</span>
+            <span class="rule-val">read the section once, then immediately do every exercise before moving on</span>
+          </div>
+          <div class="rule-row">
+            <span class="rule-label">oliart</span>
+            <span class="rule-val">bring your written proofs every week — especially §2.7. work through the Henkin construction with him specifically</span>
+          </div>
+          <div class="rule-row">
+            <span class="rule-label">proof vault</span>
+            <span class="rule-val">every exercise you complete goes into the vault as a LaTeX file — timestamped, public</span>
+          </div>
+          <div class="rule-row">
+            <span class="rule-label">stuck?</span>
+            <span class="rule-val">reread the definitions from the beginning of the relevant section. in logic, confusion is almost always a sign that a definition wasn't absorbed fully</span>
+          </div>
+        </div>
+
+        <div class="milestone" style="border-color:var(--pink);background:var(--pink-faint);">
+          End of month 2: you can state and prove the completeness theorem from memory, reconstruct the Henkin construction, and explain why compactness follows immediately. Oliart can confirm this in his letter. The ILLC requirement is closed.
+        </div>
+      </div>
+    </div>
+
+    <!-- Topics checklist phase 1 -->
+    <ul class="topics-list">
+      <li class="topic-item">
+        <div class="topic-check" onclick="toggleCheck(this)"></div>
+        <div class="topic-name">
+          <strong>First-order syntax</strong>
+          Terms, formulas, sentences, free and bound variables
+        </div>
+        <span class="topic-tag tag-pink">§2.1–2.2</span>
+      </li>
+      <li class="topic-item">
+        <div class="topic-check" onclick="toggleCheck(this)"></div>
+        <div class="topic-name">
+          <strong>Structures and satisfaction</strong>
+          What it means for M ⊨ φ. The semantic definition of truth.
+        </div>
+        <span class="topic-tag tag-pink">§2.4</span>
+      </li>
+      <li class="topic-item">
+        <div class="topic-check" onclick="toggleCheck(this)"></div>
+        <div class="topic-name">
+          <strong>Validity and logical consequence</strong>
+          ⊨ φ, Γ ⊨ φ. Universal truth vs contextual truth.
+        </div>
+        <span class="topic-tag tag-pink">§2.5</span>
+      </li>
+      <li class="topic-item">
+        <div class="topic-check" onclick="toggleCheck(this)"></div>
+        <div class="topic-name">
+          <strong>Formal proof systems</strong>
+          Hilbert-style axioms, modus ponens, derivations, ⊢ φ
+        </div>
+        <span class="topic-tag tag-gold">§2.6</span>
+      </li>
+      <li class="topic-item">
+        <div class="topic-check" onclick="toggleCheck(this)"></div>
+        <div class="topic-name">
+          <strong>Soundness theorem</strong>
+          If Γ ⊢ φ then Γ ⊨ φ. Proof by induction on derivation length.
+        </div>
+        <span class="topic-tag tag-gold">§2.6</span>
+      </li>
+      <li class="topic-item">
+        <div class="topic-check" onclick="toggleCheck(this)"></div>
+        <div class="topic-name">
+          <strong>Consistency and maximal consistent sets</strong>
+          Lindenbaum's lemma — every consistent set extends to a maximal one.
+        </div>
+        <span class="topic-tag tag-purple">§2.7</span>
+      </li>
+      <li class="topic-item">
+        <div class="topic-check" onclick="toggleCheck(this)"></div>
+        <div class="topic-name">
+          <strong>Henkin constants and witnesses</strong>
+          Adding witnesses for existential sentences. The Henkin extension.
+        </div>
+        <span class="topic-tag tag-purple">§2.7</span>
+      </li>
+      <li class="topic-item">
+        <div class="topic-check" onclick="toggleCheck(this)"></div>
+        <div class="topic-name">
+          <strong>The completeness theorem</strong>
+          If Γ ⊨ φ then Γ ⊢ φ. Every valid sentence is provable. The full proof.
+        </div>
+        <span class="topic-tag tag-purple">§2.7 ★</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Phase 2 -->
+  <div class="section">
+    <div class="section-label">phase 2 · month 3</div>
+    <h2>Consequences of completeness</h2>
+    <div class="section-rule"></div>
+    <p>Completeness is not the end — it is the beginning. From it, two of the most powerful theorems in all of logic fall out almost immediately. These are theorems every ILLC student is expected to know cold.</p>
+
+    <div class="phase-card" id="phase2">
+      <div class="phase-header" onclick="togglePhase('phase2')">
+        <div>
+          <div class="phase-num">PHASE 02</div>
+          <div class="phase-title">Compactness + Löwenheim-Skolem</div>
+          <div class="phase-subtitle">The two great consequences · still Enderton Ch. 2–3</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:10px;">
+          <span class="phase-badge tag-teal">consequences</span>
+          <span class="chevron">▼</span>
+        </div>
+      </div>
+      <div class="phase-body" id="phase2-body">
+        <div class="book-grid">
+          <div class="book-card">
+            <div class="book-label">compactness theorem</div>
+            <div class="book-title">If every finite subset of Γ is satisfiable, then Γ is satisfiable</div>
+            <div class="book-desc">Falls directly out of completeness. Infinitely many axioms are satisfiable iff every finite chunk is. Has wild consequences — you can produce non-standard models of arithmetic from it.</div>
+            <span class="book-scope tag-teal" style="background:var(--teal-faint);color:var(--teal);">month 3, week 1</span>
+          </div>
+          <div class="book-card">
+            <div class="book-label">Löwenheim-Skolem theorem</div>
+            <div class="book-title">If a theory has an infinite model it has models of every infinite cardinality</div>
+            <div class="book-desc">No first-order theory can pin down a unique infinite cardinality. The reals and the rationals satisfy the same first-order sentences. Deeply strange. Essential for model theory.</div>
+            <span class="book-scope tag-teal" style="background:var(--teal-faint);color:var(--teal);">month 3, week 2</span>
+          </div>
+          <div class="book-card">
+            <div class="book-label">non-standard models</div>
+            <div class="book-title">Arithmetic has non-standard models</div>
+            <div class="book-desc">Using compactness, construct a model of Peano arithmetic containing infinite natural numbers. The integers are not first-order categorical. This blew your mind the first time. Write about it.</div>
+            <span class="book-scope tag-teal" style="background:var(--teal-faint);color:var(--teal);">month 3, week 3</span>
+          </div>
+          <div class="book-card">
+            <div class="book-label">optional deepening</div>
+            <div class="book-title">Ebbinghaus — Mathematical Logic</div>
+            <div class="book-desc">Covers the same material with a different proof style. Read alongside Enderton for alternative intuitions. More algebraic in flavor. Good for proof vault variety.</div>
+            <span class="book-scope tag-gold" style="background:var(--gold-faint);color:var(--gold);">supplementary</span>
+          </div>
+        </div>
+
+        <ul class="topics-list">
+          <li class="topic-item">
+            <div class="topic-check" onclick="toggleCheck(this)"></div>
+            <div class="topic-name"><strong>Compactness theorem</strong> — statement, proof from completeness, and at least two applications</div>
+            <span class="topic-tag tag-teal">§2.8</span>
+          </li>
+          <li class="topic-item">
+            <div class="topic-check" onclick="toggleCheck(this)"></div>
+            <div class="topic-name"><strong>Downward Löwenheim-Skolem</strong> — every satisfiable theory has a countable model</div>
+            <span class="topic-tag tag-teal">§2.8</span>
+          </li>
+          <li class="topic-item">
+            <div class="topic-check" onclick="toggleCheck(this)"></div>
+            <div class="topic-name"><strong>Upward Löwenheim-Skolem</strong> — models of every infinite cardinality</div>
+            <span class="topic-tag tag-teal">§2.8</span>
+          </li>
+          <li class="topic-item">
+            <div class="topic-check" onclick="toggleCheck(this)"></div>
+            <div class="topic-name"><strong>Non-standard models of arithmetic</strong> — compactness applied to Peano axioms</div>
+            <span class="topic-tag tag-teal">application</span>
+          </li>
+        </ul>
+
+        <div class="milestone" style="border-color:var(--teal);background:var(--teal-faint);">
+          End of month 3: completeness, compactness, and Löwenheim-Skolem all under your belt. You can speak about the limits of first-order logic precisely. Model theory is now open to you.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Phase 3 -->
+  <div class="section">
+    <div class="section-label">phase 3 · month 3–4</div>
+    <h2>Gödel's incompleteness theorems</h2>
+    <div class="section-rule"></div>
+    <p>You have completeness — now you need incompleteness. These are not contradictions. Completeness says every valid sentence is provable. Incompleteness says some true arithmetical sentences are not provable in any consistent formal system. They operate in different domains and together they define the shape of mathematical knowledge.</p>
+
+    <div class="phase-card" id="phase3">
+      <div class="phase-header" onclick="togglePhase('phase3')">
+        <div>
+          <div class="phase-num">PHASE 03</div>
+          <div class="phase-title">Smullyan — Gödel's Incompleteness Theorems</div>
+          <div class="phase-subtitle">The crown · connects to recursion theory and TOC</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:10px;">
+          <span class="phase-badge tag-purple">the crown</span>
+          <span class="chevron">▼</span>
+        </div>
+      </div>
+      <div class="phase-body" id="phase3-body">
+        <div class="book-grid">
+          <div class="book-card">
+            <div class="book-label">Gödel numbering</div>
+            <div class="book-title">Encoding syntax as arithmetic</div>
+            <div class="book-desc">Every formula, proof, and symbol gets a unique natural number. Arithmetic can then talk about its own proofs. This is the key move — and it connects directly to Turing machines.</div>
+            <span class="book-scope tag-purple" style="background:var(--purple-faint);color:var(--purple);">week 1</span>
+          </div>
+          <div class="book-card">
+            <div class="book-label">First incompleteness theorem</div>
+            <div class="book-title">No consistent system proves all arithmetical truths</div>
+            <div class="book-desc">In any consistent formal system strong enough to encode arithmetic, there exists a sentence that is true but unprovable. The Gödel sentence: "I am not provable."</div>
+            <span class="book-scope tag-purple" style="background:var(--purple-faint);color:var(--purple);">week 2–3</span>
+          </div>
+          <div class="book-card">
+            <div class="book-label">Second incompleteness theorem</div>
+            <div class="book-title">No consistent system proves its own consistency</div>
+            <div class="book-desc">Hilbert's program collapses here. No formal system can prove from within itself that it will never derive a contradiction. The most devastating theorem in the history of mathematics.</div>
+            <span class="book-scope tag-purple" style="background:var(--purple-faint);color:var(--purple);">week 3–4</span>
+          </div>
+          <div class="book-card">
+            <div class="book-label">connection to Sipser</div>
+            <div class="book-title">Incompleteness ↔ undecidability</div>
+            <div class="book-desc">Gödel's proof and Turing's halting problem are the same idea in different clothes. Incompleteness → there are true sentences no Turing machine can prove. This is your bridge back to TOC.</div>
+            <span class="book-scope tag-gold" style="background:var(--gold-faint);color:var(--gold);">synthesis</span>
+          </div>
+        </div>
+
+        <ul class="topics-list">
+          <li class="topic-item">
+            <div class="topic-check" onclick="toggleCheck(this)"></div>
+            <div class="topic-name"><strong>Gödel numbering</strong> — encoding formulas and proofs as natural numbers</div>
+            <span class="topic-tag tag-purple">foundations</span>
+          </li>
+          <li class="topic-item">
+            <div class="topic-check" onclick="toggleCheck(this)"></div>
+            <div class="topic-name"><strong>Representability in arithmetic</strong> — recursive functions are representable in Peano arithmetic</div>
+            <span class="topic-tag tag-purple">key lemma</span>
+          </li>
+          <li class="topic-item">
+            <div class="topic-check" onclick="toggleCheck(this)"></div>
+            <div class="topic-name"><strong>The Gödel sentence</strong> — construction of a sentence that asserts its own unprovability</div>
+            <span class="topic-tag tag-purple">★ first theorem</span>
+          </li>
+          <li class="topic-item">
+            <div class="topic-check" onclick="toggleCheck(this)"></div>
+            <div class="topic-name"><strong>First incompleteness theorem</strong> — full proof for any consistent, sufficiently strong system</div>
+            <span class="topic-tag tag-purple">★ first theorem</span>
+          </li>
+          <li class="topic-item">
+            <div class="topic-check" onclick="toggleCheck(this)"></div>
+            <div class="topic-name"><strong>Second incompleteness theorem</strong> — Con(T) is not provable in T if T is consistent</div>
+            <span class="topic-tag tag-purple">★ second theorem</span>
+          </li>
+          <li class="topic-item">
+            <div class="topic-check" onclick="toggleCheck(this)"></div>
+            <div class="topic-name"><strong>Connection to the halting problem</strong> — incompleteness as undecidability in disguise</div>
+            <span class="topic-tag tag-gold">synthesis</span>
+          </li>
+        </ul>
+
+        <div class="milestone" style="border-color:var(--purple);background:var(--purple-faint);">
+          End of Phase 3: you understand why Hilbert's program failed, what it means for mathematics to have true but unprovable sentences, and how this connects to everything you already know about computability. Write a proof vault entry that explains incompleteness to someone who knows completeness. That is your synthesis artifact.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Proof Vault targets -->
+  <div class="section">
+    <div class="section-label">proof vault targets</div>
+    <h2>What goes in the vault</h2>
+    <div class="section-rule"></div>
+    <p>These are the proofs that belong in your vault by the end of this track. Every one is a LaTeX document — formal, complete, dated.</p>
+
+    <div class="vault-item">
+      <div class="vault-icon">THM</div>
+      <div>
+        <div class="vault-name">Soundness theorem for first-order logic</div>
+        <div class="vault-desc">If Γ ⊢ φ then Γ ⊨ φ · proof by induction on derivation length</div>
+      </div>
+      <span class="vault-status tag-gold" style="background:var(--gold-faint);color:var(--gold);">month 1</span>
+    </div>
+
+    <div class="vault-item">
+      <div class="vault-icon">THM</div>
+      <div>
+        <div class="vault-name">Lindenbaum's lemma</div>
+        <div class="vault-desc">Every consistent set of sentences extends to a maximal consistent set</div>
+      </div>
+      <span class="vault-status tag-gold" style="background:var(--gold-faint);color:var(--gold);">month 2</span>
+    </div>
+
+    <div class="vault-item">
+      <div class="vault-icon">THM ★</div>
+      <div>
+        <div class="vault-name">Completeness theorem — full Henkin proof</div>
+        <div class="vault-desc">If Γ ⊨ φ then Γ ⊢ φ · the complete proof including Henkin extension and term model construction</div>
+      </div>
+      <span class="vault-status tag-pink">month 2 ★</span>
+    </div>
+
+    <div class="vault-item">
+      <div class="vault-icon">THM</div>
+      <div>
+        <div class="vault-name">Compactness theorem</div>
+        <div class="vault-desc">Γ satisfiable iff every finite subset of Γ is satisfiable · proof from completeness + one application</div>
+      </div>
+      <span class="vault-status tag-teal" style="background:var(--teal-faint);color:var(--teal);">month 3</span>
+    </div>
+
+    <div class="vault-item">
+      <div class="vault-icon">THM</div>
+      <div>
+        <div class="vault-name">Downward Löwenheim-Skolem</div>
+        <div class="vault-desc">Every satisfiable theory has a countable model</div>
+      </div>
+      <span class="vault-status tag-teal" style="background:var(--teal-faint);color:var(--teal);">month 3</span>
+    </div>
+
+    <div class="vault-item">
+      <div class="vault-icon">THM ★</div>
+      <div>
+        <div class="vault-name">First incompleteness theorem</div>
+        <div class="vault-desc">No consistent sufficiently strong system proves all arithmetical truths · full Gödel proof</div>
+      </div>
+      <span class="vault-status tag-purple" style="background:var(--purple-faint);color:var(--purple);">month 4 ★</span>
+    </div>
+
+    <div class="vault-item">
+      <div class="vault-icon">ESSAY</div>
+      <div>
+        <div class="vault-name">Synthesis essay — completeness and incompleteness</div>
+        <div class="vault-desc">Why they are not contradictions · what they together say about the limits of formal systems · your own words</div>
+      </div>
+      <span class="vault-status tag-pink">month 4</span>
+    </div>
+  </div>
+
+  <!-- Canon -->
+  <div class="section">
+    <div class="section-label">canon</div>
+    <h2>The books</h2>
+    <div class="section-rule"></div>
+
+    <div class="book-grid">
+      <div class="book-card">
+        <div class="book-label">primary · phase 1–2</div>
+        <div class="book-title">Enderton — A Mathematical Introduction to Logic</div>
+        <div class="book-desc">The canonical text. Chapter 2 is your entire Phase 1 and 2. Clear, rigorous, complete. Do every exercise. This is the book.</div>
+        <span class="book-scope tag-pink">start here</span>
+      </div>
+      <div class="book-card">
+        <div class="book-label">primary · phase 3</div>
+        <div class="book-title">Smullyan — Gödel's Incompleteness Theorems</div>
+        <div class="book-desc">Clean, elegant proof of both incompleteness theorems. More readable than Gödel's original. Presupposes completeness — read after Enderton Ch. 2.</div>
+        <span class="book-scope tag-purple">phase 3</span>
+      </div>
+      <div class="book-card">
+        <div class="book-label">supplementary</div>
+        <div class="book-title">Ebbinghaus — Mathematical Logic</div>
+        <div class="book-desc">Alternative proof style for the completeness theorem. More algebraic. Good when Enderton's approach feels stuck. Same theorems, different angle.</div>
+        <span class="book-scope tag-gold">optional depth</span>
+      </div>
+      <div class="book-card">
+        <div class="book-label">already yours</div>
+        <div class="book-title">Sipser — Introduction to the Theory of Computation</div>
+        <div class="book-desc">Read Ch. 4–5 again after Gödel. The halting problem and incompleteness are the same idea. Turing and Gödel saw the same thing from different directions.</div>
+        <span class="book-scope tag-teal">synthesis read</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="footnote">
+    pink, but lethal. 💗 — the completeness theorem is the spine. everything else is the cathedral built around it.<br>
+    <span style="font-size:0.72rem;margin-top:6px;display:block;">schola arcana · mathematical logic track · ILLC + Oxford MFoCS preparation</span>
+  </div>
+
+</div>
+
+<script>
+  function togglePhase(id) {
+    const card = document.getElementById(id);
+    const body = document.getElementById(id + '-body');
+    const isOpen = body.classList.contains('open');
+    body.classList.toggle('open', !isOpen);
+    card.classList.toggle('open', !isOpen);
+  }
+
+  function toggleCheck(el) {
+    el.classList.toggle('done');
+    updateProgress();
+  }
+
+  function updateProgress() {
+    const checks = document.querySelectorAll('.topic-check');
+    const done = document.querySelectorAll('.topic-check.done').length;
+    const pct = Math.round((done / checks.length) * 100);
+    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('pct-display').textContent = pct + '%';
+
+    const phases = document.querySelectorAll('.progress-phase');
+    phases.forEach((p, i) => p.classList.remove('active'));
+    if (pct < 34) phases[0].classList.add('active');
+    else if (pct < 67) phases[1].classList.add('active');
+    else phases[2].classList.add('active');
+  }
+
+  // open phase 1 by default
+  document.getElementById('phase1').classList.add('open');
+</script>
+</body>
+</html>

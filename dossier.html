@@ -1,775 +1,281 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Schola Arcana — Dossier</title>
-  <meta name="description" content="ETH + Master’s dossier tracker: CV, SOP, writing sample, deadlines, recommenders. Autosave + export." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=JetBrains+Mono:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --bg:#fff7fb;
-      --card:#ffffffcc;
-      --ink:#1f1630;
-      --muted:#5b4b66;
-      --pink:#ff4da6;
-      --pink2:#ff77c2;
-      --lav:#b18cff;
-      --mint:#5fe2c2;
-      --gold:#ffd36e;
-      --line:#f2c9df;
-      --shadow: 0 18px 40px rgba(31,22,48,.10);
-      --shadow2: 0 10px 24px rgba(31,22,48,.08);
-      --radius: 22px;
-      --radius2: 16px;
-      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
-      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:var(--sans);
-      color:var(--ink);
-      background:
-        radial-gradient(1200px 700px at 10% 10%, #ffe0f0 0%, transparent 60%),
-        radial-gradient(1000px 700px at 90% 20%, #f0e3ff 0%, transparent 55%),
-        radial-gradient(900px 600px at 50% 90%, #e6fff7 0%, transparent 60%),
-        linear-gradient(180deg, var(--bg) 0%, #ffffff 100%);
-      overflow-x:hidden;
-    }
-    a{color:inherit}
-    .wrap{max-width:1280px;margin:0 auto;padding:26px 18px 70px}
-    .hero{
-      position:relative;
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      background: linear-gradient(135deg, #ffffffcc, #fff0f8cc);
-      box-shadow:var(--shadow);
-      padding:24px 22px;
-      overflow:hidden;
-    }
-    .hero:before{
-      content:"";
-      position:absolute; inset:-45px -70px auto auto;
-      width:320px;height:320px;
-      background:
-        radial-gradient(circle at 30% 30%, #ffb3da 0%, transparent 58%),
-        radial-gradient(circle at 70% 70%, #c7b0ff 0%, transparent 58%);
-      filter: blur(2px);
-      transform: rotate(14deg);
-      opacity:.9;
-      pointer-events:none;
-    }
-    .sparkle{
-      display:inline-block;
-      background: linear-gradient(135deg, var(--pink), var(--lav));
-      -webkit-background-clip:text;
-      background-clip:text;
-      color:transparent;
-      font-weight:950;
-      letter-spacing:-.01em;
-    }
-    .hero h1{
-      margin:0 0 8px;
-      font-size: clamp(26px, 3.0vw, 42px);
-      letter-spacing:-.02em;
-      line-height:1.05;
-    }
-    .muted{color:var(--muted)}
-    .row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:12px}
-    .badge{
-      border:1px solid var(--line);
-      background:#fff;
-      border-radius:999px;
-      padding:8px 12px;
-      font-size:13px;
-      color:var(--muted);
-      display:flex; gap:8px; align-items:center;
-      box-shadow:0 8px 18px rgba(31,22,48,.06);
-    }
-    .dot{width:8px;height:8px;border-radius:50%}
-    .dot.pink{background:var(--pink)}
-    .dot.lav{background:var(--lav)}
-    .dot.mint{background:var(--mint)}
-    .dot.gold{background:var(--gold)}
-
-    .btn{
-      border:1px solid var(--line);
-      background: linear-gradient(180deg, #fff, #fff7fb);
-      border-radius:999px;
-      padding:10px 14px;
-      font-weight:900;
-      font-size:13px;
-      cursor:pointer;
-      box-shadow:0 10px 18px rgba(31,22,48,.06);
-      transition: transform .08s ease, border-color .2s ease;
-      user-select:none;
-      text-decoration:none;
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-    }
-    .btn:hover{transform: translateY(-1px); border-color:#f0a7cd}
-    .btn.primary{
-      border-color: transparent;
-      background: linear-gradient(135deg, var(--pink), var(--pink2));
-      color:white;
-    }
-    .btn.ghost{background:transparent; box-shadow:none;}
-    .pill{
-      font-family:var(--mono);
-      font-size:12px;
-      padding:6px 10px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background:#fff;
-      color:var(--muted);
-      white-space:nowrap;
-    }
-
-    .grid{
-      margin-top:14px;
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:12px;
-      align-items:start;
-    }
-    @media (max-width: 980px){ .grid{grid-template-columns:1fr} }
-
-    .card{
-      border:1px solid var(--line);
-      background: var(--card);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow2);
-      padding:14px;
-      backdrop-filter: blur(8px);
-    }
-    .card h2{
-      margin:0 0 10px;
-      font-size:16px;
-      letter-spacing:-.01em;
-      display:flex; align-items:center; gap:10px;
-    }
-    .hr{
-      height:1px;
-      background:#f7d8e8;
-      margin:12px 0;
-      border:none;
-    }
-
-    label{display:block;font-size:12px;color:var(--muted);margin:0 0 6px}
-    input, textarea, select{
-      width:100%;
-      border:1px solid var(--line);
-      border-radius:18px;
-      background:#fff;
-      padding:12px;
-      font-family:var(--sans);
-      outline:none;
-      box-shadow:0 10px 18px rgba(31,22,48,.05);
-    }
-    textarea{min-height:110px;resize:vertical;line-height:1.5}
-    textarea:focus, input:focus, select:focus{border-color:#f0a7cd}
-    .row2{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-    .kpis{
-      display:grid;
-      grid-template-columns: repeat(3,1fr);
-      gap:10px;
-      margin-top:10px;
-    }
-    @media (max-width: 760px){ .kpis{grid-template-columns:1fr} }
-    .kpi{
-      border:1px solid var(--line);
-      background:#fff;
-      border-radius:18px;
-      padding:12px;
-      box-shadow:0 10px 18px rgba(31,22,48,.05);
-    }
-    .kpi .label{font-size:12px;color:var(--muted);margin-bottom:6px}
-    .kpi .value{font-weight:950;font-size:16px}
-    .kpi .sub{font-size:12px;color:var(--muted);margin-top:4px;line-height:1.45}
-
-    /* tables */
-    .tableWrap{overflow:auto; border-radius:18px; border:1px solid var(--line); background:#fff}
-    table{
-      width:100%;
-      border-collapse:separate;
-      border-spacing:0;
-      min-width: 980px;
-      font-size:13px;
-    }
-    thead th{
-      position:sticky; top:0;
-      background: linear-gradient(180deg, #fff, #fff7fb);
-      border-bottom:1px solid var(--line);
-      text-align:left;
-      padding:12px 12px;
-      font-size:12px;
-      color:var(--muted);
-      letter-spacing:.03em;
-      text-transform:uppercase;
-      z-index:1;
-    }
-    tbody td{
-      vertical-align:top;
-      padding:12px 12px;
-      border-bottom:1px solid #f7d8e8;
-      color:var(--ink);
-      background:#fff;
-      line-height:1.45;
-    }
-    tbody tr:hover td{background:#fff7fb}
-    .mono{font-family:var(--mono)}
-    .small{font-size:12px;color:var(--muted)}
-    .status{
-      display:inline-flex;align-items:center;gap:8px;
-      border:1px solid var(--line);
-      padding:6px 10px;
-      border-radius:999px;
-      background:#fff7fb;
-      font-size:12px;
-      color:var(--muted);
-      white-space:nowrap;
-    }
-    .status b{color:var(--ink)}
-    footer{
-      margin-top:16px;
-      color:var(--muted);
-      font-size:12px;
-      text-align:center;
-      line-height:1.55;
-    }
-    @media print{
-      .row, .kpis, #exportBtn, #resetBtn {display:none !important}
-      body{background:#fff}
-      .hero, .card{box-shadow:none}
-    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    :root{--ink:#1a1814;--ink-soft:#3d3a34;--ink-muted:#7a7670;--ink-faint:#b8b4ad;--parchment:#faf8f3;--parchment-warm:#f2ede4;--parchment-deep:#e8e1d5;--pink:#e8546a;--pink-soft:#f0b8c2;--pink-faint:#faedf0;--gold:#c9923a;--gold-faint:#fdf3e7;--purple:#6b4fa0;--purple-faint:#f0ecf8;--teal:#2a8a7f;--teal-faint:#eaf5f4;--border:#ddd8ce;}
+    html{font-size:16px;scroll-behavior:smooth;}
+    body{background:var(--parchment);color:var(--ink);font-family:'Inter',sans-serif;font-weight:300;line-height:1.7;overflow-x:hidden;}
+    body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:1000;opacity:.4;}
+    a{color:inherit;text-decoration:none;}
+    nav{padding:18px 48px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--parchment);position:sticky;top:0;z-index:100;}
+    .nav-brand{font-family:'EB Garamond',serif;font-size:1.1rem;letter-spacing:.02em;}
+    .nav-brand span{color:var(--pink);}
+    .nav-links{display:flex;gap:28px;list-style:none;}
+    .nav-links a{font-size:.78rem;color:var(--ink-muted);letter-spacing:.06em;text-transform:uppercase;transition:color .2s;}
+    .nav-links a:hover,.nav-links a.active{color:var(--pink);}
+    .hero{max-width:860px;margin:0 auto;padding:72px 48px 48px;border-bottom:1px solid var(--border);}
+    .hero h1{font-family:'EB Garamond',serif;font-size:3.2rem;font-weight:400;line-height:1.15;letter-spacing:-.01em;margin-bottom:8px;}
+    .hero h1 em{font-style:italic;color:var(--pink);}
+    .hero-sub{font-family:'EB Garamond',serif;font-size:1.2rem;font-style:italic;color:var(--ink-muted);margin-bottom:20px;}
+    .hero-meta{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:20px;}
+    .tag{font-size:.72rem;padding:4px 12px;border-radius:20px;letter-spacing:.05em;text-transform:uppercase;font-weight:500;}
+    .tag-pink{background:var(--pink-faint);color:var(--pink);border:1px solid var(--pink-soft);}
+    .tag-gold{background:var(--gold-faint);color:var(--gold);border:1px solid #e8c88a;}
+    .tag-purple{background:var(--purple-faint);color:var(--purple);border:1px solid #c4b3e0;}
+    .tag-teal{background:var(--teal-faint);color:var(--teal);border:1px solid #9fd4cf;}
+    .btn{font-size:.78rem;padding:8px 16px;border-radius:20px;border:1px solid var(--border);background:#fff;color:var(--ink-soft);cursor:pointer;letter-spacing:.04em;text-transform:uppercase;font-weight:500;transition:border-color .2s,color .2s;font-family:'Inter',sans-serif;display:inline-flex;align-items:center;gap:6px;}
+    .btn:hover{border-color:var(--pink-soft);color:var(--pink);}
+    .btn.primary{background:var(--pink);border-color:var(--pink);color:#fff;}
+    .btn.primary:hover{background:#d44460;}
+    .hero-btns{display:flex;flex-wrap:wrap;gap:10px;}
+    .main{max-width:1100px;margin:0 auto;padding:32px 48px 80px;}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:18px;}
+    @media(max-width:800px){.grid{grid-template-columns:1fr;}}
+    .panel{border:1px solid var(--border);border-radius:12px;background:#fff;padding:20px 24px;}
+    .panel h2{font-family:'EB Garamond',serif;font-size:1.2rem;font-weight:400;color:var(--ink);margin-bottom:14px;}
+    label{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-muted);margin-bottom:5px;font-weight:500;display:block;margin-top:12px;}
+    label:first-of-type{margin-top:0;}
+    textarea,input[type="text"],input[type="number"],select{width:100%;font-family:'Inter',sans-serif;font-size:.88rem;color:var(--ink);background:var(--parchment);border:1px solid var(--border);border-radius:8px;padding:9px 12px;outline:none;transition:border-color .2s;resize:vertical;}
+    textarea:focus,input:focus,select:focus{border-color:var(--pink-soft);}
+    textarea{min-height:80px;}
+    .row2{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;margin-top:12px;}
+    .hr{border:none;border-top:1px solid var(--parchment-deep);margin:16px 0;}
+    .pill{font-family:'JetBrains Mono',monospace;font-size:.72rem;padding:3px 10px;border-radius:20px;border:1px solid var(--border);background:var(--parchment-warm);color:var(--ink-muted);}
+    .small{font-size:.78rem;color:var(--ink-muted);line-height:1.6;}
+    .table-wrap{border:1px solid var(--border);border-radius:10px;overflow:auto;background:#fff;}
+    table{width:100%;border-collapse:separate;border-spacing:0;font-size:.82rem;min-width:600px;}
+    thead th{background:var(--parchment-warm);border-bottom:1px solid var(--border);text-align:left;padding:10px 12px;font-size:.68rem;color:var(--ink-muted);letter-spacing:.06em;text-transform:uppercase;font-weight:500;}
+    tbody td{padding:8px 10px;border-bottom:1px solid var(--parchment-deep);}
+    tbody tr:last-child td{border-bottom:none;}
+    tbody td input{background:transparent;border:none;border-bottom:1px solid transparent;border-radius:0;padding:4px 2px;font-size:.82rem;}
+    tbody td input:focus{border-bottom-color:var(--pink-soft);background:var(--pink-faint);}
+    .footnote{font-size:.78rem;color:var(--ink-faint);font-style:italic;font-family:'EB Garamond',serif;text-align:center;padding:32px 0 0;border-top:1px solid var(--border);margin-top:48px;}
+    @media(max-width:640px){nav{padding:16px 20px;}.hero{padding:48px 20px 32px;}.main{padding:24px 20px 60px;}}
   </style>
 </head>
-
 <body>
-  <div class="wrap">
-    <header class="hero">
-      <h1><span class="sparkle">Schola Arcana</span> — Dossier</h1>
-      <p class="muted" style="margin:0;max-width:95ch">
-        This is your <b>application package tracker</b> (ETH SRF + Master’s): CV, SOP, writing sample, deadlines, and recommenders.
-        Autosaves locally + exports to Markdown so you can paste into Notion or a private repo.
-      </p>
+<nav>
+  <a href="index.html" class="nav-brand">Schola <span>Arcana</span></a>
+  <ul class="nav-links">
+    <li><a href="topics.html">Atlas</a></li>
+    <li><a href="vault.html">Proof Vault</a></li>
+    <li><a href="jorunal.html">Journal</a></li>
+    <li><a href="dossier.html" class="active">Dossier</a></li>
+    <li><a href="log.html">Log</a></li>
+  </ul>
+</nav>
 
-      <div class="row">
-        <div class="badge"><span class="dot pink"></span> Narrative + evidence</div>
-        <div class="badge"><span class="dot lav"></span> Versioning mindset</div>
-        <div class="badge"><span class="dot mint"></span> “Proof voice” assets</div>
-        <div class="badge"><span class="dot gold"></span> Export → Markdown</div>
-      </div>
+<div class="hero">
+  <h1>Application <em>Dossier</em></h1>
+  <div class="hero-sub">CV · SOP · writing sample · programs · recommenders · coherence</div>
+  <div class="hero-meta">
+    <span class="tag tag-pink">autosave</span>
+    <span class="tag tag-gold">Oxford · ILLC · ETH · EPFL</span>
+    <span class="tag tag-purple">export to markdown</span>
+  </div>
+  <div class="hero-btns">
+    <a class="btn" href="index.html">← Cathedral</a>
+    <button class="btn primary" id="exportBtn">Export all (markdown)</button>
+    <button class="btn" id="printBtn">Print</button>
+    <button class="btn" id="resetBtn">Reset dossier</button>
+  </div>
+</div>
 
-      <div class="row" style="margin-top:12px">
-        <a class="btn ghost" href="index.html">← Back to Cathedral Semester</a>
-        <a class="btn ghost" href="journal.html">→ Journal</a>
-        <a class="btn ghost" href="vault.html">→ Proof Vault</a>
-        <button class="btn primary" id="exportBtn">Export dossier (Markdown)</button>
-        <button class="btn" id="resetBtn">Reset dossier</button>
-        <button class="btn ghost" id="printBtn">Print / PDF</button>
-      </div>
+<div class="main">
 
-      <div class="kpis">
-        <div class="kpi">
-          <div class="label">Dossier rule</div>
-          <div class="value">Every doc has versions</div>
-          <div class="sub">CV v1 → v2 → final. SOP outline → ugly draft → v2 → final.</div>
-        </div>
-        <div class="kpi">
-          <div class="label">Writing sample target</div>
-          <div class="value">10–15 pages</div>
-          <div class="sub">A proof-heavy exposition. Clean structure. References.</div>
-        </div>
-        <div class="kpi">
-          <div class="label">Recommendation strategy</div>
-          <div class="value">Make it easy for them</div>
-          <div class="sub">Give CV + 1-page brag sheet + 2 proof artifacts + deadlines.</div>
-        </div>
-      </div>
-    </header>
+  <div class="grid">
+    <!-- CV -->
+    <div class="panel">
+      <h2>CV <span class="pill">always current</span></h2>
+      <label for="cvVersion">Version</label>
+      <select id="cvVersion">
+        <option value="v0">v0 — skeleton</option>
+        <option value="v1">v1 — first draft</option>
+        <option value="v2">v2 — polished</option>
+        <option value="final">final — admissions-ready</option>
+      </select>
+      <label for="cvLink">File / link</label>
+      <input id="cvLink" type="text" placeholder="cv/ana-oviedo-cv.pdf"/>
+      <label for="cvBullets">Key bullets (what it leads with)</label>
+      <textarea id="cvBullets" placeholder="- BRAIN: AI agent built from formal tuple definition at Tec + company internship&#10;- Schola Arcana: self-directed theoretical CS curriculum, documented publicly&#10;- Papers: theoretical paper on BRAIN agent formalism&#10;- Dr. Oliart seminars: voluntary attendance, number theory + completeness theorem&#10;- Tec de Monterrey, SWE, 90/100 GPA"></textarea>
+      <label for="cvNotes">Notes (what needs improvement?)</label>
+      <textarea id="cvNotes" placeholder="- Add Schola Arcana link prominently&#10;- List specific textbooks in education section&#10;- Need 1-line research interest statement at top"></textarea>
+    </div>
 
-    <section class="grid">
-      <!-- CV -->
-      <div class="card">
-        <h2>CV tracker <span class="pill">versions + content</span></h2>
-
-        <div class="row2">
-          <div style="flex:1 1 200px">
-            <label for="cvVersion">Current version</label>
-            <select id="cvVersion">
-              <option value="v0">v0 (skeleton)</option>
-              <option value="v1">v1 (complete)</option>
-              <option value="v2">v2 (polished)</option>
-              <option value="final">final</option>
-            </select>
-          </div>
-          <div style="flex:1 1 320px">
-            <label for="cvLink">CV file/link</label>
-            <input id="cvLink" type="text" placeholder="docs/CV_AnaPaola_2026.pdf" />
-          </div>
-        </div>
-
-        <div style="height:10px"></div>
-
-        <label for="cvBullets">Key bullets to include (math/theory-coded)</label>
-        <textarea id="cvBullets" placeholder="- Weekly proof artifacts (Sipser/Axler)\n- Automata Lab (regex→NFA→DFA + viz)\n- Quantum mini-simulator (Deutsch–Jozsa + Grover)\n- Research interests: computability, complexity, quantum information"></textarea>
-
-        <div style="height:10px"></div>
-
-        <label for="cvNotes">CV notes / fixes</label>
-        <textarea id="cvNotes" placeholder="- Tighten language (remove SWE fluff)\n- Add metrics/screenshots\n- Add coursework: TOC, Discrete, Linear Algebra (self-study)"></textarea>
-
-        <div class="small" style="margin-top:10px">
-          Tip: your CV should read like <b>“theoretical CS + math person who can build”</b>, not “generic SWE student”.
-        </div>
-      </div>
-
-      <!-- SOP -->
-      <div class="card">
-        <h2>Statement of Purpose <span class="pill">structure + drafts</span></h2>
-
-        <div class="row2">
-          <div style="flex:1 1 220px">
-            <label for="sopStage">Stage</label>
-            <select id="sopStage">
-              <option value="outline">outline</option>
-              <option value="ugly">ugly draft</option>
-              <option value="v2">v2 coherent</option>
-              <option value="final">final</option>
-            </select>
-          </div>
-          <div style="flex:1 1 320px">
-            <label for="sopLink">SOP file/link</label>
-            <input id="sopLink" type="text" placeholder="docs/SOP_TheoreticalCS_2026.md" />
-          </div>
-        </div>
-
-        <div style="height:10px"></div>
-
-        <label for="sopThesis">One-sentence thesis (identity)</label>
-        <input id="sopThesis" type="text" placeholder="I’m building a proof-driven foundation in computation + linear algebra to pursue research in complexity and quantum computation." />
-
-        <div style="height:10px"></div>
-
-        <label for="sopOutline">SOP outline bullets (keep ruthless)</label>
-        <textarea id="sopOutline" placeholder="- Origin story: why theory/axioms\n- What I’m doing now: Sipser/Axler/QC + proof vault\n- Projects as evidence\n- What I want to research (2–3 themes)\n- Why ETH / why this program\n- What I’ll contribute"></textarea>
-
-        <div style="height:10px"></div>
-
-        <label for="sopNotes">Notes (what feels weak?)</label>
-        <textarea id="sopNotes" placeholder="- Too broad? Narrow to complexity + quantum info\n- Need 2 faculty/lab matches per program\n- Add 1 concrete question I want to study"></textarea>
-      </div>
-    </section>
-
-    <section class="grid">
-      <!-- Writing sample -->
-      <div class="card">
-        <h2>Writing sample <span class="pill">10–15 pages</span></h2>
-
-        <div class="row2">
-          <div style="flex:1 1 180px">
-            <label for="wsPages">Page count (current)</label>
-            <input id="wsPages" type="number" min="0" step="1" placeholder="0" />
-          </div>
-          <div style="flex:2 1 360px">
-            <label for="wsLink">Writing sample file/link</label>
-            <input id="wsLink" type="text" placeholder="writing-sample/main.pdf" />
-          </div>
-        </div>
-
-        <div style="height:10px"></div>
-
-        <label for="wsTopic">Topic (choose one and commit)</label>
-        <input id="wsTopic" type="text" placeholder="Example: Reductions as a proof language (from HALTING to NP-completeness), with clean templates." />
-
-        <div style="height:10px"></div>
-
-        <label for="wsAbstract">Abstract (5–8 lines)</label>
-        <textarea id="wsAbstract" placeholder="What is this document about? What does it prove/explain? What is the arc?"></textarea>
-
-        <div style="height:10px"></div>
-
-        <label for="wsSections">Sections (outline)</label>
-        <textarea id="wsSections" placeholder="1. Definitions & proof templates\n2. Regular/CFL pumping as a style of argument\n3. Halting + Rice + reduction patterns\n4. NP: verifiers, reductions, canonical problems\n5. A quantum note: linear algebra postulates & algorithm sketch\n6. Conclusion + future directions"></textarea>
-
-        <div style="height:10px"></div>
-
-        <label for="wsBib">Bibliography / references (rough)</label>
-        <textarea id="wsBib" placeholder="- Sipser, Introduction to the Theory of Computation\n- Axler, Linear Algebra Done Right\n- Nielsen & Chuang, QCQI\n- (papers/notes as needed)"></textarea>
-      </div>
-
-      <!-- Deadlines / programs -->
-      <div class="card">
-        <h2>Programs & deadlines <span class="pill">ETH + master’s</span></h2>
-
-        <div class="small" style="margin:0 0 10px">
-          Put real dates when you have them. If unknown, keep “TBD” so your brain stops spiraling.
-        </div>
-
-        <div class="tableWrap" role="region" aria-label="Programs and deadlines">
-          <table>
-            <thead>
-              <tr>
-                <th style="width:220px">Program</th>
-                <th style="width:160px">Type</th>
-                <th style="width:180px">Deadline</th>
-                <th>Focus / fit notes</th>
-                <th style="width:200px">Status</th>
-              </tr>
-            </thead>
-            <tbody id="progBody"></tbody>
-          </table>
-        </div>
-
-        <div class="row2" style="margin-top:12px">
-          <button class="btn" id="addProgram">+ Add row</button>
-          <button class="btn" id="exportPrograms">Export programs</button>
-        </div>
-      </div>
-    </section>
-
-    <section class="grid">
-      <!-- Recommenders -->
-      <div class="card">
-        <h2>Recommenders <span class="pill">make it easy for them</span></h2>
-
-        <div class="tableWrap" role="region" aria-label="Recommenders table">
-          <table>
-            <thead>
-              <tr>
-                <th style="width:240px">Name</th>
-                <th style="width:220px">Role</th>
-                <th style="width:210px">What they can say</th>
-                <th style="width:180px">Deadline</th>
-                <th style="width:220px">Status</th>
-              </tr>
-            </thead>
-            <tbody id="recBody"></tbody>
-          </table>
-        </div>
-
-        <div class="row2" style="margin-top:12px">
-          <button class="btn" id="addRec">+ Add recommender</button>
-          <button class="btn" id="exportRecs">Export recommenders</button>
-        </div>
-
-        <hr class="hr" />
-
-        <label for="recPacket">Recommender packet checklist (copy/paste to email)</label>
-        <textarea id="recPacket" placeholder="- CV (latest)\n- SOP draft (current)\n- 1-page summary: achievements + research interests\n- 2 proof artifacts (PDF)\n- Project 1 README + demo link\n- Deadlines + submission instructions"></textarea>
-      </div>
-
-      <!-- Coherence / brag sheet -->
-      <div class="card">
-        <h2>Coherence sheet <span class="pill">your narrative in bullets</span></h2>
-
-        <label for="identity">Identity (2–4 bullets)</label>
-        <textarea id="identity" placeholder="- I’m axioms-first: logic → structures → computation limits\n- I care about proofs as a language\n- I’m building linear algebra as the backbone for QC"></textarea>
-
-        <div style="height:10px"></div>
-
-        <label for="themes">Research themes (pick 2–3)</label>
-        <textarea id="themes" placeholder="- Computability & reductions\n- Complexity (P vs NP culture + NP-completeness)\n- Quantum computation / quantum information"></textarea>
-
-        <div style="height:10px"></div>
-
-        <label for="evidence">Evidence list (what proves the above?)</label>
-        <textarea id="evidence" placeholder="- Proof vault: 17 weekly artifacts\n- Automata Lab project (TOC concrete)\n- Quantum simulator project (LA + QC)\n- Writing sample (10–15 pages)\n- Courses/self-study logs"></textarea>
-
-        <div style="height:10px"></div>
-
-        <label for="fitNotes">Program fit notes template</label>
-        <textarea id="fitNotes" placeholder="For each program:\n- 2 faculty/lab matches\n- 1–2 papers I read\n- 1 question I want to explore there\n- Why that place fits my trajectory"></textarea>
-
-        <div class="small" style="margin-top:10px">
-          This card is your “anti-scatter” device. If anything doesn’t fit the identity, it gets cut.
-        </div>
-      </div>
-    </section>
-
-    <footer>
-      Save as <span class="mono" style="background:#fff7fb;border:1px solid var(--line);padding:2px 6px;border-radius:8px">dossier.html</span>.
-      Add a button to your <span class="mono">index.html</span> CTA row to link here.
-      <br/>Pink, but admissions-weaponized. 💗
-    </footer>
+    <!-- SOP -->
+    <div class="panel">
+      <h2>Statement of Purpose <span class="pill">the narrative</span></h2>
+      <label for="sopStage">Stage</label>
+      <select id="sopStage">
+        <option value="outline">outline only</option>
+        <option value="v1-ugly">v1 — ugly draft</option>
+        <option value="v2-coherent">v2 — coherent draft</option>
+        <option value="final">final — polished</option>
+      </select>
+      <label for="sopLink">File / link</label>
+      <input id="sopLink" type="text" placeholder="sop/oxford-mfocs-sop-v2.pdf"/>
+      <label for="sopThesis">One-sentence thesis (identity)</label>
+      <input id="sopThesis" type="text" placeholder="I did not choose theoretical CS. I recognized it — the way you recognize something you have always been without having a name for it."/>
+      <label for="sopOutline">SOP outline bullets</label>
+      <textarea id="sopOutline" placeholder="- Opening: axioms as identity, not background&#10;- Evidence: Schola Arcana, Enderton, Oliart seminars&#10;- BRAIN: tuple formalism, agent function, started with math not code&#10;- Direction: complexity, logic, quantum foundations&#10;- Why Oxford MFoCS / ILLC specifically (concrete courses + faculty)&#10;- PhD trajectory: mathematical logic or quantum computing"></textarea>
+      <label for="sopNotes">Notes (what feels weak?)</label>
+      <textarea id="sopNotes" placeholder="- Name de Wolf's specific lecture in ILLC SOP&#10;- Name Oxford MFoCS courses explicitly: Lambda Calculus, Quantum Info&#10;- Add Gödel conversation with Oliart as a specific moment"></textarea>
+    </div>
   </div>
 
-  <script>
-    const KEY = "schola_arcana_dossier_v1";
+  <div class="grid">
+    <!-- Writing sample -->
+    <div class="panel">
+      <h2>Writing sample <span class="pill">10–15 pages</span></h2>
+      <div class="row2" style="margin-top:0;">
+        <div style="flex:0 0 140px">
+          <label for="wsPages">Page count</label>
+          <input id="wsPages" type="number" min="0" step="1" placeholder="0"/>
+        </div>
+        <div style="flex:1">
+          <label for="wsLink">File / link</label>
+          <input id="wsLink" type="text" placeholder="writing-sample/main.pdf"/>
+        </div>
+      </div>
+      <label for="wsTopic">Topic</label>
+      <input id="wsTopic" type="text" placeholder="Completeness and incompleteness: what formal systems can and cannot prove"/>
+      <label for="wsAbstract">Abstract (5–8 lines)</label>
+      <textarea id="wsAbstract" placeholder="What is this document about? What does it prove/explain? What is the arc?"></textarea>
+      <label for="wsSections">Sections outline</label>
+      <textarea id="wsSections" placeholder="1. First-order logic and formal proofs&#10;2. Soundness — every provable sentence is valid&#10;3. The Henkin construction — completeness theorem&#10;4. Compactness and its consequences&#10;5. Gödel incompleteness — where completeness ends&#10;6. Connection to computability and the halting problem"></textarea>
+      <label for="wsBib">Bibliography</label>
+      <textarea id="wsBib" placeholder="- Enderton, A Mathematical Introduction to Logic&#10;- Smullyan, Gödel's Incompleteness Theorems&#10;- Sipser, Introduction to the Theory of Computation&#10;- Nielsen & Chuang, QCQI"></textarea>
+    </div>
 
-    const DEFAULT = {
-      cvVersion:"v0",
-      cvLink:"",
-      cvBullets:"",
-      cvNotes:"",
-      sopStage:"outline",
-      sopLink:"",
-      sopThesis:"",
-      sopOutline:"",
-      sopNotes:"",
-      wsPages:"",
-      wsLink:"",
-      wsTopic:"",
-      wsAbstract:"",
-      wsSections:"",
-      wsBib:"",
-      programs:[
-        {name:"ETH Zurich — Summer Research Fellowship", type:"research summer", deadline:"TBD", notes:"Match labs. Emphasize proof maturity + projects.", status:"planning"},
-        {name:"Master’s (Math/Theoretical CS) — Target 1", type:"master’s", deadline:"TBD", notes:"Add faculty matches + reasons.", status:"planning"},
-      ],
-      recommenders:[
-        {name:"", role:"Professor / Mentor", canSay:"Proof skill, rigor, curiosity", deadline:"TBD", status:"not asked"},
-      ],
-      recPacket:"",
-      identity:"",
-      themes:"",
-      evidence:"",
-      fitNotes:""
-    };
+    <!-- Programs -->
+    <div class="panel">
+      <h2>Programs & deadlines</h2>
+      <div class="small" style="margin-bottom:12px;">Put real dates when you have them. TBD is fine — stops the brain spiraling.</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Program</th><th>Type</th><th>Deadline</th><th>Fit notes</th><th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="progBody"></tbody>
+        </table>
+      </div>
+      <div class="row2">
+        <button class="btn" id="addProgram">+ Add row</button>
+        <button class="btn" id="exportPrograms">Export</button>
+      </div>
+    </div>
+  </div>
 
-    function load(){
-      try{
-        const raw = localStorage.getItem(KEY);
-        if(!raw) return structuredClone(DEFAULT);
-        const d = JSON.parse(raw);
-        // merge
-        const merged = {...structuredClone(DEFAULT), ...d};
-        if(!Array.isArray(merged.programs)) merged.programs = structuredClone(DEFAULT.programs);
-        if(!Array.isArray(merged.recommenders)) merged.recommenders = structuredClone(DEFAULT.recommenders);
-        return merged;
-      }catch{
-        return structuredClone(DEFAULT);
-      }
-    }
+  <div class="grid">
+    <!-- Recommenders -->
+    <div class="panel">
+      <h2>Recommenders <span class="pill">make it easy for them</span></h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th><th>Role</th><th>What they can say</th><th>Deadline</th><th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="recBody"></tbody>
+        </table>
+      </div>
+      <div class="row2">
+        <button class="btn" id="addRec">+ Add recommender</button>
+        <button class="btn" id="exportRecs">Export</button>
+      </div>
+      <hr class="hr"/>
+      <label for="recPacket">Recommender packet checklist (copy/paste to email)</label>
+      <textarea id="recPacket" placeholder="- CV (latest)&#10;- SOP draft (current version)&#10;- 1-page narrative: who I am, what I'm building, where I'm going&#10;- 2 proof artifacts (PDF) from the Vault&#10;- Schola Arcana link (public evidence of self-directed study)&#10;- BRAIN paper (theoretical agent formalism)&#10;- Deadlines + submission instructions per program"></textarea>
+    </div>
 
-    function save(){
-      localStorage.setItem(KEY, JSON.stringify(DB));
-    }
+    <!-- Coherence -->
+    <div class="panel">
+      <h2>Coherence sheet <span class="pill">the narrative in bullets</span></h2>
+      <label for="identity">Identity (2–4 bullets)</label>
+      <textarea id="identity" placeholder="- I am axioms-first: logic → structures → computation limits&#10;- Mathematical logic is not a subject I study — it is how I think&#10;- I build evidence of theoretical maturity publicly (Schola Arcana)&#10;- My trajectory is toward PhD in mathematical logic or quantum complexity"></textarea>
+      <label for="themes">Research themes (pick 2–3)</label>
+      <textarea id="themes" placeholder="- Mathematical logic and the foundations of computation&#10;- Complexity theory (P vs NP, computational limits)&#10;- Quantum computing through the lens of theory of computation"></textarea>
+      <label for="evidence">Evidence list</label>
+      <textarea id="evidence" placeholder="- Proof vault: 17 weekly LaTeX artifacts&#10;- Completeness theorem (Enderton §2.7) with Oliart&#10;- BRAIN: AI agent defined as formal tuple&#10;- Schola Arcana: public, timestamped curriculum&#10;- Papers: theoretical paper on agent formalism&#10;- TOEFL: 110 (C1)&#10;- GPA: 90/100 from Tec de Monterrey"></textarea>
+      <label for="fitNotes">Program fit notes</label>
+      <textarea id="fitNotes" placeholder="Oxford MFoCS: Lambda Calculus & Types, Quantum Information, Principles of PL — pure math + theoretical CS joint. My exact intersection.&#10;&#10;ILLC MoL: L&M track (Axiomatic Set Theory, Proof Theory, Category Theory) + L&C (Recursion Theory, Complexity) + Quantum thread. Schola Arcana is literally this curriculum. Attended de Wolf's open QC lecture.&#10;&#10;ETH Zurich: Theoretical CS major. Faculty: Bringmann (fine-grained complexity), Kyng (algorithms + complexity).&#10;&#10;EPFL: CS Theory track. Holistic review, no GPA minimum. Quantum Computing + theoretical CS."></textarea>
+      <div class="small" style="margin-top:10px;">If anything doesn't fit the identity, it gets cut. No scatter.</div>
+    </div>
+  </div>
 
-    let DB = load();
+  <div class="footnote">
+    pink, but admissions-weaponized. 💗 every field in this dossier is a brick in the application.<br>
+    <span style="font-size:.72rem;margin-top:6px;display:block;">schola arcana · application dossier · Oxford MFoCS · ILLC · ETH · EPFL · Edinburgh</span>
+  </div>
+</div>
 
-    // bind inputs
-    const bind = (id, key) => {
-      const el = document.getElementById(id);
-      el.value = DB[key] ?? "";
-      el.addEventListener("input", ()=>{ DB[key] = el.value; save(); });
-      el.addEventListener("change", ()=>{ DB[key] = el.value; save(); });
-      return el;
-    };
+<script>
+  const KEY="schola_arcana_dossier_v1";
+  const DEFAULT={
+    cvVersion:"v0",cvLink:"",cvBullets:"",cvNotes:"",
+    sopStage:"outline",sopLink:"",sopThesis:"",sopOutline:"",sopNotes:"",
+    wsPages:"",wsLink:"",wsTopic:"",wsAbstract:"",wsSections:"",wsBib:"",
+    programs:[
+      {name:"Oxford — MSc Mathematics & Foundations of CS",type:"master's",deadline:"Jan 2026",notes:"MFoCS — pure math + theoretical CS joint. Lambda Calculus, Quantum Info.",status:"drafting SOP"},
+      {name:"ILLC Amsterdam — Master of Logic",type:"master's",deadline:"Feb 2026",notes:"L&M + L&C + Quantum track. Attended de Wolf's open QC lecture.",status:"researching"},
+      {name:"ETH Zurich — MSc Computer Science (Theory)",type:"master's",deadline:"Nov 2025",notes:"Theoretical CS major. Bringmann, Kyng faculty.",status:"researching"},
+      {name:"EPFL — MSc Computer Science (Theory track)",type:"master's",deadline:"Jan 2026",notes:"Holistic review. No GPA minimum. Theory + Quantum.",status:"researching"},
+      {name:"University of Edinburgh — MSc Computer Science",type:"master's",deadline:"Mar 2026",notes:"1 year. Strong theory. Likely admit.",status:"research"},
+    ],
+    recommenders:[
+      {name:"Dr. Arturo Oliart",role:"Logic PhD, Boston U · SNI researcher",canSay:"Completeness theorem, formal systems, proof maturity, voluntary seminar attendance",deadline:"TBD",status:"confirmed"},
+      {name:"Dr. Luciano (surname)",role:"PhD researcher · SNI · AI faculty",canSay:"Research aptitude, grad school readiness, BRAIN project",deadline:"TBD",status:"confirmed"},
+    ],
+    recPacket:"",identity:"",themes:"",evidence:"",fitNotes:""
+  };
 
-    bind("cvVersion","cvVersion");
-    bind("cvLink","cvLink");
-    bind("cvBullets","cvBullets");
-    bind("cvNotes","cvNotes");
+  function load(){try{const r=localStorage.getItem(KEY);if(!r)return structuredClone(DEFAULT);const d=JSON.parse(r);const m={...structuredClone(DEFAULT),...d};if(!Array.isArray(m.programs))m.programs=structuredClone(DEFAULT.programs);if(!Array.isArray(m.recommenders))m.recommenders=structuredClone(DEFAULT.recommenders);return m;}catch{return structuredClone(DEFAULT);}}
+  function save(){localStorage.setItem(KEY,JSON.stringify(DB));}
+  let DB=load();
 
-    bind("sopStage","sopStage");
-    bind("sopLink","sopLink");
-    bind("sopThesis","sopThesis");
-    bind("sopOutline","sopOutline");
-    bind("sopNotes","sopNotes");
+  const bind=(id,key)=>{const el=document.getElementById(id);el.value=DB[key]??"";el.addEventListener("input",()=>{DB[key]=el.value;save();});el.addEventListener("change",()=>{DB[key]=el.value;save();});return el;};
 
-    bind("wsPages","wsPages");
-    bind("wsLink","wsLink");
-    bind("wsTopic","wsTopic");
-    bind("wsAbstract","wsAbstract");
-    bind("wsSections","wsSections");
-    bind("wsBib","wsBib");
+  bind("cvVersion","cvVersion");bind("cvLink","cvLink");bind("cvBullets","cvBullets");bind("cvNotes","cvNotes");
+  bind("sopStage","sopStage");bind("sopLink","sopLink");bind("sopThesis","sopThesis");bind("sopOutline","sopOutline");bind("sopNotes","sopNotes");
+  bind("wsPages","wsPages");bind("wsLink","wsLink");bind("wsTopic","wsTopic");bind("wsAbstract","wsAbstract");bind("wsSections","wsSections");bind("wsBib","wsBib");
+  bind("recPacket","recPacket");bind("identity","identity");bind("themes","themes");bind("evidence","evidence");bind("fitNotes","fitNotes");
 
-    bind("recPacket","recPacket");
-    bind("identity","identity");
-    bind("themes","themes");
-    bind("evidence","evidence");
-    bind("fitNotes","fitNotes");
+  function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
 
-    // programs table
-    const progBody = document.getElementById("progBody");
-    function renderPrograms(){
-      progBody.innerHTML = DB.programs.map((p, idx)=>`
-        <tr>
-          <td><input data-kind="program" data-idx="${idx}" data-field="name" value="${escapeHtml(p.name)}" /></td>
-          <td><input data-kind="program" data-idx="${idx}" data-field="type" value="${escapeHtml(p.type)}" /></td>
-          <td><input data-kind="program" data-idx="${idx}" data-field="deadline" value="${escapeHtml(p.deadline)}" /></td>
-          <td><input data-kind="program" data-idx="${idx}" data-field="notes" value="${escapeHtml(p.notes)}" /></td>
-          <td>
-            <div class="row2" style="gap:8px">
-              <input style="flex:1" data-kind="program" data-idx="${idx}" data-field="status" value="${escapeHtml(p.status)}" />
-              <button class="btn" style="padding:8px 10px" onclick="removeProgram(${idx});return false;">✕</button>
-            </div>
-          </td>
-        </tr>
-      `).join("");
-    }
+  const progBody=document.getElementById("progBody");
+  function renderPrograms(){progBody.innerHTML=DB.programs.map((p,idx)=>`<tr><td><input data-kind="program" data-idx="${idx}" data-field="name" value="${esc(p.name)}"/></td><td><input data-kind="program" data-idx="${idx}" data-field="type" value="${esc(p.type)}"/></td><td><input data-kind="program" data-idx="${idx}" data-field="deadline" value="${esc(p.deadline)}"/></td><td><input data-kind="program" data-idx="${idx}" data-field="notes" value="${esc(p.notes)}"/></td><td><div style="display:flex;gap:6px;"><input style="flex:1" data-kind="program" data-idx="${idx}" data-field="status" value="${esc(p.status)}"/><button class="btn" style="padding:6px 10px;flex-shrink:0;" onclick="removeProgram(${idx});return false;">✕</button></div></td></tr>`).join("");}
 
-    // recommenders table
-    const recBody = document.getElementById("recBody");
-    function renderRecs(){
-      recBody.innerHTML = DB.recommenders.map((r, idx)=>`
-        <tr>
-          <td><input data-kind="rec" data-idx="${idx}" data-field="name" value="${escapeHtml(r.name)}" /></td>
-          <td><input data-kind="rec" data-idx="${idx}" data-field="role" value="${escapeHtml(r.role)}" /></td>
-          <td><input data-kind="rec" data-idx="${idx}" data-field="canSay" value="${escapeHtml(r.canSay)}" /></td>
-          <td><input data-kind="rec" data-idx="${idx}" data-field="deadline" value="${escapeHtml(r.deadline)}" /></td>
-          <td>
-            <div class="row2" style="gap:8px">
-              <input style="flex:1" data-kind="rec" data-idx="${idx}" data-field="status" value="${escapeHtml(r.status)}" />
-              <button class="btn" style="padding:8px 10px" onclick="removeRec(${idx});return false;">✕</button>
-            </div>
-          </td>
-        </tr>
-      `).join("");
-    }
+  const recBody=document.getElementById("recBody");
+  function renderRecs(){recBody.innerHTML=DB.recommenders.map((r,idx)=>`<tr><td><input data-kind="rec" data-idx="${idx}" data-field="name" value="${esc(r.name)}"/></td><td><input data-kind="rec" data-idx="${idx}" data-field="role" value="${esc(r.role)}"/></td><td><input data-kind="rec" data-idx="${idx}" data-field="canSay" value="${esc(r.canSay)}"/></td><td><input data-kind="rec" data-idx="${idx}" data-field="deadline" value="${esc(r.deadline)}"/></td><td><div style="display:flex;gap:6px;"><input style="flex:1" data-kind="rec" data-idx="${idx}" data-field="status" value="${esc(r.status)}"/><button class="btn" style="padding:6px 10px;flex-shrink:0;" onclick="removeRec(${idx});return false;">✕</button></div></td></tr>`).join("");}
 
-    function escapeHtml(s){
-      return String(s ?? "").replace(/[&<>"']/g, m => ({
-        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-      }[m]));
-    }
+  function attachTableListeners(){document.querySelectorAll("input[data-kind]").forEach(inp=>{inp.addEventListener("input",()=>{const kind=inp.getAttribute("data-kind");const idx=parseInt(inp.getAttribute("data-idx"),10);const field=inp.getAttribute("data-field");if(kind==="program")DB.programs[idx][field]=inp.value;else DB.recommenders[idx][field]=inp.value;save();});});}
 
-    function attachTableListeners(){
-      document.querySelectorAll("input[data-kind]").forEach(inp=>{
-        inp.addEventListener("input", ()=>{
-          const kind = inp.getAttribute("data-kind");
-          const idx = parseInt(inp.getAttribute("data-idx"),10);
-          const field = inp.getAttribute("data-field");
-          if(kind==="program"){
-            DB.programs[idx][field] = inp.value;
-          }else{
-            DB.recommenders[idx][field] = inp.value;
-          }
-          save();
-        });
-      });
-    }
+  window.removeProgram=function(idx){DB.programs.splice(idx,1);save();renderPrograms();renderRecs();attachTableListeners();};
+  window.removeRec=function(idx){DB.recommenders.splice(idx,1);save();renderPrograms();renderRecs();attachTableListeners();};
 
-    window.removeProgram = function(idx){
-      DB.programs.splice(idx,1);
-      save();
-      renderPrograms(); renderRecs();
-      attachTableListeners();
-    }
-    window.removeRec = function(idx){
-      DB.recommenders.splice(idx,1);
-      save();
-      renderPrograms(); renderRecs();
-      attachTableListeners();
-    }
+  document.getElementById("addProgram").onclick=()=>{DB.programs.push({name:"",type:"master's",deadline:"TBD",notes:"",status:"researching"});save();renderPrograms();attachTableListeners();};
+  document.getElementById("addRec").onclick=()=>{DB.recommenders.push({name:"",role:"",canSay:"",deadline:"TBD",status:"not asked"});save();renderRecs();attachTableListeners();};
 
-    document.getElementById("addProgram").onclick = ()=>{
-      DB.programs.push({name:"", type:"", deadline:"TBD", notes:"", status:"planning"});
-      save();
-      renderPrograms(); attachTableListeners();
-    };
+  function toMd(){const l=[];l.push(`# Schola Arcana — Dossier\n`);l.push(`## CV\n- Version: **${DB.cvVersion||"—"}**\n- File: ${DB.cvLink||"—"}\n\n### Key bullets\n${(DB.cvBullets||"—").trim()}\n\n### Notes\n${(DB.cvNotes||"—").trim()}\n`);l.push(`## SOP\n- Stage: **${DB.sopStage||"—"}**\n- File: ${DB.sopLink||"—"}\n- Thesis: ${DB.sopThesis||"—"}\n\n### Outline\n${(DB.sopOutline||"—").trim()}\n\n### Notes\n${(DB.sopNotes||"—").trim()}\n`);l.push(`## Writing sample\n- Pages: **${DB.wsPages||"0"}**\n- File: ${DB.wsLink||"—"}\n- Topic: ${DB.wsTopic||"—"}\n\n### Abstract\n${(DB.wsAbstract||"—").trim()}\n\n### Sections\n${(DB.wsSections||"—").trim()}\n\n### Bibliography\n${(DB.wsBib||"—").trim()}\n`);l.push(`## Programs\n`);DB.programs.forEach(p=>l.push(`- **${p.name}** (${p.type}) — Deadline: ${p.deadline} — Status: ${p.status}\n  - Notes: ${p.notes}`));l.push(`\n## Recommenders\n`);DB.recommenders.forEach(r=>l.push(`- **${r.name}** — ${r.role} — Deadline: ${r.deadline} — Status: ${r.status}\n  - Can say: ${r.canSay}`));l.push(`\n### Packet checklist\n${(DB.recPacket||"—").trim()}\n`);l.push(`## Coherence\n### Identity\n${(DB.identity||"—").trim()}\n\n### Research themes\n${(DB.themes||"—").trim()}\n\n### Evidence\n${(DB.evidence||"—").trim()}\n\n### Program fit\n${(DB.fitNotes||"—").trim()}\n`);return l.join("\n");}
 
-    document.getElementById("addRec").onclick = ()=>{
-      DB.recommenders.push({name:"", role:"", canSay:"", deadline:"TBD", status:"not asked"});
-      save();
-      renderRecs(); attachTableListeners();
-    };
+  async function copy(text,btn){try{await navigator.clipboard.writeText(text);const old=btn.textContent;btn.textContent="Copied ✓";setTimeout(()=>btn.textContent=old,900);}catch{alert("Copy failed.");}}
 
-    function toMd(){
-      const lines = [];
-      lines.push(`# Schola Arcana — Dossier\n`);
+  document.getElementById("exportBtn").onclick=()=>copy(toMd(),document.getElementById("exportBtn"));
+  document.getElementById("exportPrograms").onclick=()=>copy(DB.programs.map(p=>`- ${p.name} | ${p.type} | ${p.deadline} | ${p.status} | ${p.notes}`).join("\n"),document.getElementById("exportPrograms"));
+  document.getElementById("exportRecs").onclick=()=>copy(DB.recommenders.map(r=>`- ${r.name} | ${r.role} | ${r.deadline} | ${r.status} | ${r.canSay}`).join("\n"),document.getElementById("exportRecs"));
+  document.getElementById("resetBtn").onclick=()=>{if(confirm("Reset dossier (everything)?")){DB=structuredClone(DEFAULT);localStorage.removeItem(KEY);location.reload();}};
+  document.getElementById("printBtn").onclick=()=>window.print();
 
-      lines.push(`## CV`);
-      lines.push(`- Version: **${DB.cvVersion || "—"}**`);
-      lines.push(`- File/link: ${DB.cvLink || "—"}\n`);
-      lines.push(`### Key bullets`);
-      lines.push(`${(DB.cvBullets||"—").trim()}\n`);
-      lines.push(`### Notes`);
-      lines.push(`${(DB.cvNotes||"—").trim()}\n`);
-
-      lines.push(`## SOP (Statement of Purpose)`);
-      lines.push(`- Stage: **${DB.sopStage || "—"}**`);
-      lines.push(`- File/link: ${DB.sopLink || "—"}`);
-      lines.push(`- Thesis: ${DB.sopThesis || "—"}\n`);
-      lines.push(`### Outline`);
-      lines.push(`${(DB.sopOutline||"—").trim()}\n`);
-      lines.push(`### Notes`);
-      lines.push(`${(DB.sopNotes||"—").trim()}\n`);
-
-      lines.push(`## Writing sample`);
-      lines.push(`- Pages: **${DB.wsPages || "0"}**`);
-      lines.push(`- File/link: ${DB.wsLink || "—"}`);
-      lines.push(`- Topic: ${DB.wsTopic || "—"}\n`);
-      lines.push(`### Abstract`);
-      lines.push(`${(DB.wsAbstract||"—").trim()}\n`);
-      lines.push(`### Sections`);
-      lines.push(`${(DB.wsSections||"—").trim()}\n`);
-      lines.push(`### Bibliography`);
-      lines.push(`${(DB.wsBib||"—").trim()}\n`);
-
-      lines.push(`## Programs & deadlines`);
-      DB.programs.forEach((p,i)=>{
-        lines.push(`- **${p.name || "Program"}** (${p.type || "—"}) — Deadline: ${p.deadline || "TBD"} — Status: ${p.status || "—"}`);
-        if(p.notes) lines.push(`  - Notes: ${p.notes}`);
-      });
-      lines.push("");
-
-      lines.push(`## Recommenders`);
-      DB.recommenders.forEach((r,i)=>{
-        lines.push(`- **${r.name || "Name"}** — ${r.role || "—"} — Deadline: ${r.deadline || "TBD"} — Status: ${r.status || "—"}`);
-        if(r.canSay) lines.push(`  - Can say: ${r.canSay}`);
-      });
-      lines.push("");
-
-      lines.push(`### Recommender packet checklist`);
-      lines.push(`${(DB.recPacket||"—").trim()}\n`);
-
-      lines.push(`## Coherence sheet`);
-      lines.push(`### Identity`);
-      lines.push(`${(DB.identity||"—").trim()}\n`);
-      lines.push(`### Research themes`);
-      lines.push(`${(DB.themes||"—").trim()}\n`);
-      lines.push(`### Evidence list`);
-      lines.push(`${(DB.evidence||"—").trim()}\n`);
-      lines.push(`### Program fit notes template`);
-      lines.push(`${(DB.fitNotes||"—").trim()}\n`);
-
-      return lines.join("\n");
-    }
-
-    async function copy(text, btn){
-      try{
-        await navigator.clipboard.writeText(text);
-        const old = btn.textContent;
-        btn.textContent = "Copied ✨";
-        setTimeout(()=>btn.textContent = old, 900);
-      }catch{
-        alert("Copy failed. You can still manually copy after selecting the text.");
-      }
-    }
-
-    document.getElementById("exportBtn").onclick = ()=>{
-      copy(toMd(), document.getElementById("exportBtn"));
-    };
-
-    document.getElementById("exportPrograms").onclick = ()=>{
-      const md = DB.programs.map(p=>`- ${p.name} | ${p.type} | ${p.deadline} | ${p.status} | ${p.notes}`).join("\n");
-      copy(md, document.getElementById("exportPrograms"));
-    };
-
-    document.getElementById("exportRecs").onclick = ()=>{
-      const md = DB.recommenders.map(r=>`- ${r.name} | ${r.role} | ${r.deadline} | ${r.status} | ${r.canSay}`).join("\n");
-      copy(md, document.getElementById("exportRecs"));
-    };
-
-    document.getElementById("resetBtn").onclick = ()=>{
-      if(confirm("Reset dossier (everything)?")){
-        DB = structuredClone(DEFAULT);
-        localStorage.removeItem(KEY);
-        location.reload();
-      }
-    };
-
-    document.getElementById("printBtn").onclick = ()=> window.print();
-
-    // initial render
-    renderPrograms();
-    renderRecs();
-    attachTableListeners();
-  </script>
+  renderPrograms();renderRecs();attachTableListeners();
+</script>
 </body>
 </html>

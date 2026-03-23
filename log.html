@@ -1,425 +1,159 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Schola Arcana — Weekly & Daily Log</title>
-  <meta name="description" content="Weekly + daily reflection system for the Cathedral Semester: what I learned, what I didn't understand, questions, revisits, mood, energy, and proof artifacts." />
-
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Schola Arcana — Daily Log</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=JetBrains+Mono:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --bg:#fff7fb;
-      --bg2:#ffe9f4;
-      --card:#ffffffcc;
-      --ink:#1f1630;
-      --muted:#5b4b66;
-      --pink:#ff4da6;
-      --pink2:#ff77c2;
-      --lav:#b18cff;
-      --mint:#5fe2c2;
-      --line:#f2c9df;
-      --shadow: 0 18px 40px rgba(31,22,48,.10);
-      --shadow2: 0 10px 24px rgba(31,22,48,.08);
-      --radius: 22px;
-      --radius2: 16px;
-      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-    }
-
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:var(--sans);
-      color:var(--ink);
-      background:
-        radial-gradient(1200px 700px at 10% 10%, #ffe0f0 0%, transparent 60%),
-        radial-gradient(1000px 700px at 90% 20%, #f0e3ff 0%, transparent 55%),
-        radial-gradient(900px 600px at 50% 90%, #e6fff7 0%, transparent 60%),
-        linear-gradient(180deg, var(--bg) 0%, #ffffff 100%);
-      overflow-x:hidden;
-    }
-
-    a{color:inherit}
-    .wrap{max-width:1200px;margin:0 auto;padding:28px 18px 70px}
-
-    .hero{
-      position:relative;
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      background: linear-gradient(135deg, #ffffffcc, #fff0f8cc);
-      box-shadow:var(--shadow);
-      padding:26px 22px;
-      overflow:hidden;
-    }
-    .hero:before{
-      content:"";
-      position:absolute; inset:-40px -60px auto auto;
-      width:280px;height:280px;
-      background: radial-gradient(circle at 30% 30%, #ffb3da 0%, transparent 55%),
-                  radial-gradient(circle at 70% 70%, #c7b0ff 0%, transparent 55%);
-      filter: blur(2px);
-      transform: rotate(12deg);
-      opacity:.9;
-      pointer-events:none;
-    }
-
-    h1{
-      margin:0 0 8px;
-      font-size: clamp(26px, 3vw, 42px);
-      letter-spacing:-.02em;
-      line-height:1.05;
-    }
-
-    .sparkle{
-      display:inline-block;
-      background: linear-gradient(135deg, var(--pink), var(--lav));
-      -webkit-background-clip:text;
-      background-clip:text;
-      color:transparent;
-      font-weight:950;
-    }
-
-    .muted{color:var(--muted)}
-
-    .ctaRow{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
-    .btn{
-      border:1px solid var(--line);
-      background: linear-gradient(180deg, #fff, #fff7fb);
-      border-radius:999px;
-      padding:10px 14px;
-      font-weight:750;
-      font-size:14px;
-      cursor:pointer;
-      box-shadow:var(--shadow2);
-      transition: transform .08s ease, border-color .2s ease;
-      user-select:none;
-      text-decoration:none;
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-    }
-    .btn:hover{transform: translateY(-1px); border-color:#f0a7cd}
-    .btn.primary{
-      border-color: transparent;
-      background: linear-gradient(135deg, var(--pink), var(--pink2));
-      color:white;
-    }
-    .btn.ghost{background:transparent; box-shadow:none;}
-
-    .grid{margin-top:16px; display:grid; grid-template-columns: 1.2fr .8fr; gap:14px;}
-    @media (max-width: 980px){ .grid{grid-template-columns:1fr} }
-
-    .card{
-      border:1px solid var(--line);
-      background: var(--card);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow2);
-      padding:16px;
-      backdrop-filter: blur(8px);
-    }
-
-    .card h2{
-      margin:0 0 10px;
-      font-size:18px;
-      letter-spacing:-.01em;
-      display:flex; align-items:center; gap:10px;
-    }
-
-    .pill{
-      font-family:var(--mono);
-      font-size:12px;
-      padding:6px 10px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background:#fff;
-      color:var(--muted);
-      white-space:nowrap;
-    }
-
-    .kpiRow{display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; margin-top:12px;}
-    @media (max-width: 700px){ .kpiRow{grid-template-columns:1fr} }
-
-    .kpi{
-      border:1px solid var(--line);
-      background:#fff;
-      border-radius:var(--radius2);
-      padding:12px;
-      box-shadow:0 8px 16px rgba(31,22,48,.06);
-    }
-    .kpi .label{font-size:12px;color:var(--muted);margin-bottom:6px}
-    .kpi .value{font-weight:950;font-size:16px}
-    .kpi .sub{font-size:12px;color:var(--muted);margin-top:4px;line-height:1.45}
-
-    .row{display:flex; gap:10px; flex-wrap:wrap; align-items:center;}
-    select, input[type="date"], input[type="text"]{
-      border:1px solid var(--line);
-      background:#fff;
-      border-radius:14px;
-      padding:10px 12px;
-      font-weight:700;
-      color:var(--ink);
-      outline:none;
-      box-shadow:0 8px 16px rgba(31,22,48,.06);
-    }
-
-    textarea{
-      width:100%;
-      min-height: 92px;
-      border:1px solid var(--line);
-      border-radius:18px;
-      padding:12px 12px;
-      font-family:var(--sans);
-      color:var(--ink);
-      outline:none;
-      background:#fff;
-      box-shadow:0 10px 20px rgba(31,22,48,.06);
-      resize: vertical;
-      line-height:1.5;
-    }
-
-    .two{display:grid; grid-template-columns: 1fr 1fr; gap:10px;}
-    @media (max-width: 900px){ .two{grid-template-columns:1fr} }
-
-    .chipRow{display:flex; flex-wrap:wrap; gap:8px; margin-top:8px}
-    .chip{
-      display:inline-flex; align-items:center; gap:8px;
-      border:1px solid var(--line);
-      background:#fff;
-      padding:7px 10px;
-      border-radius:999px;
-      font-size:12px;
-      color:var(--muted);
-      box-shadow:0 8px 16px rgba(31,22,48,.05);
-    }
-
-    .checkGrid{display:grid; grid-template-columns: repeat(3, 1fr); gap:10px; margin-top:10px;}
-    @media (max-width: 900px){ .checkGrid{grid-template-columns:1fr} }
-
-    .checkCard{
-      border:1px solid var(--line);
-      background:#fff;
-      border-radius:18px;
-      padding:12px;
-      box-shadow:0 10px 20px rgba(31,22,48,.06);
-    }
-    .checkCard h3{margin:0 0 8px; font-size:14px; letter-spacing:-.01em}
-
-    .checkItem{display:flex; gap:10px; align-items:flex-start; margin:8px 0; color:var(--muted)}
-    .checkItem input{margin-top:3px; transform: scale(1.05)}
-
-    .tiny{font-size:12px;color:var(--muted);line-height:1.55}
-
-    .divider{height:1px;background:#f7d8e8;margin:12px 0}
-
-    details{
-      border:1px solid var(--line);
-      background:#fff;
-      border-radius:var(--radius);
-      padding:0;
-      overflow:hidden;
-      box-shadow:var(--shadow2);
-    }
-    summary{
-      list-style:none;
-      cursor:pointer;
-      padding:14px 16px;
-      font-weight:950;
-      display:flex; align-items:center; justify-content:space-between;
-      gap:10px;
-    }
-    summary::-webkit-details-marker{display:none}
-    .caret{
-      width:10px;height:10px; border-right:2px solid var(--muted); border-bottom:2px solid var(--muted);
-      transform: rotate(-45deg);
-      transition:.12s ease;
-      margin-left:6px;
-    }
-    details[open] .caret{transform: rotate(45deg)}
-    .content{padding:0 16px 16px; color:var(--muted)}
-
-    .toast{
-      position:fixed;
-      left:50%;
-      bottom:18px;
-      transform:translateX(-50%);
-      background: linear-gradient(135deg, #ffffff, #fff3fa);
-      border:1px solid var(--line);
-      border-radius:999px;
-      padding:10px 14px;
-      box-shadow:var(--shadow);
-      display:none;
-      font-weight:900;
-      z-index:999;
-    }
-
-    footer{margin-top:18px;color:var(--muted);font-size:12px;text-align:center}
-
-    /* -------- Saved Entry Cards -------- */
-    .entryCard{
-      border:1px solid #f7d8e8;
-      background:#fff;
-      border-radius:18px;
-      padding:12px;
-      box-shadow:0 10px 20px rgba(31,22,48,.05);
-      margin-bottom:10px;
-      cursor:pointer;
-      transition: transform .08s ease, border-color .2s ease, box-shadow .2s ease;
-    }
-    .entryCard:hover{
-      transform: translateY(-1px);
-      border-color:#f0a7cd;
-      box-shadow:0 14px 26px rgba(31,22,48,.08);
-    }
-    .entryTitle{font-weight:950}
-    .entrySession{font-size:12px;margin-top:6px}
-    .entryPreview{margin-top:8px}
-
-    /* -------- Modal -------- */
-    .modal{
-      position:fixed; inset:0;
-      display:none;
-      align-items:center; justify-content:center;
-      background: rgba(31,22,48,.35);
-      padding:18px;
-      z-index:9999;
-    }
-    .modal[aria-hidden="false"]{display:flex}
-    .modalCard{
-      width:min(980px, 100%);
-      border-radius:var(--radius);
-      background: linear-gradient(135deg, #ffffff, #fff3fa);
-      border:1px solid var(--line);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-      max-height: min(84vh, 860px);
-      display:flex; flex-direction:column;
-    }
-    .modalHead{
-      padding:16px 16px 12px;
-      border-bottom:1px solid #f7d8e8;
-      display:flex; align-items:flex-start; justify-content:space-between; gap:12px;
-    }
-    .modalHead h3{margin:0;font-size:18px}
-    .modalActions{display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end}
-    .close{
-      border:none; background:transparent; cursor:pointer;
-      font-size:18px; padding:6px 10px; border-radius:12px;
-    }
-    .close:hover{background:#ffe6f2}
-    .modalBody{padding:14px 16px 18px; overflow:auto}
-
-    .field{
-      margin-top:12px;
-      border:1px solid #f7d8e8;
-      background:#fff;
-      border-radius:18px;
-      padding:12px;
-      box-shadow:0 10px 20px rgba(31,22,48,.05);
-    }
-    .fieldLabel{
-      font-weight:950;
-      font-size:12px;
-      color:var(--ink);
-      margin-bottom:6px;
-    }
-    .fieldValue{
-      font-size:12px;
-      color:var(--muted);
-      white-space:pre-wrap;
-      line-height:1.65;
-    }
-    .metaRow{
-      display:flex; flex-wrap:wrap; gap:8px;
-      margin-top:10px;
-    }
-    .linkLine{
-      margin-top:8px;
-      font-size:12px;
-      color:var(--muted);
-      word-break:break-word;
-    }
-    .linkLine b{color:var(--ink)}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    :root{--ink:#1a1814;--ink-soft:#3d3a34;--ink-muted:#7a7670;--ink-faint:#b8b4ad;--parchment:#faf8f3;--parchment-warm:#f2ede4;--parchment-deep:#e8e1d5;--pink:#e8546a;--pink-soft:#f0b8c2;--pink-faint:#faedf0;--gold:#c9923a;--gold-faint:#fdf3e7;--purple:#6b4fa0;--purple-faint:#f0ecf8;--teal:#2a8a7f;--teal-faint:#eaf5f4;--border:#ddd8ce;}
+    html{font-size:16px;scroll-behavior:smooth;}
+    body{background:var(--parchment);color:var(--ink);font-family:'Inter',sans-serif;font-weight:300;line-height:1.7;overflow-x:hidden;}
+    body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:1000;opacity:.4;}
+    a{color:inherit;text-decoration:none;}
+    nav{padding:18px 48px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--parchment);position:sticky;top:0;z-index:100;}
+    .nav-brand{font-family:'EB Garamond',serif;font-size:1.1rem;letter-spacing:.02em;}
+    .nav-brand span{color:var(--pink);}
+    .nav-links{display:flex;gap:28px;list-style:none;}
+    .nav-links a{font-size:.78rem;color:var(--ink-muted);letter-spacing:.06em;text-transform:uppercase;transition:color .2s;}
+    .nav-links a:hover,.nav-links a.active{color:var(--pink);}
+    .hero{max-width:860px;margin:0 auto;padding:72px 48px 48px;border-bottom:1px solid var(--border);}
+    .hero h1{font-family:'EB Garamond',serif;font-size:3.2rem;font-weight:400;line-height:1.15;letter-spacing:-.01em;margin-bottom:8px;}
+    .hero h1 em{font-style:italic;color:var(--pink);}
+    .hero-sub{font-family:'EB Garamond',serif;font-size:1.2rem;font-style:italic;color:var(--ink-muted);margin-bottom:20px;}
+    .hero-meta{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:20px;}
+    .tag{font-size:.72rem;padding:4px 12px;border-radius:20px;letter-spacing:.05em;text-transform:uppercase;font-weight:500;}
+    .tag-pink{background:var(--pink-faint);color:var(--pink);border:1px solid var(--pink-soft);}
+    .tag-gold{background:var(--gold-faint);color:var(--gold);border:1px solid #e8c88a;}
+    .tag-purple{background:var(--purple-faint);color:var(--purple);border:1px solid #c4b3e0;}
+    .tag-teal{background:var(--teal-faint);color:var(--teal);border:1px solid #9fd4cf;}
+    .btn{font-size:.78rem;padding:8px 16px;border-radius:20px;border:1px solid var(--border);background:#fff;color:var(--ink-soft);cursor:pointer;letter-spacing:.04em;text-transform:uppercase;font-weight:500;transition:border-color .2s,color .2s;font-family:'Inter',sans-serif;display:inline-flex;align-items:center;gap:6px;}
+    .btn:hover{border-color:var(--pink-soft);color:var(--pink);}
+    .btn.primary{background:var(--pink);border-color:var(--pink);color:#fff;}
+    .btn.primary:hover{background:#d44460;}
+    .hero-btns{display:flex;flex-wrap:wrap;gap:10px;}
+    .main{max-width:1100px;margin:0 auto;padding:32px 48px 80px;}
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;}
+    @media(max-width:800px){.two-col{grid-template-columns:1fr;}}
+    .panel{border:1px solid var(--border);border-radius:12px;background:#fff;padding:20px 24px;margin-bottom:16px;}
+    .panel h2{font-family:'EB Garamond',serif;font-size:1.2rem;font-weight:400;color:var(--ink);margin-bottom:14px;}
+    .field-label{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-muted);margin-bottom:6px;font-weight:500;display:block;}
+    textarea,input[type="text"],input[type="date"],input[type="number"],select{width:100%;font-family:'Inter',sans-serif;font-size:.88rem;color:var(--ink);background:var(--parchment);border:1px solid var(--border);border-radius:8px;padding:9px 12px;outline:none;transition:border-color .2s;resize:vertical;}
+    textarea:focus,input:focus,select:focus{border-color:var(--pink-soft);}
+    textarea{min-height:80px;}
+    .field{margin-bottom:14px;}
+    .meta-row{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;margin-bottom:14px;}
+    @media(max-width:700px){.meta-row{grid-template-columns:1fr 1fr;}}
+    .divider{border:none;border-top:1px solid var(--parchment-deep);margin:18px 0;}
+    .check-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px;}
+    @media(max-width:700px){.check-grid{grid-template-columns:1fr;}}
+    .check-card{padding:12px 14px;border-radius:8px;border:1px solid var(--border);background:var(--parchment);}
+    .check-card h3{font-family:'EB Garamond',serif;font-size:.95rem;font-weight:500;color:var(--ink);margin-bottom:10px;}
+    .check-item{display:flex;align-items:center;gap:8px;margin-bottom:8px;font-size:.85rem;color:var(--ink-soft);cursor:pointer;}
+    .check-item input{accent-color:var(--pink);}
+    .pill{font-family:'JetBrains Mono',monospace;font-size:.72rem;padding:3px 10px;border-radius:20px;border:1px solid var(--border);background:var(--parchment-warm);color:var(--ink-muted);}
+    details{border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+    summary{list-style:none;cursor:pointer;padding:12px 16px;font-size:.88rem;font-weight:500;color:var(--ink);display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--parchment-warm);}
+    summary::-webkit-details-marker{display:none;}
+    .acc-content{padding:14px 16px;background:#fff;}
+    .entry-card{padding:12px 14px;border-radius:8px;border:1px solid var(--border);background:var(--parchment);margin-bottom:8px;cursor:pointer;transition:border-color .2s;}
+    .entry-card:hover{border-color:var(--pink-soft);}
+    .entry-title{font-size:.88rem;font-weight:500;color:var(--ink);margin-bottom:2px;}
+    .entry-preview{font-size:.78rem;color:var(--ink-muted);margin-top:4px;}
+    .chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;}
+    .chip{display:inline-flex;align-items:center;border:1px solid var(--border);background:var(--parchment-warm);padding:4px 10px;border-radius:20px;font-size:.72rem;color:var(--ink-muted);font-weight:500;}
+    .toast{display:none;position:fixed;bottom:24px;right:24px;background:var(--ink);color:var(--parchment);padding:10px 20px;border-radius:20px;font-size:.82rem;z-index:500;font-family:'JetBrains Mono',monospace;}
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(26,24,20,.5);padding:18px;z-index:200;}
+    .modal[aria-hidden="false"]{display:flex;}
+    .modal-card{width:min(860px,100%);border-radius:16px;background:var(--parchment);border:1px solid var(--border);overflow:hidden;max-height:84vh;display:flex;flex-direction:column;}
+    .modal-head{padding:20px 24px 16px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:12px;}
+    .modal-head h3{font-family:'EB Garamond',serif;font-size:1.3rem;font-weight:400;}
+    .modal-actions{display:flex;gap:8px;align-items:center;}
+    .close{border:none;background:transparent;cursor:pointer;font-size:1.1rem;padding:4px 8px;border-radius:8px;color:var(--ink-muted);}
+    .close:hover{background:var(--parchment-deep);color:var(--pink);}
+    .modal-body{padding:20px 24px;overflow-auto;}
+    .field-block{margin-bottom:16px;}
+    .field-block-label{font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-faint);margin-bottom:4px;font-weight:500;}
+    .field-block-value{font-size:.88rem;color:var(--ink-soft);white-space:pre-wrap;line-height:1.65;}
+    .link-line{font-size:.82rem;margin-bottom:6px;}
+    .link-line a{color:var(--pink);}
+    .footnote{font-size:.78rem;color:var(--ink-faint);font-style:italic;font-family:'EB Garamond',serif;text-align:center;padding:32px 0 0;border-top:1px solid var(--border);margin-top:48px;}
+    @media(max-width:640px){nav{padding:16px 20px;}.hero{padding:48px 20px 32px;}.main{padding:24px 20px 60px;}}
   </style>
 </head>
-
 <body>
-  <div class="wrap">
+<nav>
+  <a href="index.html" class="nav-brand">Schola <span>Arcana</span></a>
+  <ul class="nav-links">
+    <li><a href="topics.html">Atlas</a></li>
+    <li><a href="vault.html">Proof Vault</a></li>
+    <li><a href="jorunal.html">Journal</a></li>
+    <li><a href="dossier.html">Dossier</a></li>
+    <li><a href="log.html" class="active">Log</a></li>
+  </ul>
+</nav>
 
-    <header class="hero">
-      <h1><span class="sparkle">Schola Arcana</span> — Weekly & Daily Log</h1>
-      <p class="muted" style="margin:0;max-width:90ch">
-        This is your reflection engine. Not therapy. Not vibes. A research log.
-        Every entry should leave evidence of thinking: definitions, axioms, confusions, questions, and proof progress.
-      </p>
+<div class="hero">
+  <h1>Daily <em>Log</em></h1>
+  <div class="hero-sub">objects · axioms · goal · invariant · every session</div>
+  <div class="hero-meta">
+    <span class="tag tag-pink">daily + weekly</span>
+    <span class="tag tag-purple">autosave locally</span>
+    <span class="tag tag-teal">export JSON</span>
+  </div>
+  <div class="hero-btns">
+    <a class="btn" href="index.html">← Cathedral</a>
+    <button class="btn primary" id="saveBtn">Save entry</button>
+    <button class="btn" id="resetBtn">Clear form</button>
+    <button class="btn" id="exportBtn">Export JSON</button>
+  </div>
+</div>
 
-      <div class="ctaRow">
-        <a class="btn" href="index.html">← Back to Cathedral</a>
-        <a class="btn" href="vault.html">Proof Vault</a>
-        <a class="btn" href="topics.html">Topics Atlas</a>
-        <button class="btn primary" id="saveBtn">Save entry</button>
-        <button class="btn" id="exportBtn">Export JSON</button>
-        <button class="btn ghost" id="resetBtn">Reset form</button>
-      </div>
-
-      <div class="kpiRow">
-        <div class="kpi">
-          <div class="label">Daily rule</div>
-          <div class="value">3–8 lines</div>
-          <div class="sub">Just enough to keep continuity. Don’t write a novel.</div>
-        </div>
-        <div class="kpi">
-          <div class="label">Weekly rule</div>
-          <div class="value">1 synthesis paragraph</div>
-          <div class="sub">“Axioms → structures → what I can now prove.”</div>
-        </div>
-        <div class="kpi">
-          <div class="label">Proof culture</div>
-          <div class="value">Log 1 proof artifact/week</div>
-          <div class="sub">Even if it’s short. Especially if it’s short.</div>
-        </div>
-      </div>
-    </header>
-
-    <section class="grid" style="margin-top:16px">
-
-      <div class="card">
-        <h2>Entry metadata <span class="pill">minimal + structured</span></h2>
-
-        <div class="row" style="margin-top:10px">
-          <input type="date" id="date" />
-
-          <select id="entryType">
-            <option value="daily">Daily entry</option>
-            <option value="weekly">Weekly synthesis</option>
-          </select>
-
-          <select id="week">
-            <option value="">Week (optional)</option>
-          </select>
-
-          <input type="text" id="session" placeholder="Session (e.g., 'TOC + LA')" style="min-width:240px" />
+<div class="main">
+  <div class="two-col">
+    <div>
+      <div class="panel">
+        <h2>Entry metadata</h2>
+        <div class="meta-row">
+          <div class="field">
+            <label class="field-label" for="date">Date</label>
+            <input type="date" id="date"/>
+          </div>
+          <div class="field">
+            <label class="field-label" for="entryType">Type</label>
+            <select id="entryType">
+              <option value="daily">Daily</option>
+              <option value="weekly">Weekly</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="field-label" for="week">Week</label>
+            <select id="week"><option value="">— week —</option></select>
+          </div>
+          <div class="field">
+            <label class="field-label" for="session">Session</label>
+            <input type="text" id="session" placeholder="e.g. TOC + Enderton"/>
+          </div>
         </div>
 
-        <div class="divider"></div>
-
-        <div class="two">
-          <div>
-            <div class="tiny" style="font-weight:900;color:var(--ink);margin-bottom:6px">Mood</div>
+        <div class="meta-row" style="grid-template-columns:1fr 1fr;">
+          <div class="field">
+            <label class="field-label" for="mood">Mood</label>
             <select id="mood">
               <option value="">—</option>
               <option>focused</option>
               <option>curious</option>
               <option>confused (productive)</option>
               <option>tired</option>
-              <option>stressed</option>
               <option>excited</option>
               <option>unstoppable</option>
+              <option>breakthrough ★</option>
             </select>
           </div>
-
-          <div>
-            <div class="tiny" style="font-weight:900;color:var(--ink);margin-bottom:6px">Energy</div>
+          <div class="field">
+            <label class="field-label" for="energy">Energy</label>
             <select id="energy">
               <option value="">—</option>
               <option>low</option>
@@ -430,516 +164,228 @@
           </div>
         </div>
 
-        <div class="chipRow">
+        <div class="chip-row">
           <span class="chip">Objects → Axioms → Goal → Invariant</span>
-          <span class="chip">Write like a scientist, not like a diary</span>
+          <span class="chip">Write like a scientist</span>
           <span class="chip">Confusion is data</span>
         </div>
-
-        <div class="divider"></div>
-
-        <h2>Core reflection <span class="pill">the Cathedral loop</span></h2>
-
-        <div class="two">
-          <div>
-            <div class="tiny" style="font-weight:900;color:var(--ink);margin-bottom:6px">What I learned (theorem/idea)</div>
-            <textarea id="learned" placeholder="Example: 'NFAs and DFAs are equivalent via subset construction. The key object is the set of possible NFA states after reading a prefix.'"></textarea>
-          </div>
-
-          <div>
-            <div class="tiny" style="font-weight:900;color:var(--ink);margin-bottom:6px">What I didn’t understand (yet)</div>
-            <textarea id="confusion" placeholder="Example: 'I still don’t feel pumping lemma as an intuition; it feels like a hack. Need to revisit why it works structurally.'"></textarea>
-          </div>
-        </div>
-
-        <div class="two" style="margin-top:10px">
-          <div>
-            <div class="tiny" style="font-weight:900;color:var(--ink);margin-bottom:6px">Questions I have</div>
-            <textarea id="questions" placeholder="Write 1–5 questions. Real questions, not rhetorical."></textarea>
-          </div>
-
-          <div>
-            <div class="tiny" style="font-weight:900;color:var(--ink);margin-bottom:6px">What I want to revisit</div>
-            <textarea id="revisit" placeholder="Example: 'Revisit quantifiers; redo 6 translation drills. Redo Axler 3.12–3.16.'"></textarea>
-          </div>
-        </div>
-
-        <div style="margin-top:10px">
-          <div class="tiny" style="font-weight:900;color:var(--ink);margin-bottom:6px">Axioms header ritual (90 seconds)</div>
-          <textarea id="axioms" placeholder="Objects: ...\nAxioms/Definitions: ...\nGoal: ...\nInvariant: ..."></textarea>
-        </div>
-
-        <div style="margin-top:10px">
-          <div class="tiny" style="font-weight:900;color:var(--ink);margin-bottom:6px">Weekly synthesis (only for Weekly entries)</div>
-          <textarea id="synthesis" placeholder="Write one paragraph: axioms → structures → what you can now prove. Mention 1 proof artifact."></textarea>
-        </div>
-
       </div>
 
-      <div class="card">
-        <h2>Weekly scoreboard <span class="pill">evidence</span></h2>
+      <div class="panel">
+        <h2>Core reflection</h2>
+        <div class="field">
+          <label class="field-label" for="axioms">Axioms header ritual (90 seconds)</label>
+          <textarea id="axioms" placeholder="Objects: ...\nAxioms/Definitions: ...\nGoal: ...\nInvariant: ..."></textarea>
+        </div>
+        <div class="two-col" style="margin-bottom:0;">
+          <div class="field">
+            <label class="field-label" for="learned">What I learned</label>
+            <textarea id="learned" placeholder="Main theorem or idea understood..."></textarea>
+          </div>
+          <div class="field">
+            <label class="field-label" for="confusion">What I didn't understand (yet)</label>
+            <textarea id="confusion" placeholder="Where I got stuck..."></textarea>
+          </div>
+        </div>
+        <div class="two-col" style="margin-bottom:0;">
+          <div class="field">
+            <label class="field-label" for="questions">Questions</label>
+            <textarea id="questions" placeholder="1–5 real questions..."></textarea>
+          </div>
+          <div class="field">
+            <label class="field-label" for="revisit">Revisit list</label>
+            <textarea id="revisit" placeholder="Things to redo next session..."></textarea>
+          </div>
+        </div>
+        <div class="field">
+          <label class="field-label" for="synthesis">Weekly synthesis (weekly entries only)</label>
+          <textarea id="synthesis" placeholder="Axioms → structures → what I can now prove. Mention 1 proof artifact."></textarea>
+        </div>
+      </div>
+    </div>
 
-        <div class="checkGrid">
-          <div class="checkCard">
+    <div>
+      <div class="panel">
+        <h2>Weekly scoreboard</h2>
+        <div class="check-grid">
+          <div class="check-card">
             <h3>Foundations</h3>
-            <label class="checkItem"><input type="checkbox" id="c_toc" /> TOC exercises done</label>
-            <label class="checkItem"><input type="checkbox" id="c_axioms" /> Logic/Discrete done</label>
-            <label class="checkItem"><input type="checkbox" id="c_proof" /> Proof artifact produced</label>
+            <label class="check-item"><input type="checkbox" id="c_toc"/> TOC exercises done</label>
+            <label class="check-item"><input type="checkbox" id="c_axioms"/> Logic/Discrete done</label>
+            <label class="check-item"><input type="checkbox" id="c_proof"/> Proof artifact produced</label>
           </div>
-
-          <div class="checkCard">
-            <h3>Structure</h3>
-            <label class="checkItem"><input type="checkbox" id="c_axler" /> Axler exercises done</label>
-            <label class="checkItem"><input type="checkbox" id="c_struct" /> Summary sheet / key theorem</label>
-            <label class="checkItem"><input type="checkbox" id="c_review" /> Review hardest problems</label>
+          <div class="check-card">
+            <h3>Math</h3>
+            <label class="check-item"><input type="checkbox" id="c_axler"/> Axler exercises done</label>
+            <label class="check-item"><input type="checkbox" id="c_struct"/> Summary sheet done</label>
+            <label class="check-item"><input type="checkbox" id="c_review"/> Hardest problems reviewed</label>
           </div>
-
-          <div class="checkCard">
+          <div class="check-card">
             <h3>Quantum + Dossier</h3>
-            <label class="checkItem"><input type="checkbox" id="c_qc" /> Quantum reps (2–5)</label>
-            <label class="checkItem"><input type="checkbox" id="c_project" /> Project commit</label>
-            <label class="checkItem"><input type="checkbox" id="c_dossier" /> Dossier step</label>
+            <label class="check-item"><input type="checkbox" id="c_qc"/> Quantum reps (2–5)</label>
+            <label class="check-item"><input type="checkbox" id="c_project"/> Schola Arcana updated</label>
+            <label class="check-item"><input type="checkbox" id="c_dossier"/> Dossier step</label>
           </div>
         </div>
 
-        <div class="divider"></div>
+        <hr class="divider"/>
 
-        <h2>Links (optional) <span class="pill">repo evidence</span></h2>
-        <div class="tiny" style="font-weight:900;color:var(--ink);margin-bottom:6px">Proof PDF link (GitHub)</div>
-        <input type="text" id="proofLink" placeholder="e.g., https://github.com/.../proofs/week07_pumpinglemma.pdf" style="width:100%" />
+        <h2>Links</h2>
+        <div class="field">
+          <label class="field-label" for="proofLink">Proof PDF (GitHub)</label>
+          <input type="text" id="proofLink" placeholder="https://github.com/.../proofs/week07_...pdf"/>
+        </div>
+        <div class="field">
+          <label class="field-label" for="commitLink">Commit / PR</label>
+          <input type="text" id="commitLink" placeholder="https://github.com/.../commit/abc123"/>
+        </div>
+        <div class="field">
+          <label class="field-label" for="pages">Reading pages</label>
+          <input type="text" id="pages" placeholder="Enderton §2.7 (p. 88–102), Sipser 4.1"/>
+        </div>
+      </div>
 
-        <div style="height:10px"></div>
-        <div class="tiny" style="font-weight:900;color:var(--ink);margin-bottom:6px">Commit / PR link</div>
-        <input type="text" id="commitLink" placeholder="e.g., https://github.com/.../commit/abc123" style="width:100%" />
-
-        <div style="height:10px"></div>
-        <div class="tiny" style="font-weight:900;color:var(--ink);margin-bottom:6px">Reading pages (quick)</div>
-        <input type="text" id="pages" placeholder="e.g., Sipser 1.4 (p. 70–84), Axler 3 (p. 55–76)" style="width:100%" />
-
-        <div class="divider"></div>
-
+      <div class="panel">
         <details open>
           <summary>
             Saved entries
-            <span style="display:flex;gap:8px;align-items:center">
-              <span class="pill" id="countPill">0</span>
-              <span class="caret"></span>
-            </span>
+            <span class="pill" id="countPill">0</span>
           </summary>
-          <div class="content">
-            <div class="tiny">Your entries are stored locally in your browser (localStorage). This is private to your device.</div>
-            <div style="height:10px"></div>
+          <div class="acc-content">
+            <p style="font-size:.78rem;color:var(--ink-muted);margin-bottom:10px;">Stored locally in your browser. Private to your device.</p>
             <div id="entries"></div>
-            <div style="height:10px"></div>
-            <button class="btn" id="clearAll">Clear all entries</button>
+            <div style="margin-top:12px;">
+              <button class="btn" id="clearAll">Clear all entries</button>
+            </div>
           </div>
         </details>
-
       </div>
-
-    </section>
-
-    <footer>
-      Pink, but rigorous. 💗<br/>
-      <span class="muted">Tip: once a week, copy the weekly synthesis into your proof vault as a README note.</span>
-    </footer>
-
-  </div>
-
-  <div class="toast" id="toast">Saved ✨</div>
-
-  <!-- Entry Modal -->
-  <div class="modal" id="entryModal" aria-hidden="true" role="dialog" aria-label="Saved entry details">
-    <div class="modalCard">
-      <div class="modalHead">
-        <div>
-          <h3 id="modalTitle">Entry</h3>
-          <div class="muted" id="modalSub" style="font-size:13px;margin-top:4px"></div>
-        </div>
-        <div class="modalActions">
-          <button class="btn" id="modalEditBtn" type="button">Edit (load into form)</button>
-          <button class="btn" id="modalDeleteBtn" type="button">Delete</button>
-          <button class="close" id="modalCloseBtn" aria-label="Close">✕</button>
-        </div>
-      </div>
-      <div class="modalBody" id="modalBody"></div>
     </div>
   </div>
 
-  <script>
-    // ---------- helpers ----------
-    const $ = (id)=>document.getElementById(id);
+  <div class="footnote">
+    pink, but lethal. 💗 once a week, copy the weekly synthesis into your proof vault as a README note.<br>
+    <span style="font-size:.72rem;margin-top:6px;display:block;">schola arcana · daily log · ILLC + Oxford MFoCS preparation</span>
+  </div>
+</div>
 
-    // set default date
-    const today = new Date();
-    const yyyy = today.getFullYear();
-    const mm = String(today.getMonth()+1).padStart(2,'0');
-    const dd = String(today.getDate()).padStart(2,'0');
-    $("date").value = `${yyyy}-${mm}-${dd}`;
+<div class="toast" id="toast">Saved ✓</div>
 
-    // populate week dropdown
-    const weekSel = $("week");
-    for(let i=1;i<=17;i++){
-      const opt = document.createElement("option");
-      opt.value = String(i);
-      opt.textContent = `Week ${i}`;
-      weekSel.appendChild(opt);
-    }
+<div class="modal" id="entryModal" aria-hidden="true" role="dialog">
+  <div class="modal-card">
+    <div class="modal-head">
+      <div>
+        <h3 id="modalTitle">Entry</h3>
+        <div style="font-size:.78rem;color:var(--ink-muted);margin-top:4px;" id="modalSub"></div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn" id="modalEditBtn">Load into form</button>
+        <button class="btn" id="modalDeleteBtn">Delete</button>
+        <button class="close" id="modalCloseBtn">✕</button>
+      </div>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
 
-    // localStorage key
-    const KEY = "schola_arcana_log_entries_v1";
+<script>
+  const $ = (id)=>document.getElementById(id);
+  const today=new Date();
+  $("date").value=`${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+  const weekSel=$("week");
+  for(let i=1;i<=17;i++){const o=document.createElement("option");o.value=String(i);o.textContent=`Week ${i}`;weekSel.appendChild(o);}
 
-    function readAll(){
-      try{ return JSON.parse(localStorage.getItem(KEY) || "[]"); }
-      catch{ return []; }
-    }
+  const KEY="schola_arcana_log_entries_v1";
+  function readAll(){try{return JSON.parse(localStorage.getItem(KEY)||"[]");}catch{return[];}}
+  function writeAll(e){localStorage.setItem(KEY,JSON.stringify(e));}
+  function toast(msg){const t=$("toast");t.textContent=msg;t.style.display="block";setTimeout(()=>t.style.display="none",1100);}
 
-    function writeAll(entries){
-      localStorage.setItem(KEY, JSON.stringify(entries));
-    }
+  function gather(){
+    return{
+      id:(crypto&&crypto.randomUUID)?crypto.randomUUID():String(Date.now())+"_"+Math.random().toString(16).slice(2),
+      date:$("date").value,entryType:$("entryType").value,week:$("week").value,
+      session:$("session").value.trim(),mood:$("mood").value,energy:$("energy").value,
+      learned:$("learned").value.trim(),confusion:$("confusion").value.trim(),
+      questions:$("questions").value.trim(),revisit:$("revisit").value.trim(),
+      axioms:$("axioms").value.trim(),synthesis:$("synthesis").value.trim(),
+      checks:{toc:$("c_toc").checked,axioms:$("c_axioms").checked,proof:$("c_proof").checked,axler:$("c_axler").checked,struct:$("c_struct").checked,review:$("c_review").checked,qc:$("c_qc").checked,project:$("c_project").checked,dossier:$("c_dossier").checked},
+      links:{proof:$("proofLink").value.trim(),commit:$("commitLink").value.trim(),pages:$("pages").value.trim()},
+      createdAt:new Date().toISOString()
+    };
+  }
 
-    function toast(msg){
-      const t = $("toast");
-      t.textContent = msg;
-      t.style.display = "block";
-      setTimeout(()=>{t.style.display = "none";}, 1100);
-    }
+  function validate(e){
+    if(!e.date)return"Pick a date.";
+    if(!e.learned&&!e.confusion&&!e.questions&&!e.revisit&&!e.synthesis&&!e.axioms)return"Write at least one field.";
+    if(e.entryType==="weekly"&&!e.week)return"Weekly entries need a week number.";
+    return null;
+  }
 
-    function gather(){
-      return {
-        id: (crypto && crypto.randomUUID) ? crypto.randomUUID() : String(Date.now()) + "_" + Math.random().toString(16).slice(2),
-        date: $("date").value,
-        entryType: $("entryType").value,
-        week: $("week").value,
-        session: $("session").value.trim(),
-        mood: $("mood").value,
-        energy: $("energy").value,
+  function resetForm(){
+    ["session","learned","confusion","questions","revisit","axioms","synthesis","proofLink","commitLink","pages"].forEach(id=>$(id).value="");
+    ["mood","energy"].forEach(id=>$(id).value="");
+    ["c_toc","c_axioms","c_proof","c_axler","c_struct","c_review","c_qc","c_project","c_dossier"].forEach(id=>$(id).checked=false);
+  }
 
-        learned: $("learned").value.trim(),
-        confusion: $("confusion").value.trim(),
-        questions: $("questions").value.trim(),
-        revisit: $("revisit").value.trim(),
-        axioms: $("axioms").value.trim(),
-        synthesis: $("synthesis").value.trim(),
+  function esc(s){return(s||"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");}
 
-        checks: {
-          toc: $("c_toc").checked,
-          axioms: $("c_axioms").checked,
-          proof: $("c_proof").checked,
-          axler: $("c_axler").checked,
-          struct: $("c_struct").checked,
-          review: $("c_review").checked,
-          qc: $("c_qc").checked,
-          project: $("c_project").checked,
-          dossier: $("c_dossier").checked,
-        },
+  const modal=$("entryModal");
+  let selectedEntryId=null;
+  function showModal(){modal.setAttribute("aria-hidden","false");}
+  function hideModal(){modal.setAttribute("aria-hidden","true");selectedEntryId=null;$("modalBody").innerHTML="";}
 
-        links: {
-          proof: $("proofLink").value.trim(),
-          commit: $("commitLink").value.trim(),
-          pages: $("pages").value.trim(),
-        },
+  function fieldBlock(label,val){const v=(val||"").trim();if(!v)return"";return`<div class="field-block"><div class="field-block-label">${esc(label)}</div><div class="field-block-value">${esc(v)}</div></div>`;}
+  function chipM(name,ok){return`<span class="chip">${ok?"✓":"—"} ${esc(name)}</span>`;}
+  function linkLine(label,url){const u=(url||"").trim();if(!u)return"";return`<div class="link-line"><b>${esc(label)}:</b> <a href="${esc(u)}" target="_blank" rel="noreferrer">${esc(u)}</a></div>`;}
 
-        createdAt: new Date().toISOString(),
-      };
-    }
+  function openEntry(id){
+    const all=readAll();const e=all.find(x=>x.id===id);if(!e){toast("Not found");return;}
+    selectedEntryId=id;
+    const tag=e.entryType==="weekly"?"Weekly":"Daily";const w=e.week?` · W${esc(e.week)}`:"";
+    $("modalTitle").textContent=`${e.date} · ${tag}${w}`;
+    const sub=[];if(e.session)sub.push(e.session);if(e.mood)sub.push(`mood: ${e.mood}`);if(e.energy)sub.push(`energy: ${e.energy}`);if(e.createdAt)sub.push(`saved: ${new Date(e.createdAt).toLocaleString()}`);
+    $("modalSub").textContent=sub.join(" · ");
+    const c=e.checks||{};const l=e.links||{};
+    $("modalBody").innerHTML=fieldBlock("Axioms ritual",e.axioms)+fieldBlock("Learned",e.learned)+fieldBlock("Confusion",e.confusion)+fieldBlock("Questions",e.questions)+fieldBlock("Revisit",e.revisit)+fieldBlock("Weekly synthesis",e.synthesis)+`<div class="field-block"><div class="field-block-label">Scoreboard</div><div class="chip-row">${chipM("TOC",c.toc)}${chipM("Logic/Discrete",c.axioms)}${chipM("Proof artifact",c.proof)}${chipM("Axler",c.axler)}${chipM("Summary sheet",c.struct)}${chipM("Review",c.review)}${chipM("Quantum",c.qc)}${chipM("Project",c.project)}${chipM("Dossier",c.dossier)}</div></div><div class="field-block"><div class="field-block-label">Links</div>${linkLine("Proof PDF",l.proof)}${linkLine("Commit",l.commit)}${linkLine("Pages",l.pages)}${(!l.proof&&!l.commit&&!l.pages)?'<div class="field-block-value">—</div>':''}</div>`;
+    showModal();
+  }
+  window.openEntry=openEntry;
 
-    function validate(entry){
-      if(!entry.date) return "Pick a date.";
-      if(!entry.learned && !entry.confusion && !entry.questions && !entry.revisit && !entry.synthesis && !entry.axioms){
-        return "Write at least one field (learned/confusion/questions/revisit/axioms/synthesis).";
-      }
-      if(entry.entryType === "weekly" && !entry.week){
-        return "Weekly synthesis entries should include the week number.";
-      }
-      return null;
-    }
+  function loadEntryIntoForm(id){
+    const all=readAll();const e=all.find(x=>x.id===id);if(!e){toast("Not found");return;}
+    $("date").value=e.date||$("date").value;$("entryType").value=e.entryType||"daily";$("week").value=e.week||"";$("session").value=e.session||"";$("mood").value=e.mood||"";$("energy").value=e.energy||"";
+    $("learned").value=e.learned||"";$("confusion").value=e.confusion||"";$("questions").value=e.questions||"";$("revisit").value=e.revisit||"";$("axioms").value=e.axioms||"";$("synthesis").value=e.synthesis||"";
+    const c=e.checks||{};["toc","axioms","proof","axler","struct","review","qc","project","dossier"].forEach(k=>$(`c_${k}`).checked=!!c[k]);
+    const l=e.links||{};$("proofLink").value=l.proof||"";$("commitLink").value=l.commit||"";$("pages").value=l.pages||"";
+    hideModal();window.scrollTo({top:0,behavior:"smooth"});toast("Loaded into form");
+  }
 
-    function resetForm(){
-      $("session").value = "";
-      $("mood").value = "";
-      $("energy").value = "";
-      $("learned").value = "";
-      $("confusion").value = "";
-      $("questions").value = "";
-      $("revisit").value = "";
-      $("axioms").value = "";
-      $("synthesis").value = "";
-      $("proofLink").value = "";
-      $("commitLink").value = "";
-      $("pages").value = "";
+  function deleteEntryById(id){const all=readAll();writeAll(all.filter(e=>e.id!==id));renderEntries();toast("Deleted");}
 
-      ["c_toc","c_axioms","c_proof","c_axler","c_struct","c_review","c_qc","c_project","c_dossier"].forEach(id=>$(id).checked=false);
-    }
+  $("modalCloseBtn").addEventListener("click",hideModal);
+  modal.addEventListener("click",(e)=>{if(e.target===modal)hideModal();});
+  window.addEventListener("keydown",(e)=>{if(e.key==="Escape")hideModal();});
+  $("modalEditBtn").addEventListener("click",()=>{if(selectedEntryId)loadEntryIntoForm(selectedEntryId);});
+  $("modalDeleteBtn").addEventListener("click",()=>{if(selectedEntryId&&confirm("Delete this entry?"))deleteEntryById(selectedEntryId)&&hideModal();});
 
-    function escapeHtml(s){
-      return (s||"")
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
-    }
+  function renderEntries(){
+    const all=readAll();const box=$("entries");$("countPill").textContent=String(all.length);
+    if(all.length===0){box.innerHTML=`<div style="font-size:.82rem;color:var(--ink-muted);">No entries yet. Your first entry is the beginning of the Cathedral.</div>`;return;}
+    const sorted=[...all].sort((a,b)=>{const d=(b.date||"").localeCompare(a.date||"");return d!==0?d:(b.createdAt||"").localeCompare(a.createdAt||"");});
+    box.innerHTML=sorted.slice(0,50).map(e=>{
+      const tag=e.entryType==="weekly"?"Weekly":"Daily";const w=e.week?` · W${esc(e.week)}`:"";
+      const prev=(e.learned||e.synthesis||e.questions||e.axioms||e.confusion||e.revisit||"").trim();
+      return `<div class="entry-card" role="button" tabindex="0" onclick="openEntry('${e.id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openEntry('${e.id}');}"><div style="display:flex;justify-content:space-between;gap:10px;align-items:center"><div class="entry-title">${esc(e.date)} · ${tag}${w}</div><span class="pill">Open</span></div>${e.session?`<div style="font-size:.78rem;color:var(--ink-muted);margin-top:2px;">${esc(e.session)}</div>`:""}<div class="entry-preview">${esc(prev).slice(0,140)}${prev.length>140?"…":""}</div></div>`;
+    }).join("");
+  }
 
-    // ---------- Modal logic ----------
-    const modal = $("entryModal");
-    let selectedEntryId = null;
+  $("saveBtn").addEventListener("click",()=>{const e=gather();const err=validate(e);if(err){toast(err);return;}const all=readAll();all.push(e);writeAll(all);renderEntries();toast("Saved ✓");resetForm();});
+  $("resetBtn").addEventListener("click",()=>{resetForm();toast("Reset");});
+  $("clearAll").addEventListener("click",()=>{if(!confirm("Clear all entries?"))return;writeAll([]);renderEntries();toast("Cleared");});
+  $("exportBtn").addEventListener("click",()=>{const blob=new Blob([JSON.stringify(readAll(),null,2)],{type:"application/json"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="schola_arcana_log_export.json";document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);toast("Exported");});
+  $("entryType").addEventListener("change",()=>{if($("entryType").value==="weekly"&&!$("week").value)$("week").value="1";});
 
-    function showModal(){
-      modal.setAttribute("aria-hidden","false");
-    }
-    function hideModal(){
-      modal.setAttribute("aria-hidden","true");
-      selectedEntryId = null;
-      $("modalBody").innerHTML = "";
-    }
-
-    function fieldBlock(label, value){
-      const v = (value || "").trim();
-      if(!v) return "";
-      return `
-        <div class="field">
-          <div class="fieldLabel">${escapeHtml(label)}</div>
-          <div class="fieldValue">${escapeHtml(v)}</div>
-        </div>
-      `;
-    }
-
-    function chip(name, ok){
-      return `<span class="chip">${ok ? "✓" : "—"} ${escapeHtml(name)}</span>`;
-    }
-
-    function linkLine(label, url){
-      const u = (url || "").trim();
-      if(!u) return "";
-      const safe = escapeHtml(u);
-      return `<div class="linkLine"><b>${escapeHtml(label)}:</b> <a href="${safe}" target="_blank" rel="noreferrer">${safe}</a></div>`;
-    }
-
-    function openEntry(id){
-      const all = readAll();
-      const e = all.find(x=>x.id === id);
-      if(!e){ toast("Entry not found"); return; }
-
-      selectedEntryId = id;
-
-      const tag = e.entryType === "weekly" ? "Weekly" : "Daily";
-      const w = e.week ? ` · W${escapeHtml(e.week)}` : "";
-      $("modalTitle").textContent = `${e.date} · ${tag}${w}`;
-
-      const subParts = [];
-      if(e.session) subParts.push(e.session);
-      if(e.mood) subParts.push(`mood: ${e.mood}`);
-      if(e.energy) subParts.push(`energy: ${e.energy}`);
-      if(e.createdAt) subParts.push(`saved: ${new Date(e.createdAt).toLocaleString()}`);
-      $("modalSub").textContent = subParts.join(" · ");
-
-      const checks = e.checks || {};
-      const links  = e.links || {};
-
-      const checkRow = `
-        <div class="field">
-          <div class="fieldLabel">Scoreboard</div>
-          <div class="metaRow">
-            ${chip("TOC", checks.toc)}
-            ${chip("Logic/Discrete", checks.axioms)}
-            ${chip("Proof artifact", checks.proof)}
-            ${chip("Axler", checks.axler)}
-            ${chip("Struct sheet", checks.struct)}
-            ${chip("Review", checks.review)}
-            ${chip("Quantum", checks.qc)}
-            ${chip("Project", checks.project)}
-            ${chip("Dossier", checks.dossier)}
-          </div>
-        </div>
-      `;
-
-      const linksBlock = `
-        <div class="field">
-          <div class="fieldLabel">Links</div>
-          ${linkLine("Proof PDF", links.proof)}
-          ${linkLine("Commit / PR", links.commit)}
-          ${linkLine("Reading pages", links.pages)}
-          ${(!links.proof && !links.commit && !links.pages) ? `<div class="fieldValue">—</div>` : ``}
-        </div>
-      `;
-
-      $("modalBody").innerHTML =
-        fieldBlock("Axioms header ritual", e.axioms) +
-        fieldBlock("Learned", e.learned) +
-        fieldBlock("Confusion", e.confusion) +
-        fieldBlock("Questions", e.questions) +
-        fieldBlock("Revisit", e.revisit) +
-        fieldBlock("Weekly synthesis", e.synthesis) +
-        checkRow +
-        linksBlock;
-
-      showModal();
-    }
-
-    function loadEntryIntoForm(id){
-      const all = readAll();
-      const e = all.find(x=>x.id === id);
-      if(!e){ toast("Entry not found"); return; }
-
-      // metadata
-      $("date").value = e.date || $("date").value;
-      $("entryType").value = e.entryType || "daily";
-      $("week").value = e.week || "";
-      $("session").value = e.session || "";
-      $("mood").value = e.mood || "";
-      $("energy").value = e.energy || "";
-
-      // core fields
-      $("learned").value = e.learned || "";
-      $("confusion").value = e.confusion || "";
-      $("questions").value = e.questions || "";
-      $("revisit").value = e.revisit || "";
-      $("axioms").value = e.axioms || "";
-      $("synthesis").value = e.synthesis || "";
-
-      // checks
-      const c = e.checks || {};
-      $("c_toc").checked = !!c.toc;
-      $("c_axioms").checked = !!c.axioms;
-      $("c_proof").checked = !!c.proof;
-      $("c_axler").checked = !!c.axler;
-      $("c_struct").checked = !!c.struct;
-      $("c_review").checked = !!c.review;
-      $("c_qc").checked = !!c.qc;
-      $("c_project").checked = !!c.project;
-      $("c_dossier").checked = !!c.dossier;
-
-      // links
-      const l = e.links || {};
-      $("proofLink").value = l.proof || "";
-      $("commitLink").value = l.commit || "";
-      $("pages").value = l.pages || "";
-
-      // scroll to top (form) and close modal
-      hideModal();
-      window.scrollTo({top:0, behavior:"smooth"});
-      toast("Loaded into form");
-    }
-
-    function deleteEntryById(id){
-      const all = readAll();
-      const next = all.filter(e=>e.id !== id);
-      writeAll(next);
-      renderEntries();
-      toast("Deleted");
-    }
-
-    // modal controls
-    $("modalCloseBtn").addEventListener("click", hideModal);
-    modal.addEventListener("click", (e)=>{ if(e.target === modal) hideModal(); });
-    window.addEventListener("keydown", (e)=>{ if(e.key === "Escape") hideModal(); });
-
-    $("modalEditBtn").addEventListener("click", ()=>{
-      if(!selectedEntryId) return;
-      loadEntryIntoForm(selectedEntryId);
-    });
-
-    $("modalDeleteBtn").addEventListener("click", ()=>{
-      if(!selectedEntryId) return;
-      if(!confirm("Delete this entry? This cannot be undone.")) return;
-      deleteEntryById(selectedEntryId);
-      hideModal();
-    });
-
-    // ---------- Rendering saved entries list ----------
-    function renderEntries(){
-      const all = readAll();
-      const box = $("entries");
-      $("countPill").textContent = String(all.length);
-
-      if(all.length === 0){
-        box.innerHTML = `<div class="tiny">No entries yet. Your first entry is the beginning of the Cathedral.</div>`;
-        return;
-      }
-
-      const sorted = [...all].sort((a,b)=>{
-        const d = (b.date||"").localeCompare(a.date||"");
-        if(d !== 0) return d;
-        return (b.createdAt||"").localeCompare(a.createdAt||"");
-      });
-
-      box.innerHTML = sorted.slice(0, 50).map(e=>{
-        const tag = e.entryType === "weekly" ? "Weekly" : "Daily";
-        const w = e.week ? ` · W${escapeHtml(e.week)}` : "";
-        const title = `${escapeHtml(e.date)} · ${tag}${w}`;
-
-        const session = escapeHtml(e.session || "");
-        const previewSource =
-          (e.learned || e.synthesis || e.questions || e.axioms || e.confusion || e.revisit || "").trim();
-        const preview = escapeHtml(previewSource).slice(0, 140) + (previewSource.length > 140 ? "…" : "");
-
-        return `
-          <div class="entryCard" role="button" tabindex="0" onclick="openEntry('${e.id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault(); openEntry('${e.id}');}">
-            <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start">
-              <div class="entryTitle">${title}</div>
-              <span class="pill">Open</span>
-            </div>
-            <div class="muted entrySession">${session}</div>
-            <div class="tiny entryPreview">${preview}</div>
-          </div>
-        `;
-      }).join("");
-    }
-
-    // expose openEntry for inline onclick
-    window.openEntry = openEntry;
-
-    // ---------- actions ----------
-    $("saveBtn").addEventListener("click", ()=>{
-      const entry = gather();
-      const err = validate(entry);
-      if(err){ toast(err); return; }
-
-      const all = readAll();
-      all.push(entry);
-      writeAll(all);
-      renderEntries();
-      toast("Saved ✨");
-
-      resetForm();
-    });
-
-    $("resetBtn").addEventListener("click", ()=>{
-      resetForm();
-      toast("Reset");
-    });
-
-    $("clearAll").addEventListener("click", ()=>{
-      if(!confirm("Clear all entries? This cannot be undone.")) return;
-      writeAll([]);
-      renderEntries();
-      toast("Cleared");
-    });
-
-    $("exportBtn").addEventListener("click", ()=>{
-      const all = readAll();
-      const blob = new Blob([JSON.stringify(all, null, 2)], {type:"application/json"});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "schola_arcana_log_export.json";
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      URL.revokeObjectURL(url);
-      toast("Exported");
-    });
-
-    // render on load
-    renderEntries();
-
-    // QoL: if entryType weekly, nudge week selection
-    $("entryType").addEventListener("change", ()=>{
-      if($("entryType").value === "weekly" && !$("week").value){
-        $("week").value = "1";
-      }
-    });
-  </script>
+  renderEntries();
+</script>
 </body>
 </html>

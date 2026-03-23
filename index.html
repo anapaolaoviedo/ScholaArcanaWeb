@@ -1,1021 +1,547 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Schola Arcana — Cathedral Semester v2 (17 Weeks)</title>
-  <meta name="description" content="Axioms-first, concept-first 17-week plan optimized for real shipping: Logic/Proof + TOC + Linear Algebra + Algorithms + Engineering Lane (React/TS + Backend/AI) + Quantum thread + portfolio artifacts." />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Schola Arcana — Cathedral Semester</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=JetBrains+Mono:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --bg:#fff7fb;
-      --bg2:#ffe9f4;
-      --card:#ffffffcc;
-      --ink:#1f1630;
-      --muted:#5b4b66;
-      --pink:#ff4da6;
-      --pink2:#ff77c2;
-      --lav:#b18cff;
-      --mint:#5fe2c2;
-      --line:#f2c9df;
-      --shadow: 0 18px 40px rgba(31,22,48,.10);
-      --shadow2: 0 10px 24px rgba(31,22,48,.08);
-      --radius: 22px;
-      --radius2: 16px;
-      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink:#1a1814; --ink-soft:#3d3a34; --ink-muted:#7a7670; --ink-faint:#b8b4ad;
+      --parchment:#faf8f3; --parchment-warm:#f2ede4; --parchment-deep:#e8e1d5;
+      --pink:#e8546a; --pink-soft:#f0b8c2; --pink-faint:#faedf0;
+      --gold:#c9923a; --gold-faint:#fdf3e7;
+      --purple:#6b4fa0; --purple-faint:#f0ecf8;
+      --teal:#2a8a7f; --teal-faint:#eaf5f4;
+      --border:#ddd8ce;
     }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:var(--sans);
+    html { font-size:16px; scroll-behavior:smooth; }
+    body {
+      background:var(--parchment);
       color:var(--ink);
-      background:
-        radial-gradient(1200px 700px at 10% 10%, #ffe0f0 0%, transparent 60%),
-        radial-gradient(1000px 700px at 90% 20%, #f0e3ff 0%, transparent 55%),
-        radial-gradient(900px 600px at 50% 90%, #e6fff7 0%, transparent 60%),
-        linear-gradient(180deg, var(--bg) 0%, #ffffff 100%);
+      font-family:'Inter',sans-serif;
+      font-weight:300;
+      line-height:1.7;
       overflow-x:hidden;
     }
-    a{color:inherit}
-    .wrap{max-width:1280px;margin:0 auto;padding:28px 18px 70px}
-    .hero{
-      position:relative;
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      background: linear-gradient(135deg, #ffffffcc, #fff0f8cc);
-      box-shadow:var(--shadow);
-      padding:28px 22px;
-      overflow:hidden;
+    body::before {
+      content:'';
+      position:fixed;inset:0;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events:none;z-index:1000;opacity:.4;
     }
-    .hero:before{
-      content:"";
-      position:absolute; inset:-40px -60px auto auto;
-      width:280px;height:280px;
-      background: radial-gradient(circle at 30% 30%, #ffb3da 0%, transparent 55%),
-                  radial-gradient(circle at 70% 70%, #c7b0ff 0%, transparent 55%);
-      filter: blur(2px);
-      transform: rotate(12deg);
-      opacity:.9;
-      pointer-events:none;
-    }
-    .hero h1{
-      margin:0 0 8px;
-      font-size: clamp(28px, 3.3vw, 44px);
-      letter-spacing:-.02em;
-      line-height:1.05;
-    }
-    .muted{color:var(--muted)}
-    .sparkle{
-      display:inline-block;
-      background: linear-gradient(135deg, var(--pink), var(--lav));
-      -webkit-background-clip:text;
-      background-clip:text;
-      color:transparent;
-      font-weight:900;
-    }
-    .badgeRow{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
-    .badge{
-      border:1px solid var(--line);
-      background:#fff;
-      border-radius:999px;
-      padding:8px 12px;
-      font-size:13px;
-      color:var(--muted);
-      display:flex; gap:8px; align-items:center;
-      box-shadow:0 8px 18px rgba(31,22,48,.06);
-    }
-    .dot{width:8px;height:8px;border-radius:50%;}
-    .dot.pink{background:var(--pink)}
-    .dot.lav{background:var(--lav)}
-    .dot.mint{background:var(--mint)}
-    .ctaRow{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
-    .btn{
-      border:1px solid var(--line);
-      background: linear-gradient(180deg, #fff, #fff7fb);
-      border-radius:999px;
-      padding:10px 14px;
-      font-weight:750;
-      font-size:14px;
-      cursor:pointer;
-      box-shadow:var(--shadow2);
-      transition: transform .08s ease, border-color .2s ease;
-      user-select:none;
-      text-decoration:none;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-    }
-    .btn:hover{transform: translateY(-1px); border-color:#f0a7cd}
-    .btn.primary{
-      border-color: transparent;
-      background: linear-gradient(135deg, var(--pink), var(--pink2));
-      color:white;
-    }
-    .btn.ghost{background:transparent; box-shadow:none;}
-    .grid{
-      margin-top:18px;
-      display:grid;
-      grid-template-columns: 1.35fr .65fr;
-      gap:14px;
-    }
-    @media (max-width: 980px){ .grid{grid-template-columns:1fr} }
-    .card{
-      border:1px solid var(--line);
-      background: var(--card);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow2);
-      padding:16px;
-      backdrop-filter: blur(8px);
-    }
-    .card h2{
-      margin:0 0 10px;
-      font-size:18px;
-      letter-spacing:-.01em;
-      display:flex; align-items:center; gap:10px;
-    }
-    .pill{
-      font-family:var(--mono);
-      font-size:12px;
-      padding:6px 10px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background:#fff;
-      color:var(--muted);
-      white-space:nowrap;
-    }
-    .kpiRow{
-      display:grid;
-      grid-template-columns:repeat(3, 1fr);
-      gap:10px;
-      margin-top:12px;
-    }
-    @media (max-width: 700px){ .kpiRow{grid-template-columns:1fr} }
-    .kpi{
-      border:1px solid var(--line);
-      background:#fff;
-      border-radius:var(--radius2);
-      padding:12px;
-      box-shadow:0 8px 16px rgba(31,22,48,.06);
-    }
-    .kpi .label{font-size:12px;color:var(--muted);margin-bottom:6px}
-    .kpi .value{font-weight:900;font-size:16px}
-    .kpi .sub{font-size:12px;color:var(--muted);margin-top:4px;line-height:1.45}
-    .section{margin-top:14px;}
+    a { color:inherit; text-decoration:none; }
 
-    /* table */
-    .tableWrap{overflow:auto; border-radius:18px; border:1px solid var(--line); background:#fff}
-    table{
-      width:100%;
-      border-collapse:separate;
-      border-spacing:0;
-      min-width: 1400px;
-      font-size:13px;
+    /* nav */
+    nav {
+      padding:18px 48px;
+      border-bottom:1px solid var(--border);
+      display:flex;align-items:center;justify-content:space-between;
+      background:var(--parchment);
+      position:sticky;top:0;z-index:100;
     }
-    thead th{
-      position:sticky; top:0;
-      background: linear-gradient(180deg, #fff, #fff7fb);
-      border-bottom:1px solid var(--line);
-      text-align:left;
-      padding:12px 12px;
-      font-size:12px;
-      color:var(--muted);
-      letter-spacing:.03em;
-      text-transform:uppercase;
-      z-index:1;
+    .nav-brand { font-family:'EB Garamond',serif;font-size:1.1rem;letter-spacing:.02em; }
+    .nav-brand span { color:var(--pink); }
+    .nav-links { display:flex;gap:28px;list-style:none; }
+    .nav-links a { font-size:.78rem;color:var(--ink-muted);letter-spacing:.06em;text-transform:uppercase;transition:color .2s; }
+    .nav-links a:hover,.nav-links a.active { color:var(--pink); }
+
+    /* hero */
+    .hero {
+      max-width:860px;margin:0 auto;
+      padding:72px 48px 48px;
+      border-bottom:1px solid var(--border);
     }
-    tbody td{
-      vertical-align:top;
-      padding:12px 12px;
-      border-bottom:1px solid #f7d8e8;
-      color:var(--ink);
-      background:#fff;
-      line-height:1.45;
+    .hero h1 {
+      font-family:'EB Garamond',serif;
+      font-size:3.2rem;font-weight:400;line-height:1.15;
+      letter-spacing:-.01em;margin-bottom:8px;
     }
-    tbody tr:hover td{background:#fff7fb}
-    .wk{font-family:var(--mono); font-weight:900; color:#3a2449;}
-    .chip{
-      display:inline-flex; align-items:center; gap:8px;
-      border:1px solid var(--line);
-      background:#fff;
-      padding:6px 10px;
-      border-radius:999px;
-      font-size:12px;
-      color:var(--muted);
-      margin:2px 6px 2px 0;
-      white-space:nowrap;
+    .hero h1 em { font-style:italic;color:var(--pink); }
+    .hero-sub { font-family:'EB Garamond',serif;font-size:1.2rem;font-style:italic;color:var(--ink-muted);margin-bottom:28px; }
+    .hero-meta { display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px; }
+    .tag { font-size:.72rem;padding:4px 12px;border-radius:20px;letter-spacing:.05em;text-transform:uppercase;font-weight:500; }
+    .tag-pink { background:var(--pink-faint);color:var(--pink);border:1px solid var(--pink-soft); }
+    .tag-gold { background:var(--gold-faint);color:var(--gold);border:1px solid #e8c88a; }
+    .tag-purple { background:var(--purple-faint);color:var(--purple);border:1px solid #c4b3e0; }
+    .tag-teal { background:var(--teal-faint);color:var(--teal);border:1px solid #9fd4cf; }
+    .tag-gray { background:var(--parchment-deep);color:var(--ink-muted);border:1px solid var(--border); }
+    .manifesto {
+      background:var(--parchment-warm);
+      border-left:3px solid var(--pink);
+      padding:20px 24px;border-radius:0 8px 8px 0;
+      font-family:'EB Garamond',serif;font-size:1.05rem;font-style:italic;
+      color:var(--ink-soft);line-height:1.7;margin-bottom:28px;
     }
-    .chip b{color:var(--ink)}
-    .mini{margin-top:8px; display:flex; flex-wrap:wrap; gap:6px;}
-    code.inline{
-      font-family:var(--mono);
-      background:#fff7fb;
-      border:1px solid var(--line);
-      padding:2px 6px;
-      border-radius:8px;
-      color:#3a2449;
-      font-size:12px;
+    .nav-btns { display:flex;flex-wrap:wrap;gap:10px; }
+    .btn {
+      font-size:.78rem;padding:8px 16px;border-radius:20px;
+      border:1px solid var(--border);background:var(--white);
+      color:var(--ink-soft);cursor:pointer;
+      letter-spacing:.04em;text-transform:uppercase;font-weight:500;
+      transition:border-color .2s,color .2s;font-family:'Inter',sans-serif;
+      display:inline-flex;align-items:center;
     }
+    .btn:hover { border-color:var(--pink-soft);color:var(--pink); }
+    .btn.primary { background:var(--pink);border-color:var(--pink);color:#fff; }
+    .btn.primary:hover { background:#d44460;border-color:#d44460;color:#fff; }
+
+    /* main layout */
+    .main { max-width:860px;margin:0 auto;padding:0 48px 80px; }
+
+    /* section */
+    .section { padding-top:56px; }
+    .section-label { font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:8px;font-weight:500; }
+    .section h2 { font-family:'EB Garamond',serif;font-size:1.8rem;font-weight:400;color:var(--ink);margin-bottom:6px;letter-spacing:-.01em; }
+    .section-rule { width:40px;height:2px;background:var(--pink);margin-bottom:28px;margin-top:12px; }
+    .section p { color:var(--ink-soft);font-size:.95rem;margin-bottom:24px;line-height:1.75; }
+
+    /* kpi row */
+    .kpi-row { display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:28px; }
+    @media(max-width:700px){.kpi-row{grid-template-columns:1fr}}
+    .kpi {
+      padding:16px 18px;border-radius:12px;
+      border:1px solid var(--border);background:var(--white);
+    }
+    .kpi-label { font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-faint);margin-bottom:6px;font-weight:500; }
+    .kpi-value { font-family:'EB Garamond',serif;font-size:1.1rem;color:var(--ink);margin-bottom:4px; }
+    .kpi-sub { font-size:.8rem;color:var(--ink-muted);line-height:1.5; }
+
+    /* sacred rule */
+    .sacred {
+      text-align:center;padding:32px 24px;
+      border:1px dashed var(--border);border-radius:12px;
+      margin:32px 0;background:var(--parchment-warm);
+    }
+    .sacred-label { font-size:.68rem;text-transform:uppercase;letter-spacing:.14em;color:var(--ink-faint);margin-bottom:10px;font-weight:500; }
+    .sacred-text { font-family:'EB Garamond',serif;font-size:1.4rem;font-style:italic;color:var(--ink-soft);line-height:1.5; }
+    .sacred-text strong { color:var(--pink);font-style:normal; }
+
+    /* week table */
+    .table-wrap {
+      border:1px solid var(--border);border-radius:12px;
+      overflow:auto;background:var(--white);
+    }
+    table { width:100%;border-collapse:separate;border-spacing:0;min-width:1000px;font-size:.82rem; }
+    thead th {
+      position:sticky;top:0;
+      background:var(--parchment-warm);
+      border-bottom:1px solid var(--border);
+      text-align:left;padding:12px 14px;
+      font-size:.68rem;color:var(--ink-muted);
+      letter-spacing:.06em;text-transform:uppercase;font-weight:500;z-index:1;
+    }
+    tbody td {
+      vertical-align:top;padding:12px 14px;
+      border-bottom:1px solid var(--parchment-deep);
+      color:var(--ink-soft);background:var(--white);line-height:1.5;
+    }
+    tbody tr:last-child td { border-bottom:none; }
+    tbody tr:hover td { background:var(--parchment); }
+    .wk { font-family:'JetBrains Mono',monospace;font-weight:500;color:var(--pink);font-size:.8rem; }
+
+    /* topics grid */
+    .topics-grid { display:grid;grid-template-columns:1fr 1fr;gap:14px; }
+    @media(max-width:700px){.topics-grid{grid-template-columns:1fr}}
+    .topic-card {
+      padding:16px 18px;border-radius:12px;
+      border:1px solid var(--border);background:var(--white);
+    }
+    .topic-card h4 { font-family:'EB Garamond',serif;font-size:1rem;font-weight:500;color:var(--ink);margin-bottom:8px; }
+    .topic-card ul { margin:0 0 10px 18px;color:var(--ink-muted);line-height:1.7;font-size:.85rem; }
+    .topic-chips { display:flex;flex-wrap:wrap;gap:6px; }
+
+    /* books modal */
+    .modal {
+      position:fixed;inset:0;display:none;
+      align-items:center;justify-content:center;
+      background:rgba(26,24,20,.5);padding:18px;z-index:200;
+    }
+    .modal.open { display:flex; }
+    .modal-card {
+      width:min(900px,100%);border-radius:16px;
+      background:var(--parchment);border:1px solid var(--border);
+      overflow:hidden;max-height:84vh;display:flex;flex-direction:column;
+    }
+    .modal-head {
+      padding:20px 24px 16px;border-bottom:1px solid var(--border);
+      display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
+    }
+    .modal-head h3 { font-family:'EB Garamond',serif;font-size:1.4rem;font-weight:400; }
+    .close {
+      border:none;background:transparent;cursor:pointer;
+      font-size:1.2rem;padding:4px 8px;border-radius:8px;color:var(--ink-muted);
+    }
+    .close:hover { background:var(--parchment-deep);color:var(--pink); }
+    .modal-body { padding:20px 24px;overflow:auto; }
+    .book-grid { display:grid;grid-template-columns:1fr 1fr;gap:12px; }
+    @media(max-width:600px){.book-grid{grid-template-columns:1fr}}
+    .book {
+      padding:14px 16px;border-radius:10px;
+      border:1px solid var(--border);background:var(--white);
+    }
+    .book-cat { font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-faint);margin-bottom:6px;font-weight:500; }
+    .book h4 { font-family:'EB Garamond',serif;font-size:1rem;font-style:italic;font-weight:500;margin-bottom:6px;color:var(--ink); }
+    .book p { font-size:.82rem;color:var(--ink-muted);line-height:1.55;margin:0; }
+    .book a { display:inline-block;margin-top:10px;font-size:.75rem;color:var(--pink);text-transform:uppercase;letter-spacing:.06em;font-weight:500; }
 
     /* accordion */
-    .accordion{
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      background:#fff;
-      overflow:hidden;
-      box-shadow:var(--shadow2);
+    .accordion { border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--white); }
+    details { border-top:1px solid var(--parchment-deep); }
+    details:first-child { border-top:none; }
+    summary {
+      list-style:none;cursor:pointer;
+      padding:16px 18px;font-weight:500;font-size:.9rem;
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      color:var(--ink);
     }
-    details{border-top:1px solid #f7d8e8}
-    details:first-child{border-top:none}
-    summary{
-      list-style:none;
-      cursor:pointer;
-      padding:14px 16px;
-      font-weight:900;
-      display:flex; align-items:center; justify-content:space-between;
-      gap:10px;
+    summary::-webkit-details-marker { display:none; }
+    summary:hover { background:var(--parchment); }
+    .caret {
+      width:8px;height:8px;border-right:1.5px solid var(--ink-muted);border-bottom:1.5px solid var(--ink-muted);
+      transform:rotate(-45deg);transition:.12s ease;flex-shrink:0;
     }
-    summary::-webkit-details-marker{display:none}
-    .summaryRight{display:flex; gap:8px; align-items:center}
-    .caret{
-      width:10px;height:10px; border-right:2px solid var(--muted); border-bottom:2px solid var(--muted);
-      transform: rotate(-45deg);
-      transition:.12s ease;
-      margin-left:6px;
-    }
-    details[open] .caret{transform: rotate(45deg)}
-    .content{padding:0 16px 16px; color:var(--muted)}
-    .content ul{margin:10px 0 0 18px}
-    .content li{margin:8px 0}
+    details[open] .caret { transform:rotate(45deg); }
+    .acc-body { padding:0 18px 18px;color:var(--ink-muted);font-size:.88rem;line-height:1.7; }
+    .acc-body ul { margin:8px 0 0 18px; }
+    .acc-body li { margin:6px 0; }
 
-    /* modals */
-    .modal{
-      position:fixed; inset:0;
-      display:none;
-      align-items:center; justify-content:center;
-      background: rgba(31,22,48,.35);
-      padding:18px;
-      z-index:99;
+    /* dossier milestones */
+    .milestones { display:flex;flex-direction:column;gap:12px; }
+    .milestone-item {
+      padding:16px 18px;border-radius:10px;
+      border:1px solid var(--border);background:var(--white);
+      display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start;
     }
-    .modal[aria-hidden="false"]{display:flex}
-    .modalCard{
-      width:min(980px, 100%);
-      border-radius:var(--radius);
-      background: linear-gradient(135deg, #ffffff, #fff3fa);
-      border:1px solid var(--line);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-      max-height: min(84vh, 820px);
-      display:flex; flex-direction:column;
+    .ms-badge {
+      font-family:'JetBrains Mono',monospace;font-size:.7rem;
+      padding:4px 8px;border-radius:6px;
+      background:var(--parchment-warm);color:var(--ink-muted);
+      white-space:nowrap;font-weight:500;margin-top:2px;
     }
-    .modalHead{
-      padding:16px 16px 12px;
-      border-bottom:1px solid #f7d8e8;
-      display:flex; align-items:flex-start; justify-content:space-between; gap:12px;
-    }
-    .modalHead h3{margin:0;font-size:18px}
-    .close{
-      border:none; background:transparent; cursor:pointer;
-      font-size:18px; padding:6px 10px; border-radius:12px;
-    }
-    .close:hover{background:#ffe6f2}
-    .modalBody{padding:14px 16px 18px; overflow:auto}
+    .ms-title { font-size:.9rem;font-weight:500;color:var(--ink);margin-bottom:4px; }
+    .ms-body { font-size:.82rem;color:var(--ink-muted);line-height:1.6; }
 
-    .bookGrid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:12px;
+    .footnote {
+      font-size:.78rem;color:var(--ink-faint);font-style:italic;
+      font-family:'EB Garamond',serif;text-align:center;
+      padding:32px 0 0;border-top:1px solid var(--border);margin-top:48px;
     }
-    @media (max-width: 760px){ .bookGrid{grid-template-columns:1fr} }
-    .book{
-      border:1px solid var(--line);
-      background:#fff;
-      border-radius:18px;
-      padding:12px;
-      box-shadow:0 10px 20px rgba(31,22,48,.06);
-    }
-    .book .tag{
-      display:inline-block;
-      font-family:var(--mono);
-      font-size:11px;
-      color:var(--muted);
-      border:1px solid var(--line);
-      padding:4px 8px;
-      border-radius:999px;
-      background:#fff7fb;
-      margin-bottom:8px;
-    }
-    .book h4{margin:6px 0 6px;font-size:14px}
-    .book p{margin:0;color:var(--muted);font-size:12px;line-height:1.45}
-    .book a{
-      display:inline-flex; gap:8px; align-items:center;
-      margin-top:10px;
-      font-weight:900;
-      color: var(--pink);
-      text-decoration:none;
-    }
-    .book a:hover{text-decoration:underline}
 
-    .topicGrid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:12px;
-    }
-    @media (max-width: 860px){ .topicGrid{grid-template-columns:1fr} }
-    .topicCard{
-      border:1px solid var(--line);
-      background:#fff;
-      border-radius:18px;
-      padding:12px;
-      box-shadow:0 10px 20px rgba(31,22,48,.06);
-    }
-    .topicCard h4{margin:0 0 8px;font-size:14px}
-    .topicCard ul{margin:0 0 0 18px; color:var(--muted); line-height:1.65}
-    .topicCard .meta{margin-top:10px; display:flex; flex-wrap:wrap; gap:6px}
-    footer{
-      margin-top:18px;
-      color:var(--muted);
-      font-size:12px;
-      text-align:center;
+    @media(max-width:640px){
+      nav{padding:16px 20px;}
+      .hero{padding:48px 20px 32px;}
+      .main{padding:0 20px 60px;}
     }
   </style>
 </head>
-
 <body>
-  <div class="wrap">
-    <header class="hero">
-      <h1><span class="sparkle">Schola Arcana</span> — Cathedral Semester v2 (17 Weeks)</h1>
-      <p class="muted" style="margin:0;max-width:92ch">
-        Axioms-first, concept-first — but now optimized for a <b>real shipping semester</b>:
-        <b>Logic & Proof</b> + <b>TOC (Sipser)</b> + <b>Linear Algebra (Axler)</b> +
-        <b>Algorithms/DSA</b> + <b>Engineering Lane</b> (React/TS during the 10-week build → backend/AI systems runway),
-        with a <b>Quantum thread</b> that never dies.
-      </p>
 
-      <div class="badgeRow">
-        <div class="badge"><span class="dot pink"></span> 10–12 hrs/week (minimum viable cathedral)</div>
-        <div class="badge"><span class="dot lav"></span> math → system translation is explicit now</div>
-        <div class="badge"><span class="dot mint"></span> flagship build = university system (10-week sprint)</div>
-      </div>
+<nav>
+  <a href="index.html" class="nav-brand">Schola <span>Arcana</span></a>
+  <ul class="nav-links">
+    <li><a href="topics.html">Atlas</a></li>
+    <li><a href="vault.html">Proof Vault</a></li>
+    <li><a href="jorunal.html">Journal</a></li>
+    <li><a href="dossier.html">Dossier</a></li>
+    <li><a href="log.html">Log</a></li>
+  </ul>
+</nav>
 
-      <div class="ctaRow">
-        <button class="btn primary" id="openBooks">Textbooks (recommended)</button>
-        <button class="btn" id="openTopics">All topics map</button>
-        <a class="btn" href="topics.html">Topics Atlas</a>
-        <a class="btn" href="vault.html">Proof Vault</a>
-        <a class="btn" href="jorunal.html">Journal</a>
-        <a class="btn" href="dossier.html">Dossier</a>
-        <a class="btn" href="log.html">Weekly/Daily Log</a>
-        <button class="btn" id="jumpTable">Jump to 17-week table</button>
-        <button class="btn" id="jumpProjects">Projects + stack</button>
-        <button class="btn" id="jumpDossier">Dossier milestones</button>
-        <button class="btn ghost" id="printBtn">Print / PDF</button>
-      </div>
-
-      <div class="kpiRow">
-        <div class="kpi">
-          <div class="label">Weekly split (optimized for undergrad + startup runway)</div>
-          <div class="value">Foundations 5h · Math 2h · Algo 1–2h · Eng 2–3h · QC 0.5–1h</div>
-          <div class="sub">
-            <b>Foundations 5h</b> = TOC (3h) + Logic/Set/Discrete (2h). The Cathedral stays the Cathedral.
-          </div>
-        </div>
-        <div class="kpi">
-          <div class="label">Weekly output rule (sacred)</div>
-          <div class="value">1 artifact + drills</div>
-          <div class="sub">
-            Target: <b>TOC 6–10 ex</b> · <b>Proof/Discrete 6–10</b> · <b>LA/Prob 6–10</b> · <b>Algo 3–4</b> · <b>QC 1–2</b>.
-          </div>
-        </div>
-        <div class="kpi">
-          <div class="label">End-of-semester assets</div>
-          <div class="value">1 flagship shipped · proof vault · dossier v1</div>
-          <div class="sub">
-            The flagship is your <b>public-schools platform</b>. Everything else supports coherence (masters + Vambe).
-          </div>
-        </div>
-      </div>
-    </header>
-
-    <section class="grid section">
-      <div class="card">
-        <h2>Cathedral rules <span class="pill">how this stays sane</span></h2>
-        <p class="muted" style="margin:0;max-width:98ch">
-          Your university may teach SWE unevenly. So we keep Schola Arcana as the <b>high-signal layer</b>:
-          <b>proof maturity</b>, <b>math foundations</b>, and a disciplined <b>engineering lane</b> whose job is
-          translating formal ideas into working systems. Not “random tutorials.” Structured output.
-        </p>
-        <div class="mini">
-          <span class="chip"><b>Foundations:</b> Logic/Set/Discrete + TOC</span>
-          <span class="chip"><b>Math:</b> Linear Algebra (ML/QC useful) + Probability (selected)</span>
-          <span class="chip"><b>Algo:</b> patterns + invariants + complexity</span>
-          <span class="chip"><b>Engineering:</b> React/TS sprint → backend/AI runway</span>
-          <span class="chip"><b>Quantum:</b> weekly thread (tiny, consistent)</span>
-        </div>
-      </div>
-
-      <div class="card">
-        <h2>Translation rule <span class="pill">math → system</span></h2>
-        <ul class="muted" style="margin:10px 0 0 18px;line-height:1.7">
-          <li><b>Objects → data model:</b> sets/structures become types + schemas.</li>
-          <li><b>Functions → APIs:</b> maps become endpoints/modules.</li>
-          <li><b>Invariants → tests:</b> proofs become test suites.</li>
-          <li><b>Reductions → pipelines:</b> transform input until it fits the decision procedure.</li>
-        </ul>
-      </div>
-    </section>
-
-    <section class="card section" id="tableSection">
-      <h2>17-week table <span class="pill">v2: engineering lane added</span></h2>
-      <p class="muted" style="margin:0 0 10px;max-width:104ch">
-        Weeks 1–10 align with your <b>10-week university flagship build</b> (React/TS). Weeks 11–17 pivot the engineering lane
-        toward <b>backend + AI systems</b> (startup runway) while foundations continue.
-      </p>
-
-      <div class="tableWrap" role="region" aria-label="17-week plan table">
-        <table>
-          <thead>
-            <tr>
-              <th style="width:78px">Week</th>
-              <th>Foundations A (Logic/Set/Discrete — axioms lane)</th>
-              <th>Foundations B (TOC — Sipser)</th>
-              <th>Math (LA/Prob — selected)</th>
-              <th>Algorithms/DSA (patterns + proofs)</th>
-              <th>Engineering Lane (ship)</th>
-              <th>Quantum Thread</th>
-              <th>Targets (exercises + artifact)</th>
-              <th>Milestones (Flagship + Dossier)</th>
-            </tr>
-          </thead>
-          <tbody id="planBody"></tbody>
-        </table>
-      </div>
-    </section>
-
-    <section class="grid section" id="projectsSection">
-      <div class="card">
-        <h2>Projects <span class="pill">flagship + runway</span></h2>
-
-        <div class="accordion">
-          <details open>
-            <summary>
-              Flagship — Public Schools Platform (Weeks 1–10)
-              <span class="summaryRight"><span class="pill">React + TS</span><span class="caret"></span></span>
-            </summary>
-            <div class="content">
-              <p style="margin:0 0 8px">
-                Your real SWE artifact this semester. Treat it like a startup product: <b>parents + students + teachers</b>,
-                workflows, permissions, analytics, and an MVP that actually ships.
-              </p>
-              <ul>
-                <li><b>MVP clarity:</b> 8–12 core workflows max (don’t die building everything).</li>
-                <li><b>Architecture:</b> roles + permissions, clean modules, stable API contracts.</li>
-                <li><b>Portfolio polish:</b> README, screenshots, demo video link, architecture diagram.</li>
-                <li><b>Founder vibe:</b> a “Product Spec Bible” (1–2 pages) + weekly changelog.</li>
-              </ul>
-            </div>
-          </details>
-
-          <details>
-            <summary>
-              Runway — AI Backend Lab (Weeks 11–17)
-              <span class="summaryRight"><span class="pill">backend + AI</span><span class="caret"></span></span>
-            </summary>
-            <div class="content">
-              <p style="margin:0 0 8px">
-                This is the bridge you asked for: <b>math thinking → engineered system</b>. Build a small service that looks like real AI product work.
-              </p>
-              <ul>
-                <li><b>Core:</b> API + Postgres + auth + logging + tests.</li>
-                <li><b>AI layer:</b> embeddings + retrieval (RAG) + eval harness.</li>
-                <li><b>Deliverable:</b> “this service answers X with citations from Y” + metrics.</li>
-                <li><b>Stretch:</b> queue/worker + caching + A/B evaluation.</li>
-              </ul>
-            </div>
-          </details>
-
-          <details>
-            <summary>
-              Optional Mini — Automata Lab (compress)
-              <span class="summaryRight"><span class="pill">TOC concrete</span><span class="caret"></span></span>
-            </summary>
-            <div class="content">
-              <p style="margin:0 0 8px">
-                Keep Automata Lab only if it feels joyful. Otherwise, treat TOC artifacts as proofs + small demos, not a second large build.
-              </p>
-              <ul>
-                <li><b>Mini-scope:</b> NFA/DFA simulator + Graphviz export.</li>
-                <li><b>Do not let this compete</b> with the flagship build or the AI backend lab.</li>
-              </ul>
-            </div>
-          </details>
-        </div>
-      </div>
-
-      <div class="card">
-        <h2>Tech stack <span class="pill">relevant + finishable</span></h2>
-        <p class="muted" style="margin:0 0 12px">
-          Your semester already uses <b>TypeScript + React</b>. The runway project can be <b>FastAPI</b> (AI-friendly) or <b>Node/TS</b> (stack-consistent).
-        </p>
-        <ul class="muted" style="margin:0 0 0 18px;line-height:1.7">
-          <li><b>Flagship:</b> TypeScript + React (and whatever backend your team uses)</li>
-          <li><b>Runway backend:</b> <code class="inline">FastAPI</code> + <code class="inline">Postgres</code> + <code class="inline">pytest</code> (or Node/TS equivalent)</li>
-          <li><b>AI layer:</b> embeddings + vector store (simple) + evaluation harness</li>
-          <li><b>Docs:</b> Markdown README + LaTeX proofs/writing samples</li>
-          <li><b>Repo hygiene:</b> tests, examples, consistent formatting, changelog</li>
-        </ul>
-        <div class="mini" style="margin-top:12px">
-          <span class="chip"><b>Artifact cadence:</b> weekly proof PDF (LaTeX)</span>
-          <span class="chip"><b>Ship cadence:</b> weekly demo (flagship)</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="card section" id="dossierSection">
-      <h2>Dossier milestones <span class="pill">masters + credibility</span></h2>
-      <p class="muted" style="margin:0 0 10px;max-width:104ch">
-        Not panic-based. Built slowly. Goal: <b>CV</b> + <b>SOP bullets</b> + <b>writing sample</b> + a portfolio repo that proves mathematical maturity and real shipping.
-      </p>
-
-      <div class="accordion">
-        <details open>
-          <summary>
-            By Week 4 (traction)
-            <span class="summaryRight"><span class="pill">identity</span><span class="caret"></span></span>
-          </summary>
-          <div class="content">
-            <ul>
-              <li><b>Portfolio repo created</b> (proofs + logs + flagship link).</li>
-              <li><b>CV v1</b> skeleton complete.</li>
-              <li><b>Flagship spec bible</b> v1 (1–2 pages).</li>
-            </ul>
-          </div>
-        </details>
-
-        <details>
-          <summary>
-            By Week 10 (flagship ship window)
-            <span class="summaryRight"><span class="pill">ship</span><span class="caret"></span></span>
-          </summary>
-          <div class="content">
-            <ul>
-              <li><b>Flagship MVP shipped</b> with README + screenshots + architecture diagram.</li>
-              <li><b>SOP outline</b> (bullets) + opening paragraph.</li>
-              <li><b>Writing sample</b> intro + 2–3 pages drafted (choose a topic you can finish).</li>
-            </ul>
-          </div>
-        </details>
-
-        <details>
-          <summary>
-            Weeks 11–14 (runway coherence)
-            <span class="summaryRight"><span class="pill">systems voice</span><span class="caret"></span></span>
-          </summary>
-          <div class="content">
-            <ul>
-              <li><b>AI backend lab</b> core implemented (API + DB + RAG + eval skeleton).</li>
-              <li><b>Writing sample</b> expands to 6–9 pages.</li>
-              <li><b>CV v2</b> polished with flagship impact bullets.</li>
-            </ul>
-          </div>
-        </details>
-
-        <details>
-          <summary>
-            Week 16–17 packaging
-            <span class="summaryRight"><span class="pill">final</span><span class="caret"></span></span>
-          </summary>
-          <div class="content">
-            <ul>
-              <li><b>Writing sample</b> finalized (8–12 pages is acceptable; 10–15 if natural).</li>
-              <li><b>CV</b> formatted and consistent with theory + systems identity.</li>
-              <li><b>Portfolio</b> cleaned: pinned flagship + runway + proof vault + weekly log.</li>
-            </ul>
-          </div>
-        </details>
-      </div>
-    </section>
-
-    <footer>
-      pink, but lethal. 💗 your <b>theory</b> is the spine; your <b>engineering</b> is the instrument.
-      <br/><span class="muted">tip: host this page on github pages so your study system is literally public-proof.</span>
-    </footer>
+<div class="hero">
+  <h1>Schola <em>Arcana</em></h1>
+  <div class="hero-sub">cathedral semester — axioms first, always</div>
+  <div class="hero-meta">
+    <span class="tag tag-pink">10–12 hrs/week</span>
+    <span class="tag tag-purple">foundations first</span>
+    <span class="tag tag-teal">quantum thread</span>
+    <span class="tag tag-gold">ILLC · Oxford · ETH</span>
   </div>
+  <div class="manifesto">
+    The cathedral stays the cathedral. Logic and proof are the spine. TOC is the lens through which computation becomes mathematics. Linear algebra is the language quantum mechanics speaks. Algorithms are theorems in disguise. Every week, one proof. Every month, one step closer.
+  </div>
+  <div class="nav-btns">
+    <button class="btn primary" id="openBooks">Textbooks</button>
+    <button class="btn" id="openTopics">Topics map</button>
+    <a class="btn" href="topics.html">Atlas</a>
+    <a class="btn" href="vault.html">Proof Vault</a>
+    <a class="btn" href="jorunal.html">Journal</a>
+    <a class="btn" href="dossier.html">Dossier</a>
+    <a class="btn" href="log.html">Log</a>
+    <a class="btn" href="mathematical-logic.html">Math Logic</a>
+    <button class="btn" id="jumpTable">Week table</button>
+    <button class="btn" id="jumpDossier">Milestones</button>
+  </div>
+</div>
 
-  <!-- TEXTBOOKS MODAL -->
-  <div class="modal" id="booksModal" aria-hidden="true" role="dialog" aria-label="Recommended textbooks">
-    <div class="modalCard">
-      <div class="modalHead">
-        <div>
-          <h3>Recommended textbooks (curated)</h3>
-          <div class="muted" style="font-size:13px;margin-top:4px">
-            Canon picks. Replace links with your own PDFs/library links.
-          </div>
-        </div>
-        <button class="close" data-close="books" aria-label="Close">✕</button>
+<div class="main">
+
+  <div class="section">
+    <div class="section-label">rhythm</div>
+    <h2>How the week works</h2>
+    <div class="section-rule"></div>
+
+    <div class="kpi-row">
+      <div class="kpi">
+        <div class="kpi-label">Weekly split</div>
+        <div class="kpi-value">Foundations 5h · Math 2h · Algo 1–2h · QC 0.5–1h</div>
+        <div class="kpi-sub">Foundations = TOC (3h) + Logic/Set/Discrete (2h). The cathedral stays the cathedral.</div>
       </div>
-      <div class="modalBody">
-        <div class="bookGrid">
-          <div class="book">
-            <div class="tag">Logic & Proof</div>
-            <h4>Velleman — <i>How to Prove It</i></h4>
-            <p>Quantifiers, proof techniques, mathematical language. your proofcraft gym.</p>
-            <a href="#" onclick="return false;">add link →</a>
-          </div>
-          <div class="book">
-            <div class="tag">Set Theory</div>
-            <h4>Halmos — <i>Naive Set Theory</i></h4>
-            <p>Sets, relations, functions, cardinality. elegant and axioms-friendly.</p>
-            <a href="#" onclick="return false;">add link →</a>
-          </div>
-          <div class="book">
-            <div class="tag">Discrete Thinking</div>
-            <h4>Graham–Knuth–Patashnik — <i>Concrete Mathematics</i></h4>
-            <p>Discrete thinking that feeds toc + algorithms + qc.</p>
-            <a href="#" onclick="return false;">add link →</a>
-          </div>
-          <div class="book">
-            <div class="tag">TOC</div>
-            <h4>Sipser — <i>Introduction to the Theory of Computation</i></h4>
-            <p>Automata → computability → complexity. the spine.</p>
-            <a href="#" onclick="return false;">add link →</a>
-          </div>
-          <div class="book">
-            <div class="tag">Linear Algebra</div>
-            <h4>Axler — <i>Linear Algebra Done Right</i></h4>
-            <p>Axioms-first: linear maps before matrices. qc backbone + ml maturity.</p>
-            <a href="#" onclick="return false;">add link →</a>
-          </div>
-          <div class="book">
-            <div class="tag">Probability (selected)</div>
-            <h4>Blitzstein — <i>Introduction to Probability</i></h4>
-            <p>Problem-based intuition. useful for ai + qc uncertainty thinking.</p>
-            <a href="#" onclick="return false;">add link →</a>
-          </div>
-          <div class="book">
-            <div class="tag">Quantum</div>
-            <h4>Nielsen &amp; Chuang — <i>QCQI</i></h4>
-            <p>Heavy. definitive. use as reference, not as a weekly obligation.</p>
-            <a href="#" onclick="return false;">add link →</a>
-          </div>
-          <div class="book">
-            <div class="tag">Systems (practical)</div>
-            <h4>Designing Data-Intensive Applications (Kleppmann)</h4>
-            <p>Databases, distributed systems, reliability. perfect for the engineering lane.</p>
-            <a href="#" onclick="return false;">add link →</a>
-          </div>
-        </div>
+      <div class="kpi">
+        <div class="kpi-label">Weekly output rule (sacred)</div>
+        <div class="kpi-value">1 artifact + drills</div>
+        <div class="kpi-sub">TOC 6–10 ex · Proof/Discrete 6–10 · LA/Prob 6–10 · Algo 3–4 · QC 1–2</div>
       </div>
+      <div class="kpi">
+        <div class="kpi-label">End-of-semester assets</div>
+        <div class="kpi-value">proof vault · dossier v1 · writing sample</div>
+        <div class="kpi-sub">Everything supports the masters application narrative.</div>
+      </div>
+    </div>
+
+    <div class="sacred">
+      <div class="sacred-label">the rule</div>
+      <div class="sacred-text">one proof written in full · every week · no exceptions<br><strong>LaTeX → Proof Vault → dated</strong></div>
     </div>
   </div>
 
-  <!-- TOPICS MAP MODAL -->
-  <div class="modal" id="topicsModal" aria-hidden="true" role="dialog" aria-label="All topics map">
-    <div class="modalCard">
-      <div class="modalHead">
-        <div>
-          <h3>All topics map</h3>
-          <div class="muted" style="font-size:13px;margin-top:4px">
-            Map, not checklist.
-          </div>
+  <div class="section">
+    <div class="section-label">structure</div>
+    <h2>Cathedral rules</h2>
+    <div class="section-rule"></div>
+
+    <div class="accordion">
+      <details open>
+        <summary>
+          Foundations — Logic/Set/Discrete + TOC
+          <span class="caret"></span>
+        </summary>
+        <div class="acc-body">
+          The spine. Axioms-first thinking in logic and set theory, formal proof methods, and the full Sipser arc from automata through computability to complexity. This is what makes the rest rigorous.
+          <ul>
+            <li>Propositional and predicate logic — axioms, proof templates, ∀/∃</li>
+            <li>Set theory — sets, relations, functions, cardinality</li>
+            <li>TOC — automata, decidability, NP, reductions</li>
+            <li>Mathematical logic — completeness theorem (Enderton)</li>
+          </ul>
         </div>
-        <button class="close" data-close="topics" aria-label="Close">✕</button>
-      </div>
-      <div class="modalBody">
-        <div class="topicGrid" id="topicGrid"></div>
-        <div class="muted" style="margin-top:12px;font-size:12px;line-height:1.55">
-          tip: one specialization at a time. the map reduces anxiety.
+      </details>
+      <details>
+        <summary>
+          Math — Linear Algebra + Probability
+          <span class="caret"></span>
+        </summary>
+        <div class="acc-body">
+          Axler's Linear Algebra Done Right: vector spaces, linear maps, eigenvalues, inner products. Selected probability. Both feed quantum computing and theoretical ML foundations.
+          <ul>
+            <li>Vector spaces, linear maps, kernel/image</li>
+            <li>Spectral theorem, inner products, unitary operators</li>
+            <li>Probability axioms, Bayes, expectation, Markov chains</li>
+          </ul>
         </div>
-      </div>
+      </details>
+      <details>
+        <summary>
+          Algorithms/DSA — kept sharp
+          <span class="caret"></span>
+        </summary>
+        <div class="acc-body">
+          Patterns and correctness arguments, not just code. Invariants, induction, reduction schemas. Algorithms as theorems.
+          <ul>
+            <li>Hashmaps, two pointers, sliding window</li>
+            <li>BFS/DFS, heaps, greedy proofs</li>
+            <li>DP basics, invariants and correctness</li>
+          </ul>
+        </div>
+      </details>
+      <details>
+        <summary>
+          Quantum Thread — small, consistent, never dies
+          <span class="caret"></span>
+        </summary>
+        <div class="acc-body">
+          Nielsen &amp; Chuang as reference. Weekly thread — tiny, consistent. The goal is to arrive at de Wolf's course ready.
+          <ul>
+            <li>Postulates, gates, circuits</li>
+            <li>Entanglement + teleportation</li>
+            <li>Deutsch–Jozsa, Grover, Shor (conceptual)</li>
+            <li>BQP intuition</li>
+          </ul>
+        </div>
+      </details>
     </div>
   </div>
 
-  <script>
-    // ---------- navigation ----------
-    document.getElementById("jumpTable").onclick = () => document.getElementById("tableSection").scrollIntoView({behavior:"smooth"});
-    document.getElementById("jumpProjects").onclick = () => document.getElementById("projectsSection").scrollIntoView({behavior:"smooth"});
-    document.getElementById("jumpDossier").onclick = () => document.getElementById("dossierSection").scrollIntoView({behavior:"smooth"});
-    document.getElementById("printBtn").onclick = () => window.print();
+  <div class="section" id="tableSection">
+    <div class="section-label">plan</div>
+    <h2>The week table</h2>
+    <div class="section-rule"></div>
+    <p>Foundations A (Logic/Discrete) + Foundations B (TOC) + Math + Algorithms + Quantum thread + targets + milestones.</p>
 
-    // ---------- modals ----------
-    const booksModal = document.getElementById("booksModal");
-    const topicsModal = document.getElementById("topicsModal");
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:60px">Week</th>
+            <th>Foundations A — Logic/Discrete</th>
+            <th>Foundations B — TOC (Sipser)</th>
+            <th>Math — LA/Prob</th>
+            <th>Algorithms/DSA</th>
+            <th>Quantum Thread</th>
+            <th>Targets + artifact</th>
+            <th>Milestones</th>
+          </tr>
+        </thead>
+        <tbody id="planBody"></tbody>
+      </table>
+    </div>
+  </div>
 
-    function show(modal){ modal.setAttribute("aria-hidden","false"); }
-    function hide(modal){ modal.setAttribute("aria-hidden","true"); }
+  <div class="section" id="dossierSection">
+    <div class="section-label">dossier</div>
+    <h2>Milestones</h2>
+    <div class="section-rule"></div>
 
-    document.getElementById("openBooks").addEventListener("click", ()=>show(booksModal));
-    document.getElementById("openTopics").addEventListener("click", ()=>show(topicsModal));
+    <div class="milestones" id="milestoneList"></div>
+  </div>
 
-    document.querySelectorAll(".close").forEach(btn=>{
-      btn.addEventListener("click", ()=>{
-        const which = btn.getAttribute("data-close");
-        if(which==="books") hide(booksModal);
-        if(which==="topics") hide(topicsModal);
-      });
-    });
+  <div class="footnote">
+    pink, but lethal. 💗 the theory is the spine. the cathedral is built proof by proof.<br>
+    <span style="font-size:.72rem;margin-top:6px;display:block;">schola arcana · cathedral semester · ILLC + Oxford MFoCS + ETH preparation</span>
+  </div>
+</div>
 
-    [booksModal, topicsModal].forEach(modal=>{
-      modal.addEventListener("click", (e)=>{ if(e.target === modal) hide(modal); });
-    });
-    window.addEventListener("keydown", (e)=>{
-      if(e.key==="Escape"){ hide(booksModal); hide(topicsModal); }
-    });
+<!-- Books modal -->
+<div class="modal" id="booksModal" role="dialog" aria-modal="true">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h3>Recommended textbooks</h3>
+      <button class="close" id="closeBooks" aria-label="Close">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="book-grid" id="bookGrid"></div>
+    </div>
+  </div>
+</div>
 
-    // ---------- 17-week plan data (v2) ----------
-    // Targets shorthand:
-    // TOC: 6–10/wk
-    // Proof/Discrete: 6–10/wk
-    // LA/Prob: 6–10/wk (selected)
-    // Algo: 3–4/wk
-    // QC: 1–2/wk
-    // Artifact: 1 LaTeX proof/write-up per week
-    const weeks = [
-      {w:1,
-        A:"Logic: propositions, equivalence, proof vocabulary · what counts as a proof?",
-        B:"DFA definition + regular languages (Sipser 1.1)",
-        M:"LA: vector spaces + subspaces (Axler 1)",
-        G:"Hashmaps as math objects (frequency, invariants) · 3 easy problems",
-        E:"Flagship: repo setup + routes/pages skeleton · roles list (student/parent/teacher) · API contract draft",
-        Q:"Qubit as unit vector · basis states",
-        T:"Proof/Discrete: 6 drills + 1 short proof · TOC: 6–8 · LA: 6–8 · Algo: 3 · QC: 1 · Artifact: 1 proof PDF",
-        K:"Flagship: spec bible v0.1 · Dossier: repo + LaTeX template"
-      },
-      {w:2,
-        A:"Predicate logic: ∀/∃ · translating English↔logic · inference patterns",
-        B:"NFA + equivalence intuition (Sipser 1.2)",
-        M:"LA: linear independence · basis · dimension (Axler 2)",
-        G:"Two pointers / sets · 3 problems · write invariants before code",
-        E:"Flagship: auth/roles sketch (even if fake) · component conventions · folder structure discipline",
-        Q:"Measurement + Born rule intuition",
-        T:"Proof/Discrete: 6–8 + 1 proof · TOC: 8 · LA: 8 · Algo: 3 · QC: 1–2 · Artifact: 1 proof PDF",
-        K:"Flagship: UI navigation working · Dossier: CV skeleton"
-      },
-      {w:3,
-        A:"Proof methods: contrapositive, contradiction · induction mini-set",
-        B:"Regular operations + closure (Sipser 1.3)",
-        M:"LA: linear maps · kernel/image (Axler 3)",
-        G:"Sliding window · 3 problems",
-        E:"Flagship: data model draft (tables/types) · define core workflows (top 8–12)",
-        Q:"Gates as linear maps: X, Z, H (unitary vibe)",
-        T:"Proof/Discrete: 6 + 2 short proofs · TOC: 8 · LA: 6–8 · Algo: 3 · QC: 1 · Artifact: 1 proof PDF",
-        K:"Flagship: workflow list frozen v1 · Dossier: choose writing sample topic"
-      },
-      {w:4,
-        A:"Set basics: relations · equivalence relations · functions as structure",
-        B:"Pumping lemma (regular) (Sipser 1.4)",
-        M:"LA: rank-nullity + isomorphisms (Axler 3)",
-        G:"BFS/DFS concept + 3 problems (trees/graphs)",
-        E:"Flagship: API integration plan · error handling patterns · basic tests (even 3 tests)",
-        Q:"Circuits + interference intuition",
-        T:"Proof/Discrete: 6–10 · TOC: 6–8 · LA: 8 · Algo: 3 · QC: 1 · Artifact: 1 proof PDF",
-        K:"Flagship: architecture diagram v1 · Dossier: CV v1"
-      },
-      {w:5,
-        A:"Counting I: sum/product rule · bijections as proofs",
-        B:"CFG definitions + examples (Sipser 2.1)",
-        M:"LA: eigenvalues/eigenvectors begin (Axler 5 start)",
-        G:"Heaps / priority queue · 3 problems",
-        E:"Flagship: permissions (who can do what) · audit core flows · reduce scope if needed",
-        Q:"Tensor product intuition (slow start)",
-        T:"Discrete: 8 · TOC: 8 · LA: 6–8 · Algo: 3 · QC: 1 · Artifact: 1 write-up",
-        K:"Flagship: MVP scope locked · Dossier: SOP bullets"
-      },
-      {w:6,
-        A:"Counting II: binomial coefficients · recurrences intro",
-        B:"Pushdown automata (Sipser 2.2)",
-        M:"LA: diagonalization intuition (Axler 5)",
-        G:"Stacks/monotonic stack · 3 problems",
-        E:"Flagship: polish UX loops · loading states · accessibility basics · demo-ready slice",
-        Q:"2-qubit states · CNOT",
-        T:"Discrete: 8 · TOC: 6–8 · LA: 6 · Algo: 3 · QC: 1–2 · Artifact: 1 proof PDF",
-        K:"Flagship: mid-sprint demo #1 · Dossier: writing intro (1 page)"
-      },
-      {w:7,
-        A:"Graph theory I: graphs, paths, trees · invariants mindset",
-        B:"CFL pumping lemma + closure (Sipser 2.3)",
-        M:"LA: inner product spaces begin (Axler 6)",
-        G:"DP basics (1D) · 3 problems",
-        E:"Flagship: integrate remaining MVP workflows · stabilize API contracts · remove nonessential features",
-        Q:"Bell states + entanglement",
-        T:"Graphs: 6–8 · TOC: 6–8 · LA: 8 · Algo: 3 · QC: 1 · Artifact: 1 proof PDF",
-        K:"Flagship: MVP feature-complete (no polish yet) · Dossier: SOP paragraph 1"
-      },
-      {w:8,
-        A:"Recurrences + invariants: what can’t change?",
-        B:"Turing machine definition + computation (Sipser 3.1)",
-        M:"LA: Gram–Schmidt + orthonormal bases (Axler 6)",
-        G:"Union-find (DSU) concept + 2 problems",
-        E:"Flagship: testing week · fix bugs · write docs as you go · add analytics/logging if applicable",
-        Q:"Measurement on entangled systems",
-        T:"Discrete: 6–8 · TOC: 6 · LA: 6–8 · Algo: 2–3 · QC: 1 · Artifact: 1 proof PDF",
-        K:"Flagship: demo #2 stable · Dossier: update CV bullets with impact"
-      },
-      {w:9,
-        A:"Reductions mindset (light): show A→B as structured proof",
-        B:"Decidable vs recognizable (Sipser 4.1)",
-        M:"Prob: axioms + conditional probability (6–8 problems)",
-        G:"Graphs: shortest paths idea + 3 problems",
-        E:"Flagship: polish + performance + final review · screenshots + README draft · architecture final",
-        Q:"Teleportation (concept + math sketch)",
-        T:"Proof/Discrete: 6 · TOC: 8 · Prob: 6–8 · Algo: 3 · QC: 1 · Artifact: 1 write-up",
-        K:"Flagship: packaging begins · Dossier: writing sample sec1 (2 pages)"
-      },
-      {w:10,
-        A:"Synthesis sheet: axioms → computation → systems (your words, 1 page)",
-        B:"Halting problem + reductions (Sipser 4.2)",
-        M:"Prob: expectation + linearity (8–10 problems)",
-        G:"Greedy proofs + 3 problems",
-        E:"Flagship: ship MVP · final README · demo video link · portfolio post (short)",
-        Q:"Postulates written formally (tiny)",
-        T:"Sheets: 1 · TOC: 6–8 · Prob: 8–10 · Algo: 3 · QC: 1 · Artifact: 1 reduction proof",
-        K:"Flagship: shipped · Dossier: SOP ugly draft v1"
-      },
+<!-- Topics modal -->
+<div class="modal" id="topicsModal" role="dialog" aria-modal="true">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h3>Topics map</h3>
+      <button class="close" id="closeTopics" aria-label="Close">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="topics-grid" id="topicGrid"></div>
+    </div>
+  </div>
+</div>
 
-      // pivot: runway weeks
-      {w:11,
-        A:"Set/logic recap sheet: axioms → structures (1 page)",
-        B:"Rice’s theorem intuition (Sipser 5.1)",
-        M:"LA: orthogonal complements + projections (Axler 6)",
-        G:"Binary search + invariants · 3 problems",
-        E:"Runway: backend skeleton (FastAPI or Node/TS) · Postgres connection · 3 endpoints",
-        Q:"Circuit model + universality idea",
-        T:"Axioms sheet: 1 · TOC: 6–8 · LA: 6 · Algo: 3 · QC: 1 · Artifact: 1 theorem write-up",
-        K:"Runway: repo created + architecture notes · Dossier: CV v2 polished"
-      },
-      {w:12,
-        A:"Invariants + potential functions (algorithmic proofs, math-first)",
-        B:"Complexity begins: P, NP, verifiers (Sipser 7.1)",
-        M:"Prob: RVs + distributions (8–10 problems)",
-        G:"Heaps/intervals pattern · 3 problems",
-        E:"Runway: auth (simple) + logging + tests baseline · error handling standard",
-        Q:"Deutsch–Jozsa (conceptual)",
-        T:"Discrete: 6 · TOC: 8 · Prob: 8–10 · Algo: 3 · QC: 1 · Artifact: 1 proof PDF",
-        K:"Runway: service works end-to-end · Dossier: writing sample sec2 (2–3 pages)"
-      },
-      {w:13,
-        A:"Reduction templates: ‘show A ≤ B’ as a proof schema",
-        B:"SAT/3SAT + poly reductions (Sipser 7.3)",
-        M:"LA maintenance: hardest problems review",
-        G:"DP (2D taste) · 3 problems",
-        E:"Runway: embeddings + retrieval (RAG skeleton) · citations format · basic eval script",
-        Q:"Grover (conceptual)",
-        T:"Reductions drills: 3 · TOC: 6–8 · LA: 4–6 · Algo: 3 · QC: 1 · Artifact: 1 NP-reduction write-up",
-        K:"Runway: RAG prototype works · Dossier: SOP v2 coherent"
-      },
-      {w:14,
-        A:"Counting/recurrences: proof by induction (harder set)",
-        B:"CLIQUE/VC/SUBSET SUM (Sipser 7.4)",
-        M:"Prob: Bayes + conditioning mastery (6–8 problems)",
-        G:"Graphs: BFS/DFS applications · 3 problems",
-        E:"Runway: evaluation harness v1 (quality, latency, cost) · A/B prompt variants",
-        Q:"Grover amplitude amplification math (tiny)",
-        T:"Discrete: 6–8 · TOC: 6–8 · Prob: 6–8 · Algo: 3 · QC: 1 · Artifact: 1 NP-completeness sketch",
-        K:"Runway: metrics dashboard notes · Dossier: writing sample sec3 (2–3 pages)"
-      },
-      {w:15,
-        A:"Analysis taste: convergence + compactness (why limits are disciplined)",
-        B:"Space complexity intuition + PSPACE (conceptual)",
-        M:"LA: unitary/normal operators intuition (QC backbone, selected)",
-        G:"String problems + hashing · 3 problems",
-        E:"Runway: deploy basics (even local docker) · docs polish · failure modes list",
-        Q:"BQP intuition (reading notes)",
-        T:"Analysis: 4 · TOC: 6 · LA: 4–6 · Algo: 3 · QC: notes · Artifact: 1 concept essay (1–2 pages)",
-        K:"Runway: deployable demo · Dossier: CV final formatting"
-      },
-      {w:16,
-        A:"Synthesis sheet: axioms → computation → complexity → learning (your words)",
-        B:"Review hardest proofs + redo toughest exercises (Sipser)",
-        M:"Prob: Markov chains intro (optional 6–8)",
-        G:"Mixed set: pick 3 weaknesses",
-        E:"Runway: polish + README + demo script · “engineer story” doc (what you built + why)",
-        Q:"Shor (conceptual 1–2 page write-up)",
-        T:"TOC: 8–10 review · Prob: 6–8 · Algo: 3 · 1 synthesis sheet · Artifact: 1 master proof",
-        K:"Runway: final README + demo · Dossier: writing sample final draft"
-      },
-      {w:17,
-        A:"Packaging: 1-page Foundations index (topics + links)",
-        B:"Packaging: 1-page TOC index (topics + links)",
-        M:"Packaging: 1-page Math index (topics + links)",
-        G:"Packaging: 1-page Algo index (patterns + links)",
-        E:"Packaging: portfolio pinned projects + releases tagged",
-        Q:"Packaging: 1-page QC index (topics + links)",
-        T:"No new drills — polish artifacts",
-        K:"Dossier: CV final + SOP v2 + writing sample PDF + portfolio cleaned"
-      }
-    ];
+<script>
+  // nav
+  document.getElementById('openBooks').onclick = () => document.getElementById('booksModal').classList.add('open');
+  document.getElementById('closeBooks').onclick = () => document.getElementById('booksModal').classList.remove('open');
+  document.getElementById('openTopics').onclick = () => document.getElementById('topicsModal').classList.add('open');
+  document.getElementById('closeTopics').onclick = () => document.getElementById('topicsModal').classList.remove('open');
+  document.querySelectorAll('.modal').forEach(m => m.addEventListener('click', e => { if(e.target===m) m.classList.remove('open'); }));
+  document.getElementById('jumpTable').onclick = () => document.getElementById('tableSection').scrollIntoView({behavior:'smooth'});
+  document.getElementById('jumpDossier').onclick = () => document.getElementById('dossierSection').scrollIntoView({behavior:'smooth'});
 
-    const planBody = document.getElementById("planBody");
-    function row(w){
-      return `
-        <tr>
-          <td class="wk">W${w.w}</td>
-          <td>${w.A}</td>
-          <td>${w.B}</td>
-          <td>${w.M}</td>
-          <td>${w.G}</td>
-          <td>${w.E}</td>
-          <td>${w.Q}</td>
-          <td>${w.T}<div class="mini">
-              <span class="chip"><b>weekly artifact:</b> 1 LaTeX proof/write-up</span>
-            </div>
-          </td>
-          <td>${w.K}</td>
-        </tr>`;
-    }
-    planBody.innerHTML = weeks.map(row).join("");
+  // books
+  const BOOKS = [
+    {cat:'Logic & Proof',title:'Velleman — How to Prove It',desc:'Quantifiers, proof techniques, mathematical language. your proofcraft gym.',link:'#'},
+    {cat:'Set Theory',title:'Halmos — Naive Set Theory',desc:'Sets, relations, functions, cardinality. elegant and axioms-friendly.',link:'#'},
+    {cat:'Mathematical Logic',title:'Enderton — A Mathematical Introduction to Logic',desc:'First-order logic through the completeness theorem. the ILLC requirement.',link:'#'},
+    {cat:'Incompleteness',title:'Smullyan — Gödel\'s Incompleteness Theorems',desc:'Both incompleteness theorems. clean, elegant proofs. read after Enderton.',link:'#'},
+    {cat:'Discrete',title:'Graham–Knuth–Patashnik — Concrete Mathematics',desc:'Discrete thinking that feeds TOC + algorithms + QC.',link:'#'},
+    {cat:'TOC',title:'Sipser — Introduction to the Theory of Computation',desc:'Automata → computability → complexity. the spine.',link:'#'},
+    {cat:'Linear Algebra',title:'Axler — Linear Algebra Done Right',desc:'Axioms-first: linear maps before matrices. QC backbone + ML maturity.',link:'#'},
+    {cat:'Quantum',title:'Nielsen & Chuang — QCQI',desc:'Heavy. definitive. use as reference, not as a weekly obligation.',link:'#'},
+    {cat:'Complexity',title:'Arora & Barak — Computational Complexity',desc:'Graduate complexity. P, NP, space, the polynomial hierarchy. phase 2 prep.',link:'#'},
+    {cat:'Probability',title:'Blitzstein — Introduction to Probability',desc:'Problem-based intuition. useful for QC uncertainty thinking.',link:'#'},
+  ];
 
-    // ---------- topics map (v2) ----------
-    const topicMap = [
-      {
-        title:"Logic & Proof (axioms lane)",
-        items:[
-          "Propositional logic: equivalence, normal forms",
-          "Predicate logic: ∀/∃, scope, translating statements",
-          "Proof templates: direct, contrapositive, contradiction",
-          "Induction + invariants + potential functions",
-          "Reductions as proof schemas",
-          "Invariants → tests (translation rule)"
-        ],
-        chips:["Foundations","Proofcraft","Translation"]
-      },
-      {
-        title:"Set Theory & Functions",
-        items:[
-          "Sets, relations, equivalence relations, partitions",
-          "Functions: injective/surjective/bijective, composition",
-          "Cardinality taste (countable/uncountable)",
-          "Construction mindset: building objects from axioms"
-        ],
-        chips:["Objects","Structure","Rigor"]
-      },
-      {
-        title:"Theory of Computation (Sipser core)",
-        items:[
-          "Automata: DFA, NFA, regex",
-          "Regular languages: closure, pumping lemma",
-          "CFLs: CFGs, PDAs",
-          "Turing machines + decidability",
-          "Undecidability: halting, Rice, reductions",
-          "Complexity: P, NP, NP-completeness intuition"
-        ],
-        chips:["TOC","Reductions","Maturity"]
-      },
-      {
-        title:"Linear Algebra + Probability (useful)",
-        items:[
-          "Vector spaces, linear maps, kernel/image",
-          "Eigen intuition + inner products + projections",
-          "Probability axioms, Bayes, expectation/variance",
-          "Markov chains intuition (optional)"
-        ],
-        chips:["Math","ML/QC","Structure"]
-      },
-      {
-        title:"Algorithms/DSA (kept sharp)",
-        items:[
-          "Hashmaps, two pointers, sliding window",
-          "BFS/DFS, heaps, greedy proofs",
-          "DP basics (taste)",
-          "Invariants and correctness arguments"
-        ],
-        chips:["Algo","Patterns","Correctness"]
-      },
-      {
-        title:"Engineering Lane (modern)",
-        items:[
-          "Weeks 1–10: React/TypeScript shipping discipline",
-          "Weeks 11–17: backend + DB + tests + logging",
-          "AI product systems: embeddings, retrieval, evaluation",
-          "Documentation + architecture as a founder skill"
-        ],
-        chips:["Ship","Systems","AI Product"]
-      },
-      {
-        title:"Quantum Thread (small, consistent)",
-        items:[
-          "Postulates, gates, circuits",
-          "Entanglement + teleportation taste",
-          "Deutsch–Jozsa + Grover conceptual",
-          "BQP/Shor conceptual (no rabbit holes)"
-        ],
-        chips:["Quantum","Thread","Never dies"]
-      }
-    ];
+  document.getElementById('bookGrid').innerHTML = BOOKS.map(b => `
+    <div class="book">
+      <div class="book-cat">${b.cat}</div>
+      <h4>${b.title}</h4>
+      <p>${b.desc}</p>
+      <a href="${b.link}">add link →</a>
+    </div>
+  `).join('');
 
-    const topicGrid = document.getElementById("topicGrid");
-    function renderTopicCard(t){
-      const li = t.items.map(x=>`<li>${x}</li>`).join("");
-      const chips = t.chips.map(c=>`<span class="chip">${c}</span>`).join("");
-      return `
-        <div class="topicCard">
-          <h4>${t.title}</h4>
-          <ul>${li}</ul>
-          <div class="meta">${chips}</div>
-        </div>
-      `;
-    }
-    topicGrid.innerHTML = topicMap.map(renderTopicCard).join("");
-  </script>
+  // topics
+  const TOPICS = [
+    {title:'Logic & Proof (axioms lane)',items:['Propositional logic: equivalence, normal forms','Predicate logic: ∀/∃, scope, translating statements','Proof templates: direct, contrapositive, contradiction','Induction + invariants + potential functions','First-order logic — completeness theorem (Enderton)','Gödel incompleteness theorems'],chips:['Foundations','Proofcraft','ILLC prep']},
+    {title:'Set Theory & Functions',items:['Sets, relations, equivalence relations, partitions','Functions: injective/surjective/bijective, composition','Cardinality (countable/uncountable)','Construction mindset: building objects from axioms'],chips:['Objects','Structure','Rigor']},
+    {title:'Theory of Computation (Sipser)',items:['Automata: DFA, NFA, regex','Regular languages: closure, pumping lemma','CFLs: CFGs, PDAs','Turing machines + decidability','Undecidability: halting, Rice, reductions','Complexity: P, NP, NP-completeness'],chips:['TOC','Reductions','Maturity']},
+    {title:'Linear Algebra + Probability',items:['Vector spaces, linear maps, kernel/image','Eigen intuition + inner products + projections','Unitary operators (QC backbone)','Probability axioms, Bayes, expectation/variance'],chips:['Math','QC prep','Structure']},
+    {title:'Algorithms/DSA (kept sharp)',items:['Hashmaps, two pointers, sliding window','BFS/DFS, heaps, greedy proofs','DP basics','Invariants and correctness arguments'],chips:['Algo','Patterns','Correctness']},
+    {title:'Quantum Thread',items:['Postulates, gates, circuits','Entanglement + teleportation','Deutsch–Jozsa + Grover conceptual','BQP/Shor conceptual','de Wolf lecture notes'],chips:['Quantum','Thread','Never dies']},
+  ];
+
+  document.getElementById('topicGrid').innerHTML = TOPICS.map(t => `
+    <div class="topic-card">
+      <h4>${t.title}</h4>
+      <ul>${t.items.map(i=>`<li>${i}</li>`).join('')}</ul>
+      <div class="topic-chips">${t.chips.map(c=>`<span class="tag tag-gray">${c}</span>`).join('')}</div>
+    </div>
+  `).join('');
+
+  // week table (engineering lane removed)
+  const weeks = [
+    {w:1,A:'Propositional logic: syntax, semantics, truth tables',B:'Sipser Ch.0 — math background + Ch.1 start (DFA)',M:'Axler Ch.1 — vector spaces axioms',G:'Hashmaps + two pointers · 3 problems',Q:'QC postulates (read N&C §1.1)',T:'Proof/Logic: 6–8 ex · TOC: 4–6 · LA: 4–6 · Algo: 3 · QC: 1 · Artifact: 1 proof PDF',K:'Dossier: CV v1 skeleton · Vault: repo created'},
+    {w:2,A:'Predicate logic: ∀/∃, scope, negation of quantifiers',B:'DFA constructions + NFA (Sipser 1.1–1.2)',M:'Axler Ch.1 — subspaces, sums, direct sums',G:'Two pointers: harder problems · 3',Q:'Qubits: Bloch sphere + measurement',T:'Proof/Logic: 6–8 · TOC: 6 · LA: 6 · Algo: 3 · QC: 1 · Artifact: 1 proof',K:'Dossier: SOP narrative bullets start'},
+    {w:3,A:'Proof methods: direct, contrapositive, contradiction',B:'NFA → DFA + closure (Sipser 1.2–1.3)',M:'Axler Ch.2 — linear independence, bases, dimension',G:'Sliding window pattern · 3 problems',Q:'Single qubit gates + circuit model',T:'Proofs: 8–10 · TOC: 6–8 · LA: 6 · Algo: 3 · QC: 1 · Artifact: 1',K:'Vault: 3 proofs in. Log: first reflection entry'},
+    {w:4,A:'Mathematical induction: simple + strong + structural',B:'Regular expressions + closure props (Sipser 1.3)',M:'Axler Ch.3 — linear maps, matrix of linear map',G:'BFS/DFS pattern · 3 problems',Q:'Multi-qubit systems, tensor products',T:'Induction: 8–10 · TOC: 8 · LA: 6 · Algo: 3 · QC: 1 · Artifact: 1',K:'Dossier: SOP opening paragraph v1'},
+    {w:5,A:'Set theory: axioms, relations, equivalences, partitions',B:'Pumping lemma + non-regular languages (Sipser 1.4)',M:'Axler Ch.5 — eigenvalues (start)',G:'Heaps + intervals pattern · 3',Q:'Entanglement: EPR + Bell states',T:'Sets: 6–8 · TOC: 8 · LA: 6 · Algo: 3 · QC: 1 · Artifact: 1',K:'Dossier: CV bullets with BRAIN impact'},
+    {w:6,A:'Functions: injective, surjective, bijective, composition',B:'CFGs + PDAs (Sipser Ch.2 start)',M:'Axler Ch.5 — characteristic polynomial, diagonalization',G:'Greedy proofs (interval scheduling) · 3',Q:'Teleportation: full math sketch',T:'Functions: 6–8 · TOC: 8 · LA: 6–8 · Algo: 3 · QC: 1 · Artifact: 1',K:'Schola Arcana: Vault at 6 proofs'},
+    {w:7,A:'Cardinality: countable/uncountable, diagonalization',B:'Pumping lemma CFLs + closure (Sipser 2.3)',M:'Axler Ch.6 — inner products, orthogonality',G:'DP taste: 1D problems · 3',Q:'Deutsch–Jozsa: full circuit + proof',T:'Cardinality: 6 · TOC: 8 · LA: 6 · Algo: 3 · QC: 1 · Artifact: 1',K:'Dossier: writing sample intro drafted'},
+    {w:8,A:'Combinatorics: counting principles, pigeonhole, inclusion-exclusion',B:'Turing machines: formal definition (Sipser 3.1)',M:'Axler Ch.7 — spectral theorem (start)',G:'Graph: BFS applications · 3',Q:'Measurement on entangled systems',T:'Discrete: 6–8 · TOC: 6–8 · LA: 6–8 · Algo: 3 · QC: 1 · Artifact: 1',K:'Dossier: SOP v1 coherent draft'},
+    {w:9,A:'Reductions mindset: show A→B as structured proof',B:'Decidable vs recognizable (Sipser 4.1)',M:'Prob: axioms + conditional probability (6–8 problems)',G:'Graphs: shortest paths · 3 problems',Q:'Teleportation (concept + math full)',T:'Proof/Discrete: 6 · TOC: 8 · Prob: 6–8 · Algo: 3 · QC: 1 · Artifact: 1',K:'Dossier: writing sample sec1 (2 pages)'},
+    {w:10,A:'Synthesis sheet: logic → set theory → computation (your words)',B:'Halting problem + reductions (Sipser 4.2)',M:'Prob: expectation + linearity (8–10 problems)',G:'Greedy proofs + 3 problems',Q:'Postulates written formally',T:'Sheets: 1 · TOC: 6–8 · Prob: 8–10 · Algo: 3 · QC: 1 · Artifact: 1 reduction proof',K:'Dossier: SOP ugly draft v1'},
+    {w:11,A:'Enderton Ch.2 start — first-order languages + syntax',B:'Rice\'s theorem intuition (Sipser 5.1)',M:'LA: orthogonal complements + projections (Axler 6)',G:'Binary search + invariants · 3 problems',Q:'Circuit model + universality idea',T:'Enderton: §2.1–2.2 · TOC: 6–8 · LA: 6 · Algo: 3 · QC: 1 · Artifact: 1',K:'Dossier: CV v2 polished'},
+    {w:12,A:'Enderton — structures, satisfaction, truth (§2.4)',B:'Complexity begins: P, NP, verifiers (Sipser 7.1)',M:'Prob: RVs + distributions (8–10 problems)',G:'Heaps/intervals pattern · 3',Q:'Deutsch–Jozsa (full proof)',T:'Enderton: §2.4 · TOC: 8 · Prob: 8–10 · Algo: 3 · QC: 1 · Artifact: 1 proof',K:'Dossier: writing sample sec2 (2–3 pages)'},
+    {w:13,A:'Enderton — formal proofs + soundness (§2.6)',B:'SAT/3SAT + poly reductions (Sipser 7.3)',M:'LA: normal operators, unitary operators',G:'DP (2D taste) · 3 problems',Q:'Grover (conceptual)',T:'Enderton: §2.6 · TOC: 6–8 · LA: 4–6 · Algo: 3 · QC: 1 · Artifact: soundness proof',K:'Dossier: SOP v2 coherent'},
+    {w:14,A:'Enderton — completeness theorem + Henkin construction (§2.7)',B:'CLIQUE/VC/SUBSET SUM (Sipser 7.4)',M:'Prob: Bayes + conditioning (6–8 problems)',G:'Graphs: BFS/DFS applications · 3',Q:'Grover amplitude amplification (math)',T:'Enderton: §2.7 ★ · TOC: 6–8 · Prob: 6–8 · Algo: 3 · QC: 1 · Artifact: Henkin proof',K:'Dossier: writing sample sec3 (2–3 pages)'},
+    {w:15,A:'Compactness + Löwenheim-Skolem theorems',B:'Space complexity + PSPACE (conceptual)',M:'LA: unitary/normal operators + QC backbone',G:'String problems + hashing · 3',Q:'BQP intuition (reading notes)',T:'Enderton: §2.8 · TOC: 6 · LA: 4–6 · Algo: 3 · QC: notes · Artifact: compactness proof',K:'Vault: completeness theorem in. Dossier: CV final'},
+    {w:16,A:'Gödel incompleteness: Gödel numbering + first theorem',B:'Review hardest proofs + redo toughest exercises',M:'Prob: Markov chains intro (optional)',G:'Mixed set: pick 3 weaknesses',Q:'Shor (conceptual 1–2 page write-up)',T:'Smullyan: first theorem · TOC: 8–10 review · Algo: 3 · QC: write-up · Artifact: 1 master proof',K:'Dossier: writing sample final draft'},
+    {w:17,A:'Packaging: 1-page Logic index (topics + links)',B:'Packaging: 1-page TOC index',M:'Packaging: 1-page Math index',G:'Packaging: 1-page Algo index',Q:'Packaging: 1-page QC index',T:'No new drills — polish artifacts',K:'Dossier: CV final + SOP v2 + writing sample PDF + portfolio cleaned'},
+  ];
+
+  document.getElementById('planBody').innerHTML = weeks.map(w => `
+    <tr>
+      <td><span class="wk">W${w.w}</span></td>
+      <td>${w.A}</td>
+      <td>${w.B}</td>
+      <td>${w.M}</td>
+      <td>${w.G}</td>
+      <td>${w.Q}</td>
+      <td>${w.T}</td>
+      <td>${w.K}</td>
+    </tr>
+  `).join('');
+
+  // milestones
+  const MILESTONES = [
+    {badge:'Week 4',title:'Identity established',body:'Portfolio repo created (proofs + logs). CV v1 skeleton complete. SOP narrative bullets drafted. Vault has 4 proofs.'},
+    {badge:'Week 8',title:'Foundations cohering',body:'Vault at 8 proofs. SOP opening paragraph exists. Writing sample intro drafted. CV bullets with BRAIN impact.'},
+    {badge:'Week 10',title:'SOP draft exists',body:'SOP v1 ugly draft complete. Writing sample at 4–6 pages. CV v2 polished with BRAIN + Schola Arcana framing.'},
+    {badge:'Week 14',title:'Completeness theorem done',body:'Enderton §2.7 complete. Henkin proof in vault. SOP v2 coherent draft. Writing sample at 8–10 pages.'},
+    {badge:'Week 17',title:'Application-ready',body:'CV final. SOP v2 finalized. Writing sample PDF. Proof Vault complete. Portfolio cleaned and public. All applications drafted.'},
+  ];
+
+  document.getElementById('milestoneList').innerHTML = MILESTONES.map(m => `
+    <div class="milestone-item">
+      <div class="ms-badge">${m.badge}</div>
+      <div>
+        <div class="ms-title">${m.title}</div>
+        <div class="ms-body">${m.body}</div>
+      </div>
+    </div>
+  `).join('');
+</script>
 </body>
 </html>
