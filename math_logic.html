@@ -27,6 +27,15 @@
     --teal: #2a8a7f;
     --teal-faint: #eaf5f4;
     --border: #ddd8ce;
+    --blue: #2e6da4;
+    --blue-faint: #eaf1f8;
+    --blue-soft: #a8c4e0;
+    --forest: #3a7a4a;
+    --forest-faint: #eaf4ec;
+    --forest-soft: #a8d4b0;
+    --rust: #b85c38;
+    --rust-faint: #faf0eb;
+    --rust-soft: #e0b4a0;
   }
 
   html { font-size: 16px; scroll-behavior: smooth; }
@@ -40,7 +49,6 @@
     min-height: 100vh;
   }
 
-  /* grain overlay */
   body::before {
     content: '';
     position: fixed;
@@ -51,7 +59,6 @@
     opacity: 0.4;
   }
 
-  /* nav */
   nav {
     padding: 18px 48px;
     border-bottom: 1px solid var(--border);
@@ -74,11 +81,7 @@
 
   .nav-brand span { color: var(--pink); }
 
-  .nav-links {
-    display: flex;
-    gap: 28px;
-    list-style: none;
-  }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
 
   .nav-links a {
     font-size: 0.78rem;
@@ -91,7 +94,6 @@
 
   .nav-links a:hover { color: var(--pink); }
 
-  /* hero */
   .hero {
     padding: 72px 48px 48px;
     max-width: 860px;
@@ -124,10 +126,7 @@
     letter-spacing: -0.01em;
   }
 
-  .hero h1 em {
-    font-style: italic;
-    color: var(--pink);
-  }
+  .hero h1 em { font-style: italic; color: var(--pink); }
 
   .hero-sub {
     font-family: 'EB Garamond', serif;
@@ -137,12 +136,7 @@
     margin-bottom: 28px;
   }
 
-  .hero-meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 28px;
-  }
+  .hero-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 28px; }
 
   .tag {
     font-size: 0.72rem;
@@ -157,6 +151,9 @@
   .tag-gold { background: var(--gold-faint); color: var(--gold); border: 1px solid #e8c88a; }
   .tag-purple { background: var(--purple-faint); color: var(--purple); border: 1px solid #c4b3e0; }
   .tag-teal { background: var(--teal-faint); color: var(--teal); border: 1px solid #9fd4cf; }
+  .tag-blue { background: var(--blue-faint); color: var(--blue); border: 1px solid var(--blue-soft); }
+  .tag-forest { background: var(--forest-faint); color: var(--forest); border: 1px solid var(--forest-soft); }
+  .tag-rust { background: var(--rust-faint); color: var(--rust); border: 1px solid var(--rust-soft); }
 
   .hero-manifesto {
     background: var(--parchment-warm);
@@ -170,17 +167,55 @@
     line-height: 1.7;
   }
 
-  /* layout */
+  /* track nav */
+  .track-nav {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 28px 48px 0;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 28px;
+  }
+
+  .track-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 30px;
+    border: 1px solid var(--border);
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    background: #fff;
+    color: var(--ink-muted);
+    font-weight: 500;
+  }
+
+  .track-pill:hover { border-color: var(--ink-muted); color: var(--ink); }
+  .track-pill.t1 { border-color: var(--pink-soft); color: var(--pink); background: var(--pink-faint); }
+  .track-pill.t2 { border-color: var(--blue-soft); color: var(--blue); background: var(--blue-faint); }
+  .track-pill.t3 { border-color: #c4b3e0; color: var(--purple); background: var(--purple-faint); }
+  .track-pill.t4 { border-color: var(--forest-soft); color: var(--forest); background: var(--forest-faint); }
+  .track-pill.t5 { border-color: var(--rust-soft); color: var(--rust); background: var(--rust-faint); }
+
+  .track-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
   .main {
     max-width: 860px;
     margin: 0 auto;
     padding: 0 48px 80px;
   }
 
-  /* section headers */
-  .section {
-    padding-top: 56px;
-  }
+  .section { padding-top: 56px; }
 
   .section-label {
     font-size: 0.7rem;
@@ -208,11 +243,56 @@
     margin-top: 12px;
   }
 
+  .section-rule.blue { background: var(--blue); }
+  .section-rule.purple { background: var(--purple); }
+  .section-rule.forest { background: var(--forest); }
+  .section-rule.rust { background: var(--rust); }
+
   .section p {
     color: var(--ink-soft);
     font-size: 0.95rem;
     margin-bottom: 24px;
     line-height: 1.75;
+  }
+
+  /* track header divider */
+  .track-divider {
+    margin-top: 64px;
+    padding-top: 40px;
+    border-top: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 8px;
+  }
+
+  .track-divider-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .track-divider-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .track-urgency {
+    font-size: 0.72rem;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    background: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffc107;
+    white-space: nowrap;
   }
 
   /* phase cards */
@@ -252,10 +332,7 @@
     margin-bottom: 4px;
   }
 
-  .phase-subtitle {
-    font-size: 0.82rem;
-    color: var(--ink-muted);
-  }
+  .phase-subtitle { font-size: 0.82rem; color: var(--ink-muted); }
 
   .phase-badge {
     font-size: 0.7rem;
@@ -276,7 +353,6 @@
 
   .phase-body.open { display: block; }
 
-  /* book cards */
   .book-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -309,11 +385,7 @@
     font-style: italic;
   }
 
-  .book-desc {
-    font-size: 0.82rem;
-    color: var(--ink-muted);
-    line-height: 1.6;
-  }
+  .book-desc { font-size: 0.82rem; color: var(--ink-muted); line-height: 1.6; }
 
   .book-scope {
     margin-top: 10px;
@@ -325,7 +397,6 @@
     letter-spacing: 0.03em;
   }
 
-  /* topics list */
   .topics-list {
     list-style: none;
     display: flex;
@@ -346,8 +417,7 @@
   }
 
   .topic-check {
-    width: 18px;
-    height: 18px;
+    width: 18px; height: 18px;
     border-radius: 50%;
     border: 1.5px solid var(--border);
     margin-top: 2px;
@@ -373,11 +443,7 @@
     transform: rotate(-45deg);
   }
 
-  .topic-name {
-    font-size: 0.9rem;
-    color: var(--ink-soft);
-    line-height: 1.5;
-  }
+  .topic-name { font-size: 0.9rem; color: var(--ink-soft); line-height: 1.5; }
 
   .topic-name strong {
     font-weight: 500;
@@ -396,7 +462,6 @@
     margin-top: 2px;
   }
 
-  /* milestone box */
   .milestone {
     padding: 16px 20px;
     border-radius: 8px;
@@ -409,7 +474,6 @@
     font-size: 1rem;
   }
 
-  /* proof vault */
   .vault-item {
     display: flex;
     align-items: center;
@@ -436,17 +500,13 @@
     letter-spacing: 0.05em;
   }
 
-  .vault-name {
-    font-size: 0.9rem;
-    color: var(--ink);
-    font-weight: 400;
-  }
+  .vault-icon.blue { color: var(--blue); background: var(--blue-faint); }
+  .vault-icon.purple { color: var(--purple); background: var(--purple-faint); }
+  .vault-icon.forest { color: var(--forest); background: var(--forest-faint); }
+  .vault-icon.rust { color: var(--rust); background: var(--rust-faint); }
 
-  .vault-desc {
-    font-size: 0.78rem;
-    color: var(--ink-muted);
-    margin-top: 2px;
-  }
+  .vault-name { font-size: 0.9rem; color: var(--ink); font-weight: 400; }
+  .vault-desc { font-size: 0.78rem; color: var(--ink-muted); margin-top: 2px; }
 
   .vault-status {
     margin-left: auto;
@@ -458,7 +518,6 @@
     flex-shrink: 0;
   }
 
-  /* weekly rule */
   .weekly-rule {
     background: var(--parchment-warm);
     border: 1px solid var(--border);
@@ -494,9 +553,13 @@
     letter-spacing: 0.04em;
   }
 
+  .rule-label.blue { color: var(--blue); }
+  .rule-label.purple { color: var(--purple); }
+  .rule-label.forest { color: var(--forest); }
+  .rule-label.rust { color: var(--rust); }
+
   .rule-val { color: var(--ink-soft); }
 
-  /* sacred rule */
   .sacred {
     text-align: center;
     padding: 32px 24px;
@@ -525,7 +588,6 @@
 
   .sacred-text strong { color: var(--pink); font-style: normal; }
 
-  /* progress bar */
   .progress-section {
     background: #fff;
     border: 1px solid var(--border);
@@ -558,6 +620,7 @@
     background: var(--parchment-deep);
     border-radius: 2px;
     overflow: hidden;
+    margin-bottom: 6px;
   }
 
   .progress-fill {
@@ -592,7 +655,57 @@
     font-weight: 500;
   }
 
-  /* toggle chevron */
+  /* all-tracks overview */
+  .tracks-overview {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 32px;
+  }
+
+  .track-card {
+    padding: 18px 20px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: #fff;
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    text-decoration: none;
+    display: block;
+  }
+
+  .track-card:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+  .track-card.pink:hover { border-color: var(--pink-soft); }
+  .track-card.blue:hover { border-color: var(--blue-soft); }
+  .track-card.purple-c:hover { border-color: #c4b3e0; }
+  .track-card.forest:hover { border-color: var(--forest-soft); }
+  .track-card.rust:hover { border-color: var(--rust-soft); }
+
+  .track-card-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  .track-card-title {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+
+  .track-card-desc {
+    font-size: 0.8rem;
+    color: var(--ink-muted);
+    line-height: 1.55;
+    margin-bottom: 10px;
+  }
+
+  .track-card-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+
   .chevron {
     color: var(--ink-faint);
     font-size: 0.8rem;
@@ -603,7 +716,27 @@
 
   .phase-card.open .chevron { transform: rotate(180deg); }
 
-  /* footnote */
+  /* connection note */
+  .connection-note {
+    background: var(--parchment-warm);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-bottom: 20px;
+    font-size: 0.84rem;
+    color: var(--ink-muted);
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .connection-arrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
   .footnote {
     font-size: 0.78rem;
     color: var(--ink-faint);
@@ -629,7 +762,9 @@
     .hero { padding: 48px 20px 32px; }
     .hero h1 { font-size: 2.2rem; }
     .main { padding: 0 20px 60px; }
+    .track-nav { padding: 20px 20px 20px; }
     .book-grid { grid-template-columns: 1fr; }
+    .tracks-overview { grid-template-columns: 1fr; }
     .progress-phases { flex-wrap: wrap; }
   }
 </style>
@@ -653,25 +788,82 @@
     <span>›</span>
     <span>Mathematical Logic</span>
   </div>
-
   <h1>Mathematical <em>Logic</em></h1>
-  <div class="hero-sub">from first-order sentences to the completeness theorem — and beyond</div>
-
+  <div class="hero-sub">five tracks · from completeness to the frontier of rational agency</div>
   <div class="hero-meta">
-    <span class="tag tag-pink">10 months</span>
-    <span class="tag tag-purple">ILLC prerequisite</span>
-    <span class="tag tag-gold">Oxford MFoCS</span>
-    <span class="tag tag-teal">3 phases</span>
+    <span class="tag tag-pink">Track 1 — FOL &amp; Incompleteness</span>
+    <span class="tag tag-blue">Track 2 — Modal &amp; Epistemic Logic</span>
+    <span class="tag tag-purple">Track 3 — Set Theory</span>
+    <span class="tag tag-forest">Track 4 — Model Theory</span>
+    <span class="tag tag-rust">Track 5 — Proof Theory</span>
   </div>
-
   <div class="hero-manifesto">
-    This is the one gap that stands between you and the programs you want. Not a wide gap — but a precise one. The completeness theorem is what separates a student who has studied logic from one who has understood it. Enderton. Oliart. Every exercise. No shortcuts. The cathedral is built proof by proof.
+    This is the one gap that stands between you and the programs you want. Not a wide gap — but a precise one. The completeness theorem is what separates a student who has studied logic from one who has understood it. Five tracks. One cathedral. Built proof by proof, from first-order sentences to the epistemic frontier where ILLC lives.
   </div>
+</div>
+
+<!-- Track nav pills -->
+<div class="track-nav">
+  <a href="#track1" class="track-pill t1"><span class="track-dot" style="background:var(--pink)"></span>FOL &amp; Incompleteness</a>
+  <a href="#track2" class="track-pill t2"><span class="track-dot" style="background:var(--blue)"></span>Modal &amp; Epistemic Logic</a>
+  <a href="#track3" class="track-pill t3"><span class="track-dot" style="background:var(--purple)"></span>Set Theory</a>
+  <a href="#track4" class="track-pill t4"><span class="track-dot" style="background:var(--forest)"></span>Model Theory</a>
+  <a href="#track5" class="track-pill t5"><span class="track-dot" style="background:var(--rust)"></span>Proof Theory</a>
 </div>
 
 <div class="main">
 
-  <!-- Progress -->
+  <!-- Overview grid -->
+  <div class="section">
+    <div class="section-label">the full map</div>
+    <h2>Five tracks to ILLC</h2>
+    <div class="section-rule"></div>
+    <p>Each track is a prerequisite for the next. Do not skip. The order is not arbitrary — it is the logical dependency graph of the mathematics itself.</p>
+
+    <div class="tracks-overview">
+      <a href="#track1" class="track-card pink">
+        <div class="track-card-num" style="color:var(--pink)">TRACK 01 — months 1–4</div>
+        <div class="track-card-title">First-Order Logic &amp; Incompleteness</div>
+        <div class="track-card-desc">Completeness, compactness, Löwenheim-Skolem, Gödel. The foundation every other track stands on.</div>
+        <div class="track-card-tags"><span class="tag tag-pink">Enderton</span><span class="tag tag-pink">Smullyan</span><span class="tag tag-pink">ILLC prerequisite</span></div>
+      </a>
+      <a href="#track2" class="track-card blue">
+        <div class="track-card-num" style="color:var(--blue)">TRACK 02 — months 3–7 ★ PRIORITY</div>
+        <div class="track-card-title">Modal &amp; Epistemic Logic</div>
+        <div class="track-card-desc">Kripke frames, S4, S5, DEL update operators. The native language of ILLC. Non-negotiable for your paper.</div>
+        <div class="track-card-tags"><span class="tag tag-blue">Blackburn et al</span><span class="tag tag-blue">van Benthem</span><span class="tag tag-blue">ILLC identity</span></div>
+      </a>
+      <a href="#track3" class="track-card purple-c">
+        <div class="track-card-num" style="color:var(--purple)">TRACK 03 — months 4–6</div>
+        <div class="track-card-title">Set Theory</div>
+        <div class="track-card-desc">Ordinals, cardinals, AC, Zorn's lemma. Oxford and Cambridge foundations track. The substrate of everything.</div>
+        <div class="track-card-tags"><span class="tag tag-purple">Enderton Sets</span><span class="tag tag-purple">Oxford critical</span></div>
+      </a>
+      <a href="#track4" class="track-card forest">
+        <div class="track-card-num" style="color:var(--forest)">TRACK 04 — months 6–9</div>
+        <div class="track-card-title">Model Theory</div>
+        <div class="track-card-desc">Elementary equivalence, types, quantifier elimination, EF games. Barcelona, Paris LMFI, Manchester.</div>
+        <div class="track-card-tags"><span class="tag tag-forest">Marker</span><span class="tag tag-forest">Barcelona</span><span class="tag tag-forest">Paris LMFI</span></div>
+      </a>
+      <a href="#track5" class="track-card rust" style="grid-column: 1 / -1;">
+        <div class="track-card-num" style="color:var(--rust)">TRACK 05 — months 8–10 · after everything else</div>
+        <div class="track-card-title">Proof Theory</div>
+        <div class="track-card-desc">Sequent calculus, cut elimination, proof normalization. Oxford foundations, TU Vienna, Paris LMFI. The hardest track — do it last, when the foundations are solid.</div>
+        <div class="track-card-tags"><span class="tag tag-rust">Troelstra &amp; Schwichtenberg</span><span class="tag tag-rust">Oxford</span><span class="tag tag-rust">TU Vienna</span></div>
+      </a>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- TRACK 1 — original content                 -->
+  <!-- ═══════════════════════════════════════════ -->
+
+  <div class="track-divider" id="track1">
+    <span class="track-divider-label tag-pink">Track 01</span>
+    <div class="track-divider-line"></div>
+    <span style="font-size:0.78rem;color:var(--ink-muted);">First-Order Logic &amp; Incompleteness</span>
+  </div>
+
   <div class="section">
     <div class="section-label">your position</div>
     <h2>Where you stand</h2>
@@ -679,29 +871,27 @@
 
     <div class="progress-section">
       <div class="progress-header">
-        <div class="progress-title">Mathematical Logic — overall progress</div>
+        <div class="progress-title">Track 1 — overall progress</div>
         <div class="progress-pct" id="pct-display">0%</div>
       </div>
       <div class="progress-track">
         <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
       </div>
       <div class="progress-phases">
-        <div class="progress-phase active">Phase 1<br>Completeness</div>
-        <div class="progress-phase">Phase 2<br>Consequences</div>
-        <div class="progress-phase">Phase 3<br>Incompleteness</div>
+        <div class="progress-phase active" id="phase-ind-1">Phase 1<br>Completeness</div>
+        <div class="progress-phase" id="phase-ind-2">Phase 2<br>Consequences</div>
+        <div class="progress-phase" id="phase-ind-3">Phase 3<br>Incompleteness</div>
       </div>
     </div>
 
     <p>You have first-order logic. Syntax, semantics, structures, truth. That is the foundation — you are already standing at the right door. What lies ahead is the proof that formal provability and semantic truth coincide. That is the completeness theorem, and it is beautiful.</p>
   </div>
 
-  <!-- Sacred rule -->
   <div class="sacred">
     <div class="sacred-label">weekly output rule (sacred)</div>
     <div class="sacred-text">one proof written in full · every week · no exceptions<br><strong>Enderton exercise → LaTeX → Proof Vault</strong></div>
   </div>
 
-  <!-- Phase 1 -->
   <div class="section">
     <div class="section-label">phase 1 · months 1–2</div>
     <h2>The completeness theorem</h2>
@@ -726,129 +916,57 @@
             <div class="book-label">§2.1 — 2.3</div>
             <div class="book-title">First-order languages</div>
             <div class="book-desc">Variables, constants, function symbols, predicate symbols, terms, atomic formulas, well-formed formulas. The grammar of formal thought.</div>
-            <span class="book-scope tag-pink" style="background:var(--pink-faint);color:var(--pink);">week 1–2</span>
+            <span class="book-scope tag-pink">week 1–2</span>
           </div>
           <div class="book-card">
             <div class="book-label">§2.4 — 2.5</div>
             <div class="book-title">Structures and truth</div>
             <div class="book-desc">What it means for a sentence to be true in a structure. Satisfaction, models, validity. The semantic side of the theorem.</div>
-            <span class="book-scope tag-pink" style="background:var(--pink-faint);color:var(--pink);">week 3–4</span>
+            <span class="book-scope tag-pink">week 3–4</span>
           </div>
           <div class="book-card">
             <div class="book-label">§2.6</div>
             <div class="book-title">Formal proofs and soundness</div>
             <div class="book-desc">Axioms, rules of inference, formal derivations. Soundness: everything provable is valid. The easy direction — but you must know it precisely.</div>
-            <span class="book-scope tag-gold" style="background:var(--gold-faint);color:var(--gold);">week 5</span>
+            <span class="book-scope tag-gold">week 5</span>
           </div>
           <div class="book-card">
             <div class="book-label">§2.7</div>
             <div class="book-title">The completeness theorem</div>
             <div class="book-desc">The Henkin construction. Build a maximal consistent set. Construct the term model. Every valid sentence is provable. This is the crown of Phase 1.</div>
-            <span class="book-scope tag-purple" style="background:var(--purple-faint);color:var(--purple);">week 6–8</span>
+            <span class="book-scope tag-purple">week 6–8</span>
           </div>
         </div>
-
         <div class="weekly-rule">
           <h3>How to work through Enderton</h3>
-          <div class="rule-row">
-            <span class="rule-label">each session</span>
-            <span class="rule-val">read the section once, then immediately do every exercise before moving on</span>
-          </div>
-          <div class="rule-row">
-            <span class="rule-label">oliart</span>
-            <span class="rule-val">bring your written proofs every week — especially §2.7. work through the Henkin construction with him specifically</span>
-          </div>
-          <div class="rule-row">
-            <span class="rule-label">proof vault</span>
-            <span class="rule-val">every exercise you complete goes into the vault as a LaTeX file — timestamped, public</span>
-          </div>
-          <div class="rule-row">
-            <span class="rule-label">stuck?</span>
-            <span class="rule-val">reread the definitions from the beginning of the relevant section. in logic, confusion is almost always a sign that a definition wasn't absorbed fully</span>
-          </div>
+          <div class="rule-row"><span class="rule-label">each session</span><span class="rule-val">read the section once, then immediately do every exercise before moving on</span></div>
+          <div class="rule-row"><span class="rule-label">oliart</span><span class="rule-val">bring your written proofs every week — especially §2.7. work through the Henkin construction with him specifically</span></div>
+          <div class="rule-row"><span class="rule-label">proof vault</span><span class="rule-val">every exercise you complete goes into the vault as a LaTeX file — timestamped, public</span></div>
+          <div class="rule-row"><span class="rule-label">stuck?</span><span class="rule-val">reread the definitions from the beginning of the relevant section. in logic, confusion is almost always a sign that a definition wasn't absorbed fully</span></div>
         </div>
-
         <div class="milestone" style="border-color:var(--pink);background:var(--pink-faint);">
           End of month 2: you can state and prove the completeness theorem from memory, reconstruct the Henkin construction, and explain why compactness follows immediately. Oliart can confirm this in his letter. The ILLC requirement is closed.
         </div>
       </div>
     </div>
 
-    <!-- Topics checklist phase 1 -->
-    <ul class="topics-list">
-      <li class="topic-item">
-        <div class="topic-check" onclick="toggleCheck(this)"></div>
-        <div class="topic-name">
-          <strong>First-order syntax</strong>
-          Terms, formulas, sentences, free and bound variables
-        </div>
-        <span class="topic-tag tag-pink">§2.1–2.2</span>
-      </li>
-      <li class="topic-item">
-        <div class="topic-check" onclick="toggleCheck(this)"></div>
-        <div class="topic-name">
-          <strong>Structures and satisfaction</strong>
-          What it means for M ⊨ φ. The semantic definition of truth.
-        </div>
-        <span class="topic-tag tag-pink">§2.4</span>
-      </li>
-      <li class="topic-item">
-        <div class="topic-check" onclick="toggleCheck(this)"></div>
-        <div class="topic-name">
-          <strong>Validity and logical consequence</strong>
-          ⊨ φ, Γ ⊨ φ. Universal truth vs contextual truth.
-        </div>
-        <span class="topic-tag tag-pink">§2.5</span>
-      </li>
-      <li class="topic-item">
-        <div class="topic-check" onclick="toggleCheck(this)"></div>
-        <div class="topic-name">
-          <strong>Formal proof systems</strong>
-          Hilbert-style axioms, modus ponens, derivations, ⊢ φ
-        </div>
-        <span class="topic-tag tag-gold">§2.6</span>
-      </li>
-      <li class="topic-item">
-        <div class="topic-check" onclick="toggleCheck(this)"></div>
-        <div class="topic-name">
-          <strong>Soundness theorem</strong>
-          If Γ ⊢ φ then Γ ⊨ φ. Proof by induction on derivation length.
-        </div>
-        <span class="topic-tag tag-gold">§2.6</span>
-      </li>
-      <li class="topic-item">
-        <div class="topic-check" onclick="toggleCheck(this)"></div>
-        <div class="topic-name">
-          <strong>Consistency and maximal consistent sets</strong>
-          Lindenbaum's lemma — every consistent set extends to a maximal one.
-        </div>
-        <span class="topic-tag tag-purple">§2.7</span>
-      </li>
-      <li class="topic-item">
-        <div class="topic-check" onclick="toggleCheck(this)"></div>
-        <div class="topic-name">
-          <strong>Henkin constants and witnesses</strong>
-          Adding witnesses for existential sentences. The Henkin extension.
-        </div>
-        <span class="topic-tag tag-purple">§2.7</span>
-      </li>
-      <li class="topic-item">
-        <div class="topic-check" onclick="toggleCheck(this)"></div>
-        <div class="topic-name">
-          <strong>The completeness theorem</strong>
-          If Γ ⊨ φ then Γ ⊢ φ. Every valid sentence is provable. The full proof.
-        </div>
-        <span class="topic-tag tag-purple">§2.7 ★</span>
-      </li>
+    <ul class="topics-list" id="track1-topics">
+      <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>First-order syntax</strong>Terms, formulas, sentences, free and bound variables</div><span class="topic-tag tag-pink">§2.1–2.2</span></li>
+      <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Structures and satisfaction</strong>What it means for M ⊨ φ. The semantic definition of truth.</div><span class="topic-tag tag-pink">§2.4</span></li>
+      <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Validity and logical consequence</strong>⊨ φ, Γ ⊨ φ. Universal truth vs contextual truth.</div><span class="topic-tag tag-pink">§2.5</span></li>
+      <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Formal proof systems</strong>Hilbert-style axioms, modus ponens, derivations, ⊢ φ</div><span class="topic-tag tag-gold">§2.6</span></li>
+      <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Soundness theorem</strong>If Γ ⊢ φ then Γ ⊨ φ. Proof by induction on derivation length.</div><span class="topic-tag tag-gold">§2.6</span></li>
+      <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Consistency and maximal consistent sets</strong>Lindenbaum's lemma — every consistent set extends to a maximal one.</div><span class="topic-tag tag-purple">§2.7</span></li>
+      <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Henkin constants and witnesses</strong>Adding witnesses for existential sentences. The Henkin extension.</div><span class="topic-tag tag-purple">§2.7</span></li>
+      <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>The completeness theorem</strong>If Γ ⊨ φ then Γ ⊢ φ. Every valid sentence is provable. The full proof.</div><span class="topic-tag tag-purple">§2.7 ★</span></li>
     </ul>
   </div>
 
-  <!-- Phase 2 -->
   <div class="section">
     <div class="section-label">phase 2 · month 3</div>
     <h2>Consequences of completeness</h2>
     <div class="section-rule"></div>
-    <p>Completeness is not the end — it is the beginning. From it, two of the most powerful theorems in all of logic fall out almost immediately. These are theorems every ILLC student is expected to know cold.</p>
+    <p>Completeness is not the end — it is the beginning. From it, two of the most powerful theorems in all of logic fall out almost immediately.</p>
 
     <div class="phase-card" id="phase2">
       <div class="phase-header" onclick="togglePhase('phase2')">
@@ -864,68 +982,27 @@
       </div>
       <div class="phase-body" id="phase2-body">
         <div class="book-grid">
-          <div class="book-card">
-            <div class="book-label">compactness theorem</div>
-            <div class="book-title">If every finite subset of Γ is satisfiable, then Γ is satisfiable</div>
-            <div class="book-desc">Falls directly out of completeness. Infinitely many axioms are satisfiable iff every finite chunk is. Has wild consequences — you can produce non-standard models of arithmetic from it.</div>
-            <span class="book-scope tag-teal" style="background:var(--teal-faint);color:var(--teal);">month 3, week 1</span>
-          </div>
-          <div class="book-card">
-            <div class="book-label">Löwenheim-Skolem theorem</div>
-            <div class="book-title">If a theory has an infinite model it has models of every infinite cardinality</div>
-            <div class="book-desc">No first-order theory can pin down a unique infinite cardinality. The reals and the rationals satisfy the same first-order sentences. Deeply strange. Essential for model theory.</div>
-            <span class="book-scope tag-teal" style="background:var(--teal-faint);color:var(--teal);">month 3, week 2</span>
-          </div>
-          <div class="book-card">
-            <div class="book-label">non-standard models</div>
-            <div class="book-title">Arithmetic has non-standard models</div>
-            <div class="book-desc">Using compactness, construct a model of Peano arithmetic containing infinite natural numbers. The integers are not first-order categorical. This blew your mind the first time. Write about it.</div>
-            <span class="book-scope tag-teal" style="background:var(--teal-faint);color:var(--teal);">month 3, week 3</span>
-          </div>
-          <div class="book-card">
-            <div class="book-label">optional deepening</div>
-            <div class="book-title">Ebbinghaus — Mathematical Logic</div>
-            <div class="book-desc">Covers the same material with a different proof style. Read alongside Enderton for alternative intuitions. More algebraic in flavor. Good for proof vault variety.</div>
-            <span class="book-scope tag-gold" style="background:var(--gold-faint);color:var(--gold);">supplementary</span>
-          </div>
+          <div class="book-card"><div class="book-label">compactness theorem</div><div class="book-title">If every finite subset of Γ is satisfiable, then Γ is satisfiable</div><div class="book-desc">Falls directly out of completeness. Has wild consequences — you can produce non-standard models of arithmetic from it.</div><span class="book-scope tag-teal">month 3, week 1</span></div>
+          <div class="book-card"><div class="book-label">Löwenheim-Skolem theorem</div><div class="book-title">If a theory has an infinite model it has models of every infinite cardinality</div><div class="book-desc">No first-order theory can pin down a unique infinite cardinality. Deeply strange. Essential for model theory.</div><span class="book-scope tag-teal">month 3, week 2</span></div>
+          <div class="book-card"><div class="book-label">non-standard models</div><div class="book-title">Arithmetic has non-standard models</div><div class="book-desc">Using compactness, construct a model of Peano arithmetic containing infinite natural numbers. Write about it.</div><span class="book-scope tag-teal">month 3, week 3</span></div>
+          <div class="book-card"><div class="book-label">optional deepening</div><div class="book-title">Ebbinghaus — Mathematical Logic</div><div class="book-desc">Alternative proof style. More algebraic in flavor. Good for proof vault variety.</div><span class="book-scope tag-gold">supplementary</span></div>
         </div>
-
         <ul class="topics-list">
-          <li class="topic-item">
-            <div class="topic-check" onclick="toggleCheck(this)"></div>
-            <div class="topic-name"><strong>Compactness theorem</strong> — statement, proof from completeness, and at least two applications</div>
-            <span class="topic-tag tag-teal">§2.8</span>
-          </li>
-          <li class="topic-item">
-            <div class="topic-check" onclick="toggleCheck(this)"></div>
-            <div class="topic-name"><strong>Downward Löwenheim-Skolem</strong> — every satisfiable theory has a countable model</div>
-            <span class="topic-tag tag-teal">§2.8</span>
-          </li>
-          <li class="topic-item">
-            <div class="topic-check" onclick="toggleCheck(this)"></div>
-            <div class="topic-name"><strong>Upward Löwenheim-Skolem</strong> — models of every infinite cardinality</div>
-            <span class="topic-tag tag-teal">§2.8</span>
-          </li>
-          <li class="topic-item">
-            <div class="topic-check" onclick="toggleCheck(this)"></div>
-            <div class="topic-name"><strong>Non-standard models of arithmetic</strong> — compactness applied to Peano axioms</div>
-            <span class="topic-tag tag-teal">application</span>
-          </li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Compactness theorem</strong> — statement, proof from completeness, and at least two applications</div><span class="topic-tag tag-teal">§2.8</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Downward Löwenheim-Skolem</strong> — every satisfiable theory has a countable model</div><span class="topic-tag tag-teal">§2.8</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Upward Löwenheim-Skolem</strong> — models of every infinite cardinality</div><span class="topic-tag tag-teal">§2.8</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Non-standard models of arithmetic</strong> — compactness applied to Peano axioms</div><span class="topic-tag tag-teal">application</span></li>
         </ul>
-
-        <div class="milestone" style="border-color:var(--teal);background:var(--teal-faint);">
-          End of month 3: completeness, compactness, and Löwenheim-Skolem all under your belt. You can speak about the limits of first-order logic precisely. Model theory is now open to you.
-        </div>
+        <div class="milestone" style="border-color:var(--teal);background:var(--teal-faint);">End of month 3: completeness, compactness, and Löwenheim-Skolem all under your belt. Model theory is now open to you.</div>
       </div>
     </div>
   </div>
 
-  <!-- Phase 3 -->
   <div class="section">
     <div class="section-label">phase 3 · month 3–4</div>
     <h2>Gödel's incompleteness theorems</h2>
     <div class="section-rule"></div>
-    <p>You have completeness — now you need incompleteness. These are not contradictions. Completeness says every valid sentence is provable. Incompleteness says some true arithmetical sentences are not provable in any consistent formal system. They operate in different domains and together they define the shape of mathematical knowledge.</p>
+    <p>You have completeness — now you need incompleteness. These are not contradictions. They operate in different domains and together define the shape of mathematical knowledge.</p>
 
     <div class="phase-card" id="phase3">
       <div class="phase-header" onclick="togglePhase('phase3')">
@@ -941,180 +1018,479 @@
       </div>
       <div class="phase-body" id="phase3-body">
         <div class="book-grid">
-          <div class="book-card">
-            <div class="book-label">Gödel numbering</div>
-            <div class="book-title">Encoding syntax as arithmetic</div>
-            <div class="book-desc">Every formula, proof, and symbol gets a unique natural number. Arithmetic can then talk about its own proofs. This is the key move — and it connects directly to Turing machines.</div>
-            <span class="book-scope tag-purple" style="background:var(--purple-faint);color:var(--purple);">week 1</span>
-          </div>
-          <div class="book-card">
-            <div class="book-label">First incompleteness theorem</div>
-            <div class="book-title">No consistent system proves all arithmetical truths</div>
-            <div class="book-desc">In any consistent formal system strong enough to encode arithmetic, there exists a sentence that is true but unprovable. The Gödel sentence: "I am not provable."</div>
-            <span class="book-scope tag-purple" style="background:var(--purple-faint);color:var(--purple);">week 2–3</span>
-          </div>
-          <div class="book-card">
-            <div class="book-label">Second incompleteness theorem</div>
-            <div class="book-title">No consistent system proves its own consistency</div>
-            <div class="book-desc">Hilbert's program collapses here. No formal system can prove from within itself that it will never derive a contradiction. The most devastating theorem in the history of mathematics.</div>
-            <span class="book-scope tag-purple" style="background:var(--purple-faint);color:var(--purple);">week 3–4</span>
-          </div>
-          <div class="book-card">
-            <div class="book-label">connection to Sipser</div>
-            <div class="book-title">Incompleteness ↔ undecidability</div>
-            <div class="book-desc">Gödel's proof and Turing's halting problem are the same idea in different clothes. Incompleteness → there are true sentences no Turing machine can prove. This is your bridge back to TOC.</div>
-            <span class="book-scope tag-gold" style="background:var(--gold-faint);color:var(--gold);">synthesis</span>
-          </div>
+          <div class="book-card"><div class="book-label">Gödel numbering</div><div class="book-title">Encoding syntax as arithmetic</div><div class="book-desc">Every formula, proof, and symbol gets a unique natural number. Arithmetic can then talk about its own proofs. Connects directly to Turing machines.</div><span class="book-scope tag-purple">week 1</span></div>
+          <div class="book-card"><div class="book-label">First incompleteness theorem</div><div class="book-title">No consistent system proves all arithmetical truths</div><div class="book-desc">There exists a sentence that is true but unprovable. The Gödel sentence: "I am not provable."</div><span class="book-scope tag-purple">week 2–3</span></div>
+          <div class="book-card"><div class="book-label">Second incompleteness theorem</div><div class="book-title">No consistent system proves its own consistency</div><div class="book-desc">Hilbert's program collapses here. The most devastating theorem in the history of mathematics.</div><span class="book-scope tag-purple">week 3–4</span></div>
+          <div class="book-card"><div class="book-label">connection to Sipser</div><div class="book-title">Incompleteness ↔ undecidability</div><div class="book-desc">Gödel's proof and Turing's halting problem are the same idea in different clothes. Read Ch. 4–5 again after Gödel.</div><span class="book-scope tag-gold">synthesis</span></div>
         </div>
-
         <ul class="topics-list">
-          <li class="topic-item">
-            <div class="topic-check" onclick="toggleCheck(this)"></div>
-            <div class="topic-name"><strong>Gödel numbering</strong> — encoding formulas and proofs as natural numbers</div>
-            <span class="topic-tag tag-purple">foundations</span>
-          </li>
-          <li class="topic-item">
-            <div class="topic-check" onclick="toggleCheck(this)"></div>
-            <div class="topic-name"><strong>Representability in arithmetic</strong> — recursive functions are representable in Peano arithmetic</div>
-            <span class="topic-tag tag-purple">key lemma</span>
-          </li>
-          <li class="topic-item">
-            <div class="topic-check" onclick="toggleCheck(this)"></div>
-            <div class="topic-name"><strong>The Gödel sentence</strong> — construction of a sentence that asserts its own unprovability</div>
-            <span class="topic-tag tag-purple">★ first theorem</span>
-          </li>
-          <li class="topic-item">
-            <div class="topic-check" onclick="toggleCheck(this)"></div>
-            <div class="topic-name"><strong>First incompleteness theorem</strong> — full proof for any consistent, sufficiently strong system</div>
-            <span class="topic-tag tag-purple">★ first theorem</span>
-          </li>
-          <li class="topic-item">
-            <div class="topic-check" onclick="toggleCheck(this)"></div>
-            <div class="topic-name"><strong>Second incompleteness theorem</strong> — Con(T) is not provable in T if T is consistent</div>
-            <span class="topic-tag tag-purple">★ second theorem</span>
-          </li>
-          <li class="topic-item">
-            <div class="topic-check" onclick="toggleCheck(this)"></div>
-            <div class="topic-name"><strong>Connection to the halting problem</strong> — incompleteness as undecidability in disguise</div>
-            <span class="topic-tag tag-gold">synthesis</span>
-          </li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Gödel numbering</strong> — encoding formulas and proofs as natural numbers</div><span class="topic-tag tag-purple">foundations</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Representability in arithmetic</strong> — recursive functions representable in Peano arithmetic</div><span class="topic-tag tag-purple">key lemma</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>The Gödel sentence</strong> — construction of a sentence that asserts its own unprovability</div><span class="topic-tag tag-purple">★ first theorem</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>First incompleteness theorem</strong> — full proof for any consistent, sufficiently strong system</div><span class="topic-tag tag-purple">★ first theorem</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Second incompleteness theorem</strong> — Con(T) is not provable in T if T is consistent</div><span class="topic-tag tag-purple">★ second theorem</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Connection to the halting problem</strong> — incompleteness as undecidability in disguise</div><span class="topic-tag tag-gold">synthesis</span></li>
         </ul>
+        <div class="milestone" style="border-color:var(--purple);background:var(--purple-faint);">End of Phase 3: you understand why Hilbert's program failed, what it means for mathematics to have true but unprovable sentences, and how this connects to computability. Write the synthesis essay. That is your artifact.</div>
+      </div>
+    </div>
+  </div>
 
-        <div class="milestone" style="border-color:var(--purple);background:var(--purple-faint);">
-          End of Phase 3: you understand why Hilbert's program failed, what it means for mathematics to have true but unprovable sentences, and how this connects to everything you already know about computability. Write a proof vault entry that explains incompleteness to someone who knows completeness. That is your synthesis artifact.
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- TRACK 2 — Modal & Epistemic Logic          -->
+  <!-- ═══════════════════════════════════════════ -->
+
+  <div class="track-divider" id="track2">
+    <span class="track-divider-label tag-blue">Track 02 — ★ Priority</span>
+    <div class="track-divider-line"></div>
+    <span style="font-size:0.78rem;color:var(--ink-muted);">Modal &amp; Epistemic Logic</span>
+    <span class="track-urgency">ILLC identity</span>
+  </div>
+
+  <div class="section">
+    <div class="section-label">why this track exists</div>
+    <h2>The native language of ILLC</h2>
+    <div class="section-rule blue"></div>
+
+    <div class="connection-note">
+      <span class="connection-arrow" style="color:var(--blue)">→</span>
+      <span>Track 1 gives you classical logic. This track gives you the logic ILLC actually speaks. Van Benthem, Baltag, and Smets — the people who will read your application — built their careers in Kripke frames and dynamic epistemic logic. If your paper speaks this language, it lands differently. Start this track no later than month 3, overlapping with Track 1's Phase 3.</span>
+    </div>
+
+    <p>Modal logic extends classical logic with operators for necessity (□) and possibility (◇). Epistemic logic interprets these as knowledge and belief. Dynamic epistemic logic adds update operators — formal descriptions of how knowledge changes when new information arrives. This is the formal home of your agent paper's belief revision mechanism.</p>
+
+    <div class="phase-card" id="modal1">
+      <div class="phase-header" onclick="togglePhase('modal1')">
+        <div>
+          <div class="phase-num">PHASE 01 · months 3–4</div>
+          <div class="phase-title">Kripke semantics and the modal cube</div>
+          <div class="phase-subtitle">Blackburn, de Rijke &amp; Venema — Modal Logic · Ch. 1–2</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:10px;">
+          <span class="phase-badge tag-blue">foundation</span>
+          <span class="chevron">▼</span>
         </div>
       </div>
+      <div class="phase-body" id="modal1-body">
+        <div class="book-grid">
+          <div class="book-card">
+            <div class="book-label">primary text</div>
+            <div class="book-title">Blackburn, de Rijke &amp; Venema — Modal Logic</div>
+            <div class="book-desc">The canonical text. Van Benthem is a co-author. This is the book ILLC students are expected to know. Chapters 1–3 are your core. Treat it like you treat Enderton.</div>
+            <span class="book-scope tag-blue">start here</span>
+          </div>
+          <div class="book-card">
+            <div class="book-label">accessible companion</div>
+            <div class="book-title">van Benthem — Modal Logic for Open Minds</div>
+            <div class="book-desc">Written by the person who will likely read your application. More conversational than Blackburn. Read a chapter here when Blackburn feels dense. Shows you the philosophy behind the formalism.</div>
+            <span class="book-scope tag-blue">parallel read</span>
+          </div>
+          <div class="book-card">
+            <div class="book-label">Kripke frames</div>
+            <div class="book-title">Possible worlds semantics</div>
+            <div class="book-desc">A Kripke frame is a pair (W, R) — a set of worlds and an accessibility relation. A formula □φ is true at world w iff φ is true at every world accessible from w. This is the core move.</div>
+            <span class="book-scope tag-blue">week 1–2</span>
+          </div>
+          <div class="book-card">
+            <div class="book-label">the modal cube</div>
+            <div class="book-title">K, T, S4, S5 and their frame conditions</div>
+            <div class="book-desc">Each axiom schema corresponds to a frame property. T: reflexivity. 4: transitivity. B: symmetry. S5: equivalence relation. The correspondence theorem is the modal analog of completeness.</div>
+            <span class="book-scope tag-blue">week 3–4</span>
+          </div>
+        </div>
+        <ul class="topics-list">
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Syntax of modal logic</strong> — propositional logic + □ and ◇ operators</div><span class="topic-tag tag-blue">Ch. 1</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Kripke frames and models</strong> — (W, R, V), truth at a world, validity</div><span class="topic-tag tag-blue">Ch. 1</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Frame correspondence</strong> — each axiom encodes a frame property. T ↔ reflexivity. 4 ↔ transitivity.</div><span class="topic-tag tag-blue">Ch. 2</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Completeness for K, T, S4, S5</strong> — canonical model construction. The modal analog of Henkin.</div><span class="topic-tag tag-blue">Ch. 2 ★</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Bisimulation</strong> — when two Kripke models are modally equivalent. The key invariance notion.</div><span class="topic-tag tag-blue">Ch. 2</span></li>
+        </ul>
+        <div class="milestone" style="border-color:var(--blue);background:var(--blue-faint);">End of Phase 1: you can define a Kripke model, evaluate modal formulas at worlds, state the correspondence between axioms and frame conditions, and prove completeness for S5. Modal logic is now a language, not a mystery.</div>
+      </div>
     </div>
+
+    <div class="phase-card" id="modal2">
+      <div class="phase-header" onclick="togglePhase('modal2')">
+        <div>
+          <div class="phase-num">PHASE 02 · months 5–6</div>
+          <div class="phase-title">Epistemic logic — knowledge and belief</div>
+          <div class="phase-subtitle">Fagin, Halpern, Moses &amp; Vardi — Reasoning About Knowledge · Ch. 1–3</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:10px;">
+          <span class="phase-badge tag-blue">epistemic</span>
+          <span class="chevron">▼</span>
+        </div>
+      </div>
+      <div class="phase-body" id="modal2-body">
+        <div class="book-grid">
+          <div class="book-card">
+            <div class="book-label">primary text</div>
+            <div class="book-title">Fagin, Halpern, Moses &amp; Vardi — Reasoning About Knowledge</div>
+            <div class="book-desc">The definitive text on epistemic logic. Formalizes what agents know, believe, and know that they know. Directly relevant to your agent paper. Chapters 1–3 are sufficient for your purposes.</div>
+            <span class="book-scope tag-blue">primary</span>
+          </div>
+          <div class="book-card">
+            <div class="book-label">key distinction</div>
+            <div class="book-title">Knowledge (K) vs belief (B)</div>
+            <div class="book-desc">K is factive — Kᵢφ implies φ is true. B is not — Bᵢφ can be false. Your agent paper hinges on this: the agent has beliefs about user intent, not knowledge. S5 for knowledge, KD45 for belief.</div>
+            <span class="book-scope tag-blue">foundational</span>
+          </div>
+          <div class="book-card">
+            <div class="book-label">multi-agent</div>
+            <div class="book-title">Common knowledge and group epistemics</div>
+            <div class="book-desc">Cφ means every agent knows φ, and knows that every agent knows φ, and so on infinitely. This is the formal notion needed for your multi-agent open problem from the BRAIN paper.</div>
+            <span class="book-scope tag-blue">Ch. 2</span>
+          </div>
+          <div class="book-card">
+            <div class="book-label">for your paper</div>
+            <div class="book-title">Epistemic states as belief revision</div>
+            <div class="book-desc">AGM belief revision axioms: when an agent learns φ, how should their belief set change? This is the formal version of your memory update function µ(M, s, a) → M′ from BRAIN.</div>
+            <span class="book-scope tag-blue">paper connection</span>
+          </div>
+        </div>
+        <ul class="topics-list">
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Knowledge operators Kᵢ</strong> — S5 axioms, introspection, the KK thesis</div><span class="topic-tag tag-blue">Ch. 1</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Belief operators Bᵢ</strong> — KD45 system, difference from knowledge</div><span class="topic-tag tag-blue">Ch. 1</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Common knowledge C</strong> — definition, fixed-point characterization</div><span class="topic-tag tag-blue">Ch. 2</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>AGM belief revision</strong> — the six rationality postulates for belief update</div><span class="topic-tag tag-blue">Ch. 3 ★</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Muddy children puzzle</strong> — common knowledge in action. Know this cold — it appears in interviews.</div><span class="topic-tag tag-blue">classic</span></li>
+        </ul>
+        <div class="milestone" style="border-color:var(--blue);background:var(--blue-faint);">End of Phase 2: you can formalize the difference between knowledge and belief, define common knowledge, state the AGM axioms, and connect belief revision to your agent's memory update function. Your paper now has its logical foundation.</div>
+      </div>
+    </div>
+
+    <div class="phase-card" id="modal3">
+      <div class="phase-header" onclick="togglePhase('modal3')">
+        <div>
+          <div class="phase-num">PHASE 03 · months 6–7 · the frontier</div>
+          <div class="phase-title">Dynamic epistemic logic — knowledge that changes</div>
+          <div class="phase-subtitle">van Ditmarsch, van der Hoek &amp; Kooi — Dynamic Epistemic Logic</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:10px;">
+          <span class="phase-badge tag-blue">★ paper foundation</span>
+          <span class="chevron">▼</span>
+        </div>
+      </div>
+      <div class="phase-body" id="modal3-body">
+        <div class="book-grid">
+          <div class="book-card">
+            <div class="book-label">primary text</div>
+            <div class="book-title">van Ditmarsch, van der Hoek &amp; Kooi — Dynamic Epistemic Logic</div>
+            <div class="book-desc">DEL adds action operators to epistemic logic. [A]φ means after action A is performed, φ holds. Public announcement logic (PAL) is the simplest instance. This is where your paper lives.</div>
+            <span class="book-scope tag-blue">primary</span>
+          </div>
+          <div class="book-card">
+            <div class="book-label">the key move</div>
+            <div class="book-title">Public announcement logic</div>
+            <div class="book-desc">[!φ]ψ — after publicly announcing φ, ψ holds. The update operator changes the model by restricting to φ-worlds. This is belief revision made dynamic and compositional.</div>
+            <span class="book-scope tag-blue">PAL</span>
+          </div>
+          <div class="book-card">
+            <div class="book-label">for your agent</div>
+            <div class="book-title">Action models and epistemic events</div>
+            <div class="book-desc">More general than PAL — models private communications, partial observations, and uncertain announcements. Every turn in your car agent is a DEL action that updates the agent's belief state.</div>
+            <span class="book-scope tag-blue">paper section</span>
+          </div>
+          <div class="book-card">
+            <div class="book-label">synthesis</div>
+            <div class="book-title">Your paper's formal claim</div>
+            <div class="book-desc">The agent's memory update µ(M, s, a) → M′ is a DEL action model composition. The orchestrator's routing is a policy restricted to epistemically permissible actions. This is your contribution.</div>
+            <span class="book-scope tag-blue">★ the claim</span>
+          </div>
+        </div>
+        <ul class="topics-list">
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Public announcement logic</strong> — syntax, semantics, reduction axioms</div><span class="topic-tag tag-blue">Ch. 2 ★</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Product update</strong> — action models composed with epistemic models</div><span class="topic-tag tag-blue">Ch. 4</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Reduction axioms</strong> — [!φ]Kᵢψ ↔ (φ → Kᵢ(φ → [!φ]ψ)). Memorize this.</div><span class="topic-tag tag-blue">Ch. 2 ★</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Completeness for PAL</strong> — reduction to epistemic logic, the translation method</div><span class="topic-tag tag-blue">Ch. 3</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Arbitrary announcement logic</strong> — knowing whether a formula could be announced</div><span class="topic-tag tag-blue">Ch. 5</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Application to your agent</strong> — formalize one full agent turn as a DEL event model</div><span class="topic-tag tag-blue">★ paper</span></li>
+        </ul>
+        <div class="weekly-rule">
+          <h3>How to work through DEL</h3>
+          <div class="rule-row"><span class="rule-label blue">each week</span><span class="rule-val">one DEL theorem proved in LaTeX — reduction axiom proofs are the best exercises</span></div>
+          <div class="rule-row"><span class="rule-label blue">connect</span><span class="rule-val">after every chapter, write one paragraph connecting the formalism to your agent architecture. this becomes your paper's introduction</span></div>
+          <div class="rule-row"><span class="rule-label blue">cite right</span><span class="rule-val">cite van Benthem's "Logical Dynamics" alongside DEL — shows breadth. cite Baltag &amp; Moss for action models specifically</span></div>
+        </div>
+        <div class="milestone" style="border-color:var(--blue);background:var(--blue-faint);">End of Track 2: you can speak ILLC's language. Your agent paper now has a formal semantic foundation — belief states, update operators, and epistemic constraints — derived from theorems, not intuition. This is what makes you different from every other applicant.</div>
+      </div>
+    </div>
+
+    <div class="section-label" style="margin-top:28px;">proof vault targets — track 2</div>
+    <div class="vault-item"><div class="vault-icon blue">THM</div><div><div class="vault-name">Completeness for S5</div><div class="vault-desc">Canonical model construction for epistemic logic · the modal analog of Henkin</div></div><span class="vault-status tag-blue">month 4</span></div>
+    <div class="vault-item"><div class="vault-icon blue">THM</div><div><div class="vault-name">Frame correspondence theorem</div><div class="vault-desc">T axiom ↔ reflexive frames · 4 axiom ↔ transitive frames · full proof</div></div><span class="vault-status tag-blue">month 4</span></div>
+    <div class="vault-item"><div class="vault-icon blue">THM ★</div><div><div class="vault-name">PAL reduction axiom</div><div class="vault-desc">[!φ]Kᵢψ ↔ (φ → Kᵢ(φ → [!φ]ψ)) · proof and interpretation</div></div><span class="vault-status tag-blue">month 6 ★</span></div>
+    <div class="vault-item"><div class="vault-icon blue">ESSAY</div><div><div class="vault-name">DEL and your agent — the formal connection</div><div class="vault-desc">One agent conversation turn formalized as a DEL action model · this is your paper's core section</div></div><span class="vault-status tag-blue">month 7 ★</span></div>
   </div>
 
-  <!-- Proof Vault targets -->
-  <div class="section">
-    <div class="section-label">proof vault targets</div>
-    <h2>What goes in the vault</h2>
-    <div class="section-rule"></div>
-    <p>These are the proofs that belong in your vault by the end of this track. Every one is a LaTeX document — formal, complete, dated.</p>
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- TRACK 3 — Set Theory                       -->
+  <!-- ═══════════════════════════════════════════ -->
 
-    <div class="vault-item">
-      <div class="vault-icon">THM</div>
-      <div>
-        <div class="vault-name">Soundness theorem for first-order logic</div>
-        <div class="vault-desc">If Γ ⊢ φ then Γ ⊨ φ · proof by induction on derivation length</div>
-      </div>
-      <span class="vault-status tag-gold" style="background:var(--gold-faint);color:var(--gold);">month 1</span>
-    </div>
-
-    <div class="vault-item">
-      <div class="vault-icon">THM</div>
-      <div>
-        <div class="vault-name">Lindenbaum's lemma</div>
-        <div class="vault-desc">Every consistent set of sentences extends to a maximal consistent set</div>
-      </div>
-      <span class="vault-status tag-gold" style="background:var(--gold-faint);color:var(--gold);">month 2</span>
-    </div>
-
-    <div class="vault-item">
-      <div class="vault-icon">THM ★</div>
-      <div>
-        <div class="vault-name">Completeness theorem — full Henkin proof</div>
-        <div class="vault-desc">If Γ ⊨ φ then Γ ⊢ φ · the complete proof including Henkin extension and term model construction</div>
-      </div>
-      <span class="vault-status tag-pink">month 2 ★</span>
-    </div>
-
-    <div class="vault-item">
-      <div class="vault-icon">THM</div>
-      <div>
-        <div class="vault-name">Compactness theorem</div>
-        <div class="vault-desc">Γ satisfiable iff every finite subset of Γ is satisfiable · proof from completeness + one application</div>
-      </div>
-      <span class="vault-status tag-teal" style="background:var(--teal-faint);color:var(--teal);">month 3</span>
-    </div>
-
-    <div class="vault-item">
-      <div class="vault-icon">THM</div>
-      <div>
-        <div class="vault-name">Downward Löwenheim-Skolem</div>
-        <div class="vault-desc">Every satisfiable theory has a countable model</div>
-      </div>
-      <span class="vault-status tag-teal" style="background:var(--teal-faint);color:var(--teal);">month 3</span>
-    </div>
-
-    <div class="vault-item">
-      <div class="vault-icon">THM ★</div>
-      <div>
-        <div class="vault-name">First incompleteness theorem</div>
-        <div class="vault-desc">No consistent sufficiently strong system proves all arithmetical truths · full Gödel proof</div>
-      </div>
-      <span class="vault-status tag-purple" style="background:var(--purple-faint);color:var(--purple);">month 4 ★</span>
-    </div>
-
-    <div class="vault-item">
-      <div class="vault-icon">ESSAY</div>
-      <div>
-        <div class="vault-name">Synthesis essay — completeness and incompleteness</div>
-        <div class="vault-desc">Why they are not contradictions · what they together say about the limits of formal systems · your own words</div>
-      </div>
-      <span class="vault-status tag-pink">month 4</span>
-    </div>
+  <div class="track-divider" id="track3">
+    <span class="track-divider-label tag-purple">Track 03</span>
+    <div class="track-divider-line"></div>
+    <span style="font-size:0.78rem;color:var(--ink-muted);">Set Theory</span>
   </div>
 
-  <!-- Canon -->
   <div class="section">
-    <div class="section-label">canon</div>
-    <h2>The books</h2>
-    <div class="section-rule"></div>
+    <div class="section-label">why this track exists</div>
+    <h2>The substrate of everything</h2>
+    <div class="section-rule purple"></div>
 
-    <div class="book-grid">
-      <div class="book-card">
-        <div class="book-label">primary · phase 1–2</div>
-        <div class="book-title">Enderton — A Mathematical Introduction to Logic</div>
-        <div class="book-desc">The canonical text. Chapter 2 is your entire Phase 1 and 2. Clear, rigorous, complete. Do every exercise. This is the book.</div>
-        <span class="book-scope tag-pink">start here</span>
+    <div class="connection-note">
+      <span class="connection-arrow" style="color:var(--purple)">→</span>
+      <span>Set theory is the foundational language in which all of mathematics is written. Oxford and Cambridge will assume fluency here. More practically: ordinals and cardinals are what make Löwenheim-Skolem precise, and the axiom of choice is what makes Zorn's lemma work, which you will use in model theory. Start after Phase 2 of Track 1.</span>
+    </div>
+
+    <div class="phase-card" id="set1">
+      <div class="phase-header" onclick="togglePhase('set1')">
+        <div>
+          <div class="phase-num">PHASE 01 · months 4–5</div>
+          <div class="phase-title">Enderton — Elements of Set Theory</div>
+          <div class="phase-subtitle">Ordinals, cardinals, AC — the full foundational picture</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:10px;">
+          <span class="phase-badge tag-purple">primary text</span>
+          <span class="chevron">▼</span>
+        </div>
       </div>
-      <div class="book-card">
-        <div class="book-label">primary · phase 3</div>
-        <div class="book-title">Smullyan — Gödel's Incompleteness Theorems</div>
-        <div class="book-desc">Clean, elegant proof of both incompleteness theorems. More readable than Gödel's original. Presupposes completeness — read after Enderton Ch. 2.</div>
-        <span class="book-scope tag-purple">phase 3</span>
-      </div>
-      <div class="book-card">
-        <div class="book-label">supplementary</div>
-        <div class="book-title">Ebbinghaus — Mathematical Logic</div>
-        <div class="book-desc">Alternative proof style for the completeness theorem. More algebraic. Good when Enderton's approach feels stuck. Same theorems, different angle.</div>
-        <span class="book-scope tag-gold">optional depth</span>
-      </div>
-      <div class="book-card">
-        <div class="book-label">already yours</div>
-        <div class="book-title">Sipser — Introduction to the Theory of Computation</div>
-        <div class="book-desc">Read Ch. 4–5 again after Gödel. The halting problem and incompleteness are the same idea. Turing and Gödel saw the same thing from different directions.</div>
-        <span class="book-scope tag-teal">synthesis read</span>
+      <div class="phase-body" id="set1-body">
+        <div class="book-grid">
+          <div class="book-card">
+            <div class="book-label">ZFC axioms</div>
+            <div class="book-title">The axioms of set theory</div>
+            <div class="book-desc">Extensionality, pairing, union, power set, infinity, replacement, foundation. These are the axioms from which all of mathematics is built. Know each one and why it is needed.</div>
+            <span class="book-scope tag-purple">Ch. 1–2</span>
+          </div>
+          <div class="book-card">
+            <div class="book-label">ordinals</div>
+            <div class="book-title">Well-orderings and transfinite induction</div>
+            <div class="book-desc">Every well-ordered set is isomorphic to a unique ordinal. Transfinite induction and recursion — the generalization of mathematical induction to infinite ordinals. Beautiful and essential.</div>
+            <span class="book-scope tag-purple">Ch. 4–5</span>
+          </div>
+          <div class="book-card">
+            <div class="book-label">cardinals</div>
+            <div class="book-title">Infinite cardinalities and Cantor's theorem</div>
+            <div class="book-desc">ℵ₀, ℵ₁, the continuum. Cantor's theorem: |P(X)| > |X| for every set X. The diagonal argument — the same idea as Gödel's proof and Turing's halting problem.</div>
+            <span class="book-scope tag-purple">Ch. 6</span>
+          </div>
+          <div class="book-card">
+            <div class="book-label">choice</div>
+            <div class="book-title">Axiom of choice and its equivalents</div>
+            <div class="book-desc">AC ↔ Zorn's lemma ↔ well-ordering theorem. These three are the same theorem in different clothes. Lindenbaum's lemma from Track 1 uses Zorn's lemma — now you see why.</div>
+            <span class="book-scope tag-purple">Ch. 7 ★</span>
+          </div>
+        </div>
+        <ul class="topics-list">
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>ZFC axioms</strong> — all nine, statement and motivation for each</div><span class="topic-tag tag-purple">Ch. 1</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Ordinal numbers</strong> — definition, well-ordering, transfinite induction</div><span class="topic-tag tag-purple">Ch. 4</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Cardinal numbers</strong> — ℵ₀, ℵ₁, cardinal arithmetic</div><span class="topic-tag tag-purple">Ch. 6</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Cantor's theorem</strong> — |P(X)| > |X| · the diagonal argument in set theory</div><span class="topic-tag tag-purple">Ch. 6 ★</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Axiom of choice</strong> — statement and three equivalent forms</div><span class="topic-tag tag-purple">Ch. 7</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Zorn's lemma</strong> — statement, proof from AC, and one application</div><span class="topic-tag tag-purple">Ch. 7 ★</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Well-ordering theorem</strong> — every set can be well-ordered · proof from AC</div><span class="topic-tag tag-purple">Ch. 7</span></li>
+        </ul>
+        <div class="milestone" style="border-color:var(--purple);background:var(--purple-faint);">End of Track 3: the foundations are fully closed. You understand what ZFC is, why it is the right foundation, where AC is used silently throughout mathematics, and how infinite cardinalities are measured. Oxford foundations is now reachable.</div>
       </div>
     </div>
+
+    <div class="section-label" style="margin-top:28px;">proof vault targets — track 3</div>
+    <div class="vault-item"><div class="vault-icon purple">THM</div><div><div class="vault-name">Cantor's theorem</div><div class="vault-desc">|P(X)| > |X| for every set X · the set-theoretic diagonal argument</div></div><span class="vault-status tag-purple">month 5</span></div>
+    <div class="vault-item"><div class="vault-icon purple">THM ★</div><div><div class="vault-name">AC ↔ Zorn's lemma ↔ well-ordering theorem</div><div class="vault-desc">Full proof of equivalence across all three forms</div></div><span class="vault-status tag-purple">month 5 ★</span></div>
+    <div class="vault-item"><div class="vault-icon purple">THM</div><div><div class="vault-name">Transfinite induction</div><div class="vault-desc">The generalization of mathematical induction · proof of principle and one application</div></div><span class="vault-status tag-purple">month 5</span></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- TRACK 4 — Model Theory                     -->
+  <!-- ═══════════════════════════════════════════ -->
+
+  <div class="track-divider" id="track4">
+    <span class="track-divider-label tag-forest">Track 04</span>
+    <div class="track-divider-line"></div>
+    <span style="font-size:0.78rem;color:var(--ink-muted);">Model Theory</span>
+  </div>
+
+  <div class="section">
+    <div class="section-label">why this track exists</div>
+    <h2>The mathematics of mathematical structures</h2>
+    <div class="section-rule forest"></div>
+
+    <div class="connection-note">
+      <span class="connection-arrow" style="color:var(--forest)">→</span>
+      <span>Model theory asks: what can first-order logic say, and what can it not say, about mathematical structures? This is the deep continuation of your compactness and Löwenheim-Skolem work from Track 1. Essential for Barcelona, Paris LMFI, and Manchester. Begin after Track 1 is complete and Track 3 is underway.</span>
+    </div>
+
+    <div class="phase-card" id="model1">
+      <div class="phase-header" onclick="togglePhase('model1')">
+        <div>
+          <div class="phase-num">PHASE 01 · months 6–8</div>
+          <div class="phase-title">Marker — Model Theory: An Introduction</div>
+          <div class="phase-subtitle">Ch. 1–3 · the core of the subject</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:10px;">
+          <span class="phase-badge tag-forest">primary text</span>
+          <span class="chevron">▼</span>
+        </div>
+      </div>
+      <div class="phase-body" id="model1-body">
+        <div class="book-grid">
+          <div class="book-card">
+            <div class="book-label">elementary equivalence</div>
+            <div class="book-title">When two structures satisfy the same sentences</div>
+            <div class="book-desc">M ≡ N — two structures are elementarily equivalent if they satisfy the same first-order sentences. The rationals and reals are elementarily equivalent as ordered fields. This is wild.</div>
+            <span class="book-scope tag-forest">Ch. 1</span>
+          </div>
+          <div class="book-card">
+            <div class="book-label">types</div>
+            <div class="book-title">Complete types and type spaces</div>
+            <div class="book-desc">The type of an element describes every first-order property it has in a model. Type spaces are the geometric objects of model theory. Saturated models realize all types.</div>
+            <span class="book-scope tag-forest">Ch. 2</span>
+          </div>
+          <div class="book-card">
+            <div class="book-label">quantifier elimination</div>
+            <div class="book-title">When every formula is equivalent to a quantifier-free one</div>
+            <div class="book-desc">Dense linear orders eliminate quantifiers. Algebraically closed fields eliminate quantifiers. This is model theory's most powerful tool — it shows exactly what a theory can express.</div>
+            <span class="book-scope tag-forest">Ch. 3 ★</span>
+          </div>
+          <div class="book-card">
+            <div class="book-label">EF games</div>
+            <div class="book-title">Ehrenfeucht-Fraïssé games</div>
+            <div class="book-desc">A game-theoretic method for proving elementary equivalence — or its failure. Two players, two structures. Duplicator wins iff the structures agree on all sentences of quantifier rank ≤ n.</div>
+            <span class="book-scope tag-forest">Ch. 2 ★</span>
+          </div>
+        </div>
+        <ul class="topics-list">
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Elementary equivalence M ≡ N</strong> — definition and examples using compactness</div><span class="topic-tag tag-forest">Ch. 1</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Elementary embeddings</strong> — M ≺ N, Tarski-Vaught test</div><span class="topic-tag tag-forest">Ch. 1</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Complete types</strong> — p(x) a type over M, realizing and omitting types</div><span class="topic-tag tag-forest">Ch. 2</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Omitting types theorem</strong> — when a type can be omitted in a model</div><span class="topic-tag tag-forest">Ch. 2</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Quantifier elimination</strong> — definition and proof for dense linear orders</div><span class="topic-tag tag-forest">Ch. 3 ★</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Ehrenfeucht-Fraïssé games</strong> — definition, winning strategy = elementary equivalence</div><span class="topic-tag tag-forest">Ch. 2 ★</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>ω-categoricity</strong> — Ryll-Nardzewski theorem, theories with one countable model</div><span class="topic-tag tag-forest">Ch. 2</span></li>
+        </ul>
+        <div class="milestone" style="border-color:var(--forest);background:var(--forest-faint);">End of Track 4: you understand what first-order logic can and cannot distinguish between structures. Quantifier elimination, types, and EF games are your tools. Barcelona and Paris LMFI are now reachable. Model theory also deepens everything in your agent paper — the agent's state space is a model.</div>
+      </div>
+    </div>
+
+    <div class="section-label" style="margin-top:28px;">proof vault targets — track 4</div>
+    <div class="vault-item"><div class="vault-icon forest">THM</div><div><div class="vault-name">Quantifier elimination for dense linear orders</div><div class="vault-desc">Every formula over (Q, &lt;) is equivalent to a quantifier-free formula · full proof</div></div><span class="vault-status tag-forest">month 7</span></div>
+    <div class="vault-item"><div class="vault-icon forest">THM ★</div><div><div class="vault-name">EF game theorem</div><div class="vault-desc">Duplicator has winning strategy in n-round game iff structures agree on rank-n sentences</div></div><span class="vault-status tag-forest">month 8 ★</span></div>
+    <div class="vault-item"><div class="vault-icon forest">THM</div><div><div class="vault-name">Tarski-Vaught test</div><div class="vault-desc">Criterion for M ≺ N — elementary substructure characterization</div></div><span class="vault-status tag-forest">month 7</span></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- TRACK 5 — Proof Theory                     -->
+  <!-- ═══════════════════════════════════════════ -->
+
+  <div class="track-divider" id="track5">
+    <span class="track-divider-label tag-rust">Track 05 — Last</span>
+    <div class="track-divider-line"></div>
+    <span style="font-size:0.78rem;color:var(--ink-muted);">Proof Theory</span>
+  </div>
+
+  <div class="section">
+    <div class="section-label">why this track exists</div>
+    <h2>The structure of proofs themselves</h2>
+    <div class="section-rule rust"></div>
+
+    <div class="connection-note">
+      <span class="connection-arrow" style="color:var(--rust)">→</span>
+      <span>Proof theory studies proofs as mathematical objects. Gentzen's sequent calculus, cut elimination, and proof normalization are the tools. This track is last because it requires the most mathematical maturity — you need Tracks 1, 2, and 3 solid before it clicks. Do not start before month 8. Essential for Oxford, TU Vienna, and Paris LMFI.</span>
+    </div>
+
+    <div class="phase-card" id="proof1">
+      <div class="phase-header" onclick="togglePhase('proof1')">
+        <div>
+          <div class="phase-num">PHASE 01 · months 8–10</div>
+          <div class="phase-title">Troelstra &amp; Schwichtenberg — Basic Proof Theory</div>
+          <div class="phase-subtitle">Sequent calculus, cut elimination, normalization</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:10px;">
+          <span class="phase-badge tag-rust">primary text</span>
+          <span class="chevron">▼</span>
+        </div>
+      </div>
+      <div class="phase-body" id="proof1-body">
+        <div class="book-grid">
+          <div class="book-card">
+            <div class="book-label">sequent calculus</div>
+            <div class="book-title">Gentzen's LK system</div>
+            <div class="book-desc">A proof system where the objects are sequents Γ ⊢ Δ — a set of hypotheses entails a set of conclusions. Rules operate on both sides. More symmetric than Hilbert systems. Beautiful.</div>
+            <span class="book-scope tag-rust">Ch. 2</span>
+          </div>
+          <div class="book-card">
+            <div class="book-label">cut elimination</div>
+            <div class="book-title">Gentzen's Hauptsatz</div>
+            <div class="book-desc">Every proof in LK can be transformed into a cut-free proof. The cut rule is the sequent-calculus analog of modus ponens. Eliminating it gives you the subformula property — every formula in the proof was in the conclusion.</div>
+            <span class="book-scope tag-rust">Ch. 3 ★</span>
+          </div>
+          <div class="book-card">
+            <div class="book-label">natural deduction</div>
+            <div class="book-title">Gentzen's NJ and NK systems</div>
+            <div class="book-desc">Natural deduction is how mathematicians actually reason — introduction and elimination rules for each connective. NJ is intuitionistic. NK is classical. The Curry-Howard correspondence connects NJ to typed lambda calculus.</div>
+            <span class="book-scope tag-rust">Ch. 2</span>
+          </div>
+          <div class="book-card">
+            <div class="book-label">normalization</div>
+            <div class="book-title">Proof normalization and Curry-Howard</div>
+            <div class="book-desc">Every natural deduction proof can be normalized — detour eliminations reduce a proof to normal form. Under Curry-Howard, this is beta reduction in the lambda calculus. Proofs are programs.</div>
+            <span class="book-scope tag-rust">Ch. 4 ★</span>
+          </div>
+        </div>
+        <ul class="topics-list">
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Sequent calculus LK</strong> — sequents, structural rules, logical rules for all connectives</div><span class="topic-tag tag-rust">Ch. 2</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Cut rule</strong> — statement and why it is dangerous/powerful</div><span class="topic-tag tag-rust">Ch. 2</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Gentzen's Hauptsatz</strong> — cut elimination theorem · full proof</div><span class="topic-tag tag-rust">Ch. 3 ★</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Subformula property</strong> — consequence of cut elimination · every formula in a cut-free proof occurs in the end-sequent</div><span class="topic-tag tag-rust">Ch. 3</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Natural deduction NJ</strong> — introduction and elimination rules, intuitionistic logic</div><span class="topic-tag tag-rust">Ch. 2</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Proof normalization</strong> — normal forms, detour eliminations</div><span class="topic-tag tag-rust">Ch. 4</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Curry-Howard correspondence</strong> — proofs as programs, propositions as types</div><span class="topic-tag tag-rust">Ch. 4 ★</span></li>
+        </ul>
+        <div class="weekly-rule">
+          <h3>How to work through Troelstra &amp; Schwichtenberg</h3>
+          <div class="rule-row"><span class="rule-label rust">warning</span><span class="rule-val">this is the hardest text on this list. do not open it before Track 1 is complete and Track 3 is underway. the notation is dense and the proofs are long</span></div>
+          <div class="rule-row"><span class="rule-label rust">strategy</span><span class="rule-val">read Buss "Introduction to Proof Theory" (handbook chapter, free online) first — it is shorter and gives you the map before the territory</span></div>
+          <div class="rule-row"><span class="rule-label rust">cut elim</span><span class="rule-val">spend two full weeks on cut elimination. write the proof yourself before reading theirs. it is the most important result in the book</span></div>
+        </div>
+        <div class="milestone" style="border-color:var(--rust);background:var(--rust-faint);">End of Track 5 — end of the cathedral: you have completeness, incompleteness, modal logic, epistemic update, set-theoretic foundations, model-theoretic tools, and the structure of proofs themselves. You are ready for ILLC. You are ready for Oxford. You built this proof by proof.</div>
+      </div>
+    </div>
+
+    <div class="section-label" style="margin-top:28px;">proof vault targets — track 5</div>
+    <div class="vault-item"><div class="vault-icon rust">THM ★</div><div><div class="vault-name">Gentzen's cut elimination theorem</div><div class="vault-desc">Every LK proof can be transformed into a cut-free proof · full Hauptsatz</div></div><span class="vault-status tag-rust">month 9 ★</span></div>
+    <div class="vault-item"><div class="vault-icon rust">THM</div><div><div class="vault-name">Subformula property</div><div class="vault-desc">Every formula in a cut-free proof is a subformula of the end-sequent</div></div><span class="vault-status tag-rust">month 9</span></div>
+    <div class="vault-item"><div class="vault-icon rust">ESSAY</div><div><div class="vault-name">Curry-Howard in your own words</div><div class="vault-desc">Why proofs are programs · intuitionistic logic · the connection to lambda calculus · your synthesis</div></div><span class="vault-status tag-rust">month 10</span></div>
+  </div>
+
+  <!-- Full vault summary -->
+  <div class="section">
+    <div class="section-label">proof vault — complete map</div>
+    <h2>Everything that goes in the vault</h2>
+    <div class="section-rule"></div>
+    <p>Every theorem below is a LaTeX document — formal, complete, dated. By month 10, this vault is your application's silent argument. Not a list of books you read. Evidence that you proved things.</p>
+
+    <div class="vault-item"><div class="vault-icon">THM</div><div><div class="vault-name">Soundness theorem for first-order logic</div><div class="vault-desc">If Γ ⊢ φ then Γ ⊨ φ · Track 1</div></div><span class="vault-status tag-pink">month 1</span></div>
+    <div class="vault-item"><div class="vault-icon">THM</div><div><div class="vault-name">Lindenbaum's lemma</div><div class="vault-desc">Every consistent set extends to a maximal consistent set · Track 1</div></div><span class="vault-status tag-pink">month 2</span></div>
+    <div class="vault-item"><div class="vault-icon">THM ★</div><div><div class="vault-name">Completeness theorem — full Henkin proof</div><div class="vault-desc">If Γ ⊨ φ then Γ ⊢ φ · the complete proof · Track 1</div></div><span class="vault-status tag-pink">month 2 ★</span></div>
+    <div class="vault-item"><div class="vault-icon">THM</div><div><div class="vault-name">Compactness theorem</div><div class="vault-desc">Γ satisfiable iff every finite subset satisfiable · Track 1</div></div><span class="vault-status tag-pink">month 3</span></div>
+    <div class="vault-item"><div class="vault-icon">THM</div><div><div class="vault-name">Downward Löwenheim-Skolem</div><div class="vault-desc">Every satisfiable theory has a countable model · Track 1</div></div><span class="vault-status tag-pink">month 3</span></div>
+    <div class="vault-item"><div class="vault-icon">THM ★</div><div><div class="vault-name">First incompleteness theorem</div><div class="vault-desc">Full Gödel proof · Track 1</div></div><span class="vault-status tag-pink">month 4 ★</span></div>
+    <div class="vault-item"><div class="vault-icon blue">THM ★</div><div><div class="vault-name">Completeness for S5</div><div class="vault-desc">Canonical model construction for epistemic logic · Track 2</div></div><span class="vault-status tag-blue">month 4</span></div>
+    <div class="vault-item"><div class="vault-icon blue">THM</div><div><div class="vault-name">Frame correspondence theorem</div><div class="vault-desc">T ↔ reflexivity · 4 ↔ transitivity · Track 2</div></div><span class="vault-status tag-blue">month 4</span></div>
+    <div class="vault-item"><div class="vault-icon purple">THM ★</div><div><div class="vault-name">AC ↔ Zorn's lemma ↔ well-ordering</div><div class="vault-desc">Full equivalence proof · Track 3</div></div><span class="vault-status tag-purple">month 5 ★</span></div>
+    <div class="vault-item"><div class="vault-icon purple">THM</div><div><div class="vault-name">Cantor's theorem</div><div class="vault-desc">|P(X)| > |X| · Track 3</div></div><span class="vault-status tag-purple">month 5</span></div>
+    <div class="vault-item"><div class="vault-icon blue">THM ★</div><div><div class="vault-name">PAL reduction axiom</div><div class="vault-desc">[!φ]Kᵢψ ↔ (φ → Kᵢ(φ → [!φ]ψ)) · Track 2</div></div><span class="vault-status tag-blue">month 6 ★</span></div>
+    <div class="vault-item"><div class="vault-icon forest">THM ★</div><div><div class="vault-name">Quantifier elimination for dense linear orders</div><div class="vault-desc">Every formula over (Q, &lt;) equivalent to quantifier-free · Track 4</div></div><span class="vault-status tag-forest">month 7</span></div>
+    <div class="vault-item"><div class="vault-icon forest">THM ★</div><div><div class="vault-name">Ehrenfeucht-Fraïssé game theorem</div><div class="vault-desc">Duplicator wins n-round game iff elementary equivalence to rank n · Track 4</div></div><span class="vault-status tag-forest">month 8 ★</span></div>
+    <div class="vault-item"><div class="vault-icon rust">THM ★</div><div><div class="vault-name">Gentzen's cut elimination theorem</div><div class="vault-desc">Every LK proof has a cut-free version · Hauptsatz · Track 5</div></div><span class="vault-status tag-rust">month 9 ★</span></div>
+    <div class="vault-item"><div class="vault-icon blue">ESSAY</div><div><div class="vault-name">DEL and your agent — the formal connection</div><div class="vault-desc">One agent turn as a DEL event model · your paper's core section · Track 2</div></div><span class="vault-status tag-blue">month 7 ★</span></div>
+    <div class="vault-item"><div class="vault-icon rust">ESSAY</div><div><div class="vault-name">Curry-Howard in your own words</div><div class="vault-desc">Proofs as programs · Track 5</div></div><span class="vault-status tag-rust">month 10</span></div>
   </div>
 
   <div class="footnote">
-    pink, but lethal. 💗 — the completeness theorem is the spine. everything else is the cathedral built around it.<br>
-    <span style="font-size:0.72rem;margin-top:6px;display:block;">schola arcana · mathematical logic track · ILLC + Oxford MFoCS preparation</span>
+    pink, but lethal. 💗 — five tracks. one cathedral. built proof by proof.<br>
+    <span style="font-size:0.72rem;margin-top:6px;display:block;">schola arcana · mathematical logic · ILLC + Oxford MFoCS + Paris LMFI + Barcelona preparation</span>
   </div>
 
 </div>
@@ -1123,6 +1499,7 @@
   function togglePhase(id) {
     const card = document.getElementById(id);
     const body = document.getElementById(id + '-body');
+    if (!body) return;
     const isOpen = body.classList.contains('open');
     body.classList.toggle('open', !isOpen);
     card.classList.toggle('open', !isOpen);
@@ -1134,20 +1511,25 @@
   }
 
   function updateProgress() {
-    const checks = document.querySelectorAll('.topic-check');
-    const done = document.querySelectorAll('.topic-check.done').length;
+    const checks = document.querySelectorAll('#track1-topics .topic-check');
+    const done = document.querySelectorAll('#track1-topics .topic-check.done').length;
     const pct = Math.round((done / checks.length) * 100);
-    document.getElementById('progress-fill').style.width = pct + '%';
-    document.getElementById('pct-display').textContent = pct + '%';
+    const fill = document.getElementById('progress-fill');
+    const disp = document.getElementById('pct-display');
+    if (fill) fill.style.width = pct + '%';
+    if (disp) disp.textContent = pct + '%';
 
-    const phases = document.querySelectorAll('.progress-phase');
-    phases.forEach((p, i) => p.classList.remove('active'));
-    if (pct < 34) phases[0].classList.add('active');
-    else if (pct < 67) phases[1].classList.add('active');
-    else phases[2].classList.add('active');
+    const phases = [
+      document.getElementById('phase-ind-1'),
+      document.getElementById('phase-ind-2'),
+      document.getElementById('phase-ind-3')
+    ];
+    phases.forEach(p => { if (p) p.classList.remove('active'); });
+    if (pct < 34 && phases[0]) phases[0].classList.add('active');
+    else if (pct < 67 && phases[1]) phases[1].classList.add('active');
+    else if (phases[2]) phases[2].classList.add('active');
   }
 
-  // open phase 1 by default
   document.getElementById('phase1').classList.add('open');
 </script>
 </body>
