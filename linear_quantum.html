@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Schola Arcana — Mathematical Logic & Quantum Computing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=JetBrains+Mono:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1814;
+    --ink-soft: #3d3a34;
+    --ink-muted: #7a7670;
+    --ink-faint: #b8b4ad;
+    --parchment: #faf8f3;
+    --parchment-warm: #f2ede4;
+    --parchment-deep: #e8e1d5;
+    --pink: #e8546a;
+    --pink-soft: #f0b8c2;
+    --pink-faint: #faedf0;
+    --gold: #c9923a;
+    --gold-faint: #fdf3e7;
+    --purple: #6b4fa0;
+    --purple-faint: #f0ecf8;
+    --teal: #2a8a7f;
+    --teal-faint: #eaf5f4;
+    --border: #ddd8ce;
+    --blue: #2e6da4;
+    --blue-faint: #eaf1f8;
+    --blue-soft: #a8c4e0;
+    --forest: #3a7a4a;
+    --forest-faint: #eaf4ec;
+    --forest-soft: #a8d4b0;
+    --rust: #b85c38;
+    --rust-faint: #faf0eb;
+    --rust-soft: #e0b4a0;
+    --cyan: #1d7a8c;
+    --cyan-faint: #eaf5f8;
+    --cyan-soft: #a8d0db;
+    --amber: #d47c3a;
+    --amber-faint: #faf5f0;
+    --amber-soft: #e0b89a;
+  }
+
+  html { font-size: 16px; scroll-behavior: smooth; }
+
+  body {
+    background: var(--parchment);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  nav {
+    padding: 18px 48px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--parchment);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .nav-brand {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.1rem;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+  }
+
+  .nav-brand span { color: var(--pink); }
+
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+
+  .nav-links a {
+    font-size: 0.78rem;
+    color: var(--ink-muted);
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--pink); }
+
+  .hero {
+    padding: 72px 48px 48px;
+    max-width: 860px;
+    margin: 0 auto;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .breadcrumb {
+    font-size: 0.75rem;
+    color: var(--ink-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .breadcrumb a { color: var(--ink-muted); text-decoration: none; }
+  .breadcrumb a:hover { color: var(--pink); }
+  .breadcrumb span { color: var(--ink-faint); }
+
+  .hero h1 {
+    font-family: 'EB Garamond', serif;
+    font-size: 3.2rem;
+    font-weight: 400;
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+
+  .hero h1 em { font-style: italic; color: var(--pink); }
+
+  .hero-sub {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.2rem;
+    font-style: italic;
+    color: var(--ink-muted);
+    margin-bottom: 28px;
+  }
+
+  .hero-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 28px; }
+
+  .tag {
+    font-size: 0.72rem;
+    padding: 4px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .tag-pink { background: var(--pink-faint); color: var(--pink); border: 1px solid var(--pink-soft); }
+  .tag-gold { background: var(--gold-faint); color: var(--gold); border: 1px solid #e8c88a; }
+  .tag-purple { background: var(--purple-faint); color: var(--purple); border: 1px solid #c4b3e0; }
+  .tag-teal { background: var(--teal-faint); color: var(--teal); border: 1px solid #9fd4cf; }
+  .tag-blue { background: var(--blue-faint); color: var(--blue); border: 1px solid var(--blue-soft); }
+  .tag-forest { background: var(--forest-faint); color: var(--forest); border: 1px solid var(--forest-soft); }
+  .tag-rust { background: var(--rust-faint); color: var(--rust); border: 1px solid var(--rust-soft); }
+  .tag-cyan { background: var(--cyan-faint); color: var(--cyan); border: 1px solid var(--cyan-soft); }
+  .tag-amber { background: var(--amber-faint); color: var(--amber); border: 1px solid var(--amber-soft); }
+
+  .hero-manifesto {
+    background: var(--parchment-warm);
+    border-left: 3px solid var(--pink);
+    padding: 20px 24px;
+    border-radius: 0 8px 8px 0;
+    font-family: 'EB Garamond', serif;
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--ink-soft);
+    line-height: 1.7;
+  }
+
+  .track-nav {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 28px 48px 0;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 28px;
+  }
+
+  .track-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 30px;
+    border: 1px solid var(--border);
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    background: #fff;
+    color: var(--ink-muted);
+    font-weight: 500;
+  }
+
+  .track-pill:hover { border-color: var(--ink-muted); color: var(--ink); }
+  .track-pill.tla { border-color: var(--cyan-soft); color: var(--cyan); background: var(--cyan-faint); }
+  .track-pill.t0 { border-color: var(--amber-soft); color: var(--amber); background: var(--amber-faint); }
+  .track-pill.t1 { border-color: var(--pink-soft); color: var(--pink); background: var(--pink-faint); }
+  .track-pill.t2 { border-color: var(--blue-soft); color: var(--blue); background: var(--blue-faint); }
+  .track-pill.t3 { border-color: #c4b3e0; color: var(--purple); background: var(--purple-faint); }
+  .track-pill.t4 { border-color: var(--forest-soft); color: var(--forest); background: var(--forest-faint); }
+  .track-pill.t5 { border-color: var(--rust-soft); color: var(--rust); background: var(--rust-faint); }
+
+  .track-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 48px 80px;
+  }
+
+  .section { padding-top: 56px; }
+
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  .section h2 {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+  }
+
+  .section-rule {
+    width: 40px;
+    height: 2px;
+    background: var(--pink);
+    margin-bottom: 28px;
+    margin-top: 12px;
+  }
+
+  .section-rule.blue { background: var(--blue); }
+  .section-rule.purple { background: var(--purple); }
+  .section-rule.forest { background: var(--forest); }
+  .section-rule.rust { background: var(--rust); }
+  .section-rule.cyan { background: var(--cyan); }
+  .section-rule.amber { background: var(--amber); }
+
+  .section p {
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+    margin-bottom: 24px;
+    line-height: 1.75;
+  }
+
+  .track-divider {
+    margin-top: 64px;
+    padding-top: 40px;
+    border-top: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 8px;
+  }
+
+  .track-divider-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .track-divider-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .track-urgency {
+    font-size: 0.72rem;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    background: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffc107;
+    white-space: nowrap;
+  }
+
+  .phase-card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    background: #fff;
+  }
+
+  .phase-header {
+    padding: 20px 24px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .phase-header:hover { background: var(--parchment-warm); }
+
+  .phase-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.1em;
+    margin-bottom: 4px;
+  }
+
+  .phase-title {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+
+  .phase-subtitle { font-size: 0.82rem; color: var(--ink-muted); }
+
+  .phase-badge {
+    font-size: 0.7rem;
+    padding: 4px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .phase-body {
+    border-top: 1px solid var(--border);
+    padding: 24px;
+    display: none;
+  }
+
+  .phase-body.open { display: block; }
+
+  .book-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+
+  .book-card {
+    padding: 16px 18px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--parchment);
+  }
+
+  .book-label {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+
+  .book-title {
+    font-family: 'EB Garamond', serif;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 6px;
+    font-style: italic;
+  }
+
+  .book-desc { font-size: 0.82rem; color: var(--ink-muted); line-height: 1.6; }
+
+  .book-scope {
+    margin-top: 10px;
+    font-size: 0.75rem;
+    padding: 3px 10px;
+    border-radius: 20px;
+    display: inline-block;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+  }
+
+  .topics-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .topic-item {
+    display: grid;
+    grid-template-columns: 24px 1fr auto;
+    align-items: start;
+    gap: 12px;
+    padding: 14px 16px;
+    border-radius: 8px;
+    background: var(--parchment);
+    border: 1px solid var(--border);
+  }
+
+  .topic-check {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border);
+    margin-top: 2px;
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: #fff;
+  }
+
+  .topic-check.done {
+    background: var(--pink);
+    border-color: var(--pink);
+    position: relative;
+  }
+
+  .topic-check.done::after {
+    content: '';
+    position: absolute;
+    top: 3px; left: 5px;
+    width: 6px; height: 4px;
+    border-left: 1.5px solid white;
+    border-bottom: 1.5px solid white;
+    transform: rotate(-45deg);
+  }
+
+  .topic-name { font-size: 0.9rem; color: var(--ink-soft); line-height: 1.5; }
+
+  .topic-name strong {
+    font-weight: 500;
+    color: var(--ink);
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .topic-tag {
+    font-size: 0.68rem;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    margin-top: 2px;
+  }
+
+  .milestone {
+    padding: 16px 20px;
+    border-radius: 8px;
+    border-left: 3px solid;
+    font-size: 0.87rem;
+    color: var(--ink-soft);
+    line-height: 1.65;
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 1rem;
+  }
+
+  .vault-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 10px;
+    background: #fff;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+
+  .vault-item:hover { border-color: var(--pink-soft); }
+
+  .vault-icon {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--pink);
+    background: var(--pink-faint);
+    padding: 6px 10px;
+    border-radius: 6px;
+    flex-shrink: 0;
+    letter-spacing: 0.05em;
+  }
+
+  .vault-icon.blue { color: var(--blue); background: var(--blue-faint); }
+  .vault-icon.purple { color: var(--purple); background: var(--purple-faint); }
+  .vault-icon.forest { color: var(--forest); background: var(--forest-faint); }
+  .vault-icon.rust { color: var(--rust); background: var(--rust-faint); }
+  .vault-icon.cyan { color: var(--cyan); background: var(--cyan-faint); }
+  .vault-icon.amber { color: var(--amber); background: var(--amber-faint); }
+
+  .vault-name { font-size: 0.9rem; color: var(--ink); font-weight: 400; }
+  .vault-desc { font-size: 0.78rem; color: var(--ink-muted); margin-top: 2px; }
+
+  .vault-status {
+    margin-left: auto;
+    font-size: 0.7rem;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    flex-shrink: 0;
+  }
+
+  .connection-note {
+    background: var(--parchment-warm);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-bottom: 20px;
+    font-size: 0.84rem;
+    color: var(--ink-muted);
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .connection-arrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .tracks-overview {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 32px;
+  }
+
+  .track-card {
+    padding: 18px 20px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: #fff;
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    text-decoration: none;
+    display: block;
+  }
+
+  .track-card:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+  .track-card.cyan:hover { border-color: var(--cyan-soft); }
+  .track-card.amber:hover { border-color: var(--amber-soft); }
+  .track-card.pink:hover { border-color: var(--pink-soft); }
+  .track-card.blue:hover { border-color: var(--blue-soft); }
+  .track-card.purple-c:hover { border-color: #c4b3e0; }
+  .track-card.forest:hover { border-color: var(--forest-soft); }
+  .track-card.rust:hover { border-color: var(--rust-soft); }
+
+  .track-card-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  .track-card-title {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+
+  .track-card-desc {
+    font-size: 0.8rem;
+    color: var(--ink-muted);
+    line-height: 1.55;
+    margin-bottom: 10px;
+  }
+
+  .track-card-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+
+  .chevron {
+    color: var(--ink-faint);
+    font-size: 0.8rem;
+    transition: transform 0.2s;
+    margin-top: 4px;
+    flex-shrink: 0;
+  }
+
+  .phase-card.open .chevron { transform: rotate(180deg); }
+
+  .footnote {
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    font-style: italic;
+    font-family: 'EB Garamond', serif;
+    text-align: center;
+    padding: 32px 0 0;
+    border-top: 1px solid var(--border);
+    margin-top: 48px;
+  }
+
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82em;
+    background: var(--parchment-deep);
+    padding: 1px 6px;
+    border-radius: 4px;
+    color: var(--ink-soft);
+  }
+
+  @media (max-width: 640px) {
+    nav { padding: 16px 20px; }
+    .hero { padding: 48px 20px 32px; }
+    .hero h1 { font-size: 2.2rem; }
+    .main { padding: 0 20px 60px; }
+    .track-nav { padding: 20px 20px 20px; }
+    .book-grid { grid-template-columns: 1fr; }
+    .tracks-overview { grid-template-columns: 1fr; }
+  }
+</style>
+
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">Schola <span>Arcana</span></a>
+  <ul class="nav-links">
+    <li><a href="topics.html">Atlas</a></li>
+    <li><a href="vault.html">Vault</a></li>
+    <li><a href="journal.html">Journal</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <div class="breadcrumb">
+    <a href="index.html">Schola Arcana</a>
+    <span>›</span>
+    <span>Quantum & Logic</span>
+  </div>
+  <h1>Linear <em>Algebra</em> & Quantum <em>Computing</em></h1>
+  <div class="hero-sub">two parallel tracks · discovery through proof</div>
+  <div class="hero-meta">
+    <span class="tag tag-cyan">Track LA — Linear Algebra</span>
+    <span class="tag tag-amber">Track 0 — Quantum Computing</span>
+  </div>
+  <div class="hero-manifesto">
+    Linear Algebra feeds Quantum Computing. Both require rigor, both require proof. Months 1–6 run parallel.
+  </div>
+</div>
+
+<div class="track-nav">
+  <a href="#trackla" class="track-pill tla"><span class="track-dot" style="background:var(--cyan)"></span>Linear Algebra</a>
+  <a href="#track0" class="track-pill t0"><span class="track-dot" style="background:var(--amber)"></span>Quantum Computing</a>
+</div>
+
+<div class="main">
+
+  <!-- OVERVIEW -->
+  <div class="section">
+    <div class="section-label">the full map</div>
+    <h2>Two tracks · parallel</h2>
+    <div class="section-rule"></div>
+    <p>Linear Algebra (months 1–2) is the prerequisite for quantum mechanics. Run them in parallel. After Linear Algebra is complete, quantum computing deepens continuously through month 6.</p>
+
+    <div class="tracks-overview">
+      <a href="#trackla" class="track-card cyan">
+        <div class="track-card-num" style="color:var(--cyan)">TRACK LA — months 1–2</div>
+        <div class="track-card-title">Linear Algebra Foundations</div>
+        <div class="track-card-desc">Vector spaces, eigenvalues, inner products, unitary operators. The language of quantum mechanics.</div>
+        <div class="track-card-tags"><span class="tag tag-cyan">Axler</span><span class="tag tag-cyan">Foundations</span></div>
+      </a>
+      <a href="#track0" class="track-card amber">
+        <div class="track-card-num" style="color:var(--amber)">TRACK 0 — months 1–6</div>
+        <div class="track-card-title">Quantum Computing Foundations</div>
+        <div class="track-card-desc">Qubits, entanglement, Bell inequalities, quantum algorithms, quantum information. UvA QCS preparation.</div>
+        <div class="track-card-tags"><span class="tag tag-amber">de Wolf</span><span class="tag tag-amber">Nielsen & Chuang</span></div>
+      </a>
+    </div>
+  </div>
+
+  <!-- LINEAR ALGEBRA TRACK -->
+  <div class="track-divider" id="trackla">
+    <span class="track-divider-label" style="background:var(--cyan-faint);color:var(--cyan);border:1px solid var(--cyan-soft);">Track LA</span>
+    <div class="track-divider-line"></div>
+    <span style="font-size:0.78rem;color:var(--ink-muted);">Linear Algebra Foundations</span>
+  </div>
+
+  <div class="section">
+    <div class="section-label">why this track</div>
+    <h2>The language of quantum mechanics</h2>
+    <div class="section-rule cyan"></div>
+
+    <div class="connection-note">
+      <span class="connection-arrow" style="color:var(--cyan)">→</span>
+      <span>A quantum state is a unit vector in a complex vector space. A quantum gate is a unitary linear transformation. Measurement is projection onto eigenvectors. Complete fluency before quantum mechanics makes sense.</span>
+    </div>
+
+    <div class="phase-card" id="la1">
+      <div class="phase-header" onclick="togglePhase('la1')">
+        <div>
+          <div class="phase-num">PHASE 01</div>
+          <div class="phase-title">Axler — Linear Algebra Done Right</div>
+          <div class="phase-subtitle">Chapters 1–8 · your complete foundation</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:10px;">
+          <span class="phase-badge tag-cyan">primary</span>
+          <span class="chevron">▼</span>
+        </div>
+      </div>
+      <div class="phase-body" id="la1-body">
+        <div class="book-grid">
+          <div class="book-card">
+            <div class="book-label">Ch. 1–2</div>
+            <div class="book-title">Vector spaces and linear maps</div>
+            <div class="book-desc">Definition of vector spaces over ℂ and ℝ. Linear maps, kernels, ranges. Fundamental theorem: a linear map is determined by where it sends basis vectors.</div>
+            <span class="book-scope tag-cyan">week 1</span>
+          </div>
+          <div class="book-card">
+            <div class="book-label">Ch. 5–6</div>
+            <div class="book-title">Eigenvalues and inner products</div>
+            <div class="book-desc">Eigenvalues, eigenvectors, diagonalization. Inner products, orthonormal bases, projections. The geometry of vector spaces.</div>
+            <span class="book-scope tag-cyan">week 2–3</span>
+          </div>
+          <div class="book-card">
+            <div class="book-label">Ch. 7–8</div>
+            <div class="book-title">Operators on inner product spaces</div>
+            <div class="book-desc">Self-adjoint operators, normal operators, spectral theorem. Unitary transformations — operators that preserve quantum states.</div>
+            <span class="book-scope tag-cyan">week 4–5</span>
+          </div>
+          <div class="book-card">
+            <div class="book-label">application</div>
+            <div class="book-title">Qubits and quantum gates</div>
+            <div class="book-desc">Translate linear algebra into quantum. Qubits as vectors. Gates as unitary matrices. Where theory becomes computation.</div>
+            <span class="book-scope tag-cyan">week 6</span>
+          </div>
+        </div>
+        <ul class="topics-list">
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Vector spaces over ℂ</strong> Basis, dimension, linear independence.</div><span class="topic-tag tag-cyan">Ch. 1</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Linear maps</strong> Matrix representation, matrix multiplication, change of basis.</div><span class="topic-tag tag-cyan">Ch. 2–3</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Eigenvalues</strong> Characteristic polynomial, eigenspaces, when diagonalizable.</div><span class="topic-tag tag-cyan">Ch. 5</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Inner products</strong> Dot products in ℂⁿ. Orthogonal and orthonormal bases. Gram-Schmidt.</div><span class="topic-tag tag-cyan">Ch. 6</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Spectral theorem</strong> Unitary and self-adjoint operators. Every self-adjoint diagonalizable by unitary.</div><span class="topic-tag tag-cyan">Ch. 7–8 ★</span></li>
+        </ul>
+        <div class="milestone" style="border-color:var(--cyan);background:var(--cyan-faint);">End of Track LA: Complete mastery of vector spaces, eigenvalues, inner products, and unitary transformations. You see quantum states as vectors and gates as unitary matrices. Ready for quantum mechanics.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUANTUM COMPUTING TRACK -->
+  <div class="track-divider" id="track0">
+    <span class="track-divider-label" style="background:var(--amber-faint);color:var(--amber);border:1px solid var(--amber-soft);">Track 0</span>
+    <div class="track-divider-line"></div>
+    <span style="font-size:0.78rem;color:var(--ink-muted);">Quantum Computing Foundations</span>
+    <span class="track-urgency">UvA QCS PREP</span>
+  </div>
+
+  <div class="section">
+    <div class="section-label">why this track</div>
+    <h2>The physics of quantum computing</h2>
+    <div class="section-rule amber"></div>
+
+    <div class="connection-note">
+      <span class="connection-arrow" style="color:var(--amber)">→</span>
+      <span>Quantum computing is genuinely different from classical. This track covers what makes it different: superposition, entanglement, interference, measurement, and quantum algorithms that leverage these properties. Preparation for UvA QCS and quantum research.</span>
+    </div>
+
+    <!-- Phase 1: QM Fundamentals -->
+    <div class="phase-card" id="qc1">
+      <div class="phase-header" onclick="togglePhase('qc1')">
+        <div>
+          <div class="phase-num">PHASE 01 · months 1–2</div>
+          <div class="phase-title">Quantum mechanics fundamentals</div>
+          <div class="phase-subtitle">de Wolf inaugural + Nielsen & Chuang Ch. 2</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:10px;">
+          <span class="phase-badge tag-amber">foundations</span>
+          <span class="chevron">▼</span>
+        </div>
+      </div>
+      <div class="phase-body" id="qc1-body">
+        <div class="book-grid">
+          <div class="book-card">
+            <div class="book-label">core</div>
+            <div class="book-title">Qubits and superposition</div>
+            <div class="book-desc">A qubit is a unit vector in ℂ². Superposition: |ψ⟩ = α|0⟩ + β|1⟩. Amplitudes encode quantum information. No classical analog.</div>
+            <span class="book-scope tag-amber">week 1</span>
+          </div>
+          <div class="book-card">
+            <div class="book-label">measurement</div>
+            <div class="book-title">Born rule and collapse</div>
+            <div class="book-desc">Measuring gives |0⟩ with probability |α|², |1⟩ with probability |β|². Measurement collapses the superposition.</div>
+            <span class="book-scope tag-amber">week 2</span>
+          </div>
+          <div class="book-card">
+            <div class="book-label">multi-qubit</div>
+            <div class="book-title">Entanglement and tensor products</div>
+            <div class="book-desc">Two qubits live in ℂ⁴. Entangled states like (|00⟩ + |11⟩)/√2 cannot be written as products. Entanglement violates Bell inequalities.</div>
+            <span class="book-scope tag-amber">week 3–4</span>
+          </div>
+          <div class="book-card">
+            <div class="book-label">operators</div>
+            <div class="book-title">Quantum gates and unitarity</div>
+            <div class="book-desc">Quantum gates are unitary matrices. Pauli gates, Hadamard, CNOT. Unitarity preserves norms — evolution is reversible.</div>
+            <span class="book-scope tag-amber">week 4–5</span>
+          </div>
+        </div>
+        <ul class="topics-list">
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Qubits</strong> Unit vectors in ℂ². Bloch sphere representation.</div><span class="topic-tag tag-amber">Nielsen 2.1</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Superposition</strong> Linear combinations of basis states. No classical analog.</div><span class="topic-tag tag-amber">Nielsen 2.1</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Born rule</strong> Measurement probabilities from amplitudes.</div><span class="topic-tag tag-amber">Nielsen 2.2</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Entanglement</strong> Tensor products. |ψ⟩ ≠ |ψ₁⟩ ⊗ |ψ₂⟩ for entangled.</div><span class="topic-tag tag-amber">Nielsen 2.3</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Quantum gates</strong> Unitary matrices. Pauli, Hadamard, CNOT, phase.</div><span class="topic-tag tag-amber">Nielsen 2.4</span></li>
+        </ul>
+        <div class="milestone" style="border-color:var(--amber);background:var(--amber-faint);">End of Phase 1: You understand qubits, superposition, entanglement, and gates. You see why quantum is different from classical.</div>
+      </div>
+    </div>
+
+    <!-- Phase 2: Bell Inequalities -->
+    <div class="phase-card" id="qc2">
+      <div class="phase-header" onclick="togglePhase('qc2')">
+        <div>
+          <div class="phase-num">PHASE 02 · months 2–3</div>
+          <div class="phase-title">Bell inequalities and quantum foundations</div>
+          <div class="phase-subtitle">de Wolf + Preskill lecture notes</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:10px;">
+          <span class="phase-badge tag-amber">philosophy</span>
+          <span class="chevron">▼</span>
+        </div>
+      </div>
+      <div class="phase-body" id="qc2-body">
+        <div class="book-grid">
+          <div class="book-card">
+            <div class="book-label">local realism</div>
+            <div class="book-title">Bell's theorem</div>
+            <div class="book-desc">If the world is local and realistic, correlations obey Bell's inequality. Entangled states violate it. Proven experimentally. The world is non-local or non-realistic.</div>
+            <span class="book-scope tag-amber">week 1–2</span>
+          </div>
+          <div class="book-card">
+            <div class="book-label">interpretation</div>
+            <div class="book-title">Many-worlds and Copenhagen</div>
+            <div class="book-desc">Copenhagen: collapse is real. Many-worlds: branching universes, no collapse. Experiments don't decide. Many-worlds reveals: QC leverages interference between branches.</div>
+            <span class="book-scope tag-amber">week 2–3</span>
+          </div>
+          <div class="book-card">
+            <div class="book-label">decoherence</div>
+            <div class="book-title">Why we don't see superposition</div>
+            <div class="book-desc">Classical behavior emerges when systems interact with environment. QC fights decoherence, harnesses it, then protects against unwanted decoherence.</div>
+            <span class="book-scope tag-amber">week 3–4</span>
+          </div>
+          <div class="book-card">
+            <div class="book-label">limits</div>
+            <div class="book-title">No-cloning theorem</div>
+            <div class="book-desc">You cannot copy an unknown quantum state. Limits what QC can do but shows where it differs from classical.</div>
+            <span class="book-scope tag-amber">week 4–5</span>
+          </div>
+        </div>
+        <ul class="topics-list">
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Bell inequalities</strong> CHSH ≤ 2 for local realism. Quantum: CHSH ≤ 2√2.</div><span class="topic-tag tag-amber">de Wolf</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Experiments</strong> Aspect 1981, Bell tests, closing loopholes.</div><span class="topic-tag tag-amber">experiment</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Interpretations</strong> Copenhagen, many-worlds, pilot wave.</div><span class="topic-tag tag-amber">philosophy</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Decoherence</strong> Environment interaction causes apparent collapse. Not fundamental.</div><span class="topic-tag tag-amber">Zurek</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>No-cloning</strong> Cannot copy unknown quantum state. Full proof.</div><span class="topic-tag tag-amber">Nielsen 12.1</span></li>
+        </ul>
+        <div class="milestone" style="border-color:var(--amber);background:var(--amber-faint);">End of Phase 2: You understand Bell inequalities, why decoherence connects quantum to classical, and how QC leverages superposition while managing decoherence.</div>
+      </div>
+    </div>
+
+    <!-- Phase 3: Algorithms -->
+    <div class="phase-card" id="qc3">
+      <div class="phase-header" onclick="togglePhase('qc3')">
+        <div>
+          <div class="phase-num">PHASE 03 · months 3–4</div>
+          <div class="phase-title">Quantum algorithms</div>
+          <div class="phase-subtitle">Nielsen & Chuang Ch. 5–6 + de Wolf</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:10px;">
+          <span class="phase-badge tag-amber">algorithms</span>
+          <span class="chevron">▼</span>
+        </div>
+      </div>
+      <div class="phase-body" id="qc3-body">
+        <div class="book-grid">
+          <div class="book-card">
+            <div class="book-label">Shor</div>
+            <div class="book-title">Factoring in polynomial time</div>
+            <div class="book-desc">Quantum Fourier transform factors integers in polynomial time. Classical: exponential. Breaks RSA encryption. Why quantum computing matters.</div>
+            <span class="book-scope tag-amber">week 1–2</span>
+          </div>
+          <div class="book-card">
+            <div class="book-label">Grover</div>
+            <div class="book-title">Search with quadratic speedup</div>
+            <div class="book-desc">Search unsorted database in O(√N) instead of O(N). Works via amplitude amplification. Answer becomes more likely after iteration.</div>
+            <span class="book-scope tag-amber">week 2–3</span>
+          </div>
+          <div class="book-card">
+            <div class="book-label">simulation</div>
+            <div class="book-title">Simulating quantum systems</div>
+            <div class="book-desc">QC can efficiently simulate other quantum systems. Exponential speedup over classical. Applications: drug discovery, materials science.</div>
+            <span class="book-scope tag-amber">week 3–4</span>
+          </div>
+          <div class="book-card">
+            <div class="book-label">complexity</div>
+            <div class="book-title">BQP and quantum advantage</div>
+            <div class="book-desc">BQP: problems solvable in polynomial time on quantum. What problems are provably faster? Still open for many applications.</div>
+            <span class="book-scope tag-amber">week 4–5</span>
+          </div>
+        </div>
+        <ul class="topics-list">
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>QFT</strong> Quantum Fourier transform. Core of Shor's algorithm.</div><span class="topic-tag tag-amber">Nielsen 5.1</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Shor's algorithm</strong> Full proof. Order finding, factoring. Why it works.</div><span class="topic-tag tag-amber">Nielsen 5.2 ★</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Grover's algorithm</strong> Amplitude amplification. Quadratic speedup. Optimality.</div><span class="topic-tag tag-amber">Nielsen 6.1</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Phase estimation</strong> Find eigenvalues of quantum operators. Basis for many algorithms.</div><span class="topic-tag tag-amber">Nielsen 5.2</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Quantum simulation</strong> Simulating Hamiltonian dynamics. Trotter formula.</div><span class="topic-tag tag-amber">Nielsen 4.7</span></li>
+        </ul>
+        <div class="milestone" style="border-color:var(--amber);background:var(--amber-faint);">End of Phase 3: You understand Shor (why quantum breaks RSA) and Grover (quadratic speedup). You see how QC leverages superposition, interference, entanglement. You know what "quantum advantage" means.</div>
+      </div>
+    </div>
+
+    <!-- Phase 4: Info Theory -->
+    <div class="phase-card" id="qc4">
+      <div class="phase-header" onclick="togglePhase('qc4')">
+        <div>
+          <div class="phase-num">PHASE 04 · months 4–6</div>
+          <div class="phase-title">Quantum information theory</div>
+          <div class="phase-subtitle">Nielsen & Chuang Ch. 11–12 + de Wolf notes</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:10px;">
+          <span class="phase-badge tag-amber">★ foundation</span>
+          <span class="chevron">▼</span>
+        </div>
+      </div>
+      <div class="phase-body" id="qc4-body">
+        <div class="book-grid">
+          <div class="book-card">
+            <div class="book-label">density matrices</div>
+            <div class="book-title">Mixed states</div>
+            <div class="book-desc">Not all quantum states are pure |ψ⟩. Mixed states from ignorance or entanglement with environment. Described by density matrices ρ.</div>
+            <span class="book-scope tag-amber">week 1–2</span>
+          </div>
+          <div class="book-card">
+            <div class="book-label">channels</div>
+            <div class="book-title">Quantum channels and evolution</div>
+            <div class="book-desc">Channels are completely positive trace-preserving maps. How quantum information transforms, including decoherence. Kraus representation.</div>
+            <span class="book-scope tag-amber">week 2–3</span>
+          </div>
+          <div class="book-card">
+            <div class="book-label">entropy</div>
+            <div class="book-title">Von Neumann entropy</div>
+            <div class="book-desc">S(ρ) = -Tr(ρ log ρ). Quantifies quantum information. Maximum when maximally mixed, zero for pure states.</div>
+            <span class="book-scope tag-amber">week 3–4</span>
+          </div>
+          <div class="book-card">
+            <div class="book-label">resource</div>
+            <div class="book-title">Quantum information as resource</div>
+            <div class="book-desc">Entanglement, quantum correlations. Teleportation, dense coding, superdense coding. How to use quantum information for advantage.</div>
+            <span class="book-scope tag-amber">week 5–6</span>
+          </div>
+        </div>
+        <ul class="topics-list">
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Pure and mixed states</strong> Density matrix formalism. Trace, eigendecomposition.</div><span class="topic-tag tag-amber">Nielsen 2.4</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>CPTP maps</strong> Completely positive, trace-preserving. Quantum channels.</div><span class="topic-tag tag-amber">Nielsen 8</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Kraus representation</strong> Every channel has Kraus decomposition. Operator-sum representation.</div><span class="topic-tag tag-amber">Nielsen 8.2</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Von Neumann entropy</strong> S(ρ) = -Σᵢ λᵢ log λᵢ. Measurement of quantum uncertainty.</div><span class="topic-tag tag-amber">Nielsen 11.1 ★</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Teleportation</strong> Send quantum state using classical bits and entanglement. Protocol and proof.</div><span class="topic-tag tag-amber">Nielsen 1.3</span></li>
+          <li class="topic-item"><div class="topic-check" onclick="toggleCheck(this)"></div><div class="topic-name"><strong>Superdense coding</strong> Send 2 classical bits with 1 qubit using entanglement.</div><span class="topic-tag tag-amber">Nielsen 1.4</span></li>
+        </ul>
+        <div class="milestone" style="border-color:var(--amber);background:var(--amber-faint);">End of Track 0: You understand quantum information theory. Density matrices, channels, entropy. Entanglement is a resource. Ready for UvA QCS coursework and quantum research.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footnote">
+    pink, but lethal. 💗 — linear algebra and quantum computing · one foundation, two directions · UvA QCS preparation
+  </div>
+
+</div>
+
+<script>
+  function togglePhase(id) {
+    const body = document.getElementById(id + '-body');
+    if (!body) return;
+    const isOpen = body.classList.contains('open');
+    body.classList.toggle('open', !isOpen);
+  }
+
+  function toggleCheck(el) {
+    el.classList.toggle('done');
+  }
+</script>
+
+</body>
+</html>
