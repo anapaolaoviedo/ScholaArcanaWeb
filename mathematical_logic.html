@@ -1,0 +1,1485 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Mathematical Logic — Schola Arcana</title>
+<meta name="description" content="Six rigorous tracks: first-order logic &amp; incompleteness, modal &amp; epistemic logic, set theory, model theory, proof theory, category theory."/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  :root{
+    --brown:#1a1410; --brown-2:#241a12; --brown-3:#3d2817;
+    --rose-gold:#c9956b; --rose-gold-bright:#e0b48a; --rose-glow:rgba(201,149,107,.22);
+    --gold:#d4a574; --cream-gold:#f0d9b5;
+    --cream:#e8dcc8; --cream-dim:#b8a888;
+    --blush:#d9a8a0; --rose-muted:#a67c6e;
+    --border:#5a4535; --border-soft:rgba(90,69,53,.5);
+  }
+  html{font-size:16px;scroll-behavior:smooth;}
+  body{background:var(--brown);color:var(--cream);font-family:'Inter',sans-serif;font-weight:300;line-height:1.75;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+  body::before{content:'';position:fixed;inset:0;z-index:3000;pointer-events:none;opacity:.5;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");}
+  body::after{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 50% 0%,rgba(201,149,107,.09),transparent 55%),radial-gradient(ellipse at 50% 120%,rgba(61,40,23,.5),transparent 60%);}
+  a{color:inherit;text-decoration:none;}
+  ::selection{background:var(--rose-gold);color:var(--brown);}
+
+  /* progress meter */
+  .meter{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--rose-gold),var(--cream-gold));z-index:400;transition:width .1s;}
+
+  nav{padding:20px 52px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;background:rgba(26,20,16,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--border-soft);}
+  .nav-brand{font-family:'EB Garamond',serif;font-size:1.2rem;letter-spacing:.05em;}
+  .nav-brand span{color:var(--rose-gold);}
+  .nav-links{display:flex;gap:28px;list-style:none;}
+  .nav-links a{font-size:.7rem;color:var(--cream-dim);letter-spacing:.16em;text-transform:uppercase;transition:color .25s;}
+  .nav-links a:hover,.nav-links a.active{color:var(--rose-gold);}
+  .nav-toggle{display:none;background:none;border:none;color:var(--rose-gold);font-size:1.4rem;cursor:pointer;}
+
+  .page-hero{max-width:900px;margin:0 auto;padding:80px 48px 30px;text-align:center;position:relative;}
+  .page-hero .eyebrow{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.4em;text-transform:uppercase;color:var(--rose-gold);margin-bottom:22px;}
+  .page-hero h1{font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(2.4rem,6.5vw,4.3rem);line-height:1.05;margin-bottom:20px;text-transform:uppercase;letter-spacing:.01em;}
+  .page-hero .intro{font-family:'EB Garamond',serif;font-style:italic;font-size:1.3rem;color:var(--cream);max-width:680px;margin:0 auto 10px;line-height:1.55;}
+  .page-hero .intro b{color:var(--rose-gold);font-weight:500;}
+
+  /* quote */
+  .quote-wrap{max-width:840px;margin:0 auto;padding:26px 48px 46px;text-align:center;position:relative;}
+  .quote-wrap blockquote{font-family:'EB Garamond',serif;font-style:italic;font-size:clamp(1.15rem,2.4vw,1.4rem);color:var(--cream);line-height:1.75;position:relative;padding:0 36px;}
+  .quote-wrap blockquote::before{content:'⟨';position:absolute;left:0;top:-6px;font-size:2.2rem;color:var(--rose-gold);font-style:normal;}
+  .quote-wrap blockquote::after{content:'⟩';position:absolute;right:0;bottom:-6px;font-size:2.2rem;color:var(--rose-gold);font-style:normal;}
+  .quote-wrap .attr{margin-top:16px;font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;color:var(--cream-dim);}
+  .gold-rule{width:120px;height:1px;margin:0 auto;background:linear-gradient(90deg,transparent,var(--rose-gold),transparent);}
+
+  /* track chips nav */
+  .chips{position:sticky;top:63px;z-index:150;background:rgba(26,20,16,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--border-soft);padding:12px 0;}
+  .chips-inner{max-width:1180px;margin:0 auto;padding:0 24px;display:flex;gap:10px;overflow-x:auto;justify-content:center;flex-wrap:wrap;}
+  .chip{font-family:'JetBrains Mono',monospace;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--cream-dim);border:1px solid var(--border);border-radius:20px;padding:7px 14px;white-space:nowrap;transition:all .25s;cursor:pointer;}
+  .chip:hover,.chip.active{color:var(--brown);background:var(--rose-gold);border-color:var(--rose-gold);}
+
+  section{max-width:1020px;margin:0 auto;padding:60px 48px;scroll-margin-top:130px;position:relative;}
+  .sec-eyebrow{font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.3em;color:var(--rose-gold);text-transform:uppercase;margin-bottom:10px;}
+  .sec-title{font-family:'Playfair Display',serif;font-weight:600;font-size:clamp(1.7rem,3.6vw,2.3rem);margin-bottom:14px;}
+  .sec-lead{font-size:.98rem;color:var(--cream);max-width:760px;line-height:1.8;margin-bottom:8px;}
+  .sec-lead em{font-family:'EB Garamond',serif;color:var(--rose-gold-bright);}
+
+  .track-head{border-top:2px solid var(--rose-gold);padding-top:28px;}
+  .track-tag{font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.2em;color:var(--rose-gold);text-transform:uppercase;}
+  .track-title{font-family:'Playfair Display',serif;font-weight:600;font-size:clamp(1.8rem,4vw,2.6rem);margin:8px 0 6px;}
+  .track-months{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--cream-dim);letter-spacing:.08em;}
+  .track-intro{font-family:'EB Garamond',serif;font-style:italic;font-size:1.2rem;color:var(--cream);line-height:1.6;margin:20px 0;border-left:2px solid var(--rose-gold);padding-left:20px;}
+  .track-stats{display:flex;gap:26px;flex-wrap:wrap;margin:22px 0 8px;}
+  .track-stats div{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--cream-dim);}
+  .track-stats b{color:var(--rose-gold);font-size:1.3rem;font-family:'Playfair Display',serif;display:block;}
+
+  .warn{background:rgba(166,124,110,.14);border:1px solid var(--rose-muted);border-radius:4px;padding:12px 18px;font-family:'JetBrains Mono',monospace;font-size:.74rem;color:var(--blush);margin:18px 0;}
+
+  /* texts grid */
+  .texts-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:28px;}
+  .text-card{background:linear-gradient(160deg,var(--brown-3),var(--brown-2));border:1px solid var(--border);border-radius:5px;padding:20px 22px;transition:border-color .4s,box-shadow .4s;}
+  .text-card:hover{border-color:var(--rose-gold);box-shadow:0 18px 44px -20px rgba(0,0,0,.75);}
+  .text-card .t-track{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--rose-gold);margin-bottom:8px;}
+  .text-card h4{font-family:'Playfair Display',serif;font-weight:500;font-size:1.05rem;color:var(--cream);margin-bottom:6px;}
+  .text-card p{font-family:'EB Garamond',serif;font-style:italic;font-size:.92rem;color:var(--cream-dim);line-height:1.55;}
+
+  /* phase cards */
+  .phase{border:1px solid var(--border);border-radius:5px;margin:16px 0;background:linear-gradient(160deg,var(--brown-3),var(--brown-2));overflow:hidden;transition:border-color .3s;}
+  .phase:hover{border-color:var(--rose-muted);}
+  .phase-head{display:flex;align-items:center;gap:18px;padding:22px 26px;cursor:pointer;}
+  .phase-head .pw{font-family:'JetBrains Mono',monospace;font-size:.66rem;color:var(--rose-gold);border:1px solid var(--border);border-radius:20px;padding:4px 12px;white-space:nowrap;}
+  .phase-head h4{flex:1;font-family:'Playfair Display',serif;font-weight:500;font-size:1.25rem;color:var(--cream);}
+  .phase-head .tog{color:var(--rose-gold);font-size:1.3rem;transition:transform .35s;}
+  .phase.open .tog{transform:rotate(180deg);}
+  .phase-body{max-height:0;overflow:hidden;transition:max-height .6s ease;}
+  .phase.open .phase-body{max-height:9000px;}
+  .phase-inner{padding:4px 30px 28px;}
+  .phase-inner .book{font-family:'EB Garamond',serif;font-style:italic;color:var(--rose-muted);font-size:.95rem;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--border-soft);}
+  .sublist{list-style:none;margin:8px 0 20px;}
+  .sublist>li{padding:6px 0 6px 24px;position:relative;font-size:.92rem;color:var(--cream);}
+  .sublist>li::before{content:'◆';position:absolute;left:0;color:var(--rose-gold);font-size:.66rem;top:8px;}
+  .sublist ul{list-style:none;margin:4px 0 4px 6px;}
+  .sublist ul li{padding:3px 0 3px 20px;position:relative;font-size:.86rem;color:var(--cream-dim);}
+  .sublist ul li::before{content:'–';position:absolute;left:0;color:var(--rose-muted);}
+  .thm{color:var(--cream-gold);}
+  .vault-note{font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--blush);background:rgba(217,168,160,.08);border-left:2px solid var(--blush);padding:8px 14px;margin:6px 0 6px 24px;border-radius:0 3px 3px 0;}
+  .vault-note::before{content:'▪ VAULT · ';color:var(--rose-gold);letter-spacing:.06em;}
+  .essay-note{font-family:'EB Garamond',serif;font-style:italic;color:var(--rose-muted);font-size:.95rem;margin:12px 0 0 24px;}
+
+  /* phase preamble + topic blocks */
+  .phase-pre{font-family:'EB Garamond',serif;font-style:italic;font-size:1.08rem;color:var(--cream-dim);line-height:1.7;margin:14px 0 24px;border-left:2px solid var(--rose-gold);padding-left:16px;}
+  .phase-pre b{color:var(--rose-gold);font-weight:500;}
+  .topic{margin:0 0 28px;}
+  .topic h5{font-family:'Playfair Display',serif;font-weight:500;font-size:1.08rem;color:var(--cream-gold);margin-bottom:8px;line-height:1.4;}
+  .topic h5 .tsec{font-family:'JetBrains Mono',monospace;font-size:.64rem;letter-spacing:.1em;color:var(--rose-muted);font-weight:400;text-transform:uppercase;white-space:nowrap;}
+  .topic>p{font-size:.92rem;color:var(--cream);line-height:1.85;margin-bottom:10px;}
+  .topic>p em{color:var(--cream-dim);}
+  .must{list-style:none;margin:8px 0 0;background:rgba(26,20,16,.38);border:1px solid var(--border-soft);border-radius:4px;padding:12px 16px;}
+  .must::before{content:'You must be able to';display:block;font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.24em;text-transform:uppercase;color:var(--rose-gold);margin-bottom:7px;}
+  .must li{padding:3px 0 3px 20px;position:relative;font-size:.85rem;color:var(--cream-dim);line-height:1.7;}
+  .must li::before{content:'▸';position:absolute;left:2px;color:var(--rose-gold);font-size:.8rem;}
+  .must li b{color:var(--cream);font-weight:500;}
+
+  /* weekly ledger (shared design with the Humanities seminar) */
+  .led-label{font-family:'JetBrains Mono',monospace;font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:var(--rose-gold);margin:26px 0 8px;display:flex;align-items:center;gap:14px;}
+  .led-label::after{content:'';flex:1;height:1px;background:var(--border-soft);}
+  .ledger{border:1px solid var(--border-soft);border-radius:4px;overflow:hidden;margin-top:6px;}
+  .lrow{display:grid;grid-template-columns:74px 1fr 250px;border-bottom:1px solid var(--border-soft);background:rgba(26,20,16,.35);transition:background .3s;}
+  .lrow:last-child{border-bottom:none;}
+  .lrow:hover{background:rgba(201,149,107,.07);}
+  .lrow>div{padding:12px 16px;font-size:.85rem;}
+  .lrow .wk{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--rose-gold);letter-spacing:.08em;padding-top:15px;}
+  .lrow .rd{color:var(--cream);}
+  .lrow .rd em{color:var(--cream-dim);font-style:normal;}
+  .lrow .due{font-family:'EB Garamond',serif;font-style:italic;color:var(--rose-muted);border-left:1px solid var(--border-soft);}
+  .lrow .due b{color:var(--rose-gold);font-weight:500;}
+
+  /* vault ownership clauses */
+  .vault-box li .own{display:block;font-family:'EB Garamond',serif;font-style:italic;font-size:.83rem;color:var(--rose-muted);margin-top:2px;line-height:1.55;}
+  .vault-box li .own b{color:var(--rose-gold);font-weight:500;font-style:normal;font-size:.72rem;font-family:'JetBrains Mono',monospace;letter-spacing:.06em;text-transform:uppercase;}
+
+  /* vault checklist */
+  .vault-box{position:relative;background:linear-gradient(160deg,var(--brown-2),var(--brown));border:1px solid var(--border);border-radius:5px;padding:26px 30px;margin:22px 0 6px;}
+  .vault-box h5{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--rose-gold);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
+  .vault-box h5::after{content:'';flex:1;height:1px;background:var(--border-soft);}
+  .vault-box ul{list-style:none;}
+  .vault-box li{padding:8px 0 8px 30px;position:relative;font-size:.92rem;color:var(--cream);border-bottom:1px solid var(--border-soft);}
+  .vault-box li:last-child{border-bottom:none;}
+  .vault-box li::before{content:'✦';position:absolute;left:4px;color:var(--rose-gold);animation:twinkle 3s ease-in-out infinite;}
+  .vault-box li:nth-child(2)::before{animation-delay:.6s;}
+  .vault-box li:nth-child(3)::before{animation-delay:1.2s;}
+  .vault-box li:nth-child(4)::before{animation-delay:1.8s;}
+  .vault-box li:nth-child(5)::before{animation-delay:2.4s;}
+  .vault-box li:nth-child(6)::before{animation-delay:.9s;}
+  .vault-box li:nth-child(7)::before{animation-delay:1.5s;}
+  .vault-box li:nth-child(8)::before{animation-delay:2.1s;}
+  .vault-box li .star{color:var(--cream-gold);font-size:.7rem;letter-spacing:-1px;}
+  @keyframes twinkle{0%,100%{opacity:.4;text-shadow:none;}50%{opacity:1;text-shadow:0 0 8px var(--rose-glow);}}
+
+  /* grand vault ledger */
+  .grand-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin:28px 0;}
+  .grand-stat{background:linear-gradient(160deg,var(--brown-3),var(--brown-2));border:1px solid var(--border);border-radius:5px;padding:22px;text-align:center;transition:border-color .4s,box-shadow .4s;}
+  .grand-stat:hover{border-color:var(--rose-gold);box-shadow:0 16px 38px -18px rgba(0,0,0,.75);}
+  .grand-stat b{font-family:'Playfair Display',serif;font-size:2rem;color:var(--rose-gold);display:block;line-height:1.2;}
+  .grand-stat span{font-family:'JetBrains Mono',monospace;font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;color:var(--cream-dim);}
+  .centerpieces{list-style:none;margin-top:10px;}
+  .centerpieces li{padding:12px 0 12px 34px;position:relative;font-size:.95rem;color:var(--cream);border-bottom:1px solid var(--border-soft);}
+  .centerpieces li:last-child{border-bottom:none;}
+  .centerpieces li::before{content:'★★★';position:absolute;left:0;top:14px;color:var(--rose-gold);font-size:.6rem;letter-spacing:-1px;}
+  .centerpieces li em{font-family:'EB Garamond',serif;color:var(--cream-dim);}
+
+  /* connection section */
+  .connect-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-top:26px;}
+  .connect-card{position:relative;background:linear-gradient(160deg,var(--brown-3),var(--brown-2));border:1px solid var(--border);border-radius:5px;padding:22px 24px;transition:border-color .4s,box-shadow .4s;}
+  .connect-card:hover{border-color:var(--rose-gold);box-shadow:0 18px 44px -20px rgba(0,0,0,.75);}
+  .connect-card h4{font-family:'Playfair Display',serif;font-weight:500;font-size:1.1rem;color:var(--cream);margin-bottom:8px;}
+  .connect-card p{font-size:.88rem;color:var(--cream-dim);line-height:1.7;}
+  .connect-card a{color:var(--rose-gold);border-bottom:1px dotted var(--rose-muted);transition:color .25s;}
+  .connect-card a:hover{color:var(--rose-gold-bright);}
+  .dest-line{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.14em;color:var(--blush);text-transform:uppercase;margin-top:24px;}
+  .dest-line b{color:var(--rose-gold);}
+
+  footer{border-top:1px solid var(--border-soft);padding:52px;text-align:center;background:var(--brown-2);margin-top:40px;}
+  footer .fbrand{font-family:'EB Garamond',serif;font-size:1.3rem;margin-bottom:10px;}
+  footer .fbrand span{color:var(--rose-gold);}
+  footer p{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.14em;color:var(--cream-dim);text-transform:uppercase;}
+
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .8s,transform .8s;}
+  .reveal.in{opacity:1;transform:none;}
+
+  @media(max-width:1150px){.nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:var(--brown-2);border-bottom:1px solid var(--border);padding:8px 0;}.nav-links.open{display:flex;}.nav-links li{padding:12px 22px;border-top:1px solid var(--border-soft);}.nav-toggle{display:block;}}
+  @media(max-width:900px){
+    nav{padding:16px 22px;}
+    .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:var(--brown-2);border-bottom:1px solid var(--border);padding:8px 0;}
+    .nav-links.open{display:flex;}
+    .nav-links li{padding:12px 22px;border-top:1px solid var(--border-soft);}
+    .nav-toggle{display:block;}
+    .chips{top:59px;}
+    section{padding:48px 22px;}
+    .phase-inner{padding:4px 20px 24px;}
+    .quote-wrap{padding:20px 26px 40px;}
+    .lrow{grid-template-columns:60px 1fr;}
+    .lrow .due{grid-column:2;border-left:none;border-top:1px dotted var(--border-soft);}
+  }
+
+  /* ═══ ARCANUM IMMERSION LAYER ═══ */
+  #arcMotes{position:fixed;inset:0;z-index:2;pointer-events:none;}
+  #arcCandle{position:fixed;left:0;top:0;width:560px;height:560px;margin:-280px 0 0 -280px;z-index:1;pointer-events:none;border-radius:50%;background:radial-gradient(circle,rgba(224,180,138,.085) 0%,rgba(201,149,107,.05) 38%,transparent 68%);mix-blend-mode:screen;opacity:0;transition:opacity 1.2s ease;will-change:transform;}
+  body.arc-lit #arcCandle{opacity:1;animation:arcFlick 2.8s ease-in-out infinite;}
+  @keyframes arcFlick{0%,100%{filter:brightness(1);}23%{filter:brightness(1.22);}47%{filter:brightness(.9);}71%{filter:brightness(1.12);}}
+  .arc-breath{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse at 50% -10%,rgba(224,180,138,.10),transparent 55%);animation:arcBreathe 7s ease-in-out infinite;}
+  @keyframes arcBreathe{0%,100%{opacity:.55;}50%{opacity:1;}}
+  #arcVeil{position:fixed;inset:0;z-index:6000;background:#0c0906;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;opacity:1;visibility:visible;transition:opacity 1.2s ease,visibility 1.2s ease;}
+  #arcVeil.gone{opacity:0;visibility:hidden;}
+  #arcVeil .v-sigil{color:var(--rose-gold);font-size:1.6rem;animation:veilFlame 1.6s ease-in-out infinite;text-shadow:0 0 24px var(--rose-glow);}
+  @keyframes veilFlame{0%,100%{opacity:.55;transform:scale(1);}50%{opacity:1;transform:scale(1.15);}}
+  #arcVeil .v-name{font-family:'Playfair Display',serif;font-size:clamp(1.3rem,3.4vw,2rem);letter-spacing:.34em;color:var(--cream);text-transform:uppercase;padding-left:.34em;}
+  #arcVeil .v-motto{font-family:'EB Garamond',serif;font-style:italic;font-size:.95rem;color:var(--rose-muted);letter-spacing:.12em;}
+  .marginalia{position:absolute;font-family:'EB Garamond',serif;font-style:italic;color:var(--rose-muted);opacity:0;font-size:.95rem;max-width:170px;line-height:1.5;pointer-events:none;transform:rotate(-4deg) translateY(18px);transition:opacity 1.6s ease,transform 1.6s ease;z-index:3;}
+  .marginalia.in{opacity:.52;transform:rotate(-4deg) translateY(0);}
+  .marginalia.right{right:-190px;}
+  .marginalia.left{left:-190px;transform:rotate(3deg) translateY(18px);}
+  .marginalia.left.in{transform:rotate(3deg) translateY(0);}
+  @media(max-width:1360px){.marginalia{display:none;}}
+  .dropcap::first-letter{font-family:'Playfair Display',serif;font-size:3.3em;float:left;line-height:.82;padding:.05em .14em .02em 0;color:var(--rose-gold);text-shadow:0 0 22px var(--rose-glow);}
+  [data-tip]{position:relative;border-bottom:1px dotted var(--rose-muted);cursor:help;}
+  [data-tip]::after{content:attr(data-tip);position:absolute;left:50%;bottom:calc(100% + 10px);transform:translateX(-50%) translateY(6px);background:linear-gradient(160deg,#2b1f14,#1f160e);color:var(--cream-gold);border:1px solid var(--rose-gold);border-radius:4px;padding:10px 14px;font-family:'EB Garamond',serif;font-style:italic;font-size:.88rem;font-weight:400;letter-spacing:normal;text-transform:none;line-height:1.5;width:max-content;max-width:300px;white-space:normal;opacity:0;pointer-events:none;transition:opacity .35s,transform .35s;z-index:500;box-shadow:0 14px 34px -12px rgba(0,0,0,.85);}
+  [data-tip]:hover::after{opacity:1;transform:translateX(-50%) translateY(0);}
+  [data-tilt]{will-change:transform;transition:transform .35s ease,border-color .4s,box-shadow .4s;}
+  .arc-skip{position:fixed;top:-60px;left:16px;z-index:7000;background:var(--rose-gold);color:var(--brown);font-family:'JetBrains Mono',monospace;font-size:.72rem;padding:10px 16px;border-radius:3px;transition:top .3s;}
+  .arc-skip:focus{top:12px;}
+  @media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;}
+    #arcMotes,#arcCandle{display:none!important;}
+    .reveal,.marginalia,.stagger>*{opacity:1!important;transform:none!important;}
+  }
+
+  /* ═══ ENCHANTMENT v2 — the Bodleian layer ═══ */
+  /* bookshelf walls */
+  .arc-shelf{position:fixed;top:0;bottom:0;width:150px;z-index:0;pointer-events:none;opacity:.45;background-repeat:repeat-y;background-size:160px 230px;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='230'%3E%3Crect x='6' y='104' width='14' height='102' fill='%233a2416'/%3E%3Crect x='22' y='112' width='11' height='94' fill='%2352301b'/%3E%3Crect x='35' y='96' width='15' height='110' fill='%232c1d10'/%3E%3Crect x='52' y='120' width='12' height='86' fill='%2346331d'/%3E%3Crect x='66' y='102' width='15' height='104' fill='%23573823'/%3E%3Crect x='83' y='116' width='10' height='90' fill='%2333220f'/%3E%3Crect x='95' y='108' width='14' height='98' fill='%234a2c18'/%3E%3Crect x='111' y='98' width='12' height='108' fill='%233f2b15'/%3E%3Crect x='125' y='122' width='13' height='84' fill='%2358402a'/%3E%3Crect x='140' y='110' width='13' height='96' fill='%23352512'/%3E%3Crect x='6' y='112' width='14' height='2' fill='%23c9956b' opacity='.45'/%3E%3Crect x='35' y='104' width='15' height='2' fill='%23c9956b' opacity='.35'/%3E%3Crect x='66' y='110' width='15' height='2' fill='%23c9956b' opacity='.45'/%3E%3Crect x='95' y='116' width='14' height='2' fill='%23c9956b' opacity='.3'/%3E%3Crect x='125' y='130' width='13' height='2' fill='%23c9956b' opacity='.4'/%3E%3Crect y='206' width='160' height='3' fill='%236b4a2f' opacity='.7'/%3E%3Crect y='209' width='160' height='13' fill='%23120b06'/%3E%3C/svg%3E");}
+  .arc-shelf.left{left:0;-webkit-mask-image:linear-gradient(to right,rgba(0,0,0,.95),transparent);mask-image:linear-gradient(to right,rgba(0,0,0,.95),transparent);}
+  .arc-shelf.right{right:0;transform:scaleX(-1);-webkit-mask-image:linear-gradient(to right,rgba(0,0,0,.95),transparent);mask-image:linear-gradient(to right,rgba(0,0,0,.95),transparent);}
+  @media(max-width:1200px){.arc-shelf{display:none;}}
+  /* wall-sconce candle flame */
+  .arc-sconce{display:inline-flex;align-items:center;justify-content:center;gap:18px;}
+  .arc-flame{position:relative;width:13px;height:20px;display:inline-block;flex:none;}
+  .arc-flame::before{content:'';position:absolute;inset:0;background:radial-gradient(closest-side at 50% 72%,#f7e2b0,#e0a45a 52%,rgba(201,110,60,.3) 76%,transparent);border-radius:50% 50% 50% 50%/62% 62% 38% 38%;transform-origin:50% 92%;animation:arcFlameDance 2.1s ease-in-out infinite;filter:drop-shadow(0 0 10px rgba(224,164,90,.55));}
+  .arc-flame::after{content:'';position:absolute;left:50%;bottom:-4px;width:3px;height:6px;margin-left:-1.5px;background:#3a2a1a;border-radius:2px;}
+  .arc-flame.f2::before{animation-delay:-1.1s;}
+  @keyframes arcFlameDance{0%,100%{transform:scaleY(1) skewX(0);opacity:.92;}30%{transform:scaleY(1.14) skewX(2.5deg);opacity:1;}60%{transform:scaleY(.9) skewX(-2.5deg);opacity:.82;}80%{transform:scaleY(1.06) skewX(1.5deg);opacity:.95;}}
+  /* gold-leaf shimmer on display type */
+  .gilt{background:linear-gradient(110deg,var(--cream) 0%,var(--cream-gold) 32%,#f8e6c0 46%,var(--rose-gold-bright,#e0b48a) 50%,#f8e6c0 54%,var(--cream-gold) 68%,var(--cream) 100%);background-size:230% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:none;animation:arcGild 9s ease-in-out infinite;}
+  @keyframes arcGild{0%,100%{background-position:100% 0;}50%{background-position:0% 0;}}
+  /* illuminated-manuscript corner frames: add <i class="arc-corners" aria-hidden="true"></i> inside a position:relative box */
+  .arc-corners{position:absolute;inset:9px;pointer-events:none;font-style:normal;}
+  .arc-corners::before,.arc-corners::after{content:'';position:absolute;width:22px;height:22px;}
+  .arc-corners::before{top:0;left:0;border-top:1px solid rgba(201,149,107,.55);border-left:1px solid rgba(201,149,107,.55);}
+  .arc-corners::after{bottom:0;right:0;border-bottom:1px solid rgba(201,149,107,.55);border-right:1px solid rgba(201,149,107,.55);}
+  /* the scroll astrolabe */
+  #arcAstro{position:fixed;right:24px;bottom:24px;width:54px;height:54px;z-index:450;cursor:pointer;opacity:0;visibility:hidden;transition:opacity .8s,visibility .8s;background:none;border:none;padding:0;}
+  body.arc-scrolled #arcAstro{opacity:1;visibility:visible;}
+  #arcAstro .a-ring{position:absolute;inset:0;border-radius:50%;background:conic-gradient(var(--rose-gold) calc(var(--arc-p,0)*1turn),rgba(90,69,53,.4) 0);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2.5px));mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2.5px));}
+  #arcAstro .a-dial{position:absolute;inset:7px;border-radius:50%;border:1px dashed rgba(201,149,107,.5);animation:arcSpinSlow 70s linear infinite;}
+  #arcAstro .a-star{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--rose-gold);font-size:.85rem;animation:arcAstroTw 3.2s ease-in-out infinite;}
+  @keyframes arcSpinSlow{to{transform:rotate(1turn);}}
+  @keyframes arcAstroTw{0%,100%{opacity:.55;text-shadow:none;}50%{opacity:1;text-shadow:0 0 10px var(--rose-glow);}}
+  @media(max-width:700px){#arcAstro{width:44px;height:44px;right:14px;bottom:14px;}}
+  @media(prefers-reduced-motion:reduce){.arc-flame::before,.gilt,#arcAstro .a-dial,#arcAstro .a-star{animation:none!important;}}
+</style>
+</head>
+<body>
+<a class="arc-skip" href="#main">Skip to content</a>
+<div id="arcVeil" aria-hidden="true"><div class="v-sigil">✦</div><div class="v-name">Schola Arcana</div><div class="v-motto">lucem in tenebris quaerimus</div></div>
+<div class="arc-breath" aria-hidden="true"></div>
+<canvas id="arcMotes" aria-hidden="true"></canvas>
+<div id="arcCandle" aria-hidden="true"></div>
+<div class="arc-shelf left" aria-hidden="true"></div>
+<div class="arc-shelf right" aria-hidden="true"></div>
+<button id="arcAstro" aria-label="Reading progress — return to the top" title="Return to the surface"><span class="a-ring"></span><span class="a-dial"></span><span class="a-star">✦</span></button>
+
+<div class="meter" id="meter"></div>
+
+<nav>
+  <a class="nav-brand" href="index.html">Schola <span>Arcana</span></a>
+  <button class="nav-toggle" aria-label="menu" onclick="document.getElementById('nav').classList.toggle('open')">☰</button>
+  <ul class="nav-links" id="nav">
+    <li><a href="index.html">Cathedral</a></li>
+    <li><a href="atlas.html">Atlas</a></li>
+    <li><a href="mathematical_logic.html" class="active">Logic</a></li>
+    <li><a href="quantum_computing.html">Quantum</a></li>
+    <li><a href="linear_algebra.html">Linear Algebra</a></li>
+    <li><a href="toc.html">TOC</a></li>
+    <li><a href="physics.html">Physics</a></li>
+    <li><a href="humanities.html">Humanities</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+</nav>
+
+<header class="page-hero" id="main">
+  <div class="eyebrow arc-sconce"><span class="arc-flame" aria-hidden="true"></span><span>Field I · The Core</span><span class="arc-flame f2" aria-hidden="true"></span></div>
+  <h1 class="gilt">Mathematical Logic</h1>
+  <p class="intro">First-order logic is the skeleton of mathematics. Every theorem, every proof, every definition rests on the syntax and semantics you are about to build. This is <b>not optional</b>. This is the foundation.</p>
+</header>
+
+<!-- ================= QUOTE ================= -->
+<div class="quote-wrap reveal">
+  <i class="arc-corners" aria-hidden="true"></i>
+  <blockquote>You will prove the completeness theorem. You will walk the Henkin construction. You will stare into the abyss of consistency and validity and understand why they coincide. This is the most important proof in logic — and by December, you will own it.</blockquote>
+  <div class="attr">The Vow of the Vault · Weeks 1–28</div>
+</div>
+<div class="gold-rule"></div>
+
+<!-- ================= TEXTS & PREREQUISITES ================= -->
+<section id="texts" class="reveal">
+  <div class="sec-eyebrow">The Library</div>
+  <h2 class="sec-title gilt">Texts &amp; Prerequisites</h2>
+  <p class="sec-lead dropcap">Nine books carry the entire logic curriculum. Each one is read in exact chapter ranges, never skimmed — every definition transcribed, every starred theorem proved into the Vault in full LaTeX. The only prerequisites are proof literacy (induction, contradiction, contraposition) and the discipline to read slowly. Tracks 1–3 open the sequence; <em>Track 5 waits until they are done</em>; Tracks 4 and 6 run alongside.</p>
+  <div class="texts-grid">
+    <div class="text-card" data-tilt>
+      <div class="t-track">Track 1 · Weeks 1–9</div>
+      <h4>Enderton — A Mathematical Introduction to Logic</h4>
+      <p>Ch. 2.1–2.7: syntax, structures, soundness, and the Henkin completeness proof.</p>
+    </div>
+    <div class="text-card" data-tilt>
+      <div class="t-track">Track 1 · Weeks 10–12</div>
+      <h4>Smullyan — Gödel's Incompleteness Theorems</h4>
+      <p>Gödel numbering, the diagonal lemma, both incompleteness theorems. Sipser Ch. 4 in parallel.</p>
+    </div>
+    <div class="text-card" data-tilt>
+      <div class="t-track">Track 2 · Weeks 5–8</div>
+      <h4>Blackburn, de Rijke &amp; Venema — Modal Logic</h4>
+      <p>Ch. 1–2: Kripke frames, frame correspondence, canonical models, bisimulation.</p>
+    </div>
+    <div class="text-card" data-tilt>
+      <div class="t-track">Track 2 · Weeks 9–12</div>
+      <h4>Fagin, Halpern, Moses &amp; Vardi — Reasoning About Knowledge</h4>
+      <p>Ch. 1–3: knowledge, belief, common knowledge, the muddy children.</p>
+    </div>
+    <div class="text-card" data-tilt>
+      <div class="t-track">Track 2 · Weeks 13–15</div>
+      <h4>van Ditmarsch, van der Hoek &amp; Kooi — Dynamic Epistemic Logic</h4>
+      <p>Public announcements, action models, product update — the frontier.</p>
+    </div>
+    <div class="text-card" data-tilt>
+      <div class="t-track">Track 3 · Weeks 8–16</div>
+      <h4>Enderton — Elements of Set Theory</h4>
+      <p>Ch. 1–5: ZFC, ordinals, cardinals, and the Axiom of Choice.</p>
+    </div>
+    <div class="text-card" data-tilt>
+      <div class="t-track">Track 4 · Weeks 12–21</div>
+      <h4>Marker — Model Theory: An Introduction</h4>
+      <p>Ch. 1–3: elementary equivalence, types, quantifier elimination, EF games.</p>
+    </div>
+    <div class="text-card" data-tilt>
+      <div class="t-track">Track 5 · Weeks 20–28</div>
+      <h4>Troelstra &amp; Schwichtenberg — Basic Proof Theory</h4>
+      <p>Ch. 2–4: sequent calculus, cut elimination, normalization, Curry–Howard.</p>
+    </div>
+    <div class="text-card" data-tilt>
+      <div class="t-track">Track 6 · Weeks 14–28</div>
+      <h4>Mac Lane — Categories for the Working Mathematician · Riehl — Category Theory in Context</h4>
+      <p>Ch. 1–2 of each: categories, functors, universal properties. Riehl is the gentler door.</p>
+    </div>
+  </div>
+  <span class="marginalia left" style="top:220px">read slowly. every step is necessary.</span>
+</section>
+
+<div class="chips">
+  <div class="chips-inner" id="chips">
+    <span class="chip" data-t="t1">I · FOL &amp; Incompleteness</span>
+    <span class="chip" data-t="t2">II · Modal &amp; Epistemic ★</span>
+    <span class="chip" data-t="t3">III · Set Theory</span>
+    <span class="chip" data-t="t4">IV · Model Theory</span>
+    <span class="chip" data-t="t5">V · Proof Theory</span>
+    <span class="chip" data-t="t6">VI · Category Theory</span>
+  </div>
+</div>
+
+<!-- ================= TRACK 1 ================= -->
+<section id="t1" class="reveal">
+  <div class="track-head">
+    <div class="track-tag">Track 1 · Months 1–4</div>
+    <h2 class="track-title gilt">First-Order Logic &amp; Incompleteness</h2>
+    <div class="track-months">Enderton · Smullyan · Sipser (parallel)</div>
+  </div>
+  <p class="track-intro">You will prove that logic captures truth — and then that it can never capture all of it. From the Henkin construction to Gödel's diagonal, this is the arc every logician walks.</p>
+  <div class="track-stats">
+    <div><b>12</b>weeks</div><div><b>3</b>phases</div><div><b>7</b>vault targets</div>
+  </div>
+  <span class="marginalia right" style="top:420px">the Henkin witnesses live here</span>
+
+  <div class="phase">
+    <div class="phase-head"><span class="pw">Weeks 1–8</span><h4>Phase 1 — The Completeness Theorem</h4><span class="tog">▾</span></div>
+    <div class="phase-body"><div class="phase-inner">
+      <div class="book">Enderton, <em>A Mathematical Introduction to Logic</em>, Ch. 2.1–2.7</div>
+      <p class="phase-pre">Eight weeks, one destination: the <b>Henkin proof of completeness</b>. Everything before it — syntax, structures, satisfaction, soundness — is built so that the final construction has ground to stand on. By week 8 you will hold, in your own LaTeX, the theorem that provability and semantic consequence coincide.</p>
+
+      <div class="topic">
+        <h5>Syntax of First-Order Languages <span class="tsec">— Enderton §2.1–2.3</span></h5>
+        <p>A first-order language is an alphabet — variables, constants, function symbols, predicate symbols — and two recursively generated classes built over it: terms, then atomic and well-formed formulas. The technical heart of these sections is the machinery of free and bound variables and of substitution, because a single variable-capture mistake silently invalidates every later theorem about derivations. This is also where you acquire the idiom you will use all semester: proof by induction on the structure of formulas, licensed by unique readability. Nothing here is decorative; the Henkin construction in week 7 manipulates exactly these objects.</p>
+        <ul class="must">
+          <li><b>Define</b> terms and wffs by recursion, and prove simple properties of them by induction on formulas.</li>
+          <li><b>Compute</b> the free variables of any formula and carry out the substitution φ[t/x] without capture, checking substitutability.</li>
+          <li><b>Explain</b> why unique readability is what makes definition-by-recursion on formulas legitimate at all.</li>
+        </ul>
+      </div>
+
+      <div class="topic">
+        <h5>Structures &amp; Satisfaction <span class="tsec">— Enderton §2.4–2.5</span></h5>
+        <p>A structure M = ⟨D, I⟩ supplies a nonempty domain and an interpretation of every nonlogical symbol; an assignment s: Var → D then makes truth assignment-relative, written M ⊨ φ[s]. Tarski's satisfaction conditions define this relation by recursion on φ — one clause per connective and quantifier — and everything semantic in the whole track (models, validity, the consequence relation Γ ⊨ φ) is defined from it. The quietly crucial theorem is that satisfaction depends only on the values s gives the <em>free</em> variables of φ, which is what lets sentences have truth values at all. This relation is one half of the completeness theorem; the proof system of §2.6 is the other.</p>
+        <ul class="must">
+          <li><b>State</b> every Tarski satisfaction clause from memory and evaluate given formulas in small finite structures.</li>
+          <li><b>Distinguish</b> truth in a structure, validity, and logical consequence — with an example separating each pair.</li>
+          <li><b>Prove</b> the satisfaction theorem: if s and s′ agree on the free variables of φ, then M ⊨ φ[s] iff M ⊨ φ[s′].</li>
+        </ul>
+      </div>
+
+      <div class="topic">
+        <h5>The Proof System &amp; Soundness <span class="tsec">— Enderton §2.6</span></h5>
+        <p>Enderton's Hilbert-style calculus has a small stock of logical axioms, modus ponens, and generalization; a derivation is a finite sequence justified line by line, and Γ ⊢ φ means such a sequence exists. The <span class="thm" data-tip="If Γ ⊢ φ then Γ ⊨ φ — provability never outruns truth. Proved by induction on the derivation.">soundness theorem</span> — if Γ ⊢ φ then Γ ⊨ φ — says the calculus never proves anything false in a model of Γ, and its proof is your first serious induction on derivations: verify each axiom is valid, then check that both rules preserve consequence. Alongside it you prove the workhorse lemmas — the deduction theorem above all — that the completeness proof will lean on constantly. Soundness is the easy direction; internalize its shape now, because completeness is its mirror image run in reverse.</p>
+        <ul class="must">
+          <li><b>State</b> the axiom groups, modus ponens, and generalization precisely, including the restriction on generalization.</li>
+          <li><b>Prove</b> soundness by induction on derivations, writing out the axiom cases and both rule cases in full.</li>
+          <li><b>Prove and deploy</b> the deduction theorem: Γ; φ ⊢ ψ iff Γ ⊢ φ → ψ.</li>
+        </ul>
+      </div>
+
+      <div class="topic">
+        <h5>Completeness — the Henkin Construction ★ the crown <span class="tsec">— Enderton §2.7</span></h5>
+        <p>The argument runs through five movements, and you must own all of them. First, reduce completeness to: <em>every consistent set is satisfiable</em>. Second, <span class="thm" data-tip="Every consistent set of formulas extends to a maximal consistent set — proved with Zorn's lemma (or by enumeration in countable languages).">Lindenbaum's lemma</span>: every consistent Γ extends to a maximal consistent Δ. Third, expand the language with a Henkin witness constant c<sub>φ</sub> for each formula ∃x φ, adding the axioms ∃x φ → φ[c<sub>φ</sub>/x] while preserving consistency. Fourth, build the canonical model M whose domain is the (quotiented) set of closed terms, interpreting each symbol exactly as Δ dictates. Fifth, the truth lemma — <span class="thm" data-tip="In the canonical model built from the maximal consistent, witness-complete set Δ: M ⊨ φ iff φ ∈ Δ. Proved by induction on φ; the witnesses make the ∃ case go through.">M ⊨ φ ⇔ φ ∈ Δ</span>, proved by induction on φ, with the witnesses carrying the existential case — from which <span class="thm" data-tip="If Γ ⊨ φ then Γ ⊢ φ — every semantic consequence is provable.">completeness</span>, Γ ⊨ φ ⟹ Γ ⊢ φ, falls out in three lines. The standard is absolute: the entire construction, reproduced closed-book.</p>
+        <ul class="must">
+          <li><b>Prove</b> Lindenbaum's lemma and say exactly where maximality is used later (the deductive closure and negation-completeness of Δ).</li>
+          <li><b>Carry out</b> the witness expansion and prove that adding Henkin axioms preserves consistency.</li>
+          <li><b>Construct</b> the canonical model from Δ and prove the truth lemma M ⊨ φ ⇔ φ ∈ Δ by induction on φ.</li>
+          <li><b>Reproduce</b> the whole chain — consistency ⇒ satisfiability ⇒ completeness — closed-book, in 2–3 pages of LaTeX.</li>
+        </ul>
+      </div>
+
+      <div class="vault-note">Full Henkin proof — 2–3 pages LaTeX, the centerpiece ★★★</div>
+      <div class="vault-note">Soundness theorem (full proof)</div>
+      <div class="vault-note">Syntax vault: definitions, examples, exercises + Satisfaction theorem proof</div>
+    </div></div>
+  </div>
+
+  <div class="phase">
+    <div class="phase-head"><span class="pw">Week 9</span><h4>Phase 2 — Consequences of Completeness</h4><span class="tog">▾</span></div>
+    <div class="phase-body"><div class="phase-inner">
+      <p class="phase-pre">One week to harvest what the Henkin construction planted. Compactness and Löwenheim–Skolem are the two great corollaries of completeness — and together they expose the strange, productive <b>weakness</b> of first-order logic: it cannot tell infinite cardinalities apart, and that weakness is precisely what makes model theory (Track 4) possible.</p>
+
+      <div class="topic">
+        <h5>The Compactness Theorem <span class="tsec">— from Enderton §2.7</span></h5>
+        <p><span class="thm" data-tip="Γ is satisfiable iff every finite subset of Γ is satisfiable — infinity enters through finite doors.">Compactness</span> says Γ is satisfiable iff every finite subset of Γ is satisfiable — an infinite consistency claim reduced to finitely many checks. From completeness the proof is almost immediate: derivations are finite objects, so an inconsistency in Γ already lives in some finite fragment. The classic application is your first taste of non-standard mathematics: add a fresh constant c and the axioms c &gt; 0, c &gt; 1, c &gt; 2, … to true arithmetic; every finite subset is satisfiable in ℕ, so the whole set has a model — one containing an "infinite" number. That model is not a curiosity; it is proof that first-order axioms can never pin ℕ down.</p>
+        <ul class="must">
+          <li><b>Prove</b> compactness from completeness, and say exactly where the finiteness of derivations enters.</li>
+          <li><b>Construct</b> a non-standard model of arithmetic via the fresh-constant argument, from scratch.</li>
+          <li><b>Explain</b> why compactness fails for logics that can express "the domain is finite."</li>
+        </ul>
+      </div>
+
+      <div class="topic">
+        <h5>The Löwenheim–Skolem Theorems <span class="tsec">— Enderton §2.7 + notes</span></h5>
+        <p><span class="thm" data-tip="Downward: a satisfiable theory has a countable model. Upward: any theory with an infinite model has models of every infinite cardinality.">Downward LS</span> says any satisfiable theory in a countable language has a countable model — visible already in the Henkin proof, whose canonical model is built from countably many terms. <em>Upward LS</em> says a theory with an infinite model has models of every infinite cardinality, proved by compactness applied to a theory padded with κ-many fresh constants forced to be pairwise distinct. Together they are the deep insight of the week: first-order logic cannot pin down cardinality. Sit with the Skolem paradox — a countable model of set theory that internally believes in uncountable sets — until it stops feeling like a contradiction and starts feeling like a precise statement about what "countable" means inside versus outside a model.</p>
+        <ul class="must">
+          <li><b>Prove</b> downward LS by extracting the countable canonical model from the Henkin construction.</li>
+          <li><b>Prove</b> upward LS from compactness with κ fresh constants, handling the distinctness axioms explicitly.</li>
+          <li><b>Resolve</b> the Skolem paradox in one written paragraph — where exactly the apparent contradiction dissolves.</li>
+        </ul>
+      </div>
+
+      <div class="vault-note">Compactness theorem proof</div>
+      <div class="vault-note">Both Löwenheim–Skolem theorems (full proofs)</div>
+    </div></div>
+  </div>
+
+  <div class="phase">
+    <div class="phase-head"><span class="pw">Weeks 10–12</span><h4>Phase 3 — Gödel's Incompleteness Theorems</h4><span class="tog">▾</span></div>
+    <div class="phase-body"><div class="phase-inner">
+      <div class="book">Smullyan, <em>Gödel's Incompleteness Theorems</em> · Sipser Ch. 4 in parallel</div>
+      <p class="phase-pre">Week 8 proved that logic captures truth; these three weeks prove it can never capture <b>all</b> of it. The arc runs from a coding trick — formulas as numbers — through the diagonal lemma to the two theorems that ended Hilbert's program, with Turing's halting problem read in parallel as the same result wearing different clothes.</p>
+
+      <div class="topic">
+        <h5>Gödel Numbering &amp; Representability <span class="tsec">— Smullyan Ch. 1–2</span></h5>
+        <p>Assign every symbol, formula, and finite proof-sequence a unique natural number, computably and reversibly — that is the entire trick, and it must be done precisely, not gestured at. Once formulas are numbers, syntactic properties like "x codes a proof of y" become arithmetic relations, and the representability theorem shows every recursive function is representable by a formula of PA. The consequence is vertiginous: arithmetic can talk about its own proofs. Every step of the incompleteness argument stands on this scaffolding, so build it with your own hands — pick a scheme, code real formulas, verify decodability.</p>
+        <ul class="must">
+          <li><b>Define</b> a complete Gödel numbering scheme and encode two actual formulas by hand.</li>
+          <li><b>State</b> the representability theorem precisely and explain the role of recursive (computable) functions in it.</li>
+          <li><b>Explain</b> why the proof relation "p codes a T-proof of φ" is recursive, hence representable.</li>
+        </ul>
+      </div>
+
+      <div class="topic">
+        <h5>The First Incompleteness Theorem <span class="tsec">— Smullyan Ch. 3–5</span></h5>
+        <p>The <span class="thm" data-tip="For any formula ψ(x) there is a sentence δ with T ⊢ δ ↔ ψ(⌜δ⌝) — the machine that manufactures self-reference.">diagonal lemma</span> manufactures self-reference: for any formula ψ(x) there is a sentence δ such that T proves δ ↔ ψ(⌜δ⌝). Apply it to the negation of the provability predicate and you get the Gödel sentence G, which asserts "G is unprovable in T." If T ⊇ PA is consistent, T cannot prove G (a proof of G would make G false, hence provable-and-refutable); under Smullyan's careful hypotheses T cannot refute it either — so <span class="thm" data-tip="For any consistent T ⊇ PA there is a sentence G — &quot;this statement is unprovable in T&quot; — that is true but unprovable in T.">G is true but unprovable</span>. Notice what the theorem does <em>not</em> say: not that truth is mystical, but that no single consistent formal system exhausts arithmetic truth. The vault standard: the full Smullyan-method proof, every step, closed-book.</p>
+        <ul class="must">
+          <li><b>Prove</b> the diagonal lemma and trace exactly how Gödel numbering makes the self-reference legitimate.</li>
+          <li><b>Reproduce</b> the full first incompleteness proof closed-book, flagging where consistency (and ω-consistency or Rosser's trick) is used.</li>
+          <li><b>Explain</b> to a non-logician, in one honest paragraph, what the theorem does and does not claim.</li>
+        </ul>
+      </div>
+
+      <div class="topic">
+        <h5>The Second Incompleteness Theorem <span class="tsec">— Smullyan Ch. 6</span></h5>
+        <p>Formalize the entire first-theorem argument <em>inside</em> T and it yields something stranger: T proves Con(T) → G, so if T could prove <span class="thm" data-tip="If T is consistent, then T cannot prove Con(T) — no formal system proves its own consistency.">Con(T)</span>, it would prove G — which it cannot. Hence no consistent theory containing enough arithmetic proves its own consistency. The technical content lives in the Hilbert–Bernays derivability conditions, the three properties of the provability predicate that make the internalization go through; identify them and the proof is a page. This is where Hilbert's program — securing infinitary mathematics by finitary consistency proofs — collapses on its own terms.</p>
+        <ul class="must">
+          <li><b>State</b> the three derivability conditions and show where each is used in the internalized argument.</li>
+          <li><b>Prove</b> the second theorem from the first plus the derivability conditions.</li>
+          <li><b>Explain</b> precisely what died with Hilbert's program, and what survived (relative consistency proofs — Gentzen, Track 5).</li>
+        </ul>
+      </div>
+
+      <div class="topic">
+        <h5>Gödel Meets Turing <span class="tsec">— Sipser Ch. 4, in parallel</span></h5>
+        <p>Read the halting problem alongside Gödel and watch the same diagonal turn twice: Turing diagonalizes against machines, Gödel against proofs, and Cantor (Track 3) against enumerations — one argument, three costumes. The bridge is exact: if T were a complete consistent axiomatization of arithmetic, you could decide the halting problem by searching for proofs, so undecidability <em>forces</em> incompleteness. This is the seam where Track 1 touches the Theory of Computation track, and the week's essay stitches it shut.</p>
+        <ul class="must">
+          <li><b>Prove</b> the undecidability of the halting problem by diagonalization.</li>
+          <li><b>Derive</b> a version of first incompleteness from the halting problem, making the proof-search argument explicit.</li>
+          <li><b>Compare</b> the three diagonals — Cantor, Gödel, Turing — in a page of your own prose.</li>
+        </ul>
+      </div>
+
+      <div class="vault-note">Full first incompleteness proof (Smullyan method) ★★★</div>
+      <div class="vault-note">Second incompleteness (full proof) + Gödel numbering scheme (defined precisely)</div>
+      <div class="essay-note">Essay: "Gödel, Turing, and the limits of computation."</div>
+    </div></div>
+  </div>
+
+  <div class="led-label">The Weeks · Track 1 Ledger</div>
+  <div class="ledger">
+    <div class="lrow"><div class="wk">WK 1</div><div class="rd">Enderton §2.1–2.2 — the language; terms and wffs by recursion <em>· exercises 2.1.1–5, 2.2.1–7</em></div><div class="due"><b>Due:</b> LaTeX definitions sheet — terms, wffs, free/bound variables, with ten worked examples</div></div>
+    <div class="lrow"><div class="wk">WK 2</div><div class="rd">Enderton §2.3 — substitution, substitutability, unique readability <em>· all §2.3 exercises</em></div><div class="due"><b>Due:</b> substitution-lemma write-up + one capture counterexample, dissected</div></div>
+    <div class="lrow"><div class="wk">WK 3</div><div class="rd">Enderton §2.4 — structures, assignments, the Tarski clauses <em>· exercises 2.4.1–6</em></div><div class="due"><b>Due:</b> Tarski conditions from memory + evaluations in three small structures</div></div>
+    <div class="lrow"><div class="wk">WK 4</div><div class="rd">Enderton §2.5 — models, validity, logical consequence <em>· exercises 2.5.1–8</em></div><div class="due"><b>Due:</b> satisfaction theorem, full proof (free variables suffice)</div></div>
+    <div class="lrow"><div class="wk">WK 5</div><div class="rd">Enderton §2.6 — the Hilbert system, derivations, deduction theorem <em>· derive five sequents by hand</em></div><div class="due"><b>Due:</b> LaTeX write-up of the soundness induction, every case</div></div>
+    <div class="lrow"><div class="wk">WK 6</div><div class="rd">Enderton §2.7 opens — consistency vs satisfiability; maximal consistent sets</div><div class="due"><b>Due:</b> Lindenbaum's lemma, proved via Zorn, with the maximality corollaries</div></div>
+    <div class="lrow"><div class="wk">WK 7</div><div class="rd">Henkin construction I — witness constants, expanded language, Henkin axioms</div><div class="due"><b>Due:</b> Henkin construction, part 1: witnesses added, consistency preserved</div></div>
+    <div class="lrow"><div class="wk">WK 8</div><div class="rd">Henkin construction II — canonical model, truth lemma, completeness assembled</div><div class="due"><b>Due:</b> the full Henkin proof, 2–3 pages LaTeX — the centerpiece ★★★</div></div>
+    <div class="lrow"><div class="wk">WK 9</div><div class="rd">Compactness + both Löwenheim–Skolem theorems; non-standard models of PA; the Skolem paradox</div><div class="due"><b>Due:</b> compactness + both LS theorems, one dossier; Skolem-paradox paragraph</div></div>
+    <div class="lrow"><div class="wk">WK 10</div><div class="rd">Smullyan Ch. 1–2 — Gödel numbering, representability <em>· Sipser Ch. 4 begins in parallel</em></div><div class="due"><b>Due:</b> Gödel numbering scheme defined precisely; two formulas coded by hand</div></div>
+    <div class="lrow"><div class="wk">WK 11</div><div class="rd">Smullyan Ch. 3–5 — diagonal lemma, the Gödel sentence, first incompleteness</div><div class="due"><b>Due:</b> first incompleteness, Smullyan method, full LaTeX ★★★</div></div>
+    <div class="lrow"><div class="wk">WK 12</div><div class="rd">Smullyan Ch. 6 — derivability conditions, second incompleteness <em>· Sipser Ch. 4 finished: halting problem</em></div><div class="due"><b>Due:</b> second incompleteness write-up + essay "Gödel, Turing, and the limits of computation"</div></div>
+  </div>
+
+  <div class="vault-box" data-tilt>
+    <i class="arc-corners" aria-hidden="true"></i>
+    <h5>Proof Vault — Track 1</h5>
+    <ul>
+      <li>Completeness theorem (Henkin) <span class="star">★★★</span><small class="own"><b>owning it means:</b> Lindenbaum, witnesses, canonical model, truth lemma — the whole construction reproduced closed-book.</small></li>
+      <li>Soundness theorem<small class="own"><b>owning it means:</b> the induction on derivations, every axiom and rule case checked, without notes.</small></li>
+      <li>Compactness theorem<small class="own"><b>owning it means:</b> the derivation from completeness, plus one non-standard model built from scratch.</small></li>
+      <li>Löwenheim–Skolem (both)<small class="own"><b>owning it means:</b> countable canonical model down, κ fresh constants up — both arguments from memory.</small></li>
+      <li>First incompleteness theorem <span class="star">★★★</span><small class="own"><b>owning it means:</b> diagonal lemma to Gödel sentence, every step reproduced closed-book.</small></li>
+      <li>Second incompleteness theorem<small class="own"><b>owning it means:</b> the three derivability conditions and the internalized argument, reproduced cold.</small></li>
+      <li>Gödel numbering scheme (definition + examples)<small class="own"><b>owning it means:</b> your own encoding defined precisely and two real formulas coded by hand.</small></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= TRACK 2 ================= -->
+<section id="t2" class="reveal">
+  <div class="track-head">
+    <div class="track-tag">Track 2 · Months 3–7 · ★ PRIORITY</div>
+    <h2 class="track-title gilt">Modal &amp; Epistemic Logic</h2>
+    <div class="track-months">Blackburn–de Rijke–Venema · Fagin et al. · van Ditmarsch et al.</div>
+  </div>
+  <p class="track-intro">Necessity, possibility, knowledge, belief. This is the ILLC's mother tongue — and the track that connects directly to your agent work.</p>
+  <div class="track-stats"><div><b>11</b>weeks</div><div><b>3</b>phases</div><div><b>8</b>vault targets</div></div>
+  <span class="marginalia left" style="top:480px">the ILLC speaks S5</span>
+
+  <div class="phase">
+    <div class="phase-head"><span class="pw">Weeks 5–8</span><h4>Phase 1 — Kripke Semantics</h4><span class="tog">▾</span></div>
+    <div class="phase-body"><div class="phase-inner">
+      <div class="book">Blackburn, de Rijke &amp; Venema, <em>Modal Logic</em>, Ch. 1–2</div>
+      <p class="phase-pre">Four weeks to make possible-worlds semantics second nature. The payoff structure is deliberate: Kripke models give you a playground, frame correspondence gives you the dictionary between <b>axioms and geometry</b>, canonical models replay the Henkin construction in modal dress, and bisimulation tells you exactly what modal logic can and cannot see.</p>
+
+      <div class="topic">
+        <h5>Propositional Modal Logic &amp; Kripke Models <span class="tsec">— BdRV §1.1–1.3</span></h5>
+        <p>Extend propositional logic with two operators — φ ::= p | ¬φ | φ ∧ φ | □φ | ◇φ — and interpret them over a Kripke frame (W, R): a set of worlds and an accessibility relation. A model (W, R, V) adds a valuation, and truth becomes local: M, w ⊨ □φ iff M, w′ ⊨ φ for <em>every</em> w′ ∈ R(w), with ◇ its existential dual. The move to evaluate formulas <em>at worlds</em> — rather than absolutely — is the single idea underneath everything in this track, from knowledge operators to public announcements. The standard translation into first-order logic (□ becomes a guarded ∀) is worth learning immediately: it situates modal logic inside FOL and sets up van Benthem's theorem.</p>
+        <ul class="must">
+          <li><b>Define</b> frames, models, and the satisfaction relation, and evaluate □/◇ formulas at named worlds in given diagrams.</li>
+          <li><b>Compute</b> the standard translation of any modal formula into first-order logic.</li>
+          <li><b>Construct</b> a model separating □(φ∨ψ) from □φ ∨ □ψ — your first countermodel.</li>
+        </ul>
+      </div>
+
+      <div class="topic">
+        <h5>Modal Axioms &amp; Frame Correspondence <span class="tsec">— BdRV §1.4, §3.1</span></h5>
+        <p>Each famous axiom is a first-order condition on R wearing modal clothing: T (□φ → φ) corresponds to reflexivity, 4 (□φ → □□φ) to transitivity, B (φ → □◇φ) to symmetry, 5 (◇φ → □◇φ) to euclideanness — while K, □(φ→ψ) → (□φ→□ψ), holds on every frame. Every correspondence proof has two directions and you must own both: <em>if the frame has the property, the axiom is valid</em> — a direct semantic argument unwinding the truth clauses — and <em>if the axiom is valid on the frame, the frame has the property</em> — where you cunningly choose a valuation (typically V(p) = {v : wRv}) that forces the geometry to reveal itself. Stack the axioms and the systems appear: S4 = K+T+4 makes R a preorder; <span class="thm" data-tip="S5 = K + T + 5 — reflexive, transitive, euclidean: an equivalence relation. The logic of knowledge: factive, with full positive and negative introspection.">S5</span> = K+T+5 makes it an equivalence relation, which is why S5 will model knowledge in Phase 2.</p>
+        <ul class="must">
+          <li><b>Prove</b> both directions of the correspondence for each of T, 4, B, and 5, including the valuation trick for the hard direction.</li>
+          <li><b>Show</b> that K needs no frame condition and that reflexive + euclidean implies symmetric + transitive (so S5 frames are equivalence relations).</li>
+          <li><b>Produce</b> for each axiom a frame that refutes it — the negative side of the dictionary.</li>
+        </ul>
+      </div>
+
+      <div class="topic">
+        <h5>Canonical Models &amp; Completeness <span class="tsec">— BdRV §4.1–4.3</span></h5>
+        <p>Completeness for modal logics is the Henkin construction replayed: worlds of the canonical model are <em>maximal consistent sets</em> of formulas, and Δ R Δ′ holds iff every □φ ∈ Δ has φ ∈ Δ′. A modal Lindenbaum lemma supplies the worlds; the existence lemma shows every ◇φ ∈ Δ is witnessed by an accessible world; and the truth lemma — M<sup>c</sup>, Δ ⊨ φ ⇔ φ ∈ Δ — closes the loop by induction on φ. Completeness for a specific system then reduces to a frame check: prove the canonical relation of S5 is an equivalence relation and S5-completeness falls out. Feel the rhyme with week 6–8 of Track 1 — it is the same proof-shape, and recognizing that shape is half of what this semester teaches.</p>
+        <ul class="must">
+          <li><b>Construct</b> the canonical model and prove the existence and truth lemmas in full.</li>
+          <li><b>Prove</b> completeness for K, T, S4, and S5 by verifying the canonical frame conditions each axiom forces.</li>
+          <li><b>Articulate</b> the exact parallel with the Henkin construction — what plays the role of witnesses, what of the canonical domain.</li>
+        </ul>
+      </div>
+
+      <div class="topic">
+        <h5>Bisimulation &amp; What Modal Logic Can See <span class="tsec">— BdRV §2.1–2.2</span></h5>
+        <p>A bisimulation is a relation between models satisfying three clauses — atomic harmony, forth, and back — and bisimilar worlds satisfy exactly the same modal formulas. It is the precise answer to "when do two models look the same to modal eyes," and building bisimulations (or proving none exists) is a skill you will drill on concrete diagrams. The crown is the <span class="thm" data-tip="Van Benthem: modal logic is exactly the bisimulation-invariant fragment of first-order logic.">van Benthem characterization</span>: a first-order formula is equivalent to (the translation of) a modal one iff it is invariant under bisimulation — modal logic is exactly the bisimulation-invariant fragment of FOL. File this next to the Ehrenfeucht–Fraïssé games of Track 4; they are the same idea, played over different logics.</p>
+        <ul class="must">
+          <li><b>Define</b> bisimulation (atomic / forth / back) and prove bisimilar worlds are modally equivalent, by induction.</li>
+          <li><b>Exhibit</b> a bisimulation between two nontrivial models, and two models that are modally distinguishable, with the separating formula.</li>
+          <li><b>State</b> the van Benthem characterization and explain its "expressiveness boundary" meaning.</li>
+        </ul>
+      </div>
+
+      <div class="vault-note">Frame correspondence theorem (full proof for each axiom)</div>
+      <div class="vault-note">Completeness for S5 (canonical model, full proof)</div>
+      <div class="vault-note">Kripke semantics + bisimulation definitions with examples</div>
+    </div></div>
+  </div>
+
+  <div class="phase">
+    <div class="phase-head"><span class="pw">Weeks 9–12</span><h4>Phase 2 — Epistemic Logic</h4><span class="tog">▾</span></div>
+    <div class="phase-body"><div class="phase-inner">
+      <div class="book">Fagin, Halpern, Moses &amp; Vardi, <em>Reasoning About Knowledge</em>, Ch. 1–3</div>
+      <p class="phase-pre">Now the boxes acquire meaning: □ becomes <b>K</b>ᵢ — "agent i knows" — and the frame conditions of Phase 1 become claims about rational minds. Four weeks take you from single-agent knowledge through belief, up to common knowledge and the muddy children, and out the far side into AGM belief revision — the formal theory of changing your mind, and the ancestor of your BRAIN agent's memory update.</p>
+
+      <div class="topic">
+        <h5>Knowledge as S5 <span class="tsec">— FHMV Ch. 1–2</span></h5>
+        <p>Read Kᵢφ as "agent i knows φ" and interpret each agent's accessibility relation as <em>indistinguishability</em>: wRᵢv means that in world w, agent i cannot rule out being in v. The S5 axioms then become epistemology: factivity Kᵢφ → φ (what is known must be true — this is what separates knowledge from opinion), positive introspection Kᵢφ → KᵢKᵢφ, and the boldest, negative introspection ¬Kᵢφ → Kᵢ¬Kᵢφ — the agent knows what it does not know. Each corresponds, via Phase 1's dictionary, to Rᵢ being an equivalence relation, so multi-agent epistemic models are just worlds partitioned differently by different agents. Interrogate negative introspection honestly: it is the S5 axiom most often false of humans and most nearly true of well-designed database systems and agents.</p>
+        <ul class="must">
+          <li><b>Translate</b> each S5 axiom into its epistemic reading and its frame condition, fluently in both directions.</li>
+          <li><b>Prove</b> S5 completeness under the knowledge interpretation (partition models), reusing the canonical model machinery.</li>
+          <li><b>Argue</b> for and against negative introspection as a principle of knowledge — with a formal countermodel for the "against."</li>
+        </ul>
+      </div>
+
+      <div class="topic">
+        <h5>Belief as KD45 <span class="tsec">— FHMV Ch. 2–3</span></h5>
+        <p>Belief is knowledge with the safety rail removed: Bᵢφ is <em>not</em> factive, because agents can be wrong. Drop T, keep 4 and 5, and add D — ¬(Bᵢφ ∧ Bᵢ¬φ), the demand that beliefs at least be consistent — and you get KD45, whose frames are serial, transitive, and euclidean. The single missing axiom is the entire philosophy of the system: a KD45 agent is coherent and fully introspective yet possibly deluded, which is exactly the epistemic condition of any real agent acting on a model of the world. Build models where an agent believes falsehoods confidently, and study how knowledge and belief interact when both operators live in one system.</p>
+        <ul class="must">
+          <li><b>State</b> KD45 and derive the frame conditions (serial + transitive + euclidean) for each axiom.</li>
+          <li><b>Construct</b> a model of consistent, introspective, and false belief — and verify every KD45 axiom holds in it.</li>
+          <li><b>Write</b> the S5 vs KD45 comparison precisely: which theorems separate them, and why factivity is the whole difference.</li>
+        </ul>
+      </div>
+
+      <div class="topic">
+        <h5>Common Knowledge &amp; the Muddy Children <span class="tsec">— FHMV Ch. 2, §6</span></h5>
+        <p>Everyone knowing φ is weak; common knowledge Cφ — everyone knows φ, and knows that everyone knows, and so on, all the way up — is what coordination actually requires. Formally C is a <span class="thm" data-tip="Cφ ↔ φ ∧ K₁(Cφ) ∧ K₂(Cφ) ∧ … — common knowledge is the greatest fixed point of 'everyone knows φ and …'. Infinitary: not expressible in basic multi-agent epistemic logic.">fixed point</span>: Cφ ↔ φ ∧ K₁(Cφ) ∧ K₂(Cφ) ∧ … — an infinitary operator that escapes first-order logic, evaluated semantically by reachability along the union of all agents' relations. The classic proving ground is the muddy children puzzle: three children, at least one with mud on their forehead; the parent announces "at least one of you has mud"; the question "do you know whether you are muddy?" is asked repeatedly — and each round of silence is itself an announcement, shrinking the model, until after k rounds exactly the k muddy children know. The subtlety worth savoring: if k ≥ 2 the parent's announcement tells no child anything they could not see — what it creates is common knowledge, and that alone drives the deduction.</p>
+        <ul class="must">
+          <li><b>Define</b> Cφ via the fixed-point equation and via reachability, and prove the two agree.</li>
+          <li><b>Formalize</b> the muddy children in a Kripke model (the 8-world cube for n = 3) and prove the solution by induction on rounds.</li>
+          <li><b>Explain</b> what the parent's announcement adds when every child can already see the mud — the common-knowledge answer, precisely.</li>
+        </ul>
+      </div>
+
+      <div class="topic">
+        <h5>Belief Revision — the AGM Framework <span class="tsec">— AGM 1985 + FHMV notes</span></h5>
+        <p>Epistemic logic describes belief at an instant; AGM asks how a rational agent should <em>change</em> beliefs when new information arrives. Three operations — expansion K+φ (add and close), contraction K−φ (retract φ minimally), revision K∗φ (accept φ, restoring consistency) — are governed by the AGM postulates: closure, success, inclusion, vacuity, consistency, and extensionality, with the deep pair linked by the Levi and Harper identities. The animating principle is <em>minimal change</em>: surrender as little as possible of what you believed. This is your BRAIN agent's memory update wearing formal dress — µ(M, s, a) → M′, the belief state after an action, is a revision operator, and in Phase 3 DEL will give the same idea a possible-worlds semantics.</p>
+        <ul class="must">
+          <li><b>State</b> the AGM postulates for revision and explain the rationale of each in one sentence.</li>
+          <li><b>Define</b> one concrete revision function (e.g., via epistemic entrenchment or partial meet) and verify it satisfies the postulates.</li>
+          <li><b>Map</b> your agent's memory update µ(M, s, a) → M′ onto expansion / contraction / revision, identifying which it performs when.</li>
+        </ul>
+      </div>
+
+      <div class="vault-note">S5 completeness (knowledge interpretation) + KD45 vs S5 comparison</div>
+      <div class="vault-note">Muddy children formalization + proof</div>
+      <div class="vault-note">AGM postulates + one revision function ★</div>
+    </div></div>
+  </div>
+
+  <div class="phase">
+    <div class="phase-head"><span class="pw">Weeks 13–15</span><h4>Phase 3 — Dynamic Epistemic Logic ★ frontier</h4><span class="tog">▾</span></div>
+    <div class="phase-body"><div class="phase-inner">
+      <div class="book">van Ditmarsch, van der Hoek &amp; Kooi, <em>Dynamic Epistemic Logic</em></div>
+      <p class="phase-pre">The frontier. Epistemic logic freezes a moment of knowledge; DEL sets it in motion — announcements shrink models, actions transform them, and <b>learning becomes a model operation</b>. Three weeks: public announcements, then arbitrary action models, then the payoff — one full turn of your own agent, formalized.</p>
+
+      <div class="topic">
+        <h5>Public Announcement Logic <span class="tsec">— vDvHK Ch. 4</span></h5>
+        <p>[!φ]ψ reads "after φ is truthfully, publicly announced, ψ holds," and its semantics is surgery: announcing φ deletes every ¬φ-world, and ψ is evaluated in the smaller model M|φ. The miracle of PAL is that the dynamic operator is eliminable, via the reduction axioms: [!φ]p ↔ (φ → p) for atoms, [!φ]¬ψ ↔ (φ → ¬[!φ]ψ), [!φ](ψ ∧ χ) ↔ ([!φ]ψ ∧ [!φ]χ), and the crown jewel — <span class="thm" data-tip="[!φ]Kᵢψ ↔ (φ → Kᵢ[!φ]ψ) — knowledge after an announcement reduces to conditional knowledge before it. The key PAL axiom.">[!φ]Kᵢψ ↔ (φ → Kᵢ[!φ]ψ)</span> ★ MEMORIZE THIS — knowledge after the announcement equals conditional knowledge, before it, of the announcement's consequences. Each axiom is proved by unwinding the update semantics at a world, and together they translate PAL into plain epistemic logic, which is exactly how completeness is proved. Run the muddy children through PAL and watch each round of silence become a literal announcement deleting worlds: the puzzle solves itself in three updates. Then meet Moore sentences — p ∧ ¬Kp, true but unknowable, false after being announced — the proof that announcements do not simply "add" knowledge.</p>
+        <ul class="must">
+          <li><b>Prove</b> all four reduction axioms from the update semantics, the Kᵢ axiom in complete detail.</li>
+          <li><b>Compute</b> the muddy-children solution as a sequence of model restrictions, drawing each intermediate model.</li>
+          <li><b>Explain</b> completeness-by-translation, and why a Moore sentence p ∧ ¬Kᵢp falsifies "announcing φ always makes φ known."</li>
+        </ul>
+      </div>
+
+      <div class="topic">
+        <h5>Action Models &amp; Product Update <span class="tsec">— vDvHK Ch. 6</span></h5>
+        <p>Public announcement is the simplest epistemic event; action models generalize to anything agents can partially observe — private messages, suspicions, whispers. An action model A is itself a Kripke structure whose points are possible <em>events</em>, each with a precondition, and whose relations encode what each agent can distinguish about what happened. The new state of the world is the product update M ⊗ A: pairs (w, a) with M, w ⊨ pre(a), with (w, a) Rᵢ (v, b) iff wRᵢv in M and aRᵢb in A — uncertainty about the world composes with uncertainty about the event. Public announcement falls out as the one-point action model, and sequences of actions compose. This is the general theory of how an epistemic state evolves under observation: every agent action is an action model.</p>
+        <ul class="must">
+          <li><b>Define</b> action models and product update precisely, and recover [!φ] as a special case.</li>
+          <li><b>Compute</b> M ⊗ A for a private announcement to one of two agents, and verify the second agent's resulting uncertainty.</li>
+          <li><b>Explain</b> how composing action models represents a sequence of observations.</li>
+        </ul>
+      </div>
+
+      <div class="topic">
+        <h5>Application — One Turn of Your Agent <span class="tsec">— your paper, DEL in action</span></h5>
+        <p>Now spend the machinery. Formalize one turn of your BRAIN agent: the agent observes O (what it learns this turn), its belief state B updates by product update with the action model representing that observation, it reasons in the resulting model using Kᵢ and Bᵢ, and it acts on the routing decision the reasoning licenses. The memory update µ(M, s, a) → M′ from Phase 2 becomes literal: M′ = M ⊗ A(a, s), and AGM's minimal-change principle becomes a constraint on which action models are admissible. Two to three pages, definitions first, one fully worked turn, every step justified — this artifact is DEL doing real work, and it is the piece of the vault that belongs in a statement of purpose aimed at the ILLC.</p>
+        <ul class="must">
+          <li><b>Model</b> a concrete observation of your agent as an action model, preconditions and all.</li>
+          <li><b>Derive</b> the post-observation belief state via product update and verify the agent's Kᵢ/Bᵢ reasoning inside it.</li>
+          <li><b>Write</b> the 2–3 page formalization end to end, defensible line by line.</li>
+        </ul>
+      </div>
+
+      <div class="vault-note">PAL reduction axioms (proofs for each) ★★★</div>
+      <div class="vault-note">Action model definition + examples</div>
+      <div class="vault-note">"DEL formalization of an agent turn" — 2–3 pages ★★</div>
+    </div></div>
+  </div>
+
+  <div class="led-label">The Weeks · Track 2 Ledger</div>
+  <div class="ledger">
+    <div class="lrow"><div class="wk">WK 5</div><div class="rd">BdRV §1.1–1.3 — frames, models, truth at a world; standard translation <em>· evaluation drills on given diagrams</em></div><div class="due"><b>Due:</b> Kripke semantics definitions sheet + standard-translation exercises</div></div>
+    <div class="lrow"><div class="wk">WK 6</div><div class="rd">BdRV §1.4, §3.1 — the axioms T, 4, B, 5 and their frame conditions</div><div class="due"><b>Due:</b> frame correspondence, both directions, all four axioms, LaTeX</div></div>
+    <div class="lrow"><div class="wk">WK 7</div><div class="rd">BdRV §4.1–4.2 — canonical model, modal Lindenbaum, existence lemma; completeness for K and T</div><div class="due"><b>Due:</b> existence + truth lemma write-up</div></div>
+    <div class="lrow"><div class="wk">WK 8</div><div class="rd">BdRV §4.3, §2.1–2.2 — completeness for S4/S5; bisimulation, van Benthem</div><div class="due"><b>Due:</b> S5 completeness, full LaTeX + two bisimulation exercises</div></div>
+    <div class="lrow"><div class="wk">WK 9</div><div class="rd">FHMV Ch. 1–2 — knowledge as S5, indistinguishability, introspection</div><div class="due"><b>Due:</b> S5-as-knowledge dossier + the case against negative introspection</div></div>
+    <div class="lrow"><div class="wk">WK 10</div><div class="rd">FHMV Ch. 2–3 — belief as KD45, seriality, knowledge–belief interaction</div><div class="due"><b>Due:</b> KD45 vs S5 comparison memo with countermodels</div></div>
+    <div class="lrow"><div class="wk">WK 11</div><div class="rd">FHMV Ch. 2 §6 — common knowledge as fixed point; the muddy children</div><div class="due"><b>Due:</b> muddy-children formalization + inductive proof (the 8-world cube)</div></div>
+    <div class="lrow"><div class="wk">WK 12</div><div class="rd">AGM 1985 — expansion, contraction, revision; Levi identity; entrenchment</div><div class="due"><b>Due:</b> AGM postulates + one revision function, verified</div></div>
+    <div class="lrow"><div class="wk">WK 13</div><div class="rd">vDvHK Ch. 4 — PAL semantics, reduction axioms, Moore sentences</div><div class="due"><b>Due:</b> all four reduction-axiom proofs — [!φ]Kᵢψ in full ★</div></div>
+    <div class="lrow"><div class="wk">WK 14</div><div class="rd">vDvHK Ch. 6 — action models, product update M ⊗ A, composition</div><div class="due"><b>Due:</b> private-announcement worked example via product update</div></div>
+    <div class="lrow"><div class="wk">WK 15</div><div class="rd">Synthesis — your agent's turn as DEL: observation, update, reasoning, action</div><div class="due"><b>Due:</b> "DEL formalization of an agent turn," 2–3 pages ★★</div></div>
+  </div>
+
+  <div class="vault-box" data-tilt>
+    <i class="arc-corners" aria-hidden="true"></i>
+    <h5>Proof Vault — Track 2</h5>
+    <ul>
+      <li>Frame correspondence theorem (T ↔ reflexive, …)<small class="own"><b>owning it means:</b> both directions for T, 4, B, 5 — valuation trick included — written out cold.</small></li>
+      <li>Completeness for K, T, S4, S5 <span class="star">★</span><small class="own"><b>owning it means:</b> canonical model, existence lemma, truth lemma reproduced closed-book for each system.</small></li>
+      <li>Knowledge vs belief (S5 vs KD45)<small class="own"><b>owning it means:</b> every axiom difference defended with a countermodel, factivity front and center.</small></li>
+      <li>Common knowledge fixed-point<small class="own"><b>owning it means:</b> the fixed-point / reachability equivalence proved, not just stated.</small></li>
+      <li>AGM belief revision axioms <span class="star">★</span><small class="own"><b>owning it means:</b> all postulates recited + one revision function verified against every one of them.</small></li>
+      <li>PAL reduction axioms — [!φ]Kᵢψ especially <span class="star">★★★</span><small class="own"><b>owning it means:</b> each proof reproduced from the update semantics; [!φ]Kᵢψ ↔ (φ → Kᵢ[!φ]ψ) derivable in your sleep.</small></li>
+      <li>Action model composition<small class="own"><b>owning it means:</b> product update defined precisely and computed on a private announcement, unprompted.</small></li>
+      <li>DEL formalization of your agent <span class="star">★★</span><small class="own"><b>owning it means:</b> one full agent turn formalized end to end and defensible line by line.</small></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= TRACK 3 ================= -->
+<section id="t3" class="reveal">
+  <div class="track-head">
+    <div class="track-tag">Track 3 · Months 4–6</div>
+    <h2 class="track-title gilt">Set Theory</h2>
+    <div class="track-months">Enderton, <em>Elements of Set Theory</em>, Ch. 1–5</div>
+  </div>
+  <p class="track-intro">The ground on which all of mathematics is quietly built — nine axioms, the infinite made precise, and the one proof that ties them together: Choice.</p>
+  <div class="track-stats"><div><b>9</b>weeks</div><div><b>2</b>phases</div><div><b>6</b>vault targets</div></div>
+  <span class="marginalia right" style="top:460px">ex nihilo — from ∅, everything</span>
+
+  <div class="phase">
+    <div class="phase-head"><span class="pw">Weeks 8–12</span><h4>Phase 1 — ZFC Axioms &amp; Ordinals</h4><span class="tog">▾</span></div>
+    <div class="phase-body"><div class="phase-inner">
+      <div class="book">Enderton, <em>Elements of Set Theory</em>, Ch. 1–5</div>
+      <p class="phase-pre">Everything in mathematics is officially a set, and these five weeks make you a citizen of that regime rather than a tourist. First the <b>nine axioms</b>, stated in first-order formulas and defended one by one; then the ordinals, which extend induction past the finite; then Cantor's diagonal, which cracks the infinite open into sizes.</p>
+
+      <div class="topic">
+        <h5>The Nine Axioms of ZFC <span class="tsec">— Enderton Ch. 1–2</span></h5>
+        <p>ZFC is a first-order theory in the single relation symbol ∈, and each axiom answers a specific question: which sets are we entitled to assume exist, and what makes two of them equal? Learn each formula together with its motivation and its danger — Separation exists <em>as a schema restricted to subsets</em> precisely because unrestricted comprehension yields Russell's paradox; Replacement is what Zermelo's original system was missing; Foundation forbids ∈-descending chains and gives the cumulative hierarchy its floor. The nine, stated precisely:</p>
+        <ul class="sublist" style="margin:8px 0 12px;">
+          <li>Extensionality: ∀x ∀y (∀z(z∈x ↔ z∈y) → x=y) — a set is nothing but its members</li>
+          <li>Pairing: ∀x ∀y ∃z(x∈z ∧ y∈z) · Union: ∀x ∃y ∀z(z∈y ↔ ∃w(w∈x ∧ z∈w))</li>
+          <li>Power set: ∀x ∃y ∀z(z∈y ↔ ∀w(w∈z → w∈x)) · Separation (subset schema — comprehension, tamed)</li>
+          <li>Infinity: ∃x(∅∈x ∧ ∀y(y∈x → S(y)∈x)) where S(y) = y∪{y}</li>
+          <li>Replacement: the image of a set under a definable function is a set</li>
+          <li>Foundation: ∀x(x≠∅ → ∃y∈x ∀z∈x(z∉y)) — no infinite ∋ chains</li>
+          <li><span class="thm" data-tip="Axiom of Choice: every family of nonempty sets admits a choice function — ∀x ∃f (f is a choice function for x).">Choice</span>: ∀x ∃f (f is a choice function for x) ★★</li>
+        </ul>
+        <ul class="must">
+          <li><b>State</b> all nine axioms in first-order formulas, closed-book, with one sentence of motivation each.</li>
+          <li><b>Derive</b> Russell's paradox from unrestricted comprehension, and show how Separation blocks it.</li>
+          <li><b>Construct</b> ordered pairs, unions, and cartesian products from the axioms alone, citing each axiom used.</li>
+        </ul>
+      </div>
+
+      <div class="topic">
+        <h5>Ordinal Numbers &amp; Transfinite Induction <span class="tsec">— Enderton Ch. 4, 7</span></h5>
+        <p>An ordinal is a transitive set well-ordered by ∈ — a definition so economical that the number <em>is</em> the set of its predecessors: 0 = ∅, 1 = {∅}, 2 = {∅,{∅}}, and upward through the first infinite ordinal ω to ω+1, ω·2, ω², and beyond. The two engines of the theory are <span class="thm" data-tip="If P(β) for all β &lt; α implies P(α), for every ordinal α, then P holds of all ordinals — induction extended past the finite.">transfinite induction</span> — prove ∀α P(α) by showing P holds at α whenever it holds below α, with successor and limit cases handled separately — and <span class="thm" data-tip="A function on the ordinals may be defined by specifying its value at α in terms of its restriction below α; existence and uniqueness are proved by taking unions of approximating functions.">transfinite recursion</span>, which legitimizes defining functions on the ordinals by their behavior on all earlier values. The recursion theorem's proof — existence and uniqueness via unions of coherent approximations — is a template you will reuse verbatim in the AC ⟺ Zorn proof of Phase 2, so learn it as a <em>method</em>, not a fact.</p>
+        <ul class="must">
+          <li><b>Prove</b> the basic ordinal facts: every member of an ordinal is an ordinal; any two ordinals are comparable.</li>
+          <li><b>Prove</b> the transfinite induction principle from the well-ordering of the ordinals, distinguishing successor from limit cases.</li>
+          <li><b>Prove</b> the transfinite recursion theorem — the approximating-functions argument in full.</li>
+        </ul>
+      </div>
+
+      <div class="topic">
+        <h5>Cardinals &amp; Cantor's Theorem <span class="tsec">— Enderton Ch. 6</span></h5>
+        <p>The cardinal |X| is the least ordinal equinumerous with X; ℵ₀ = |ℕ| is countability, ℵ₁ the first uncountable size. <span class="thm" data-tip="Cantor: |P(X)| &gt; |X| for every set X — proved by the same diagonal argument that powers Gödel's theorem.">Cantor's theorem</span> — |P(X)| &gt; |X| for every set X — is three lines that changed mathematics: given any f: X → P(X), the diagonal set D = {x ∈ X : x ∉ f(x)} can be no f(x), so no surjection exists. It is <em>the same diagonal</em> you met in Gödel and Turing (Track 1, week 12), now in its original habitat, and it yields 2^ℵ₀ &gt; ℵ₀ — the reals are uncountable — immediately. Cardinal arithmetic then turns out strangely flat below the power set: ℵ₀ + ℵ₀ = ℵ₀ and ℵ₀ · ℵ₀ = ℵ₀ (the pairing function), while the continuum hypothesis — is 2^ℵ₀ = ℵ₁? — is <em>independent</em> of ZFC (Gödel 1938, Cohen 1963): the axioms simply do not decide it.</p>
+        <ul class="must">
+          <li><b>Reproduce</b> the diagonal proof of Cantor's theorem in three sentences, for any audience, on demand.</li>
+          <li><b>Compute</b> with cardinal arithmetic: prove ℵ₀ · ℵ₀ = ℵ₀ via an explicit pairing, and derive |ℝ| = 2^ℵ₀.</li>
+          <li><b>State</b> the continuum hypothesis and explain, precisely, what its independence from ZFC means.</li>
+        </ul>
+      </div>
+
+      <div class="vault-note">All nine ZFC axioms with motivation</div>
+      <div class="vault-note">Transfinite induction + recursion (full theorems)</div>
+      <div class="vault-note">Cantor's theorem (diagonal proof) ★★</div>
+    </div></div>
+  </div>
+
+  <div class="phase">
+    <div class="phase-head"><span class="pw">Weeks 13–16</span><h4>Phase 2 — The Axiom of Choice &amp; Equivalents</h4><span class="tog">▾</span></div>
+    <div class="phase-body"><div class="phase-inner">
+      <p class="phase-pre">One axiom, three faces, and the proof that they are the same face. The equivalence <b>AC ⟺ Zorn ⟺ well-ordering</b> is the centerpiece of the track — a single sustained argument powered by the transfinite recursion you built in Phase 1 — and around it, the strange moral landscape of an axiom that mathematics cannot live without and cannot quite look at directly.</p>
+
+      <div class="topic">
+        <h5>The Three Forms of Choice <span class="tsec">— Enderton Ch. 6, 7</span></h5>
+        <p>The Axiom of Choice says every family of nonempty sets admits a choice function; Zorn's Lemma says a poset in which every chain has an upper bound contains a maximal element; the well-ordering theorem says every set can be well-ordered. On their faces these could not look less alike — one is about selection, one about maximality, one about order — and yet <span class="thm" data-tip="AC ⟺ Zorn's Lemma ⟺ Well-Ordering theorem — three faces of one principle; the full equivalence is the track's centerpiece proof.">all three are equivalent over ZF</span>. Before proving the equivalence, learn each statement precisely enough to catch the standard misstatements (Zorn needs <em>every</em> chain bounded, including the empty one), and warm up on the easy equivalences, like AC ⟺ every product of nonempty sets is nonempty.</p>
+        <ul class="must">
+          <li><b>State</b> all three forms with complete precision, closed-book.</li>
+          <li><b>Prove</b> the warm-up: AC ⟺ nonempty cartesian products, and WO ⟹ AC in two lines (choose least elements).</li>
+          <li><b>Explain</b> why each form is the "natural" tool in its home territory — selection, maximality, order.</li>
+        </ul>
+      </div>
+
+      <div class="topic">
+        <h5>The Equivalence — AC ⟺ Zorn ⟺ Well-Ordering ★★★ <span class="tsec">— the centerpiece</span></h5>
+        <p>The cycle is proved AC ⟹ Zorn ⟹ WO ⟹ AC, and the hard arrow is the first. The strategy is <em>transfinite recursion</em>: given a poset where every chain is bounded, use a choice function to define, by recursion on the ordinals, a strictly increasing chain — at each stage, choose a strict upper bound of what has been built so long as one exists. If the recursion never halted it would inject the entire class of ordinals into your poset, contradicting Replacement (via Hartogs' theorem there is always an ordinal too big to embed); so it halts, and where it halts sits a maximal element. Zorn ⟹ WO applies Zorn to the poset of partial well-orderings of X, ordered by end-extension, and shows a maximal one must exhaust X; WO ⟹ AC is the two-line dessert. The vault standard: the entire cycle, closed-book, with the recursion-and-halting argument in full detail — this is THE proof of the track.</p>
+        <ul class="must">
+          <li><b>Reproduce</b> AC ⟹ Zorn in full: the recursion, the role of the choice function, and the Hartogs/Replacement argument for why it must halt.</li>
+          <li><b>Prove</b> Zorn ⟹ WO via maximal partial well-orderings under end-extension, checking the chain-bound condition honestly.</li>
+          <li><b>Close</b> the cycle with WO ⟹ AC and diagram the whole equivalence from memory.</li>
+        </ul>
+      </div>
+
+      <div class="topic">
+        <h5>Applications, Consequences &amp; Mysteries <span class="tsec">— Enderton Ch. 6–7 + notes</span></h5>
+        <p>Now trace where Choice already touched your semester and where it gets strange. Lindenbaum's lemma — the beating heart of the Henkin proof in Track 1 — is Zorn applied to consistent extensions; every vector space having a basis is Zorn applied to linearly independent sets; Hahn–Banach extends functionals by the same maximality move. But the same axiom yields the Banach–Tarski paradox: a sphere decomposed, by non-measurable pieces, into two spheres of the original size — "paradox" meaning not contradiction but the price of non-constructive selection. And the axiom's status is exactly as delicate as CH's: Gödel (1938) showed ZF cannot refute AC, Cohen (1963) showed ZF cannot prove it. Constructivists decline it; nearly all of modern mathematics silently spends it. The essay asks you to take a position and defend it.</p>
+        <ul class="must">
+          <li><b>Identify</b> the exact point in Lindenbaum's lemma where Zorn is invoked, and rewrite that step explicitly.</li>
+          <li><b>Prove</b> that every vector space has a basis, as a worked Zorn application.</li>
+          <li><b>Explain</b> the Banach–Tarski construction's reliance on Choice (non-measurable sets) and what "independent of ZF" means for AC.</li>
+        </ul>
+      </div>
+
+      <div class="vault-note">AC ⟺ Zorn ⟺ well-ordering — THE proof ★★★</div>
+      <div class="essay-note">Essay: "Why choice is both beautiful and controversial."</div>
+    </div></div>
+  </div>
+
+  <div class="led-label">The Weeks · Track 3 Ledger</div>
+  <div class="ledger">
+    <div class="lrow"><div class="wk">WK 8</div><div class="rd">Enderton Ch. 1–2 — extensionality, pairing, union, power set, separation; Russell's paradox <em>· Ch. 1–2 exercises</em></div><div class="due"><b>Due:</b> first five axioms with formulas + motivations, LaTeX</div></div>
+    <div class="lrow"><div class="wk">WK 9</div><div class="rd">Enderton Ch. 2–4 — infinity, replacement, foundation, choice; ω constructed</div><div class="due"><b>Due:</b> all nine ZFC axioms, closed-book recitation + written motivations</div></div>
+    <div class="lrow"><div class="wk">WK 10</div><div class="rd">Enderton Ch. 4, 7 — ordinals as transitive ∈-well-ordered sets; von Neumann ladder; successor and limit</div><div class="due"><b>Due:</b> ordinal problem set — comparability, transitivity, trichotomy</div></div>
+    <div class="lrow"><div class="wk">WK 11</div><div class="rd">Enderton Ch. 7 — transfinite induction and recursion, both proved</div><div class="due"><b>Due:</b> transfinite induction + recursion, full LaTeX proofs</div></div>
+    <div class="lrow"><div class="wk">WK 12</div><div class="rd">Enderton Ch. 6 — equinumerosity, cardinals, Cantor's diagonal, CH</div><div class="due"><b>Due:</b> Cantor's theorem ★★ + cardinal-arithmetic sheet (ℵ₀ cases proved)</div></div>
+    <div class="lrow"><div class="wk">WK 13</div><div class="rd">The three forms of Choice; warm-up equivalences; Hartogs' theorem</div><div class="due"><b>Due:</b> precise statements of AC / Zorn / WO + the warm-up proofs</div></div>
+    <div class="lrow"><div class="wk">WK 14</div><div class="rd">AC ⟹ Zorn — the transfinite-recursion chain construction, in detail</div><div class="due"><b>Due:</b> AC ⟹ Zorn write-up: recursion, choice function, halting via Hartogs</div></div>
+    <div class="lrow"><div class="wk">WK 15</div><div class="rd">Zorn ⟹ WO ⟹ AC — partial well-orderings under end-extension; the cycle closes</div><div class="due"><b>Due:</b> the full equivalence cycle, one dossier ★★★</div></div>
+    <div class="lrow"><div class="wk">WK 16</div><div class="rd">Applications — Lindenbaum via Zorn, bases for vector spaces, Hahn–Banach, Banach–Tarski; independence (Gödel, Cohen)</div><div class="due"><b>Due:</b> essay "Why choice is both beautiful and controversial"</div></div>
+  </div>
+
+  <div class="vault-box" data-tilt>
+    <h5>Proof Vault — Track 3</h5>
+    <ul>
+      <li>ZFC axioms (all 9, stated + explained)<small class="own"><b>owning it means:</b> all nine formulas plus motivations recited closed-book, Russell's paradox blocked on request.</small></li>
+      <li>Transfinite induction (principle + proof)<small class="own"><b>owning it means:</b> the principle derived from the well-ordering of ordinals, successor and limit cases separated, no notes.</small></li>
+      <li>Transfinite recursion (definition works)<small class="own"><b>owning it means:</b> the approximating-functions existence-and-uniqueness argument reproduced cold.</small></li>
+      <li>Cantor's theorem: |P(X)| &gt; |X| <span class="star">★★</span><small class="own"><b>owning it means:</b> the diagonal set D = {x : x ∉ f(x)} argument delivered in three sentences to any audience.</small></li>
+      <li>AC ⟺ Zorn ⟺ well-ordering <span class="star">★★★</span><small class="own"><b>owning it means:</b> the whole cycle — transfinite recursion, Hartogs halting, end-extension — closed-book.</small></li>
+      <li>Cardinal arithmetic (key theorems)<small class="own"><b>owning it means:</b> ℵ₀ + ℵ₀ = ℵ₀ and ℵ₀ · ℵ₀ = ℵ₀ proved with explicit pairings, |ℝ| = 2^ℵ₀ derived.</small></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= TRACK 4 ================= -->
+<section id="t4" class="reveal">
+  <div class="track-head">
+    <div class="track-tag">Track 4 · Months 6–9</div>
+    <h2 class="track-title gilt">Model Theory</h2>
+    <div class="track-months">Marker, <em>Model Theory: An Introduction</em>, Ch. 1–3</div>
+  </div>
+  <p class="track-intro">The study of the relationship between formal languages and the structures that satisfy them — where logic becomes geometry, and games decide truth.</p>
+  <div class="track-stats"><div><b>10</b>weeks</div><div><b>3</b>phases</div><div><b>7</b>vault targets</div></div>
+
+  <div class="phase">
+    <div class="phase-head"><span class="pw">Weeks 12–18</span><h4>Phase 1 — Elementary Equivalence &amp; Types</h4><span class="tog">▾</span></div>
+    <div class="phase-body"><div class="phase-inner">
+      <div class="book">Marker, <em>Model Theory: An Introduction</em>, Ch. 1–3</div>
+      <p class="phase-pre">Model theory begins where Track 1 ended: completeness and compactness in hand, you now study <b>what first-order sentences can and cannot distinguish</b>. This phase builds the field's basic optics — elementary equivalence, types, and the two classification theorems (omitting types, Ryll-Nardzewski) that tell you how much a theory constrains its models.</p>
+
+      <div class="topic">
+        <h5>Elementary Equivalence &amp; Embeddings <span class="tsec">— Marker §1.1–1.2, §2.3</span></h5>
+        <p>M ≡ N means M and N satisfy exactly the same first-order sentences — indistinguishable to the language, however different they look from outside. The stronger relation M ≺ N, elementary embedding, demands that N agree with M on all formulas <em>with parameters from M</em>: substructure plus the Tarski–Vaught condition. The canonical example carries the whole idea: (ℚ,&lt;) ≡ (ℝ,&lt;) — a countable and an uncountable order that first-order logic cannot tell apart, because both are dense linear orders without endpoints; while (ℕ,&lt;) ≢ (ℚ,&lt;), separated by the sentence asserting a minimum exists. Elementary equivalence is coarser than isomorphism by exactly the width of Löwenheim–Skolem, and learning to feel that gap is what this phase is for.</p>
+        <ul class="must">
+          <li><b>Define</b> ≡ and ≺ precisely, and prove that isomorphism implies elementary equivalence but not conversely.</li>
+          <li><b>Verify</b> the (ℚ,&lt;) ≡ (ℝ,&lt;) example and produce the separating sentence for (ℕ,&lt;) vs (ℚ,&lt;).</li>
+          <li><b>Explain</b> how Löwenheim–Skolem manufactures elementarily equivalent, non-isomorphic models on demand.</li>
+        </ul>
+      </div>
+
+      <div class="topic">
+        <h5>Complete Types <span class="tsec">— Marker §4.1</span></h5>
+        <p>A complete type p(x) over a theory (or over parameters in a model) is a maximal consistent set of formulas in the free variable x — the most detailed first-order description a single element could satisfy. An element realizing p is a witness to that description; a model omits p if no element does. Compactness guarantees every type is realized in <em>some</em> elementary extension, and saturated models are the maximalists that realize every type they consistently can. Work concrete cases until types feel like objects: over (ℚ,&lt;) with parameters, types correspond to cuts in the order; the type of an infinite element over true arithmetic is your week-9 non-standard model, reborn as a definition.</p>
+        <ul class="must">
+          <li><b>Define</b> n-types, realization, and omission, and compute all 1-types over (ℚ,&lt;) with a finite parameter set.</li>
+          <li><b>Prove</b> via compactness that every consistent type is realized in some elementary extension.</li>
+          <li><b>Connect</b> the non-standard element of week 9 to the type it realizes — one paragraph, precise.</li>
+        </ul>
+      </div>
+
+      <div class="topic">
+        <h5>The Omitting Types Theorem <span class="tsec">— Marker §4.2</span></h5>
+        <p>Realizing types is easy — compactness does it wholesale; the delicate art is <em>avoiding</em> one. The omitting types theorem says that if a countable theory does not locally force a type p — no consistent formula implies all of p — then T has a countable model omitting p. The proof is a Henkin construction with a conscience: you build a maximal consistent, witness-complete set as in Track 1, but interleave extra steps ensuring, for each term, some formula of p fails of it — a finite-injury discipline that countability makes possible. It is the first theorem where you <em>steer</em> the Henkin machinery toward a model with prescribed properties rather than merely any model, and that skill is model theory in miniature.</p>
+        <ul class="must">
+          <li><b>State</b> the theorem precisely, including the "locally omitting" hypothesis and why it is necessary.</li>
+          <li><b>Reproduce</b> the full proof, marking exactly where the construction departs from the plain Henkin proof.</li>
+          <li><b>Apply</b> it: exhibit a theory and a non-isolated type, and conclude a model omitting it exists.</li>
+        </ul>
+      </div>
+
+      <div class="topic">
+        <h5>The Ryll-Nardzewski Theorem <span class="tsec">— Marker §4.4</span></h5>
+        <p>A theory is ω-categorical when it has exactly one countable model up to isomorphism — the tightest grip a first-order theory can have on its countable models. <span class="thm" data-tip="Ryll-Nardzewski: a countable complete theory is ω-categorical — one countable model up to isomorphism — iff it has only finitely many n-types for each n.">Ryll-Nardzewski</span> characterizes this grip exactly: a countable complete theory is ω-categorical iff for each n it has only finitely many n-types. The proof braids together everything in the phase — omitting types drives one direction, a back-and-forth argument the other — and the flagship example is again (ℚ,&lt;): Cantor's back-and-forth shows any two countable dense linear orders without endpoints are isomorphic, so DLO is ω-categorical, and its types are correspondingly few. Categoricity, types, and quantifier elimination (Phase 2) are three gauges of the same tightness.</p>
+        <ul class="must">
+          <li><b>Prove</b> Cantor's back-and-forth theorem for countable DLOs — the template argument.</li>
+          <li><b>Reproduce</b> the Ryll-Nardzewski proof, both directions, identifying where omitting types is invoked.</li>
+          <li><b>Count</b> the n-types of DLO for small n and confirm the theorem's prediction.</li>
+        </ul>
+      </div>
+
+      <div class="vault-note">Elementary equivalence definition + examples ★</div>
+      <div class="vault-note">Type definition + examples; Omitting types theorem (full proof)</div>
+      <div class="vault-note">Ryll-Nardzewski (theorem + proof)</div>
+    </div></div>
+  </div>
+
+  <div class="phase">
+    <div class="phase-head"><span class="pw">Weeks 16–20</span><h4>Phase 2 — Quantifier Elimination</h4><span class="tog">▾</span></div>
+    <div class="phase-body"><div class="phase-inner">
+      <p class="phase-pre">Quantifiers are where the difficulty of a theory hides — each ∃ is a search, each ∀ a promise over the whole domain. A theory that <b>eliminates quantifiers</b> has no hiding places left: every question reduces to a quantifier-free calculation, and decidability often follows. This phase teaches the definition, the engine (Tarski–Vaught), and one full elimination carried out by hand.</p>
+
+      <div class="topic">
+        <h5>When Theories Eliminate Quantifiers <span class="tsec">— Marker §3.1</span></h5>
+        <p>A theory T has quantifier elimination when every formula is T-equivalent to a quantifier-free formula in the same free variables. This is a statement about the <em>definable sets</em>: in a QE theory, everything definable is already definable without quantifiers, so the definable sets are exactly the combinatorially simple ones — finite unions of intervals for DLO, Boolean combinations of varieties for algebraically closed fields, semialgebraic sets for real closed fields. Peano arithmetic conspicuously does not eliminate quantifiers, and that failure is the model-theoretic shadow of Gödel: arithmetic's definable sets are wild enough to encode proof itself. The general method is always the same reduction: it suffices to eliminate a single ∃ from a conjunction of literals, because the full result follows by induction on formulas.</p>
+        <ul class="must">
+          <li><b>State</b> the definition of QE and prove the reduction to the one-existential-quantifier case.</li>
+          <li><b>Name</b> the classical QE theories (DLO, ACF, RCF) and describe their definable sets in one line each.</li>
+          <li><b>Explain</b> why PA's failure of QE and Gödel's theorem are two views of the same wildness.</li>
+        </ul>
+      </div>
+
+      <div class="topic">
+        <h5>The Tarski–Vaught Test <span class="tsec">— Marker §2.3</span></h5>
+        <p>The <span class="thm" data-tip="Tarski–Vaught test: M ≺ N iff every existential formula with parameters in M that holds in N already has a witness in M.">Tarski–Vaught test</span> says M ≺ N iff every existential formula with parameters in M that is true in N already has a witness inside M — elementarity reduced to a single quantifier's worth of checking. Its proof is an induction on formulas in which only the ∃ case has content, and that economy is why it appears everywhere: in the downward Löwenheim–Skolem proof (build a countable set closed under witnesses), in unions of elementary chains, and as the working criterion inside quantifier-elimination arguments. Learn it as the practical instrument it is — the thing you actually check when you need M ≺ N.</p>
+        <ul class="must">
+          <li><b>State</b> the criterion and prove it by induction on formulas, writing the ∃ case in full.</li>
+          <li><b>Use</b> it to re-prove downward Löwenheim–Skolem, cleaner than the Track 1 version.</li>
+          <li><b>Apply</b> it to verify a concrete elementary substructure claim, parameters and all.</li>
+        </ul>
+      </div>
+
+      <div class="topic">
+        <h5>QE for Dense Linear Orders — the Worked Elimination <span class="tsec">— Marker §3.1–3.2</span></h5>
+        <p>Now do it with your hands: prove that DLO — the theory of dense linear orders without endpoints, the theory of (ℚ,&lt;) — eliminates quantifiers. By the reduction it suffices to treat ∃x θ where θ is a conjunction of literals in &lt; and =, and the elimination is honest bookkeeping: split on the constraints relating x to the parameters, and observe that density and endpointlessness guarantee a witness exists iff the parameters satisfy a quantifier-free condition (every lower bound below every upper bound). Corollaries cascade: DLO is complete (so (ℚ,&lt;) ≡ (ℝ,&lt;) — this time by algorithm rather than by games), and with Cantor's back-and-forth, all countable models are isomorphic. This is why the theory of dense orders is so constrained: QE leaves it nowhere to hide structure.</p>
+        <ul class="must">
+          <li><b>Carry out</b> the one-quantifier elimination step for DLO on an arbitrary conjunction of literals, all cases.</li>
+          <li><b>Derive</b> completeness of DLO from QE, and hence (ℚ,&lt;) ≡ (ℝ,&lt;) by calculation.</li>
+          <li><b>Assemble</b> the full QE proof for the vault — induction, reduction, elimination — in your own LaTeX.</li>
+        </ul>
+      </div>
+
+      <div class="topic">
+        <h5>Quantifier Elimination &amp; Decidability <span class="tsec">— Marker §3.2 + Track 1 echoes</span></h5>
+        <p>QE is not only structural — it is algorithmic. If the elimination procedure is effective and the quantifier-free sentences are decidable, the whole theory is decidable: to decide a sentence, eliminate its quantifiers and evaluate what remains. So (ℚ,&lt;) is decidable, and Tarski's QE for real closed fields makes the first-order theory of the reals — all of elementary geometry — decidable, one of the great positive results of logic. Set this against Track 1's negative pole: (ℕ,+,·) is undecidable even though its <em>logic</em> is complete, because it is the theory, not the calculus, that resists. The pairing of Tarski's ℝ and Gödel's ℕ is the sharpest lesson in the whole semester about where the boundary of the computable runs.</p>
+        <ul class="must">
+          <li><b>Prove</b> the implication: effective QE + decidable quantifier-free fragment ⟹ decidable theory.</li>
+          <li><b>Conclude</b> decidability of DLO from your week-18 elimination.</li>
+          <li><b>Articulate</b> why ℝ's theory is decidable while ℕ's is not — completeness of FOL notwithstanding.</li>
+        </ul>
+      </div>
+
+      <div class="vault-note">Tarski–Vaught test (criterion + proof)</div>
+      <div class="vault-note">Quantifier elimination for DLO (full proof) ★★</div>
+    </div></div>
+  </div>
+
+  <div class="phase">
+    <div class="phase-head"><span class="pw">Weeks 18–21</span><h4>Phase 3 — Ehrenfeucht–Fraïssé Games ★ frontier</h4><span class="tog">▾</span></div>
+    <div class="phase-body"><div class="phase-inner">
+      <p class="phase-pre">The last phase turns logic into <b>a game you can win</b>. Ehrenfeucht–Fraïssé games characterize first-order equivalence by strategy, so proving two structures alike — or provably different — becomes a matter of outplaying an adversary. It is the most tactile mathematics in the whole track, and it closes the loop with Track 2's bisimulation.</p>
+
+      <div class="topic">
+        <h5>The Ehrenfeucht–Fraïssé Game <span class="tsec">— Marker §2.4 + notes</span></h5>
+        <p>Two players face two structures M and N. In each of n rounds, Spoiler picks an element of either structure — trying to exhibit a difference — and Duplicator answers with an element of the other, trying to mirror it; after n rounds Duplicator wins if the chosen pairs form a partial isomorphism. The <span class="thm" data-tip="Ehrenfeucht–Fraïssé: Duplicator has a winning strategy in the n-round game iff M ≡ₙ N — the structures agree on all quantifier-rank-n sentences.">EF theorem</span> is the exact dictionary: Duplicator has a winning strategy in the n-round game iff M ≡ₙ N — the structures agree on all sentences of quantifier rank ≤ n. The proof is a double induction on n, translating quantifiers into moves: each ∃ in a formula is a Spoiler move the formula survives, and Duplicator's strategy is a witness-choosing function. Quantifier rank as "number of rounds you can survive" is an image that will reorganize how you read every formula afterward.</p>
+        <ul class="must">
+          <li><b>Define</b> the n-round game, partial isomorphism, and quantifier rank precisely.</li>
+          <li><b>Prove</b> the EF theorem in both directions, by induction on n.</li>
+          <li><b>Play</b>: give Spoiler's winning strategy on (ℕ,&lt;) vs (ℤ,&lt;), and compute how many rounds he needs.</li>
+        </ul>
+      </div>
+
+      <div class="topic">
+        <h5>Games as a Proof Technique <span class="tsec">— applications</span></h5>
+        <p>The theorem converts equivalence proofs into strategy design. To prove (ℚ,&lt;) ≡ (ℝ,&lt;) yet again — the third proof this track — hand Duplicator the interval-preserving strategy: density guarantees a response inside every gap, for any number of rounds, so the structures agree on sentences of every rank. For inexpressibility, run the logic backward: if a property P were expressed by a sentence of rank n, Duplicator winning the n-round game between a structure with P and one without would be a contradiction — hence FOL cannot express "the domain is finite," nor "cardinality = ℵ₁," and the hand-waving of week 9 ("first-order logic cannot pin down cardinality") becomes a finished proof. Collect these into a small arsenal: each inexpressibility result is one well-chosen pair of structures plus one strategy.</p>
+        <ul class="must">
+          <li><b>Prove</b> (ℚ,&lt;) ≡ (ℝ,&lt;) by exhibiting Duplicator's strategy for every n.</li>
+          <li><b>Prove</b> that finiteness is not first-order expressible, via games over finite orders of growing size.</li>
+          <li><b>Show</b> FOL cannot express "cardinality = ℵ₁," making the week-9 slogan a theorem.</li>
+        </ul>
+      </div>
+
+      <div class="topic">
+        <h5>Games &amp; Bisimulation — One Idea, Two Logics <span class="tsec">— Track 2 reunion</span></h5>
+        <p>Put the EF theorem beside Track 2's bisimulation and the symmetry is exact: EF games are the model-comparison game for first-order logic, bisimulation games the same for modal logic — Spoiler probes, Duplicator mirrors, and the logic's expressive power is precisely what survives the mirroring. The difference in the games (free element choice versus moves along accessibility relations) <em>is</em> the difference between the logics, and van Benthem's characterization sits at the junction: modal logic is the bisimulation-invariant fragment of FOL. Write the comparison down carefully — this unification, comparison-games-as-semantics, is a distinctly ILLC way of seeing, and it belongs in your dossier in your own words.</p>
+        <ul class="must">
+          <li><b>Tabulate</b> the two games side by side — moves, winning conditions, and the equivalence each captures.</li>
+          <li><b>Explain</b> how the restriction on Spoiler's moves corresponds to modal logic's guarded quantification.</li>
+          <li><b>Write</b> one page: "model comparison via games," from EF to bisimulation to van Benthem.</li>
+        </ul>
+      </div>
+
+      <div class="vault-note">Ehrenfeucht–Fraïssé game theorem (full proof) ★★</div>
+    </div></div>
+  </div>
+
+  <div class="led-label">The Weeks · Track 4 Ledger</div>
+  <div class="ledger">
+    <div class="lrow"><div class="wk">WK 12</div><div class="rd">Marker §1.1–1.2 — structures, embeddings, ≡ and ≺ <em>· Ch. 1 exercises</em></div><div class="due"><b>Due:</b> elementary equivalence dossier — definitions + the (ℚ,&lt;)/(ℝ,&lt;) and (ℕ,&lt;)/(ℚ,&lt;) examples</div></div>
+    <div class="lrow"><div class="wk">WK 13</div><div class="rd">Marker §2.3 — Tarski–Vaught condition, elementary chains; downward LS revisited</div><div class="due"><b>Due:</b> Tarski–Vaught test, criterion + proof, LaTeX</div></div>
+    <div class="lrow"><div class="wk">WK 14</div><div class="rd">Marker §4.1 — types, realization, saturation <em>· compute the 1-types over (ℚ,&lt;)</em></div><div class="due"><b>Due:</b> worked-types dossier — cuts in (ℚ,&lt;), the infinite-element type over PA</div></div>
+    <div class="lrow"><div class="wk">WK 15</div><div class="rd">Marker §4.2 — the omitting types theorem, the steered Henkin construction</div><div class="due"><b>Due:</b> omitting types theorem, full proof</div></div>
+    <div class="lrow"><div class="wk">WK 16</div><div class="rd">Marker §4.4 — ω-categoricity; Cantor's back-and-forth; Ryll-Nardzewski</div><div class="due"><b>Due:</b> Ryll-Nardzewski, theorem + proof, both directions</div></div>
+    <div class="lrow"><div class="wk">WK 17</div><div class="rd">Marker §3.1 — QE definition, reduction to one existential quantifier; the classical QE theories</div><div class="due"><b>Due:</b> QE-method memo — the one-quantifier reduction, proved</div></div>
+    <div class="lrow"><div class="wk">WK 18</div><div class="rd">Marker §3.1–3.2 — the DLO elimination, carried out case by case</div><div class="due"><b>Due:</b> quantifier elimination for DLO, full proof ★★</div></div>
+    <div class="lrow"><div class="wk">WK 19</div><div class="rd">Marker §3.2 — QE and decidability; Tarski's ℝ vs Gödel's ℕ</div><div class="due"><b>Due:</b> "effective QE ⟹ decidable" write-up + the ℝ/ℕ boundary paragraph</div></div>
+    <div class="lrow"><div class="wk">WK 20</div><div class="rd">EF games — the n-round game, partial isomorphisms, quantifier rank; the theorem</div><div class="due"><b>Due:</b> Ehrenfeucht–Fraïssé theorem, full proof ★★</div></div>
+    <div class="lrow"><div class="wk">WK 21</div><div class="rd">Applications — strategies for (ℚ,&lt;) ≡ (ℝ,&lt;); inexpressibility of finiteness and ℵ₁; bisimulation reunion</div><div class="due"><b>Due:</b> game-strategy portfolio + one page on "model comparison via games"</div></div>
+  </div>
+
+  <div class="vault-box" data-tilt>
+    <h5>Proof Vault — Track 4</h5>
+    <ul>
+      <li>Elementary equivalence definition + examples <span class="star">★</span><small class="own"><b>owning it means:</b> ≡ and ≺ defined cold, the two canonical example pairs defended with separating sentences.</small></li>
+      <li>Complete types definition + examples<small class="own"><b>owning it means:</b> a type over (ℚ,&lt;) written out in full and its realization or omission argued.</small></li>
+      <li>Omitting types theorem (proof)<small class="own"><b>owning it means:</b> the steered Henkin construction reproduced, with the departure from Track 1's proof marked.</small></li>
+      <li>Ryll-Nardzewski theorem (proof)<small class="own"><b>owning it means:</b> both directions sketched from memory, back-and-forth and omitting types each in its place.</small></li>
+      <li>Quantifier elimination for DLO <span class="star">★★</span><small class="own"><b>owning it means:</b> the one-quantifier elimination step performed cold on any conjunction of literals.</small></li>
+      <li>Tarski–Vaught test (criterion + proof)<small class="own"><b>owning it means:</b> criterion stated and proved without notes, the ∃ case in full.</small></li>
+      <li>Ehrenfeucht–Fraïssé game theorem <span class="star">★★</span><small class="own"><b>owning it means:</b> the theorem proved and a winning strategy exhibited on demand for any standard pair.</small></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= TRACK 5 ================= -->
+<section id="t5" class="reveal">
+  <div class="track-head">
+    <div class="track-tag">Track 5 · Months 8–10 · DO LAST</div>
+    <h2 class="track-title gilt">Proof Theory</h2>
+    <div class="track-months">Troelstra &amp; Schwichtenberg, <em>Basic Proof Theory</em>, Ch. 2–4</div>
+  </div>
+  <p class="track-intro">Where proofs become objects of study in their own right — and, through Curry–Howard, become programs. The hardest track. Its centerpiece is beautiful.</p>
+  <div class="warn">⚠ Hardest track. Begin only after Tracks 1–3 are complete.</div>
+  <div class="track-stats"><div><b>9</b>weeks</div><div><b>1</b>deep phase</div><div><b>7</b>vault targets</div></div>
+  <span class="marginalia right" style="top:560px">Gentzen wrote this at twenty-five</span>
+
+  <div class="phase">
+    <div class="phase-head"><span class="pw">Weeks 20–28</span><h4>Phase 1 — Sequent Calculus &amp; Cut Elimination ★★★</h4><span class="tog">▾</span></div>
+    <div class="phase-body"><div class="phase-inner">
+      <div class="book">Troelstra &amp; Schwichtenberg, <em>Basic Proof Theory</em>, Ch. 2–4</div>
+      <p class="phase-pre">Nine weeks inside the anatomy of proof itself. The spine of the phase is <b>Gentzen's Hauptsatz</b> — the longest single proof of your semester, five to ten pages of disciplined induction — and its reward is Curry–Howard: the discovery that your proofs were programs all along. Trust the ordering: rules first, then the great elimination, then its consequences, then the computational reading.</p>
+
+      <div class="topic">
+        <h5>Gentzen's Sequent Calculus LK <span class="tsec">— T&amp;S Ch. 2–3</span></h5>
+        <p>A sequent Γ ⊢ Δ asserts: if everything in Γ is true, then something in Δ is true — and LK derives sequents from axioms φ ⊢ φ by rules that are startlingly symmetric. The structural rules (weakening, contraction, exchange) manage the contexts; the logical rules introduce each connective on the left or on the right — ∧-left: from Γ, φ, ψ ⊢ Δ infer Γ, φ∧ψ ⊢ Δ; ∧-right: from Γ ⊢ φ, Δ and Γ ⊢ ψ, Δ infer Γ ⊢ φ∧ψ, Δ — with parallel pairs for ∨, →, ¬ and quantifier rules guarded by eigenvariable conditions (the fresh-variable side conditions that make ∀-right and ∃-left honest). Then there is cut: from Γ ⊢ φ, Δ and Γ, φ ⊢ Δ infer Γ ⊢ Δ — the rule that lets a proof invent and discard a lemma φ. Cut is how mathematicians actually work; the Hauptsatz will show it is, in principle, never needed.</p>
+        <ul class="must">
+          <li><b>State</b> every LK rule from memory, eigenvariable conditions included.</li>
+          <li><b>Derive</b> five nontrivial sequents in LK, including one requiring contraction and one using a quantifier rule.</li>
+          <li><b>Explain</b> what cut expresses mathematically (lemma use) and why its eliminability is surprising.</li>
+        </ul>
+      </div>
+
+      <div class="topic">
+        <h5>The Hauptsatz — Cut Elimination ★★★ <span class="tsec">— T&amp;S Ch. 4</span></h5>
+        <p><span class="thm" data-tip="Gentzen's Hauptsatz: every LK proof can be transformed into a cut-free proof — the cut rule is powerful but inessential.">Every LK proof transforms into a cut-free proof.</span> The proof is a <em>double induction</em>, and you must hold its two dimensions apart: the outer measure is the cut-rank — the complexity (degree) of the cut formula — and the inner measure is the level, the combined height of the derivations above the cut. Permutation lemmas handle the case where the cut formula is not principal in the last rule of a premise: the cut slides upward past that rule, level decreasing, rank untouched. Reduction lemmas handle the essential case, where the cut formula was just introduced on both sides: a cut on φ∧ψ becomes cuts on φ and ψ, a cut on ∀x φ becomes a cut on an instance — <em>strictly smaller degree</em>, and this is where contraction makes the bookkeeping genuinely hard. The induction on rank, with the induction on level nested inside, grinds every cut out of the proof. It is long; it is the most beautiful sustained induction in logic; and the vault demands all of it, five to ten pages, in your own hand.</p>
+        <ul class="must">
+          <li><b>Define</b> cut-rank and level precisely, and state the double-induction skeleton before descending into cases.</li>
+          <li><b>Carry out</b> two permutation cases and the principal reduction cases for ∧, →, and ∀ in complete detail.</li>
+          <li><b>Explain</b> where contraction complicates the argument and how the proof survives it.</li>
+          <li><b>Reproduce</b> the full Hauptsatz closed-book — the centerpiece of the entire vault.</li>
+        </ul>
+      </div>
+
+      <div class="topic">
+        <h5>Consequences — Subformula Property &amp; Consistency <span class="tsec">— T&amp;S Ch. 4</span></h5>
+        <p>Once cut is gone, inspect the surviving rules: each one only ever writes down subformulas of its conclusion. Hence the subformula property — every formula anywhere in a cut-free proof is a subformula of the end-sequent — so a cut-free proof of φ stays inside φ's own vocabulary: the syntax of the proof reveals its semantics. Consistency of LK falls out in one breath: a proof of the empty sequent ⊢ would have a cut-free counterpart, but no rule can conclude ⊢ from nothing. This is Gentzen's answer to Gödel's second theorem — consistency established, but by transfinite means outside the system itself — and cut-free proofs are also why proof search (the root of logic programming and tableau methods) is possible at all.</p>
+        <ul class="must">
+          <li><b>Prove</b> the subformula property by induction over cut-free derivations.</li>
+          <li><b>Derive</b> the consistency of LK from cut elimination, in a paragraph.</li>
+          <li><b>Explain</b> how Gentzen's consistency proof coexists with Gödel's second incompleteness theorem.</li>
+        </ul>
+      </div>
+
+      <div class="topic">
+        <h5>Natural Deduction — NJ and NK <span class="tsec">— T&amp;S Ch. 2</span></h5>
+        <p>Natural deduction replaces the sequent's symmetric left/right rules with the intro/elim rhythm of actual mathematical reasoning: ∧-intro from φ and ψ to φ∧ψ, ∧-elim projecting back out; →-intro, the soul of the calculus, discharges an assumption — suppose φ, derive ψ, conclude φ→ψ owing nothing further to φ — and →-elim is modus ponens. NJ, the intuitionistic system, is these rules alone; NK adds excluded middle (equivalently, double-negation elimination) and with it classical logic. Keeping scrupulous track of which assumptions are open and which discharged is the entire discipline here, and it is precisely the bookkeeping that Curry–Howard will re-describe as variable binding.</p>
+        <ul class="must">
+          <li><b>State</b> all NJ intro/elim rules with their discharge conventions, from memory.</li>
+          <li><b>Derive</b> example theorems in NJ, tracking open assumptions explicitly at every line.</li>
+          <li><b>Locate</b> the exact rule separating NJ from NK, and derive double-negation elimination from excluded middle.</li>
+        </ul>
+      </div>
+
+      <div class="topic">
+        <h5>Normalization &amp; the Curry–Howard Isomorphism ★★ <span class="tsec">— T&amp;S Ch. 6</span></h5>
+        <p>A detour is an introduction immediately consumed by its own elimination — build φ∧ψ by ∧-intro, then ∧-elim it back apart — and normalization removes detours until every formula in the proof earns its place; the subformula property returns, now for natural deduction. Then the veil lifts. Annotate each assumption with a variable and each rule with a term-former, and NJ proofs <em>are</em> simply-typed λ-terms: <span class="thm" data-tip="Curry–Howard: propositions are types, proofs are programs, and proof normalization is program evaluation (β-reduction).">propositions ↔ types, proofs ↔ programs, normalization ↔ evaluation</span>. Detour removal is exactly β-reduction, (λx.M)N → M[N/x], with η-reduction (λx.f(x) → f) its aesthetic companion. Hold the one example that makes it unforgettable: the proposition φ → (ψ → φ∧ψ) is the type α → (β → (α × β)), and its proof — assume φ, assume ψ, pair them — is λx.λy.(x,y), <em>literally the pair constructor</em>. Your semester of proofs has been a semester of programs.</p>
+        <ul class="must">
+          <li><b>Normalize</b> a proof you have never seen: find the detour, perform the reduction, verify the subformula property afterward.</li>
+          <li><b>Write</b> the Curry–Howard dictionary (connective ↔ type-former, rule ↔ term-former, normalization ↔ β-reduction) and derive λx.λy.(x,y) : φ→ψ→φ∧ψ on a whiteboard.</li>
+          <li><b>Translate</b> in both directions: a small NJ proof into a λ-term, and a λ-term back into the proof it encodes.</li>
+        </ul>
+      </div>
+
+      <div class="topic">
+        <h5>Intuitionistic vs Classical <span class="tsec">— T&amp;S Ch. 2, 6 + essay</span></h5>
+        <p>NJ proves φ∨ψ only by proving one disjunct, and ∃x φ only by producing a witness — the disjunction and existence properties that make intuitionistic proofs <em>constructions</em>. NK's excluded middle buys shorter, stranger proofs (the classic: irrationals a, b with a^b rational, proved without ever saying which pair) at the cost of that computational content, and proof-theoretically the classical reductions are genuinely wilder. Under Curry–Howard the divide becomes an engineering fact: NJ is the typed λ-calculus, and classical axioms correspond to control operators — continuations — a discovery that turned an old philosophical dispute into a theorem about programming languages. The closing essay asks what a proof is <em>for</em>: certainty, or construction?</p>
+        <ul class="must">
+          <li><b>State</b> the disjunction and existence properties of NJ and explain why NK loses both.</li>
+          <li><b>Present</b> the a^b rationality proof and identify the exact non-constructive step.</li>
+          <li><b>Argue</b> the comparison with proof-theoretic evidence — reduction behavior, not slogans.</li>
+        </ul>
+      </div>
+
+      <div class="vault-note">Full cut elimination proof — 5–10 pages ★★★ (the centerpiece)</div>
+      <div class="vault-note">LK rules + NJ rules (all stated formally); subformula property (theorem + proof)</div>
+      <div class="vault-note">Proof normalization + Curry–Howard correspondence with examples ★★</div>
+      <div class="essay-note">Essay: "Proofs as programs and the philosophical implications."</div>
+    </div></div>
+  </div>
+
+  <div class="led-label">The Weeks · Track 5 Ledger</div>
+  <div class="ledger">
+    <div class="lrow"><div class="wk">WK 20</div><div class="rd">T&amp;S Ch. 2–3 — sequents, structural rules, logical rules, eigenvariable conditions; the cut rule</div><div class="due"><b>Due:</b> all LK rules stated closed-book + five derived sequents</div></div>
+    <div class="lrow"><div class="wk">WK 21</div><div class="rd">T&amp;S Ch. 4 opens — cut-rank and level defined; the permutation lemmas</div><div class="due"><b>Due:</b> cut-rank definition + two permutation cases, written in full</div></div>
+    <div class="lrow"><div class="wk">WK 22</div><div class="rd">T&amp;S Ch. 4 — the reduction lemmas: principal cuts on ∧, →, ∀; the contraction difficulty</div><div class="due"><b>Due:</b> principal-cut reduction cases (∧, →, ∀), every step shown</div></div>
+    <div class="lrow"><div class="wk">WK 23</div><div class="rd">The main double induction assembled — rank outer, level inner; termination argued</div><div class="due"><b>Due:</b> cut elimination, first complete draft</div></div>
+    <div class="lrow"><div class="wk">WK 24</div><div class="rd">Polish + consequences — subformula property, consistency of LK, Gentzen vs Gödel</div><div class="due"><b>Due:</b> the Hauptsatz, final 5–10 pages ★★★ + subformula property proof</div></div>
+    <div class="lrow"><div class="wk">WK 25</div><div class="rd">T&amp;S Ch. 2 — natural deduction NJ/NK, discharge bookkeeping</div><div class="due"><b>Due:</b> NJ rules + worked derivations; the NJ/NK divide located precisely</div></div>
+    <div class="lrow"><div class="wk">WK 26</div><div class="rd">T&amp;S Ch. 6 — detours, normalization, β- and η-reduction</div><div class="due"><b>Due:</b> normalization write-up with worked detour eliminations</div></div>
+    <div class="lrow"><div class="wk">WK 27</div><div class="rd">Curry–Howard — the dictionary, proofs as λ-terms, both translations drilled</div><div class="due"><b>Due:</b> correspondence table + λx.λy.(x,y) : φ→ψ→φ∧ψ, fully worked ★★</div></div>
+    <div class="lrow"><div class="wk">WK 28</div><div class="rd">Intuitionistic vs classical — disjunction/existence properties, the non-constructive classics</div><div class="due"><b>Due:</b> essay "Proofs as programs and the philosophical implications"</div></div>
+  </div>
+
+  <div class="vault-box" data-tilt>
+    <h5>Proof Vault — Track 5</h5>
+    <ul>
+      <li>Sequent calculus LK (all rules stated) <span class="star">★</span><small class="own"><b>owning it means:</b> every rule, eigenvariable conditions included, written from memory.</small></li>
+      <li>Cut elimination theorem (FULL PROOF) <span class="star">★★★</span><small class="own"><b>owning it means:</b> cut-rank, permutation and reduction lemmas, the double induction — all reproduced closed-book.</small></li>
+      <li>Subformula property (theorem + proof)<small class="own"><b>owning it means:</b> the induction over cut-free proofs delivered without notes, consistency as a corollary.</small></li>
+      <li>Natural deduction NJ (all rules)<small class="own"><b>owning it means:</b> all intro/elim pairs with discharge bookkeeping, plus the exact NJ/NK divide.</small></li>
+      <li>Proof normalization (definition + examples)<small class="own"><b>owning it means:</b> a detour found and eliminated in a proof you have never seen before.</small></li>
+      <li>Curry–Howard isomorphism <span class="star">★★</span><small class="own"><b>owning it means:</b> the dictionary recited + λx.λy.(x,y) : φ→ψ→φ∧ψ derived on a whiteboard.</small></li>
+      <li>Intuitionistic vs classical (comparison + implications)<small class="own"><b>owning it means:</b> the comparison argued with proof-theoretic evidence, non-constructive steps identified on sight.</small></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= TRACK 6 ================= -->
+<section id="t6" class="reveal">
+  <div class="track-head">
+    <div class="track-tag">Track 6 · Months 7–10 · optional but powerful</div>
+    <h2 class="track-title gilt">Category Theory</h2>
+    <div class="track-months">Mac Lane, <em>Categories for the Working Mathematician</em>, Ch. 1–2 · Riehl, <em>Category Theory in Context</em>, Ch. 1–2</div>
+  </div>
+  <p class="track-intro">The language of modern mathematics — where structure itself becomes the object, and "free" and "forgetful" turn out to be two sides of one adjunction.</p>
+  <div class="track-stats"><div><b>~15</b>weeks</div><div><b>3</b>phases</div><div><b>7</b>vault targets</div></div>
+
+  <div class="phase">
+    <div class="phase-head"><span class="pw">Weeks 14–18</span><h4>Phase 1 — Categories &amp; Functors</h4><span class="tog">▾</span></div>
+    <div class="phase-body"><div class="phase-inner">
+      <div class="book">Mac Lane Ch. 1–2 · Riehl Ch. 1–2 (the more accessible door)</div>
+      <p class="phase-pre">Category theory studies mathematics by its <b>arrows</b>: forget what objects are made of, keep only how they map to one another, and watch familiar constructions become theorems about composition. Five weeks build the grammar — categories, functors, natural transformations — and the habit of duality. Read Riehl for intuition, Mac Lane for authority.</p>
+
+      <div class="topic">
+        <h5>Categories <span class="tsec">— Riehl §1.1 · Mac Lane Ch. 1</span></h5>
+        <p>A category is objects, morphisms between them, an associative composition g∘f, and an identity idₓ at every object — nothing more, and the austerity is the point. The examples span mathematics: Set (sets and functions), Grp (groups and homomorphisms), Top (spaces and continuous maps); but the small strange ones teach you most — a poset is a category with a morphism x→y exactly when x ≤ y, a monoid is a one-object category, a free category is formal paths in a graph. Working in a category means never opening the objects: every property must be phrased through arrows alone, and retraining yourself into that discipline is the actual content of the week.</p>
+        <ul class="must">
+          <li><b>State</b> the definition and verify the axioms in six examples, including poset-as-category and monoid-as-category.</li>
+          <li><b>Characterize</b> monomorphisms and epimorphisms arrow-theoretically, and show epi ≠ surjective in general (ℤ → ℚ in Ring).</li>
+          <li><b>Explain</b> why identities are unique — your first purely arrow-theoretic proof.</li>
+        </ul>
+      </div>
+
+      <div class="topic">
+        <h5>Functors <span class="tsec">— Riehl §1.3 · Mac Lane Ch. 1</span></h5>
+        <p>A functor F: C → D sends objects to objects and morphisms to morphisms, preserving composition and identities — it is a homomorphism of categories, and the requirement that it act on <em>arrows</em>, not just objects, is what gives it power. The great examples are the working tools of modern mathematics: the fundamental group π₁: Top* → Grp and homology Top → Ab, which convert topological problems into algebraic ones precisely <em>because</em> functoriality forces continuous maps to become homomorphisms; and the humbler pair that will dominate Phase 2 — the forgetful functor Grp → Set that strips structure, and the free functor Set → Grp that generates it. Functoriality is already a theorem-prover: any functor preserves isomorphisms, so spaces with non-isomorphic fundamental groups cannot be homeomorphic.</p>
+        <ul class="must">
+          <li><b>Define</b> functors (co- and contravariant) and verify functoriality for forgetful, free, and π₁.</li>
+          <li><b>Prove</b> that functors preserve isomorphisms, and use it to sketch an invariance argument.</li>
+          <li><b>Give</b> an object-map that fails to extend to a functor, and say exactly which axiom breaks.</li>
+        </ul>
+      </div>
+
+      <div class="topic">
+        <h5>Natural Transformations <span class="tsec">— Riehl §1.4 · Mac Lane Ch. 1</span></h5>
+        <p>A natural transformation η: F ⇒ G assigns to each object X a component ηₓ: F(X) → G(X) such that for every f: X → Y the naturality square — G(f)∘ηₓ = η_Y∘F(f) — commutes: the translation between the two functors is <em>uniform</em>, defined without arbitrary choices. This is the concept category theory was invented to state (Eilenberg and Mac Lane, 1945, formalizing "natural" in "natural isomorphism"). The worked example is abelianization: quotienting each group by its commutator subgroup gives components G → G/[G,G] natural in G — chase the square and watch uniformity become a commuting diagram. Diagram-chasing is a skill of the hands; do it until squares commute in your sleep.</p>
+        <ul class="must">
+          <li><b>Define</b> natural transformations and draw and chase the naturality square without prompting.</li>
+          <li><b>Verify</b> naturality for abelianization, and for the double-dual map V → V** in vector spaces.</li>
+          <li><b>Exhibit</b> a family of maps that is <em>not</em> natural (V ≅ V* requires choosing a basis), and locate the failure.</li>
+        </ul>
+      </div>
+
+      <div class="topic">
+        <h5>Isomorphism, Equivalence, Duality <span class="tsec">— Riehl §1.5 · Mac Lane Ch. 2</span></h5>
+        <p>When are two categories "the same"? Isomorphism of categories is too rigid to occur in nature; the right notion is equivalence — functors F: C → D and G: D → C with natural isomorphisms GF ≅ Id and FG ≅ Id — sameness up to uniform translation, and the workhorse criterion (full, faithful, essentially surjective) is how you actually verify one. Duality is the other free gift: every category C has an opposite C^op with arrows reversed, and every theorem proved arrow-theoretically yields a dual theorem at no cost — products dualize to coproducts, monos to epis, limits to colimits. Learn to take the dual of a statement mechanically; in Phase 2 it will halve your workload.</p>
+        <ul class="must">
+          <li><b>Define</b> equivalence of categories and state the full/faithful/essentially-surjective criterion.</li>
+          <li><b>Show</b> the category of finite-dimensional vector spaces is equivalent (not isomorphic) to the category of matrices.</li>
+          <li><b>Dualize</b> three statements correctly, and explain why duality is a theorem about C^op, not a heuristic.</li>
+        </ul>
+      </div>
+
+      <div class="vault-note">Category definition + examples · Functor definition + examples</div>
+      <div class="vault-note">Natural transformation definition + naturality condition; equivalence + examples</div>
+    </div></div>
+  </div>
+
+  <div class="phase">
+    <div class="phase-head"><span class="pw">Weeks 18–23</span><h4>Phase 2 — Universal Properties &amp; Limits</h4><span class="tog">▾</span></div>
+    <div class="phase-body"><div class="phase-inner">
+      <p class="phase-pre">The center of the discipline. A universal property defines an object by <b>what it does for every other object</b> — and objects so defined are automatically unique up to unique isomorphism. Products first, then the general theory of limits, and finally adjoint functors, the concept everything else in this track has been rehearsing for.</p>
+
+      <div class="topic">
+        <h5>Products &amp; Coproducts <span class="tsec">— Riehl §3.1 · Mac Lane Ch. 3</span></h5>
+        <p>The product X × Y comes with projections π₁, π₂ and a promise: for any object Z with maps f: Z→X and g: Z→Y, there is a <em>unique</em> h: Z → X×Y with π₁∘h = f and π₂∘h = g. That promise — the universal property — characterizes the product without ever mentioning elements, and the essential theorem is that it characterizes it <em>uniquely up to unique isomorphism</em>: two candidates map to each other by their universal properties, and uniqueness forces the composites to be identities. Dualize and the coproduct appears: disjoint union in Set, free product in Grp, direct sum in Vect — one definition, wildly different constructions, which is precisely the lesson. From now on, "the" product means the universal property, not any particular construction of it.</p>
+        <ul class="must">
+          <li><b>State</b> the universal property of the product and prove uniqueness up to unique isomorphism, cold.</li>
+          <li><b>Verify</b> that cartesian product (Set) and direct product (Grp) satisfy it.</li>
+          <li><b>Dualize</b> to coproducts and identify them in Set, Grp, and Vect — noting where they differ from products.</li>
+        </ul>
+      </div>
+
+      <div class="topic">
+        <h5>Limits &amp; Colimits <span class="tsec">— Riehl Ch. 3 · Mac Lane Ch. 3</span></h5>
+        <p>Products generalize: a limit of a diagram D is a universal cone — an object with compatible maps into every object of D, through which every other cone factors uniquely — and a colimit is the dual universal cocone. The zoo becomes systematic: a product is the limit of a discrete diagram, an equalizer the limit of two parallel arrows, a pullback (fiber product) the limit of a cospan; pushouts and coequalizers are their duals. The structural theorem worth internalizing: a category with all products and equalizers has all (small) limits — the whole menagerie is generated by two constructions. "Every universal construction is a limit or colimit" is not a slogan; after this fortnight it is an inventory you can verify against your own mathematics.</p>
+        <ul class="must">
+          <li><b>Define</b> cones, limits, cocones, and colimits precisely, and exhibit products and equalizers as special cases.</li>
+          <li><b>Compute</b> pullbacks and equalizers in Set explicitly, and a pushout in Set and in Grp.</li>
+          <li><b>Prove</b> (or carefully sketch) that products + equalizers ⟹ all small limits.</li>
+        </ul>
+      </div>
+
+      <div class="topic">
+        <h5>Adjoint Functors ★ <span class="tsec">— Riehl Ch. 4 · Mac Lane Ch. 4</span></h5>
+        <p>An adjunction F ⊣ G is a natural bijection <span class="thm" data-tip="Adjunction F ⊣ G: Hom(F(X),Y) ≅ Hom(X,G(Y)) naturally in X and Y — the most powerful concept in category theory.">Hom(F(X), Y) ≅ Hom(X, G(Y))</span>, natural in both variables — maps out of the F-construction correspond exactly to maps into the G-description. The template is Free ⊣ Forgetful: a homomorphism from the free group F(S) to any group H is exactly a function from S to H's underlying set — you have used this fact since your first algebra course, and now it has a name and a calculus. Equivalently, an adjunction is a unit η: Id ⇒ GF and counit ε: FG ⇒ Id satisfying the triangle identities; proving the two definitions equivalent is the phase's centerpiece exercise. Adjoints are the deepest organizing concept in the subject — "free," "generated by," "underlying," "best approximation" are all adjunctions — and they preserve limits (right adjoints) and colimits (left adjoints) with complete reliability.</p>
+        <ul class="must">
+          <li><b>Define</b> adjunctions both ways — hom-set bijection and unit/counit with triangle identities — and prove the equivalence.</li>
+          <li><b>Verify</b> Free ⊣ Forgetful for groups in full detail, naturality included.</li>
+          <li><b>State</b> RAPL (right adjoints preserve limits) and check it on Free ⊣ Forgetful.</li>
+        </ul>
+      </div>
+
+      <div class="vault-note">Product universal property (stated + proof); limit/colimit definitions ★</div>
+      <div class="vault-note">Adjunction definition + Free ⊣ Forgetful example ★</div>
+    </div></div>
+  </div>
+
+  <div class="phase">
+    <div class="phase-head"><span class="pw">Weeks 23–28</span><h4>Phase 3 — Applications to Logic &amp; Mathematics</h4><span class="tog">▾</span></div>
+    <div class="phase-body"><div class="phase-inner">
+      <p class="phase-pre">The final movement points the arrows back at logic itself. A topos is a category that behaves like the universe of sets — closely enough to <b>do mathematics inside it</b> — and its native logic turns out to be intuitionistic, vindicating Track 5 from an entirely unexpected direction. Then the synthesis: your whole semester, rewritten in arrows.</p>
+
+      <div class="topic">
+        <h5>Topos Theory — a Brief Descent <span class="tsec">— Mac Lane–Moerdijk, prologue + Ch. 1 (selections)</span></h5>
+        <p>A topos is a category with finite limits, exponentials (function-objects Y^X), and a subobject classifier Ω — an object such that subobjects of X correspond exactly to characteristic maps X → Ω, the way subsets correspond to maps into {true, false} in Set. Set itself is the first topos; sheaves on a space and functor categories like Set^C are the ones that matter, and in them Ω is richer than two points. The astonishment: the subobjects of any object form a Heyting algebra, not a Boolean one, so the internal logic of a general topos is <em>intuitionistic</em> — excluded middle fails not by decree but by geometry. Gentzen's NJ, which you learned as a proof calculus, reappears as the logic that arbitrary mathematical universes actually speak.</p>
+        <ul class="must">
+          <li><b>State</b> the topos definition (finite limits, exponentials, subobject classifier) and verify Ω = {0,1} in Set.</li>
+          <li><b>Compute</b> the subobject classifier in a simple functor category (e.g., Set^→) and observe its extra truth values.</li>
+          <li><b>Explain</b> in one page why subobject lattices are Heyting algebras and what that does to excluded middle.</li>
+        </ul>
+      </div>
+
+      <div class="topic">
+        <h5>Categorical Logic <span class="tsec">— notes + Riehl epilogue readings</span></h5>
+        <p>The categorical reading of logic recasts everything from Track 1: a theory is a category, a model is a <em>functor</em> from it into Set (or any topos), and a homomorphism of models is a natural transformation — soundness and completeness become statements about functor categories. Quantifiers, the deepest part, are adjoints: ∃ is left adjoint and ∀ right adjoint to substitution, which is the heart of the hyperdoctrine formulation of first-order logic. Naturality becomes uniform truth across structures, and different logical systems — classical, intuitionistic, modal — become different classes of categories. You need the shape of this story rather than its full technical weight: enough to see that "logic" and "structure" were one subject wearing two costumes all semester.</p>
+        <ul class="must">
+          <li><b>Explain</b> models-as-functors, and check it against a one-sorted algebraic theory (groups as a functor category).</li>
+          <li><b>State</b> the adjoint characterization of ∃ and ∀ and verify the ∃ case in Set.</li>
+          <li><b>Sketch</b> the hyperdoctrine picture of first-order logic in a page of notes.</li>
+        </ul>
+      </div>
+
+      <div class="topic">
+        <h5>The Synthesis — Your Mathematics, Rewritten <span class="tsec">— the closing essay</span></h5>
+        <p>Now audit the semester with categorical eyes. Groups, rings, and vector spaces live in categories; homology is a functor and its long exact sequences are natural transformations; every universal construction you have ever used — products, quotients, completions, free objects — is a limit, a colimit, or an adjunction; Lindenbaum algebras are functorial; even Kripke models (Track 2) are presheaves in disguise. "Free" and "forgetful," which you met as vocabulary, are now the two halves of an adjunction, and the essay asks you to make the case — with your own semester as the evidence — that category theory is not another subject but the grammar the other subjects were written in.</p>
+        <ul class="must">
+          <li><b>Compile</b> a map of ten constructions from your own tracks, each identified as limit, colimit, or adjunction.</li>
+          <li><b>Present</b> one worked example in depth (e.g., abelianization as left adjoint to inclusion Ab ↪ Grp).</li>
+          <li><b>Write</b> the essay: "Why category theory unifies mathematics" — argued from your own evidence, not from received slogans.</li>
+        </ul>
+      </div>
+
+      <div class="vault-note">Topos definition + examples (objects, power objects, intuitionism)</div>
+      <div class="essay-note">Essay: "Why category theory unifies mathematics."</div>
+    </div></div>
+  </div>
+
+  <div class="led-label">The Weeks · Track 6 Ledger</div>
+  <div class="ledger">
+    <div class="lrow"><div class="wk">WK 14</div><div class="rd">Riehl §1.1 — categories, six examples <em>· mono/epi arrow-theoretically</em></div><div class="due"><b>Due:</b> category definition + six verified examples, LaTeX</div></div>
+    <div class="lrow"><div class="wk">WK 15</div><div class="rd">Mac Lane Ch. 1 — opposite categories, duality discipline</div><div class="due"><b>Due:</b> duality exercise set — three statements dualized and proved</div></div>
+    <div class="lrow"><div class="wk">WK 16</div><div class="rd">Riehl §1.3 — functors; forgetful, free, π₁; functors preserve isos</div><div class="due"><b>Due:</b> functor dossier + one invariance argument via functoriality</div></div>
+    <div class="lrow"><div class="wk">WK 17</div><div class="rd">Riehl §1.4 — natural transformations; abelianization; double dual</div><div class="due"><b>Due:</b> naturality-square proofs — abelianization and V → V**, worked</div></div>
+    <div class="lrow"><div class="wk">WK 18</div><div class="rd">Riehl §1.5 — equivalence of categories; full/faithful/ess. surjective</div><div class="due"><b>Due:</b> equivalence vs isomorphism memo + the vector-spaces/matrices example</div></div>
+    <div class="lrow"><div class="wk">WK 19</div><div class="rd">Riehl §3.1 — products and coproducts by universal property</div><div class="due"><b>Due:</b> product universal property — theorem + uniqueness proof</div></div>
+    <div class="lrow"><div class="wk">WK 20</div><div class="rd">Riehl Ch. 3 — cones, limits; pullbacks and equalizers in Set</div><div class="due"><b>Due:</b> limit-as-universal-cone definition + computed pullback/equalizer</div></div>
+    <div class="lrow"><div class="wk">WK 21</div><div class="rd">Riehl Ch. 3 — colimits; pushouts, coequalizers; products + equalizers ⟹ all limits</div><div class="due"><b>Due:</b> colimit computations in Set and Grp + the generation theorem, sketched</div></div>
+    <div class="lrow"><div class="wk">WK 22</div><div class="rd">Riehl Ch. 4 — adjunctions: hom-set bijection, unit/counit, triangle identities</div><div class="due"><b>Due:</b> adjunction definition both ways + equivalence proof</div></div>
+    <div class="lrow"><div class="wk">WK 23</div><div class="rd">Riehl Ch. 4 — Free ⊣ Forgetful in detail; RAPL</div><div class="due"><b>Due:</b> Free ⊣ Forgetful, fully verified, naturality included ★</div></div>
+    <div class="lrow"><div class="wk">WK 24</div><div class="rd">Mac Lane–Moerdijk (selections) — topos definition, subobject classifier</div><div class="due"><b>Due:</b> topos definition + Ω verified in Set and in Set^→</div></div>
+    <div class="lrow"><div class="wk">WK 25</div><div class="rd">Topos logic — Heyting subobject lattices, intuitionism from geometry</div><div class="due"><b>Due:</b> one page — why topos logic is intuitionistic (Track 5 reunion)</div></div>
+    <div class="lrow"><div class="wk">WK 26</div><div class="rd">Categorical logic — models as functors; quantifiers as adjoints; hyperdoctrines</div><div class="due"><b>Due:</b> hyperdoctrine sketch + the ∃-as-left-adjoint verification in Set</div></div>
+    <div class="lrow"><div class="wk">WK 27</div><div class="rd">Synthesis reading — audit your tracks for limits, colimits, adjunctions</div><div class="due"><b>Due:</b> the ten-construction map across your own mathematics</div></div>
+    <div class="lrow"><div class="wk">WK 28</div><div class="rd">No new reading. Revise the vault; assemble the case.</div><div class="due"><b>Due:</b> essay "Why category theory unifies mathematics"</div></div>
+  </div>
+
+  <div class="vault-box" data-tilt>
+    <h5>Proof Vault — Track 6</h5>
+    <ul>
+      <li>Category definition + examples <span class="star">★</span><small class="own"><b>owning it means:</b> the definition plus six verified examples produced instantly, on demand.</small></li>
+      <li>Functor definition + examples <span class="star">★</span><small class="own"><b>owning it means:</b> forgetful, free, and π₁ verified, and "functors preserve isos" proved cold.</small></li>
+      <li>Natural transformation + naturality square<small class="own"><b>owning it means:</b> the square drawn and chased closed-book, abelianization as the worked witness.</small></li>
+      <li>Product universal property (theorem + proof)<small class="own"><b>owning it means:</b> existence and uniqueness-up-to-unique-isomorphism proved without notes.</small></li>
+      <li>Limit definition (via universal cone) <span class="star">★</span><small class="own"><b>owning it means:</b> the cone definition unpacked into pullbacks and equalizers, computed in Set.</small></li>
+      <li>Adjoint functor definition + Free ⊣ Forgetful <span class="star">★</span><small class="own"><b>owning it means:</b> both definitions, their equivalence, and the free-group verification reproduced cold.</small></li>
+      <li>Topos definition (objects, power objects, intuitionism)<small class="own"><b>owning it means:</b> the definition stated and the intuitionism of the internal logic explained in a page.</small></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= GRAND VAULT ================= -->
+<section id="vault" class="reveal">
+  <div class="track-head">
+    <div class="track-tag">The Ledger</div>
+    <h2 class="track-title gilt">The Proof Vault — Grand Ledger</h2>
+    <div class="track-months">Every starred proof, written in full LaTeX, filed by December</div>
+  </div>
+  <p class="track-intro">Forty-two entries across six tracks. Five of them are ★★★ centerpieces — the proofs an admissions committee at the ILLC will recognize as the real thing. What follows is not a reading list. It is a ledger of debts to be paid in ink.</p>
+  <div class="grand-stats">
+    <div class="grand-stat" data-tilt><b>42</b><span>vault proofs</span></div>
+    <div class="grand-stat" data-tilt><b>5</b><span>★★★ centerpieces</span></div>
+    <div class="grand-stat" data-tilt><b>6</b><span>tracks</span></div>
+    <div class="grand-stat" data-tilt><b>28</b><span>weeks</span></div>
+  </div>
+  <div class="vault-box" data-tilt>
+    <i class="arc-corners" aria-hidden="true"></i>
+    <h5>The Five Centerpieces</h5>
+    <ul class="centerpieces">
+      <li>Completeness theorem via the Henkin construction <em>— Track 1, the crown of first-order logic</em></li>
+      <li>First incompleteness theorem, Smullyan method <em>— Track 1, the diagonal that ends Hilbert's dream</em></li>
+      <li>PAL reduction axioms, [!φ]Kᵢψ above all <em>— Track 2, the frontier that feeds your agent paper</em></li>
+      <li>AC ⟺ Zorn ⟺ well-ordering <em>— Track 3, THE proof of set theory</em></li>
+      <li>Gentzen's cut elimination, in full <em>— Track 5, five to ten pages of the most beautiful induction in logic</em></li>
+    </ul>
+  </div>
+  <span class="marginalia right" style="top:300px">nulla dies sine linea</span>
+</section>
+
+<!-- ================= CONNECTION ================= -->
+<section id="connect" class="reveal">
+  <div class="track-head">
+    <div class="track-tag">The Cathedral</div>
+    <h2 class="track-title gilt">Where This Fits</h2>
+    <div class="track-months">Logic is the keystone — every other field leans on it</div>
+  </div>
+  <p class="track-intro">Nothing here is studied in isolation. The completeness theorem feeds computability; bisimulation shakes hands with Ehrenfeucht–Fraïssé; dynamic epistemic logic walks straight into your agent research.</p>
+  <div class="connect-grid">
+    <div class="connect-card" data-tilt>
+      <i class="arc-corners" aria-hidden="true"></i>
+      <h4>→ Theory of Computation</h4>
+      <p>Gödel's incompleteness is the halting problem in disguise — Sipser Ch. 4 is read in parallel with Track 1, and quantifier elimination decides theories the way automata decide languages. <a href="toc.html">Theory of Computation →</a></p>
+    </div>
+    <div class="connect-card" data-tilt>
+      <h4>→ Quantum Computing</h4>
+      <p>The same taste for structure — Hilbert spaces, unitary evolution, BQP inside the complexity zoo — waits on the other side of the cathedral. <a href="quantum_computing.html">Quantum track →</a></p>
+    </div>
+    <div class="connect-card" data-tilt>
+      <h4>→ Your Agent Paper</h4>
+      <p>Track 2 ends with a DEL formalization of one agent turn: observation, belief update via action-model composition, reasoning with Kᵢ and Bᵢ, action. AGM revision is your BRAIN agent's memory update, formalized.</p>
+    </div>
+    <div class="connect-card" data-tilt>
+      <h4>→ The Whole Map</h4>
+      <p>Six logic tracks are one field of seven. See how the arc — FOL → Incompleteness → Modal → Set → Model → Category → Proof — sits inside the full semester. <a href="atlas.html">Return to the Atlas →</a></p>
+    </div>
+  </div>
+  <p class="dest-line">Destinations · <b>ILLC ★ dream</b> · Oxford · Cambridge · UvA QCS · ETH</p>
+</section>
+
+<footer>
+  <div class="fbrand">Schola <span>Arcana</span></div>
+  <p>Ana Paola Oviedo Salgado · July — December 2026</p>
+</footer>
+
+<script>
+  // progress meter
+  const meter=document.getElementById('meter');
+  // phase expand/collapse
+  document.querySelectorAll('.phase-head').forEach(h=>h.addEventListener('click',()=>h.parentElement.classList.toggle('open')));
+  // chips → scroll + active
+  const chips=[...document.querySelectorAll('.chip')];
+  chips.forEach(c=>c.addEventListener('click',()=>{document.getElementById(c.dataset.t).scrollIntoView({behavior:'smooth'});}));
+  const secs=chips.map(c=>document.getElementById(c.dataset.t));
+  // scroll: meter + active chip
+  let t=false;
+  window.addEventListener('scroll',()=>{
+    if(t)return;t=true;
+    requestAnimationFrame(()=>{
+      const h=document.documentElement.scrollHeight-innerHeight;
+      meter.style.width=(h>0?scrollY/h*100:0)+'%';
+      let cur=0;secs.forEach((s,i)=>{if(s.getBoundingClientRect().top<200)cur=i;});
+      chips.forEach((c,i)=>c.classList.toggle('active',i===cur));
+      t=false;
+    });
+  },{passive:true});
+</script>
+
+<script>
+(function(){
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine=matchMedia('(pointer: fine)').matches;
+  /* entrance veil — full ritual once per session, quick fade between rooms */
+  const veil=document.getElementById('arcVeil');
+  if(veil){const seen=sessionStorage.getItem('arcVeil');const d=reduce?0:(seen?420:1700);setTimeout(()=>{veil.classList.add('gone');try{sessionStorage.setItem('arcVeil','1');}catch(e){}},d);}
+  /* candlelight follows the cursor */
+  const candle=document.getElementById('arcCandle');
+  if(candle&&!reduce&&fine){
+    let cx=innerWidth/2,cy=innerHeight/3,tx=cx,ty=cy,lit=false;
+    addEventListener('pointermove',e=>{tx=e.clientX;ty=e.clientY;if(!lit){lit=true;document.body.classList.add('arc-lit');}},{passive:true});
+    (function glide(){cx+=(tx-cx)*.07;cy+=(ty-cy)*.07;candle.style.transform='translate('+cx+'px,'+cy+'px)';requestAnimationFrame(glide);})();
+  }
+  /* dust motes + glowing wisps + cursor sparkle-dust */
+  const cv=document.getElementById('arcMotes');
+  if(cv&&!reduce){
+    const ctx=cv.getContext('2d');const dpr=Math.min(devicePixelRatio||1,2);let W,H;
+    function size(){W=cv.width=innerWidth*dpr;H=cv.height=innerHeight*dpr;cv.style.width=innerWidth+'px';cv.style.height=innerHeight+'px';}
+    size();addEventListener('resize',size);
+    const N=innerWidth<900?14:34,P=[];
+    for(let i=0;i<N;i++)P.push({wisp:i<6,ang:Math.random()*6.28,x:Math.random()*innerWidth*dpr,y:Math.random()*innerHeight*dpr,r:(Math.random()*1.5+.5)*dpr*(i<6?2.4:1),s:(Math.random()*.3+.08)*dpr,ph:Math.random()*6.28,a:Math.random()*.3+.1});
+    const S=[];
+    if(fine)addEventListener('pointermove',e=>{if(S.length<70&&Math.random()<.45)S.push({x:e.clientX*dpr,y:e.clientY*dpr,vx:(Math.random()-.5)*.7*dpr,vy:(Math.random()*.5+.15)*dpr,life:1,r:(Math.random()*1.1+.4)*dpr});},{passive:true});
+    (function draw(t){ctx.clearRect(0,0,W,H);
+      for(const p of P){
+        if(p.wisp){p.ang+=(Math.random()-.5)*.05;p.x+=Math.cos(p.ang)*p.s*1.7;p.y+=Math.sin(p.ang)*p.s*1.7;}
+        else{p.y-=p.s;p.x+=Math.sin(t/2600+p.ph)*.16*dpr;}
+        if(p.y<-10)p.y=H+10;if(p.y>H+10)p.y=-10;if(p.x<-10)p.x=W+10;if(p.x>W+10)p.x=-10;
+        const tw=.55+.45*Math.sin(t/900+p.ph);
+        if(p.wisp){const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*5);g.addColorStop(0,'rgba(240,217,181,'+(p.a*tw*.9).toFixed(3)+')');g.addColorStop(.4,'rgba(224,180,138,'+(p.a*tw*.35).toFixed(3)+')');g.addColorStop(1,'rgba(224,180,138,0)');ctx.beginPath();ctx.arc(p.x,p.y,p.r*5,0,6.28);ctx.fillStyle=g;ctx.fill();}
+        else{ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,6.28);ctx.fillStyle='rgba(224,180,138,'+(p.a*tw).toFixed(3)+')';ctx.fill();}
+      }
+      for(let i=S.length-1;i>=0;i--){const s=S[i];s.life-=.016;if(s.life<=0){S.splice(i,1);continue;}
+        s.x+=s.vx;s.y+=s.vy;s.vy+=.008*dpr;
+        ctx.beginPath();ctx.arc(s.x,s.y,s.r*s.life,0,6.28);ctx.fillStyle='rgba(248,230,192,'+(s.life*.7).toFixed(3)+')';ctx.fill();}
+      requestAnimationFrame(draw);})(0);
+  }
+  /* scroll reveal + marginalia */
+  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.1});
+  document.querySelectorAll('.reveal,.stagger,.marginalia').forEach(el=>io.observe(el));
+  /* card tilt */
+  if(fine&&!reduce){document.querySelectorAll('[data-tilt]').forEach(card=>{
+    card.addEventListener('pointermove',e=>{const r=card.getBoundingClientRect();const px=(e.clientX-r.left)/r.width-.5,py=(e.clientY-r.top)/r.height-.5;card.style.transform='perspective(900px) rotateY('+(px*5).toFixed(2)+'deg) rotateX('+(-py*5).toFixed(2)+'deg) translateY(-6px)';});
+    card.addEventListener('pointerleave',()=>{card.style.transform='';});
+  });}
+  /* astrolabe + shelf parallax */
+  const astro=document.getElementById('arcAstro');
+  const shelves=[...document.querySelectorAll('.arc-shelf')];
+  let tk=false;
+  function onArcScroll(){if(tk)return;tk=true;requestAnimationFrame(()=>{
+    const doc=document.documentElement.scrollHeight-innerHeight;const p=doc>0?scrollY/doc:0;
+    document.documentElement.style.setProperty('--arc-p',p.toFixed(4));
+    document.body.classList.toggle('arc-scrolled',scrollY>400);
+    if(!reduce)shelves.forEach(s=>s.style.backgroundPositionY=(-scrollY*.08).toFixed(1)+'px');
+    tk=false;});}
+  addEventListener('scroll',onArcScroll,{passive:true});onArcScroll();
+  if(astro)astro.addEventListener('click',()=>scrollTo({top:0,behavior:reduce?'auto':'smooth'}));
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,736 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Theory of Computation — Schola Arcana</title>
+<meta name="description" content="Automata, computability, and complexity — from finite machines to the halting problem to BQP. Sipser, Ch. 1–9, six phases, fourteen weeks."/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  :root{--brown:#1a1410;--brown-2:#241a12;--brown-3:#3d2817;--rose-gold:#c9956b;--rose-glow:rgba(201,149,107,.22);--gold:#d4a574;--cream-gold:#f0d9b5;--cream:#e8dcc8;--cream-dim:#b8a888;--blush:#d9a8a0;--rose-muted:#a67c6e;--border:#5a4535;--border-soft:rgba(90,69,53,.5);}
+  html{font-size:16px;scroll-behavior:smooth;}
+  body{background:var(--brown);color:var(--cream);font-family:'Inter',sans-serif;font-weight:300;line-height:1.75;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+  body::before{content:'';position:fixed;inset:0;z-index:3000;pointer-events:none;opacity:.5;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");}
+  body::after{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 50% 0%,rgba(201,149,107,.09),transparent 55%),radial-gradient(ellipse at 50% 120%,rgba(61,40,23,.5),transparent 60%);}
+  a{color:inherit;text-decoration:none;}::selection{background:var(--rose-gold);color:var(--brown);}
+  .meter{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--rose-gold),var(--cream-gold));z-index:400;transition:width .1s;}
+  nav{padding:20px 52px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;background:rgba(26,20,16,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--border-soft);}
+  .nav-brand{font-family:'EB Garamond',serif;font-size:1.2rem;letter-spacing:.05em;}.nav-brand span{color:var(--rose-gold);}
+  .nav-links{display:flex;gap:26px;list-style:none;}
+  .nav-links a{font-size:.7rem;color:var(--cream-dim);letter-spacing:.16em;text-transform:uppercase;transition:color .25s;}
+  .nav-links a:hover,.nav-links a.active{color:var(--rose-gold);}
+  .nav-toggle{display:none;background:none;border:none;color:var(--rose-gold);font-size:1.4rem;cursor:pointer;}
+  .page-hero{max-width:900px;margin:0 auto;padding:80px 48px 10px;text-align:center;}
+  .page-hero .eyebrow{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.4em;text-transform:uppercase;color:var(--rose-gold);margin-bottom:22px;}
+  .page-hero h1{font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(2.2rem,6vw,4rem);line-height:1.05;margin-bottom:20px;text-transform:uppercase;}
+  .page-hero .intro{font-family:'EB Garamond',serif;font-style:italic;font-size:1.3rem;color:var(--cream);max-width:680px;margin:0 auto;line-height:1.55;}
+  .page-hero .intro b{color:var(--rose-gold);font-weight:500;}
+  section{max-width:1020px;margin:0 auto;padding:50px 48px;position:relative;}
+  .quote{text-align:center;padding:30px 20px 10px;}
+  .quote blockquote{font-family:'EB Garamond',serif;font-style:italic;font-size:clamp(1.3rem,3vw,1.9rem);line-height:1.45;color:var(--cream);}
+  .quote cite{display:block;margin-top:16px;font-style:normal;font-family:'JetBrains Mono',monospace;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--rose-gold);}
+  .manifesto{font-size:1.02rem;color:var(--cream);max-width:760px;line-height:1.9;}
+  .manifesto em{font-family:'EB Garamond',serif;font-style:italic;color:var(--cream-gold);}
+  .block-label{font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--rose-gold);margin-bottom:18px;display:flex;align-items:center;gap:14px;}
+  .block-label::after{content:'';flex:1;height:1px;background:var(--border-soft);}
+  .text-card{background:var(--brown-2);border:1px solid var(--border);border-left:3px solid var(--rose-gold);border-radius:3px;padding:22px;margin-bottom:8px;}
+  .text-card h4{font-family:'Playfair Display',serif;font-size:1.12rem;font-weight:500;margin-bottom:4px;}
+  .text-card .author{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--rose-gold);letter-spacing:.08em;margin-bottom:10px;}
+  .text-card p{font-size:.86rem;color:var(--cream-dim);}
+  .phase{border:1px solid var(--border);border-radius:5px;margin:16px 0;background:linear-gradient(160deg,var(--brown-3),var(--brown-2));overflow:hidden;transition:border-color .3s;}
+  .phase:hover{border-color:var(--rose-muted);}
+  .phase-head{display:flex;align-items:center;gap:18px;padding:22px 26px;cursor:pointer;}
+  .phase-head .pn{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--rose-gold);min-width:38px;}
+  .phase-head .pw{font-family:'JetBrains Mono',monospace;font-size:.66rem;color:var(--rose-gold);border:1px solid var(--border);border-radius:20px;padding:4px 12px;white-space:nowrap;}
+  .phase-head h4{flex:1;font-family:'Playfair Display',serif;font-weight:500;font-size:1.2rem;color:var(--cream);}
+  .phase-head .tog{color:var(--rose-gold);font-size:1.3rem;transition:transform .35s;}
+  .phase.open .tog{transform:rotate(180deg);}
+  .phase-body{max-height:0;overflow:hidden;transition:max-height .5s ease;}
+  .phase.open .phase-body{max-height:9000px;}
+  .phase-inner{padding:4px 30px 24px 84px;}
+  .phase-inner .book{font-family:'EB Garamond',serif;font-style:italic;color:var(--rose-muted);font-size:.9rem;margin-bottom:12px;}
+  .phase-inner .why{font-family:'EB Garamond',serif;font-style:italic;font-size:.98rem;color:var(--cream);margin-bottom:12px;line-height:1.6;}
+  .sublist{list-style:none;margin:6px 0;}
+  .sublist li{padding:5px 0 5px 22px;position:relative;font-size:.92rem;color:var(--cream);}
+  .sublist li::before{content:'◆';position:absolute;left:0;color:var(--rose-gold);font-size:.64rem;top:8px;}
+  .milestone{position:relative;margin-top:14px;padding:12px 16px;border-left:2px solid var(--rose-gold);background:rgba(201,149,107,.06);font-family:'EB Garamond',serif;font-style:italic;font-size:.94rem;color:var(--cream-gold);}
+  .p-label{font-family:'JetBrains Mono',monospace;font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:var(--rose-gold);margin:22px 0 8px;display:flex;align-items:center;gap:12px;}
+  .p-label::after{content:'';flex:1;height:1px;background:var(--border-soft);}
+  .topic{margin:14px 0;padding:16px 20px 14px;background:rgba(26,20,16,.35);border:1px solid var(--border-soft);border-radius:4px;transition:border-color .3s;}
+  .topic:hover{border-color:var(--rose-muted);}
+  .topic h5{font-family:'Playfair Display',serif;font-weight:500;font-size:1.04rem;color:var(--cream);line-height:1.4;}
+  .topic .tref{font-family:'JetBrains Mono',monospace;font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--rose-gold);margin:2px 0 10px;}
+  .topic p{font-size:.88rem;color:var(--cream-dim);line-height:1.75;margin-bottom:10px;}
+  .topic p em{font-family:'EB Garamond',serif;color:var(--cream-gold);}
+  .must{border-left:2px solid var(--rose-gold);background:rgba(201,149,107,.05);padding:9px 14px;margin-top:10px;}
+  .must .must-t{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--rose-gold);display:block;margin-bottom:3px;}
+  .must ul{list-style:none;}
+  .must li{font-size:.85rem;color:var(--cream);padding:3px 0 3px 18px;position:relative;}
+  .must li::before{content:'▸';position:absolute;left:2px;color:var(--rose-gold);font-size:.7rem;top:4px;}
+  .ledger{border:1px solid var(--border-soft);border-radius:4px;overflow:hidden;margin-top:6px;}
+  .lrow{display:grid;grid-template-columns:74px 1fr 250px;border-bottom:1px solid var(--border-soft);background:rgba(26,20,16,.35);transition:background .3s;}
+  .lrow:last-child{border-bottom:none;}
+  .lrow:hover{background:rgba(201,149,107,.07);}
+  .lrow>div{padding:12px 16px;font-size:.85rem;}
+  .lrow .wk{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--rose-gold);letter-spacing:.08em;padding-top:15px;}
+  .lrow .rd{color:var(--cream);}
+  .lrow .rd em{color:var(--cream-dim);font-style:normal;}
+  .lrow .due{font-family:'EB Garamond',serif;font-style:italic;color:var(--rose-muted);border-left:1px solid var(--border-soft);}
+  .lrow .due b{color:var(--rose-gold);font-weight:500;}
+  .own{display:block;font-family:'EB Garamond',serif;font-style:italic;font-size:.84rem;color:var(--rose-muted);margin-top:2px;}
+  .own b{color:var(--rose-gold);font-weight:500;font-style:normal;}
+  .vault-box{position:relative;background:linear-gradient(160deg,var(--brown-2),var(--brown));border:1px solid var(--border);border-radius:5px;padding:26px 30px;margin:22px 0;}
+  .vault-box h5{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--rose-gold);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
+  .vault-box h5::after{content:'';flex:1;height:1px;background:var(--border-soft);}
+  .vault-box ul{list-style:none;}
+  .vault-box li{padding:8px 0 8px 30px;position:relative;font-size:.92rem;color:var(--cream);border-bottom:1px solid var(--border-soft);}
+  .vault-box li:last-child{border-bottom:none;}
+  .vault-box li::before{content:'✦';position:absolute;left:4px;color:var(--rose-gold);animation:twinkle 3s ease-in-out infinite;}
+  .vault-box li:nth-child(2)::before{animation-delay:.7s;}.vault-box li:nth-child(3)::before{animation-delay:1.4s;}.vault-box li:nth-child(4)::before{animation-delay:2.1s;}
+  .vault-box li:nth-child(5)::before{animation-delay:.4s;}.vault-box li:nth-child(6)::before{animation-delay:1.1s;}.vault-box li:nth-child(7)::before{animation-delay:1.8s;}.vault-box li:nth-child(8)::before{animation-delay:2.5s;}
+  @keyframes twinkle{0%,100%{opacity:.4;text-shadow:none;}50%{opacity:1;text-shadow:0 0 8px var(--rose-glow);}}
+  .connect{position:relative;background:linear-gradient(160deg,var(--brown-3),var(--brown-2));border:1px solid var(--border);border-radius:5px;padding:28px 32px;}
+  .connect p{font-family:'EB Garamond',serif;font-size:1.15rem;font-style:italic;color:var(--cream);line-height:1.6;margin-bottom:14px;}
+  .connect p:last-child{margin-bottom:0;}
+  .connect strong{color:var(--rose-gold);font-weight:500;}
+  .connect a{border-bottom:1px solid var(--rose-muted);transition:color .25s,border-color .25s;}
+  .connect a:hover{color:var(--rose-gold);border-color:var(--rose-gold);}
+  footer{border-top:1px solid var(--border-soft);padding:52px;text-align:center;background:var(--brown-2);margin-top:30px;}
+  footer .fbrand{font-family:'EB Garamond',serif;font-size:1.3rem;margin-bottom:10px;}footer .fbrand span{color:var(--rose-gold);}
+  footer p{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.14em;color:var(--cream-dim);text-transform:uppercase;}
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .8s,transform .8s;}.reveal.in{opacity:1;transform:none;}
+  @media(max-width:1150px){.nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:var(--brown-2);border-bottom:1px solid var(--border);padding:8px 0;}.nav-links.open{display:flex;}.nav-links li{padding:12px 22px;border-top:1px solid var(--border-soft);}.nav-toggle{display:block;}}
+  @media(max-width:900px){nav{padding:16px 22px;}.nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:var(--brown-2);border-bottom:1px solid var(--border);padding:8px 0;}.nav-links.open{display:flex;}.nav-links li{padding:12px 22px;border-top:1px solid var(--border-soft);}.nav-toggle{display:block;}section{padding:40px 22px;}.phase-inner{padding:4px 22px 22px;}.lrow{grid-template-columns:60px 1fr;}.lrow .due{grid-column:2;border-left:none;border-top:1px dotted var(--border-soft);}}
+  /* ═══ ARCANUM IMMERSION LAYER ═══ */
+  #arcMotes{position:fixed;inset:0;z-index:2;pointer-events:none;}
+  #arcCandle{position:fixed;left:0;top:0;width:560px;height:560px;margin:-280px 0 0 -280px;z-index:1;pointer-events:none;border-radius:50%;background:radial-gradient(circle,rgba(224,180,138,.085) 0%,rgba(201,149,107,.05) 38%,transparent 68%);mix-blend-mode:screen;opacity:0;transition:opacity 1.2s ease;will-change:transform;}
+  body.arc-lit #arcCandle{opacity:1;animation:arcFlick 2.8s ease-in-out infinite;}
+  @keyframes arcFlick{0%,100%{filter:brightness(1);}23%{filter:brightness(1.22);}47%{filter:brightness(.9);}71%{filter:brightness(1.12);}}
+  .arc-breath{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse at 50% -10%,rgba(224,180,138,.10),transparent 55%);animation:arcBreathe 7s ease-in-out infinite;}
+  @keyframes arcBreathe{0%,100%{opacity:.55;}50%{opacity:1;}}
+  #arcVeil{position:fixed;inset:0;z-index:6000;background:#0c0906;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;opacity:1;visibility:visible;transition:opacity 1.2s ease,visibility 1.2s ease;}
+  #arcVeil.gone{opacity:0;visibility:hidden;}
+  #arcVeil .v-sigil{color:var(--rose-gold);font-size:1.6rem;animation:veilFlame 1.6s ease-in-out infinite;text-shadow:0 0 24px var(--rose-glow);}
+  @keyframes veilFlame{0%,100%{opacity:.55;transform:scale(1);}50%{opacity:1;transform:scale(1.15);}}
+  #arcVeil .v-name{font-family:'Playfair Display',serif;font-size:clamp(1.3rem,3.4vw,2rem);letter-spacing:.34em;color:var(--cream);text-transform:uppercase;padding-left:.34em;}
+  #arcVeil .v-motto{font-family:'EB Garamond',serif;font-style:italic;font-size:.95rem;color:var(--rose-muted);letter-spacing:.12em;}
+  .marginalia{position:absolute;font-family:'EB Garamond',serif;font-style:italic;color:var(--rose-muted);opacity:0;font-size:.95rem;max-width:170px;line-height:1.5;pointer-events:none;transform:rotate(-4deg) translateY(18px);transition:opacity 1.6s ease,transform 1.6s ease;z-index:3;}
+  .marginalia.in{opacity:.52;transform:rotate(-4deg) translateY(0);}
+  .marginalia.right{right:-190px;}
+  .marginalia.left{left:-190px;transform:rotate(3deg) translateY(18px);}
+  .marginalia.left.in{transform:rotate(3deg) translateY(0);}
+  @media(max-width:1360px){.marginalia{display:none;}}
+  .dropcap::first-letter{font-family:'Playfair Display',serif;font-size:3.3em;float:left;line-height:.82;padding:.05em .14em .02em 0;color:var(--rose-gold);text-shadow:0 0 22px var(--rose-glow);}
+  [data-tip]{position:relative;border-bottom:1px dotted var(--rose-muted);cursor:help;}
+  [data-tip]::after{content:attr(data-tip);position:absolute;left:50%;bottom:calc(100% + 10px);transform:translateX(-50%) translateY(6px);background:linear-gradient(160deg,#2b1f14,#1f160e);color:var(--cream-gold);border:1px solid var(--rose-gold);border-radius:4px;padding:10px 14px;font-family:'EB Garamond',serif;font-style:italic;font-size:.88rem;font-weight:400;letter-spacing:normal;text-transform:none;line-height:1.5;width:max-content;max-width:300px;white-space:normal;opacity:0;pointer-events:none;transition:opacity .35s,transform .35s;z-index:500;box-shadow:0 14px 34px -12px rgba(0,0,0,.85);}
+  [data-tip]:hover::after{opacity:1;transform:translateX(-50%) translateY(0);}
+  [data-tilt]{will-change:transform;transition:transform .35s ease,border-color .4s,box-shadow .4s;}
+  .arc-skip{position:fixed;top:-60px;left:16px;z-index:7000;background:var(--rose-gold);color:var(--brown);font-family:'JetBrains Mono',monospace;font-size:.72rem;padding:10px 16px;border-radius:3px;transition:top .3s;}
+  .arc-skip:focus{top:12px;}
+  @media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;}
+    #arcMotes,#arcCandle{display:none!important;}
+    .reveal,.marginalia,.stagger>*{opacity:1!important;transform:none!important;}
+  }
+  /* ═══ ENCHANTMENT v2 — the Bodleian layer ═══ */
+  /* bookshelf walls */
+  .arc-shelf{position:fixed;top:0;bottom:0;width:150px;z-index:0;pointer-events:none;opacity:.45;background-repeat:repeat-y;background-size:160px 230px;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='230'%3E%3Crect x='6' y='104' width='14' height='102' fill='%233a2416'/%3E%3Crect x='22' y='112' width='11' height='94' fill='%2352301b'/%3E%3Crect x='35' y='96' width='15' height='110' fill='%232c1d10'/%3E%3Crect x='52' y='120' width='12' height='86' fill='%2346331d'/%3E%3Crect x='66' y='102' width='15' height='104' fill='%23573823'/%3E%3Crect x='83' y='116' width='10' height='90' fill='%2333220f'/%3E%3Crect x='95' y='108' width='14' height='98' fill='%234a2c18'/%3E%3Crect x='111' y='98' width='12' height='108' fill='%233f2b15'/%3E%3Crect x='125' y='122' width='13' height='84' fill='%2358402a'/%3E%3Crect x='140' y='110' width='13' height='96' fill='%23352512'/%3E%3Crect x='6' y='112' width='14' height='2' fill='%23c9956b' opacity='.45'/%3E%3Crect x='35' y='104' width='15' height='2' fill='%23c9956b' opacity='.35'/%3E%3Crect x='66' y='110' width='15' height='2' fill='%23c9956b' opacity='.45'/%3E%3Crect x='95' y='116' width='14' height='2' fill='%23c9956b' opacity='.3'/%3E%3Crect x='125' y='130' width='13' height='2' fill='%23c9956b' opacity='.4'/%3E%3Crect y='206' width='160' height='3' fill='%236b4a2f' opacity='.7'/%3E%3Crect y='209' width='160' height='13' fill='%23120b06'/%3E%3C/svg%3E");}
+  .arc-shelf.left{left:0;-webkit-mask-image:linear-gradient(to right,rgba(0,0,0,.95),transparent);mask-image:linear-gradient(to right,rgba(0,0,0,.95),transparent);}
+  .arc-shelf.right{right:0;transform:scaleX(-1);-webkit-mask-image:linear-gradient(to right,rgba(0,0,0,.95),transparent);mask-image:linear-gradient(to right,rgba(0,0,0,.95),transparent);}
+  @media(max-width:1200px){.arc-shelf{display:none;}}
+  /* wall-sconce candle flame */
+  .arc-sconce{display:inline-flex;align-items:center;justify-content:center;gap:18px;}
+  .arc-flame{position:relative;width:13px;height:20px;display:inline-block;flex:none;}
+  .arc-flame::before{content:'';position:absolute;inset:0;background:radial-gradient(closest-side at 50% 72%,#f7e2b0,#e0a45a 52%,rgba(201,110,60,.3) 76%,transparent);border-radius:50% 50% 50% 50%/62% 62% 38% 38%;transform-origin:50% 92%;animation:arcFlameDance 2.1s ease-in-out infinite;filter:drop-shadow(0 0 10px rgba(224,164,90,.55));}
+  .arc-flame::after{content:'';position:absolute;left:50%;bottom:-4px;width:3px;height:6px;margin-left:-1.5px;background:#3a2a1a;border-radius:2px;}
+  .arc-flame.f2::before{animation-delay:-1.1s;}
+  @keyframes arcFlameDance{0%,100%{transform:scaleY(1) skewX(0);opacity:.92;}30%{transform:scaleY(1.14) skewX(2.5deg);opacity:1;}60%{transform:scaleY(.9) skewX(-2.5deg);opacity:.82;}80%{transform:scaleY(1.06) skewX(1.5deg);opacity:.95;}}
+  /* gold-leaf shimmer on display type */
+  .gilt{background:linear-gradient(110deg,var(--cream) 0%,var(--cream-gold) 32%,#f8e6c0 46%,var(--rose-gold-bright,#e0b48a) 50%,#f8e6c0 54%,var(--cream-gold) 68%,var(--cream) 100%);background-size:230% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:none;animation:arcGild 9s ease-in-out infinite;}
+  @keyframes arcGild{0%,100%{background-position:100% 0;}50%{background-position:0% 0;}}
+  /* illuminated-manuscript corner frames: add <i class="arc-corners" aria-hidden="true"></i> inside a position:relative box */
+  .arc-corners{position:absolute;inset:9px;pointer-events:none;font-style:normal;}
+  .arc-corners::before,.arc-corners::after{content:'';position:absolute;width:22px;height:22px;}
+  .arc-corners::before{top:0;left:0;border-top:1px solid rgba(201,149,107,.55);border-left:1px solid rgba(201,149,107,.55);}
+  .arc-corners::after{bottom:0;right:0;border-bottom:1px solid rgba(201,149,107,.55);border-right:1px solid rgba(201,149,107,.55);}
+  /* the scroll astrolabe */
+  #arcAstro{position:fixed;right:24px;bottom:24px;width:54px;height:54px;z-index:450;cursor:pointer;opacity:0;visibility:hidden;transition:opacity .8s,visibility .8s;background:none;border:none;padding:0;}
+  body.arc-scrolled #arcAstro{opacity:1;visibility:visible;}
+  #arcAstro .a-ring{position:absolute;inset:0;border-radius:50%;background:conic-gradient(var(--rose-gold) calc(var(--arc-p,0)*1turn),rgba(90,69,53,.4) 0);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2.5px));mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2.5px));}
+  #arcAstro .a-dial{position:absolute;inset:7px;border-radius:50%;border:1px dashed rgba(201,149,107,.5);animation:arcSpinSlow 70s linear infinite;}
+  #arcAstro .a-star{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--rose-gold);font-size:.85rem;animation:arcAstroTw 3.2s ease-in-out infinite;}
+  @keyframes arcSpinSlow{to{transform:rotate(1turn);}}
+  @keyframes arcAstroTw{0%,100%{opacity:.55;text-shadow:none;}50%{opacity:1;text-shadow:0 0 10px var(--rose-glow);}}
+  @media(max-width:700px){#arcAstro{width:44px;height:44px;right:14px;bottom:14px;}}
+  @media(prefers-reduced-motion:reduce){.arc-flame::before,.gilt,#arcAstro .a-dial,#arcAstro .a-star{animation:none!important;}}
+</style>
+</head>
+<body>
+<a class="arc-skip" href="#main">Skip to content</a>
+<div id="arcVeil" aria-hidden="true"><div class="v-sigil">✦</div><div class="v-name">Schola Arcana</div><div class="v-motto">lucem in tenebris quaerimus</div></div>
+<div class="arc-breath" aria-hidden="true"></div>
+<canvas id="arcMotes" aria-hidden="true"></canvas>
+<div id="arcCandle" aria-hidden="true"></div>
+<div class="arc-shelf left" aria-hidden="true"></div>
+<div class="arc-shelf right" aria-hidden="true"></div>
+<button id="arcAstro" aria-label="Reading progress — return to the top" title="Return to the surface"><span class="a-ring"></span><span class="a-dial"></span><span class="a-star">✦</span></button>
+<div class="meter" id="meter"></div>
+
+<nav>
+  <a class="nav-brand" href="index.html">Schola <span>Arcana</span></a>
+  <button class="nav-toggle" aria-label="menu" onclick="document.getElementById('nav').classList.toggle('open')">☰</button>
+  <ul class="nav-links" id="nav">
+    <li><a href="index.html">Cathedral</a></li>
+    <li><a href="atlas.html">Atlas</a></li>
+    <li><a href="mathematical_logic.html">Logic</a></li>
+    <li><a href="quantum_computing.html">Quantum</a></li>
+    <li><a href="linear_algebra.html">Linear Algebra</a></li>
+    <li><a href="toc.html" class="active">TOC</a></li>
+    <li><a href="physics.html">Physics</a></li>
+    <li><a href="humanities.html">Humanities</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+</nav>
+
+<header class="page-hero" id="main">
+  <div class="eyebrow arc-sconce"><span class="arc-flame" aria-hidden="true"></span><span>Field IV · Weeks 1–14 · Six Phases</span><span class="arc-flame f2" aria-hidden="true"></span></div>
+  <h1 class="gilt">Theory of Computation</h1>
+  <p class="intro">What can be computed, and how fast? From finite automata to the halting problem to <b>BQP</b> — the complexity class where quantum computers live.</p>
+</header>
+
+<section class="reveal">
+  <span class="marginalia right" style="top:90px">hic sunt machinae</span>
+  <div class="quote">
+    <blockquote>The question of whether machines can think is about as relevant as whether submarines can swim.</blockquote>
+    <cite>— Edsger Dijkstra</cite>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="block-label">Why This Track</div>
+  <p class="manifesto dropcap">Computation theory is the ladder you climb twice. Once upward — from machines so simple they cannot count, to machines so powerful they cannot know themselves. And once inward — because every rung is a theorem about <em>limits</em>: what a finite memory can never recognize, what no algorithm can ever decide, what no efficient procedure can plausibly solve. Fourteen weeks, nine chapters of Sipser, one quantum coda. By the end, the halting problem and Gödel's incompleteness will be, for you, the same theorem wearing two coats.</p>
+</section>
+
+<section class="reveal">
+  <span class="marginalia left" style="top:80px">read Ch. 4 twice — then read Gödel again</span>
+  <div class="block-label">Core Texts</div>
+  <div class="text-card" data-tilt><h4>Introduction to the Theory of Computation</h4><div class="author">Michael Sipser · 3rd ed. · Ch. 1–9</div><p>The clearest introduction ever written. Every proof is a small machine; read them the way you would read code. Read Ch. 4 in parallel with Gödel (Track 1) — the halting problem <em>is</em> incompleteness in disguise.</p></div>
+  <div class="text-card" data-tilt><h4>Quantum Computing — Lecture Notes</h4><div class="author">Ronald de Wolf · §13 (complexity) · coda only</div><p>The bridge. Once Sipser gives you P, NP, and PSPACE, de Wolf shows you where BQP sits among them — and why nobody knows whether it swallows NP.</p></div>
+</section>
+
+<section class="reveal">
+  <span class="marginalia left" style="top:1050px">diagonalize everything</span>
+  <span class="marginalia right" style="top:1750px">Hilbert's program ends in week 8</span>
+  <div class="block-label">Track Breakdown</div>
+
+  <div class="phase">
+    <div class="phase-head"><span class="pn">1</span><span class="pw">Wks 1–2 · Ch. 1</span><h4>Regular Languages</h4><span class="tog">▾</span></div>
+    <div class="phase-body"><div class="phase-inner">
+      <div class="book">Sipser Ch. 1 — Regular Languages</div>
+      <p class="why">The smallest machines first: fixed memory, one pass over the input, no second chances. This chapter teaches the two moves that carry the entire course — <em>simulation</em>, to prove two machine models equal, and <em>adversarial argument</em>, to prove a machine cannot exist. Everything in weeks 3–14 is these two moves at larger scale.</p>
+
+      <div class="topic">
+        <h5>DFAs — the simplest machines</h5>
+        <div class="tref">Sipser §1.1</div>
+        <p>A deterministic finite automaton is a five-tuple (Q, Σ, δ, q₀, F): finitely many states, exactly one transition per state and symbol, no tape, no memory beyond <em>which state you are standing in</em>. That poverty is the point — the DFA is the minimal formal model of "a machine," and the regular languages it recognizes are precisely what fixed memory can do. Every richer machine in this course is a DFA plus one resource: a stack (Chapter 2), a tape (Chapter 3).</p>
+        <div class="must"><span class="must-t">You must be able to</span><ul>
+          <li>Write the formal definition and the definition of "M accepts w" as a sequence of states</li>
+          <li>Design DFAs for modular-counting and substring languages on demand</li>
+          <li>Prove closure under union with the product construction — your first simulation proof</li>
+        </ul></div>
+      </div>
+
+      <div class="topic">
+        <h5>NFAs &amp; the subset construction</h5>
+        <div class="tref">Sipser §1.2</div>
+        <p>A nondeterministic automaton is allowed to guess: several arrows per symbol, ε-moves, acceptance if <em>some</em> branch succeeds. The subset construction proves guessing buys no new languages — build a DFA whose states are <em>sets</em> of NFA states, tracking everywhere the NFA could possibly be. An n-state NFA thus becomes a DFA with at most <span data-tip="The DFA's states are subsets of the NFA's state set — and a set of n elements has exactly 2ⁿ subsets.">2ⁿ states</span>, and that exponential is sometimes unavoidable: nondeterminism buys no power here, but it buys real succinctness. Remember this trade — it is your first resource/expressiveness trade-off, and the ghost of P vs NP.</p>
+        <div class="must"><span class="must-t">You must be able to</span><ul>
+          <li>Run the subset construction by hand, pruning unreachable states as you go</li>
+          <li>Explain the 2ⁿ state-explosion intuition and exhibit a language where blow-up really happens (ex. 1.32-style: "kth symbol from the end is 1")</li>
+          <li>Write the DFA ≡ NFA equivalence proof cleanly, including ε-closure</li>
+        </ul></div>
+      </div>
+
+      <div class="topic">
+        <h5>Regular expressions ≡ automata, via GNFAs</h5>
+        <div class="tref">Sipser §1.3</div>
+        <p>Regular expressions are the algebraic face of the same class: patterns built from union, concatenation, and star. Regex → NFA is compositional (one gadget per operator); automaton → regex goes through <em>generalized NFAs</em>, ripping out states one at a time and writing every path through the deleted state onto the surviving arrows as a regular expression. The theorem says a declarative pattern language and an operational machine model coincide exactly — the first of the semester's great syntax–semantics coincidences, and a sibling of the completeness theorem you are proving in Logic.</p>
+        <div class="must"><span class="must-t">You must be able to</span><ul>
+          <li>Convert regex → NFA and DFA → regex in both directions, on paper</li>
+          <li>State-eliminate a three-state GNFA without dropping a path</li>
+        </ul></div>
+      </div>
+
+      <div class="topic">
+        <h5>The pumping lemma, played as a game</h5>
+        <div class="tref">Sipser §1.4</div>
+        <p>Every regular language has a pumping length p — any member longer than p splits as xyz with |xy| ≤ p and y ≠ ε such that xyⁱz stays in the language for all i. To prove non-regularity, play it as a game: the <em>demon</em> claims L is regular and hands you p; <em>you</em> choose a string s ∈ L with |s| ≥ p; the demon cuts s = xyz under the constraints; <em>you</em> choose an i with xyⁱz ∉ L. If you can win against every legal cut, L is not regular. The game framing exists to keep the quantifiers straight — you never get to pick the cut, so your s must defeat all of them.</p>
+        <div class="must"><span class="must-t">You must be able to</span><ul>
+          <li>State the lemma with every quantifier in the right place</li>
+          <li>Win the game for {0ⁿ1ⁿ}, {ww : w ∈ {0,1}*}, and {0ⁿ² } (or {0ᵖ : p prime})</li>
+          <li>Diagnose a bogus pumping "proof" — usually a quantifier stolen from the demon</li>
+        </ul></div>
+      </div>
+
+      <div class="topic">
+        <h5>Myhill–Nerode — distinguishing extensions are states</h5>
+        <div class="tref">Sipser problems 1.51–1.52</div>
+        <p>Call x and y distinguishable relative to L if some extension z sends exactly one of xz, yz into L. The theorem: L is regular <em>iff</em> this relation has finitely many equivalence classes — and the classes are, one for one, the states of the minimal DFA. This is the cleaner tool Sipser hides in the exercises: unlike the pumping lemma it is an exact characterization, so it never fails on a non-regular language, and when L is regular it hands you the state count for free.</p>
+        <div class="must"><span class="must-t">You must be able to</span><ul>
+          <li>Define ≡_L and prove the correspondence classes ↔ states</li>
+          <li>Prove a non-regularity result by exhibiting infinitely many pairwise-distinguishable strings — including one where the pumping lemma is awkward</li>
+          <li>Compute the number of classes, hence the minimal DFA size, for a small L</li>
+        </ul></div>
+      </div>
+
+      <div class="p-label">The Weeks</div>
+      <div class="ledger">
+        <div class="lrow"><div class="wk">WK 1</div><div class="rd">§1.1–1.2 · <em>ex. 1.4, 1.6, 1.7, 1.16 · problems 1.31, 1.36</em></div><div class="due"><b>Due:</b> LaTeX — subset-construction proof + two NFA→DFA conversions worked in full</div></div>
+        <div class="lrow"><div class="wk">WK 2</div><div class="rd">§1.3–1.4 · <em>ex. 1.19, 1.21, 1.28–1.29 · problems 1.46, 1.51–1.52 (Myhill–Nerode)</em></div><div class="due"><b>Due:</b> LaTeX — pumping-lemma proofs for three languages + one Myhill–Nerode non-regularity proof</div></div>
+      </div>
+      <div class="milestone">Vault: subset construction (proof of DFA ≡ NFA) · pumping lemma for regular languages ★ (statement, proof, two non-regularity applications)</div>
+    </div></div>
+  </div>
+
+  <div class="phase">
+    <div class="phase-head"><span class="pn">2</span><span class="pw">Wk 3 · Ch. 2</span><h4>Context-Free Languages</h4><span class="tog">▾</span></div>
+    <div class="phase-body"><div class="phase-inner">
+      <div class="book">Sipser Ch. 2 — Context-Free Languages</div>
+      <p class="why">Add one resource — a stack — and the machines learn to count matched pairs. Chapter 2 is grammar as machinery: the same language class described declaratively by rewriting rules and operationally by pushdown automata, then the second impossibility proof, because the stack has limits too.</p>
+
+      <div class="topic">
+        <h5>Context-free grammars — derivations, parse trees, ambiguity</h5>
+        <div class="tref">Sipser §2.1</div>
+        <p>A CFG generates strings by rewriting variables with production rules until only terminals remain; the record of the rewriting is a parse tree, and the tree — not the string — is the meaning. A grammar is <em>ambiguous</em> when one string admits two parse trees, which is fatal in a compiler and endlessly interesting in a natural language. Every programming language you have ever used is specified by a CFG; this section is why parsers exist.</p>
+        <div class="must"><span class="must-t">You must be able to</span><ul>
+          <li>Design grammars for {0ⁿ1ⁿ}, palindromes, and balanced parentheses on demand</li>
+          <li>Exhibit ambiguity: one string, two leftmost derivations</li>
+          <li>Translate freely between leftmost derivations and parse trees</li>
+        </ul></div>
+      </div>
+
+      <div class="topic">
+        <h5>Chomsky normal form</h5>
+        <div class="tref">Sipser §2.1</div>
+        <p>Every CFG converts to a grammar whose rules are all A → BC or A → a. The prize is control: in CNF, every derivation of a length-n string takes exactly 2n − 1 steps, which is the length bound that powers both the CFL pumping lemma and the CYK parsing algorithm. The conversion itself is a pipeline — new start symbol, remove ε-rules, remove unit rules, split long rules — and each stage must be argued to preserve the language.</p>
+        <div class="must"><span class="must-t">You must be able to</span><ul>
+          <li>Run the full four-stage conversion on a small grammar without losing a string</li>
+          <li>Prove the 2n − 1 derivation-length fact and say exactly where it gets used later</li>
+        </ul></div>
+      </div>
+
+      <div class="topic">
+        <h5>Pushdown automata &amp; CFG ≡ PDA</h5>
+        <div class="tref">Sipser §2.2</div>
+        <p>A PDA is an NFA holding an unbounded stack: push, pop, and guess. The equivalence with grammars runs in both directions — grammar → PDA simulates a leftmost derivation on the stack, expanding variables and matching terminals against the input; PDA → grammar builds variables A<sub>pq</sub> meaning "the machine can travel from state p to state q, ending with the stack as it started." Two utterly different descriptions, one class: the context-free languages.</p>
+        <div class="must"><span class="must-t">You must be able to</span><ul>
+          <li>Build PDAs for {0ⁿ1ⁿ} and palindromes, and say where nondeterminism is essential</li>
+          <li>Sketch both directions of the equivalence, and explain the A<sub>pq</sub> trick in one paragraph</li>
+        </ul></div>
+      </div>
+
+      <div class="topic">
+        <h5>The CFL pumping lemma &amp; the non-context-free</h5>
+        <div class="tref">Sipser §2.3</div>
+        <p>Long strings in a CFL pump in <em>two coordinated pieces</em>: s = uvxyz with vy ≠ ε, |vxy| ≤ p, and uvⁱxyⁱz in the language for all i — because a tall parse tree must repeat a variable, and the subtree between the repeats can be spliced in or out. The demon game returns with a subtler cut. Then the casualties: <span data-tip="A stack can compare two blocks — push the a's, pop against the b's — but the c's arrive after the stack is spent.">{aⁿbⁿcⁿ}</span> is not context-free because a stack compares two blocks, never three; {ww} is not, because a stack reverses — which is exactly why {ww<sup>R</sup>} <em>is</em> context-free. Keep {aⁿbⁿcⁿ}: it is your first sighting of the strict Chomsky hierarchy.</p>
+        <div class="must"><span class="must-t">You must be able to</span><ul>
+          <li>State the CFL pumping lemma with all quantifiers correct, and derive it from CNF + tree height</li>
+          <li>Prove {aⁿbⁿcⁿ} and {ww} non-context-free, handling every case of the cut</li>
+          <li>Explain in two sentences why {ww<sup>R</sup>} is a CFL while {ww} is not</li>
+        </ul></div>
+      </div>
+
+      <div class="p-label">The Weeks</div>
+      <div class="ledger">
+        <div class="lrow"><div class="wk">WK 3</div><div class="rd">§2.1–2.3 · <em>ex. 2.4, 2.6, 2.9, 2.14, 2.16 · problems 2.30–2.32</em></div><div class="due"><b>Due:</b> LaTeX — one full CNF conversion + CFL pumping proofs for {aⁿbⁿcⁿ} and {ww}</div></div>
+      </div>
+      <div class="milestone">Vault: pumping lemma for CFLs (proof sketch via CNF + {aⁿbⁿcⁿ} application)</div>
+    </div></div>
+  </div>
+
+  <div class="phase">
+    <div class="phase-head"><span class="pn">3</span><span class="pw">Wks 4–6 · Ch. 3–4</span><h4>Computability</h4><span class="tog">▾</span></div>
+    <div class="phase-body"><div class="phase-inner">
+      <div class="book">Sipser Ch. 3–4 — read alongside Gödel (Logic, Track 1)</div>
+      <p class="why">Here the course changes register. The Turing machine is the last machine — the one the Church–Turing thesis says is <em>all</em> machines — and within two chapters of meeting it you prove there are questions it can never answer. Read Chapter 4 with the Gödel weeks of the Logic track open beside it; they are the same story told twice.</p>
+
+      <div class="topic">
+        <h5>Turing machines — tape, head, configurations</h5>
+        <div class="tref">Sipser §3.1</div>
+        <p>A Turing machine is a finite control over an unbounded tape it can read, write, and move across in both directions. The right unit of analysis is not the state but the <em>configuration</em> — current state, tape contents, head position — because a computation is simply a sequence of configurations, each yielding the next by one application of δ. Hold that image: in week 10, Cook–Levin works by writing this exact sequence into a table and describing the table with a Boolean formula. Machines may accept, reject, or loop forever; a <em>decider</em> always halts, a <em>recognizer</em> merely accepts what it accepts.</p>
+        <div class="must"><span class="must-t">You must be able to</span><ul>
+          <li>Write the formal 7-tuple and the yields relation between configurations</li>
+          <li>Trace a full configuration sequence for a small machine on a short input</li>
+          <li>Keep decidable and Turing-recognizable rigorously apart — looping is the entire difference</li>
+        </ul></div>
+      </div>
+
+      <div class="topic">
+        <h5>Variants &amp; robustness — why they all collapse</h5>
+        <div class="tref">Sipser §3.2</div>
+        <p>Multitape machines, nondeterministic machines, enumerators — every enrichment collapses back to the one-tape model. Multitape → single-tape: concatenate the tapes with separators, mark virtual heads with dotted symbols, sweep to simulate one step (a quadratic slowdown). Nondeterministic → deterministic: breadth-first search of the computation tree (an <em>exponential</em> slowdown — remember that number; it is the germ of P vs NP). Robustness is the evidence file for the Church–Turing thesis: no reasonable extension changes what is computable, only how fast.</p>
+        <div class="must"><span class="must-t">You must be able to</span><ul>
+          <li>Describe both simulations precisely, with their costs</li>
+          <li>Explain why the two slowdowns differ so violently — and why nobody cares in Ch. 3 but everyone cares in Ch. 7</li>
+        </ul></div>
+      </div>
+
+      <div class="topic">
+        <h5>The Church–Turing thesis — a philosophical claim</h5>
+        <div class="tref">Sipser §3.3</div>
+        <p>The thesis: the informal notion "algorithm" coincides exactly with "Turing machine." It is not a theorem and can never be one — one side of the equation is not a mathematical object. It is believed because every serious proposal for a model of computation (λ-calculus, recursive functions, your laptop, quantum circuits) computes precisely the same functions. It is also the load-bearing wall of this entire track: "A_TM is undecidable" means "no algorithm whatsoever decides it" <em>only if</em> the thesis holds. You are allowed to find that unsettling; Gödel did.</p>
+        <div class="must"><span class="must-t">You must be able to</span><ul>
+          <li>State the thesis precisely and explain why it is unprovable in principle</li>
+          <li>Name two provably equivalent models of computation</li>
+          <li>Say what the thesis buys every undecidability theorem you will prove</li>
+        </ul></div>
+      </div>
+
+      <div class="topic">
+        <h5>Decidable languages &amp; the universal machine</h5>
+        <div class="tref">Sipser §4.1–4.2</div>
+        <p>First the positive results: A_DFA, E_DFA, EQ_DFA, A_CFG are all decidable — small, honest algorithms about automata, each a warm-up in writing deciders as high-level descriptions. Then the pivotal object: the <em>universal Turing machine</em> U, a single machine that takes ⟨M, w⟩ and simulates M on w. Software, invented as a lemma in 1936. U is why A_TM is at least recognizable — simulate and accept if the simulation accepts — and it is the direct ancestor of the stored-program computer on your desk.</p>
+        <div class="must"><span class="must-t">You must be able to</span><ul>
+          <li>Write the four automata deciders and argue termination for each</li>
+          <li>Define U and explain why it makes A_TM recognizable but not obviously decidable</li>
+          <li>Prove the set of Turing machines is countable while the set of languages is uncountable — so <em>almost every</em> language is unrecognizable</li>
+        </ul></div>
+      </div>
+
+      <div class="topic">
+        <h5>Diagonalization — the undecidability of A_TM</h5>
+        <div class="tref">Sipser §4.2 ★★</div>
+        <p>Suppose a decider H for <span data-tip="A_TM = { ⟨M,w⟩ : M is a TM and M accepts w } — the acceptance problem, the master undecidable language.">A_TM</span> exists. Build D: on input ⟨M⟩, run H on ⟨M, ⟨M⟩⟩ and do the <em>opposite</em>. Now run the self-reference table: rows are machines, columns are machine descriptions, entry (i, j) records whether Mᵢ accepts ⟨Mⱼ⟩. D is constructed to differ from row i at column i — it disagrees with every machine somewhere on the diagonal — yet D must itself be some row. At entry (D, ⟨D⟩) the definition demands D accept iff D doesn't. Contradiction; H cannot exist. This is Cantor's diagonal argument wearing machinery, and it is the exact skeleton of Gödel's sentence. The coda: A_TM is recognizable but its complement is not, so recognizable ≠ co-recognizable — the first asymmetry of the semester.</p>
+        <div class="must"><span class="must-t">You must be able to</span><ul>
+          <li>Reproduce the full proof closed-book, drawing the table and locating D in it</li>
+          <li>Trace the contradiction at D(⟨D⟩) aloud without notes</li>
+          <li>Prove: L decidable ⟺ L and its complement both recognizable — hence co-A_TM is unrecognizable</li>
+        </ul></div>
+      </div>
+
+      <div class="p-label">The Weeks</div>
+      <div class="ledger">
+        <div class="lrow"><div class="wk">WK 4</div><div class="rd">§3.1–3.2 · <em>ex. 3.1, 3.2, 3.5, 3.8 · problem 3.16</em></div><div class="due"><b>Due:</b> LaTeX — multitape→single-tape simulation, with the quadratic cost analysis</div></div>
+        <div class="lrow"><div class="wk">WK 5</div><div class="rd">§3.3 + §4.1 · <em>ex. 4.1–4.5</em> · begin Gödel in parallel (Logic Track 1)</div><div class="due"><b>Due:</b> LaTeX — deciders for A_DFA, E_DFA, EQ_DFA, termination argued</div></div>
+        <div class="lrow"><div class="wk">WK 6</div><div class="rd">§4.2 · <em>ex. 4.6–4.8 · problems 4.18, 4.22</em></div><div class="due"><b>Due:</b> the A_TM diagonalization, closed-book — table drawn, contradiction traced</div></div>
+      </div>
+      <div class="milestone"><i class="arc-corners" aria-hidden="true"></i>Vault: undecidability of A_TM ★★ (full diagonalization, written from memory) · countability of TMs vs uncountability of languages</div>
+    </div></div>
+  </div>
+
+  <div class="phase">
+    <div class="phase-head"><span class="pn">4</span><span class="pw">Wks 7–8 · Ch. 5–6</span><h4>Reducibility &amp; Advanced Computability</h4><span class="tog">▾</span></div>
+    <div class="phase-body"><div class="phase-inner">
+      <div class="book">Sipser Ch. 5–6</div>
+      <p class="why">One impossibility becomes infinitely many. A reduction is a compiler from one problem into another, and it is the single most-used proof device in the rest of your mathematical life — here it spreads undecidability; in weeks 10–11 the same discipline, polynomial-time-bounded, spreads NP-completeness.</p>
+
+      <div class="topic">
+        <h5>Mapping reductions &amp; direction discipline</h5>
+        <div class="tref">Sipser §5.1, §5.3</div>
+        <p>A ≤ₘ B means there is a computable function f with w ∈ A ⟺ f(w) ∈ B: membership questions about A translate mechanically into membership questions about B. Direction is everything. To prove B undecidable you reduce <em>from</em> a known-undecidable A <em>to</em> B — "if I could decide B, then via f I could decide A, which I cannot." Reduce the wrong way and you have proven nothing; half of all beginner reduction errors are direction errors, so state the direction in words before writing a single line of f. With this engine, HALT_TM, E_TM, and EQ_TM all fall — each by a small machine-building trick around A_TM. The Post correspondence problem (§5.2) then carries undecidability outside machine-land entirely, into dominoes.</p>
+        <div class="must"><span class="must-t">You must be able to</span><ul>
+          <li>Define ≤ₘ and prove: if A ≤ₘ B and B is decidable, so is A (and the contrapositive you actually use)</li>
+          <li>Prove HALT_TM, E_TM, EQ_TM undecidable, direction stated in words first</li>
+          <li>Spot a wrong-direction reduction in someone else's proof instantly</li>
+        </ul></div>
+      </div>
+
+      <div class="topic">
+        <h5>Rice's theorem — every nontrivial semantic property</h5>
+        <div class="tref">Sipser problem 5.28 ★</div>
+        <p>One theorem to end a thousand questions: <em>every nontrivial semantic property of the language of a Turing machine is undecidable.</em> Does M accept a regular language? Accept the empty string? Accept anything at all? Undecidable, undecidable, undecidable — all instances of the same proof. "Semantic" means the property depends only on L(M), never on the machine's text; "nontrivial" means some machine has it and some machine lacks it. Both hypotheses are load-bearing: "M has at least 50 states" is syntactic and perfectly decidable. Rice is why perfect malware detection, complete dead-code elimination, and fully automatic program verification are impossible in general.</p>
+        <div class="must"><span class="must-t">You must be able to</span><ul>
+          <li>State the theorem with both hypotheses explicit</li>
+          <li>Prove it — one reduction from A_TM, handling the ∅-has-the-property case</li>
+          <li>Given any semantic property, produce the instantiated reduction in five minutes</li>
+          <li>Explain why syntactic properties escape</li>
+        </ul></div>
+      </div>
+
+      <div class="topic">
+        <h5>The recursion theorem &amp; quines</h5>
+        <div class="tref">Sipser §6.1</div>
+        <p>Machines may lawfully obtain their own descriptions: "compute ⟨self⟩" is a legitimate instruction, and the proof is a constructive two-part trick (the machine B that prints A followed by B). Its toy incarnation is the <em>quine</em> — a program that prints its own source. The theorem pays rent immediately: it gives a second, breathtakingly short proof that A_TM is undecidable (a decider would let a machine ask "do I accept this input?" and do the opposite), and it is the formal engine behind the diagonal lemma that manufactures the Gödel sentence in Track 1.</p>
+        <div class="must"><span class="must-t">You must be able to</span><ul>
+          <li>State the recursion theorem and sketch the A–B construction</li>
+          <li>Write a quine in a language you actually use</li>
+          <li>Give the recursion-theorem proof of A_TM's undecidability in four lines</li>
+        </ul></div>
+      </div>
+
+      <div class="topic">
+        <h5>The bridge to Gödel — undecidability ⇒ incompleteness</h5>
+        <div class="tref">Sipser §6.2 · cross-link: Logic Track 1, weeks 10–12</div>
+        <p>Suppose arithmetic had a sound, complete, effectively axiomatized theory. Then you could decide A_TM by brute proof-search: "M accepts w" is expressible as an arithmetic sentence, so enumerate all proofs — by completeness, a proof of the sentence or of its negation must eventually appear, and soundness guarantees the verdict is true. That is a decider for A_TM, which cannot exist. Therefore no such theory exists: some true sentence of arithmetic is unprovable. This is Gödel's first incompleteness theorem, derived in one paragraph from Turing — while in the Logic track you build the original 1931 route through Gödel numbering and the diagonal lemma. Two coats, one theorem; when you can narrate both and say precisely where each hypothesis is spent, you own the deepest result you will meet this year.</p>
+        <div class="must"><span class="must-t">You must be able to</span><ul>
+          <li>Run the proof-search argument end to end</li>
+          <li>Point to the exact steps where soundness, completeness, and effectiveness are each used</li>
+          <li>Compare this route with the diagonal-lemma route from Track 1 — what each proof shows that the other does not</li>
+        </ul></div>
+      </div>
+
+      <div class="p-label">The Weeks</div>
+      <div class="ledger">
+        <div class="lrow"><div class="wk">WK 7</div><div class="rd">§5.1, §5.3 (+ §5.2 PCP, skim) · <em>ex. 5.4–5.6 · problems 5.22, 5.28</em></div><div class="due"><b>Due:</b> LaTeX — three mapping reductions from A_TM (HALT_TM, E_TM, EQ_TM), direction stated in words first</div></div>
+        <div class="lrow"><div class="wk">WK 8</div><div class="rd">§6.1–6.2 · <em>ex. 6.1, 6.5</em> · reread Sipser §4.2 beside Smullyan</div><div class="due"><b>Due:</b> Rice's theorem, full proof + essay — "Gödel, Turing, and the limits of computation" (1,500w)</div></div>
+      </div>
+      <div class="milestone">Vault: Rice's theorem ★ (full proof via reduction) · essay: "Gödel, Turing, and the limits of computation"</div>
+    </div></div>
+  </div>
+
+  <div class="phase">
+    <div class="phase-head"><span class="pn">5</span><span class="pw">Wks 9–12 · Ch. 7–8</span><h4>Complexity — Time &amp; Space</h4><span class="tog">▾</span></div>
+    <div class="phase-body"><div class="phase-inner">
+      <div class="book">Sipser Ch. 7–8</div>
+      <p class="why">From "can it be computed at all" to "can it be computed before the sun dies." Chapter 7 defines the two most famous classes in mathematics and proves the theorem — Cook–Levin — that turns P vs NP into a question about one concrete problem. Chapter 8 replays the whole story with space instead of time, where nondeterminism turns out, astonishingly, to be nearly free.</p>
+
+      <div class="topic">
+        <h5>P and NP — decider vs verifier</h5>
+        <div class="tref">Sipser §7.1–7.3</div>
+        <p>P is the class of languages decidable in polynomial time — the robust, model-independent formalization of "feasible." NP has two definitions, and you need both fluently: (1) the <em>verifier</em> definition — L ∈ NP iff some polynomial-time verifier accepts ⟨w, c⟩ for some short certificate c exactly when w ∈ L; (2) the <em>decider</em> definition — L is decided by a nondeterministic polynomial-time TM. They are equivalent because a certificate is nothing but a transcript of the nondeterministic choices, and an NTM can guess a certificate branch by branch. So NP does not mean "not polynomial"; it means <em>verifiable</em> — and P vs NP asks whether finding a solution can be harder than checking one.</p>
+        <div class="must"><span class="must-t">You must be able to</span><ul>
+          <li>State both definitions and prove their equivalence in both directions</li>
+          <li>Place SAT, CLIQUE, HAMPATH, COMPOSITES with certificates named explicitly</li>
+          <li>State P vs NP precisely and say what P = NP would do to cryptography and to proof-search</li>
+        </ul></div>
+      </div>
+
+      <div class="topic">
+        <h5>Cook–Levin — the tableau proof ★★★</h5>
+        <div class="tref">Sipser §7.4</div>
+        <p>SAT is NP-complete: <em>every</em> NP computation compiles into one Boolean formula. The strategy: an accepting computation of an nᵏ-time NTM on w is an nᵏ × nᵏ <em>tableau</em> — one configuration per row, each row yielding the next. Variables x<sub>i,j,s</sub> assert "cell (i, j) holds symbol s," and four formula families pin the tableau down: φ<sub>cell</sub> (each cell holds exactly one symbol), φ<sub>start</sub> (row one is the start configuration on w), φ<sub>accept</sub> (an accept state appears somewhere), and φ<sub>move</sub> (every 2×3 <em>window</em> of adjacent cells is consistent with the transition function). The deep trick is that legality is local: a global computation is certified by checking polynomially many constant-size windows, so the formula stays polynomial-size and is satisfiable iff M accepts w. This is the crown of the track — hence the two-part write-up in weeks 10–11.</p>
+        <div class="must"><span class="must-t">You must be able to</span><ul>
+          <li>Define ≤ₚ and NP-completeness, and explain why one complete problem changes everything</li>
+          <li>Name all four formula families and write each out, with its size bound</li>
+          <li>Prove the window lemma: if every window is legal, each row yields the next</li>
+          <li>Account for the total O(n²ᵏ) size and the polynomial-time constructibility of φ</li>
+        </ul></div>
+      </div>
+
+      <div class="topic">
+        <h5>The reductions gallery</h5>
+        <div class="tref">Sipser §7.4–7.5</div>
+        <p>Once one NP-complete problem exists, thousands follow by polynomial-time reduction — always <em>from</em> the known-complete problem, the same direction discipline as week 7. Each classic reduction is a gadget with a signature: 3SAT → CLIQUE turns clauses into triples of nodes wired to every non-contradictory neighbor; CLIQUE → VERTEX-COVER is the complement flip (k-clique in G ⟺ (n−k)-cover in Ḡ); 3SAT → SUBSET-SUM engineers decimal digits so that no column can carry, making arithmetic simulate logic. Learn them as gadget <em>patterns</em>, not as texts to memorize — the gadget is the idea.</p>
+        <div class="must"><span class="must-t">You must be able to</span><ul>
+          <li>Run each reduction on a concrete 2–3-clause instance, start to finish</li>
+          <li>Verify both directions of the ⟺ for each gadget</li>
+          <li>Explain why NP-completeness of B requires showing B ∈ NP as well as hardness</li>
+        </ul></div>
+      </div>
+
+      <div class="topic">
+        <h5>coNP — the other side of the mirror</h5>
+        <div class="tref">Sipser §7.4 + problems</div>
+        <p>coNP is the class of complements of NP languages: TAUTOLOGY, UNSAT, "this graph has <em>no</em> clique of size k." Where NP has short certificates for <em>yes</em>, coNP has short certificates for <em>no</em> — and nobody knows whether the two coincide. P sits inside NP ∩ coNP; NP = coNP would mean every tautology has a short proof, which almost no one believes; and NP ≠ coNP would imply P ≠ NP. This one definition sharpens everything you think about proof length.</p>
+        <div class="must"><span class="must-t">You must be able to</span><ul>
+          <li>Define coNP and place TAUTOLOGY and UNSAT in it</li>
+          <li>Prove P ⊆ NP ∩ coNP</li>
+          <li>Explain what NP = coNP would say about the length of proofs</li>
+        </ul></div>
+      </div>
+
+      <div class="topic">
+        <h5>Space complexity &amp; Savitch's theorem ★</h5>
+        <div class="tref">Sipser §8.1–8.2</div>
+        <p>Space is reusable; time is not — that single asymmetry drives the whole chapter. Savitch's theorem: NSPACE(s(n)) ⊆ SPACE(s(n)²) — nondeterminism, which seems to cost exponential <em>time</em> to remove, costs only a squaring of <em>space</em>. The trick is the recursive middle-configuration procedure CANYIELD(c₁, c₂, t): can c₁ reach c₂ within t steps? Try every candidate middle configuration c<sub>m</sub> and recurse on both halves with t/2 — the two recursive calls <em>reuse the same space</em>. Recursion depth log t = O(s(n)), each stack frame stores one configuration of size O(s(n)): total O(s(n)²). Immediate corollary: NPSPACE = PSPACE, which is why nobody ever writes "NPSPACE."</p>
+        <div class="must"><span class="must-t">You must be able to</span><ul>
+          <li>Define SPACE, NSPACE, PSPACE, L, NL and prove the basic containments P ⊆ NP ⊆ PSPACE</li>
+          <li>Write CANYIELD in pseudocode and compute the s(n)² bound line by line</li>
+          <li>State why the same divide-in-the-middle idea fails for time</li>
+        </ul></div>
+      </div>
+
+      <div class="topic">
+        <h5>PSPACE-completeness &amp; TQBF — quantifiers as games</h5>
+        <div class="tref">Sipser §8.3</div>
+        <p>TQBF asks whether a fully quantified Boolean formula ∀x∃y∀z… φ is true, and it is PSPACE-complete: quantifier alternation is exactly what polynomial space can express. Read the formula as a two-player game — the ∃-player chooses values to make φ true, the ∀-player chooses to wreck it; the sentence is true iff ∃ has a winning strategy. That is why PSPACE is the natural home of perfect-play questions (generalized geography, go on an n×n board). The hardness proof is Savitch's middle-configuration recursion in formula form, with the quantifiers introduced precisely to stop the formula from doubling at each level.</p>
+        <div class="must"><span class="must-t">You must be able to</span><ul>
+          <li>Prove TQBF ∈ PSPACE by the depth-first recursion on quantifiers</li>
+          <li>Sketch PSPACE-hardness and point to the exact move where ∀ prevents exponential blow-up</li>
+          <li>Play the formula game correctly on a 3-quantifier instance</li>
+        </ul></div>
+      </div>
+
+      <div class="p-label">The Weeks</div>
+      <div class="ledger">
+        <div class="lrow"><div class="wk">WK 9</div><div class="rd">§7.1–7.3 · <em>ex. 7.1, 7.2, 7.6, 7.7 · problem 7.12</em></div><div class="due"><b>Due:</b> LaTeX — verifier ⟺ NTM characterization of NP, both directions</div></div>
+        <div class="lrow"><div class="wk">WK 10</div><div class="rd">§7.4 — read the Cook–Levin proof twice, once for shape, once for detail · <em>ex. 7.20</em></div><div class="due"><b>Due:</b> Cook–Levin tableau write-up, part 1 — variables, φ<sub>cell</sub>, φ<sub>start</sub>, φ<sub>accept</sub>, size count</div></div>
+        <div class="lrow"><div class="wk">WK 11</div><div class="rd">§7.4–7.5 · <em>ex. 7.21, 7.22 · problems 7.24, 7.25</em></div><div class="due"><b>Due:</b> Cook–Levin part 2 — the window lemma &amp; φ<sub>move</sub> + 3SAT→CLIQUE→VERTEX-COVER on a worked instance</div></div>
+        <div class="lrow"><div class="wk">WK 12</div><div class="rd">§8.1–8.3 · <em>ex. 8.1, 8.4 · problems 8.10, 8.12</em></div><div class="due"><b>Due:</b> Savitch's theorem from memory + TQBF ∈ PSPACE with the hardness sketch</div></div>
+      </div>
+      <div class="milestone"><i class="arc-corners" aria-hidden="true"></i>Vault: Cook–Levin theorem ★★★ (the full tableau construction — the crown of this track) · Savitch's theorem ★ · one complete chain of NP-completeness reductions</div>
+    </div></div>
+  </div>
+
+  <div class="phase">
+    <div class="phase-head"><span class="pn">6</span><span class="pw">Wks 13–14 · Ch. 9 + de Wolf</span><h4>Hierarchies &amp; the Quantum Frontier</h4><span class="tog">▾</span></div>
+    <div class="phase-body"><div class="phase-inner">
+      <div class="book">Sipser Ch. 9 (+ §10.2 for BPP) · de Wolf lecture notes, complexity section</div>
+      <p class="why">The finale proves that limits exist <em>unconditionally</em> — meaningfully more time really does decide strictly more — and then walks to the frontier, where BQP takes its seat among the classical classes. The honest answer to "do quantum computers break NP?" is: almost certainly not, and nobody can prove it.</p>
+
+      <div class="topic">
+        <h5>The time &amp; space hierarchy theorems</h5>
+        <div class="tref">Sipser §9.1</div>
+        <p>Diagonalization returns, now with a budget: build a machine D that, on input ⟨M⟩10ᵐ, simulates M on that same input for f(n) steps and flips the answer. D runs in O(f(n)) but differs from every machine deciding in o(f(n)/log f(n)) time — the log factor is pure simulation overhead, the bookkeeping cost of one machine impersonating another. When the raw separation lands between awkward bounds, <em>padding</em> arguments stretch it to the classes you care about: pad the inputs with 0s until an exponential-time problem looks polynomial, and separations transfer upward. The unconditional prizes: P ⊊ EXPTIME and PSPACE ⊊ EXPSPACE — real, proven walls, in a field where almost every interesting wall is conjecture.</p>
+        <div class="must"><span class="must-t">You must be able to</span><ul>
+          <li>Prove the time hierarchy theorem, saying exactly where time-constructibility of f is used</li>
+          <li>Explain the log-factor overhead and why the space hierarchy theorem doesn't need it</li>
+          <li>Derive P ⊊ EXPTIME, and run one padding argument in full</li>
+        </ul></div>
+      </div>
+
+      <div class="topic">
+        <h5>Relativization — why diagonalization can't finish the job</h5>
+        <div class="tref">Sipser §9.2</div>
+        <p>An oracle machine gets a magic subroutine for some language A. Baker, Gill and Solovay: there exist oracles A and B with P<sup>A</sup> = NP<sup>A</sup> and P<sup>B</sup> ≠ NP<sup>B</sup>. But diagonalization-style proofs <em>relativize</em> — they go through unchanged when both machines carry the same oracle — so no relativizing proof can settle P vs NP in either direction. This is the first of the great barrier theorems: a proof about the limits of proofs, telling you the hierarchy-theorem toolbox, mighty as it is, cannot climb this wall.</p>
+        <div class="must"><span class="must-t">You must be able to</span><ul>
+          <li>Define oracle TMs and the classes P<sup>A</sup>, NP<sup>A</sup></li>
+          <li>State the Baker–Gill–Solovay theorem and sketch the PSPACE-oracle half</li>
+          <li>Explain in a paragraph what "this proof relativizes" means and why it dooms the technique here</li>
+        </ul></div>
+      </div>
+
+      <div class="topic">
+        <h5>BPP — randomness as a resource</h5>
+        <div class="tref">Sipser §10.2</div>
+        <p>BPP is polynomial time with coin flips and error at most 1/3 on every input. The 1/3 is arbitrary because of <em>amplification</em>: run the machine k times, take the majority vote, and Chernoff bounds crush the error to 2<sup>−Ω(k)</sup> — so "probably correct" is as good as correct for every practical purpose. BPP is the honest formalization of "practically computable," and the modern consensus, driven by derandomization results, is that P = BPP: randomness likely buys convenience, never power. It also matters here as scaffolding — BQP's definition is BPP's with amplitudes in place of probabilities.</p>
+        <div class="must"><span class="must-t">You must be able to</span><ul>
+          <li>Define BPP and prove the containments P ⊆ BPP ⊆ PSPACE</li>
+          <li>State amplification precisely and explain why 1/3 vs 1/2 − 1/poly matters</li>
+          <li>Say why P = BPP is the standard conjecture</li>
+        </ul></div>
+      </div>
+
+      <div class="topic">
+        <h5>BQP, and why BQP ⊆ PSPACE</h5>
+        <div class="tref">de Wolf, complexity section (§13)</div>
+        <p>BQP: languages decided by uniform polynomial-size quantum circuits with error at most 1/3 — bounded-error quantum polynomial time, the class where quantum computers live. The containment BQP ⊆ PSPACE comes from a <em>path-sum</em> argument: the acceptance amplitude is a sum, over all computation paths through the circuit, of a product of polynomially many gate entries. Each path's contribution is computable in polynomial space, and you sum over paths one at a time, <em>reusing the space</em> — Savitch's lesson again. So P ⊆ BPP ⊆ BQP ⊆ PSPACE, and quantum computers cannot escape polynomial space. The sting: since P ⊆ BQP ⊆ PSPACE, proving P ≠ BQP would prove P ≠ PSPACE — even "quantum beats classical" is beyond every current technique.</p>
+        <div class="must"><span class="must-t">You must be able to</span><ul>
+          <li>Define BQP cleanly (circuits, uniformity, error bound)</li>
+          <li>Give the path-sum argument for BQP ⊆ PSPACE, with the space accounting explicit</li>
+          <li>Explain why proving P ≠ BQP is currently hopeless</li>
+        </ul></div>
+      </div>
+
+      <div class="topic">
+        <h5>Shor, Grover, and the open frontier</h5>
+        <div class="tref">de Wolf · cross-link: Quantum track, phases 3–4</div>
+        <p>Shor puts FACTORING in BQP — but factoring is not known to be NP-complete; it lives in NP ∩ coNP, exactly where an NP-complete problem cannot sit unless NP = coNP. Grover speeds up unstructured search only quadratically, and the BBBV lower bound proves that quadratic is <em>optimal</em> in the black-box model — no quantum brute-force miracle exists. The picture that emerges: quantum computers devour <em>structured</em> problems (period-finding, hidden subgroups) and merely dent brute force. Whether NP ⊆ BQP is open — like everything else worth asking here — but the black-box evidence says no: quantum computers almost certainly do not solve NP-complete problems efficiently, and you should be able to argue why.</p>
+        <div class="must"><span class="must-t">You must be able to</span><ul>
+          <li>Place factoring in NP ∩ coNP and explain why that placement is evidence it isn't NP-complete</li>
+          <li>State Grover's quadratic speedup and the BBBV optimality result</li>
+          <li>Argue, structure vs brute force, why "quantum computers break NP" is (probably) false — and why it remains open</li>
+        </ul></div>
+      </div>
+
+      <div class="p-label">The Weeks</div>
+      <div class="ledger">
+        <div class="lrow"><div class="wk">WK 13</div><div class="rd">§9.1–9.2 · <em>ex. 9.1, 9.2 · problem 9.13</em></div><div class="due"><b>Due:</b> LaTeX — time hierarchy theorem, full proof + one padding argument</div></div>
+        <div class="lrow"><div class="wk">WK 14</div><div class="rd">Sipser §10.2 (BPP) · de Wolf complexity section, read twice</div><div class="due"><b>Due:</b> BQP ⊆ PSPACE path-sum sketch + a one-page hand-drawn map placing P, NP, coNP, BPP, BQP, PSPACE, EXPTIME</div></div>
+      </div>
+      <div class="milestone">Vault: time hierarchy theorem (proof) · BQP ⊆ PSPACE (careful sketch) — then walk straight into the Quantum track</div>
+    </div></div>
+  </div>
+</section>
+
+<section class="reveal">
+  <span class="marginalia left" style="top:120px">quod non potest decidi</span>
+  <div class="vault-box" data-tilt>
+    <i class="arc-corners" aria-hidden="true"></i>
+    <h5>Proof Vault Targets — 8 Proofs</h5>
+    <ul>
+      <li>Subset construction (DFA ≡ NFA)<span class="own"><b>owning it means:</b> converting any NFA on the spot, and explaining why 2ⁿ states are sometimes genuinely necessary</span></li>
+      <li>Pumping lemma for regular languages ★<span class="own"><b>owning it means:</b> winning the demon game cold for three different languages, every quantifier in its lawful place</span></li>
+      <li>Undecidability of A_TM (diagonalization) ★★<span class="own"><b>owning it means:</b> drawing the self-reference table closed-book and tracing the contradiction at D(⟨D⟩) aloud</span></li>
+      <li>Rice's theorem ★<span class="own"><b>owning it means:</b> hearing any nontrivial semantic property named and producing the instantiated reduction in five minutes</span></li>
+      <li>Cook–Levin theorem (SAT is NP-complete) ★★★<span class="own"><b>owning it means:</b> naming all four formula families, proving the window lemma, and defending the polynomial size count</span></li>
+      <li>Savitch's theorem ★<span class="own"><b>owning it means:</b> writing CANYIELD from memory and computing the s(n)² bound line by line</span></li>
+      <li>Time hierarchy theorem<span class="own"><b>owning it means:</b> saying exactly where time-constructibility and the log-factor overhead enter, and running one padding argument</span></li>
+      <li>BQP ⊆ PSPACE (proof sketch)<span class="own"><b>owning it means:</b> writing the amplitude of a single path and summing over paths in reused polynomial space</span></li>
+    </ul>
+  </div>
+  <div class="connect" data-tilt>
+    <i class="arc-corners" aria-hidden="true"></i>
+    <div class="block-label">Where This Fits</div>
+    <p><strong>Gödel ↔ Turing.</strong> Incompleteness is undecidability in disguise: the diagonal argument that kills the halting problem is the same argument behind the Gödel sentence. Weeks 4–8 here run in parallel with <a href="mathematical_logic.html">Logic Track 1</a>.</p>
+    <p><strong>Games ↔ Games.</strong> The strategy arguments you build for automata return as Ehrenfeucht–Fraïssé games in <a href="mathematical_logic.html">model theory (Track 4)</a> — model comparison by adversarial play is one idea wearing many crowns.</p>
+    <p><strong>BQP ↔ the Quantum track.</strong> The coda hands you the complexity-theoretic map that the <a href="quantum_computing.html">quantum computing track</a> fills in with actual algorithms — Shor, Grover, and the honest boundaries of the quantum advantage.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="fbrand">Schola <span>Arcana</span></div>
+  <p>Ana Paola Oviedo Salgado · July — December 2026</p>
+</footer>
+
+<script>
+  const meter=document.getElementById('meter');
+  document.querySelectorAll('.phase-head').forEach(h=>h.addEventListener('click',()=>h.parentElement.classList.toggle('open')));
+  let t=false;window.addEventListener('scroll',()=>{if(t)return;t=true;requestAnimationFrame(()=>{const h=document.documentElement.scrollHeight-innerHeight;meter.style.width=(h>0?scrollY/h*100:0)+'%';t=false;});},{passive:true});
+</script>
+<script>
+(function(){
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine=matchMedia('(pointer: fine)').matches;
+  /* entrance veil — full ritual once per session, quick fade between rooms */
+  const veil=document.getElementById('arcVeil');
+  if(veil){const seen=sessionStorage.getItem('arcVeil');const d=reduce?0:(seen?420:1700);setTimeout(()=>{veil.classList.add('gone');try{sessionStorage.setItem('arcVeil','1');}catch(e){}},d);}
+  /* candlelight follows the cursor */
+  const candle=document.getElementById('arcCandle');
+  if(candle&&!reduce&&fine){
+    let cx=innerWidth/2,cy=innerHeight/3,tx=cx,ty=cy,lit=false;
+    addEventListener('pointermove',e=>{tx=e.clientX;ty=e.clientY;if(!lit){lit=true;document.body.classList.add('arc-lit');}},{passive:true});
+    (function glide(){cx+=(tx-cx)*.07;cy+=(ty-cy)*.07;candle.style.transform='translate('+cx+'px,'+cy+'px)';requestAnimationFrame(glide);})();
+  }
+  /* dust motes + glowing wisps + cursor sparkle-dust */
+  const cv=document.getElementById('arcMotes');
+  if(cv&&!reduce){
+    const ctx=cv.getContext('2d');const dpr=Math.min(devicePixelRatio||1,2);let W,H;
+    function size(){W=cv.width=innerWidth*dpr;H=cv.height=innerHeight*dpr;cv.style.width=innerWidth+'px';cv.style.height=innerHeight+'px';}
+    size();addEventListener('resize',size);
+    const N=innerWidth<900?14:34,P=[];
+    for(let i=0;i<N;i++)P.push({wisp:i<6,ang:Math.random()*6.28,x:Math.random()*innerWidth*dpr,y:Math.random()*innerHeight*dpr,r:(Math.random()*1.5+.5)*dpr*(i<6?2.4:1),s:(Math.random()*.3+.08)*dpr,ph:Math.random()*6.28,a:Math.random()*.3+.1});
+    const S=[];
+    if(fine)addEventListener('pointermove',e=>{if(S.length<70&&Math.random()<.45)S.push({x:e.clientX*dpr,y:e.clientY*dpr,vx:(Math.random()-.5)*.7*dpr,vy:(Math.random()*.5+.15)*dpr,life:1,r:(Math.random()*1.1+.4)*dpr});},{passive:true});
+    (function draw(t){ctx.clearRect(0,0,W,H);
+      for(const p of P){
+        if(p.wisp){p.ang+=(Math.random()-.5)*.05;p.x+=Math.cos(p.ang)*p.s*1.7;p.y+=Math.sin(p.ang)*p.s*1.7;}
+        else{p.y-=p.s;p.x+=Math.sin(t/2600+p.ph)*.16*dpr;}
+        if(p.y<-10)p.y=H+10;if(p.y>H+10)p.y=-10;if(p.x<-10)p.x=W+10;if(p.x>W+10)p.x=-10;
+        const tw=.55+.45*Math.sin(t/900+p.ph);
+        if(p.wisp){const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*5);g.addColorStop(0,'rgba(240,217,181,'+(p.a*tw*.9).toFixed(3)+')');g.addColorStop(.4,'rgba(224,180,138,'+(p.a*tw*.35).toFixed(3)+')');g.addColorStop(1,'rgba(224,180,138,0)');ctx.beginPath();ctx.arc(p.x,p.y,p.r*5,0,6.28);ctx.fillStyle=g;ctx.fill();}
+        else{ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,6.28);ctx.fillStyle='rgba(224,180,138,'+(p.a*tw).toFixed(3)+')';ctx.fill();}
+      }
+      for(let i=S.length-1;i>=0;i--){const s=S[i];s.life-=.016;if(s.life<=0){S.splice(i,1);continue;}
+        s.x+=s.vx;s.y+=s.vy;s.vy+=.008*dpr;
+        ctx.beginPath();ctx.arc(s.x,s.y,s.r*s.life,0,6.28);ctx.fillStyle='rgba(248,230,192,'+(s.life*.7).toFixed(3)+')';ctx.fill();}
+      requestAnimationFrame(draw);})(0);
+  }
+  /* scroll reveal + marginalia */
+  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.1});
+  document.querySelectorAll('.reveal,.stagger,.marginalia').forEach(el=>io.observe(el));
+  /* card tilt */
+  if(fine&&!reduce){document.querySelectorAll('[data-tilt]').forEach(card=>{
+    card.addEventListener('pointermove',e=>{const r=card.getBoundingClientRect();const px=(e.clientX-r.left)/r.width-.5,py=(e.clientY-r.top)/r.height-.5;card.style.transform='perspective(900px) rotateY('+(px*5).toFixed(2)+'deg) rotateX('+(-py*5).toFixed(2)+'deg) translateY(-6px)';});
+    card.addEventListener('pointerleave',()=>{card.style.transform='';});
+  });}
+  /* astrolabe + shelf parallax */
+  const astro=document.getElementById('arcAstro');
+  const shelves=[...document.querySelectorAll('.arc-shelf')];
+  let tk=false;
+  function onArcScroll(){if(tk)return;tk=true;requestAnimationFrame(()=>{
+    const doc=document.documentElement.scrollHeight-innerHeight;const p=doc>0?scrollY/doc:0;
+    document.documentElement.style.setProperty('--arc-p',p.toFixed(4));
+    document.body.classList.toggle('arc-scrolled',scrollY>400);
+    if(!reduce)shelves.forEach(s=>s.style.backgroundPositionY=(-scrollY*.08).toFixed(1)+'px');
+    tk=false;});}
+  addEventListener('scroll',onArcScroll,{passive:true});onArcScroll();
+  if(astro)astro.addEventListener('click',()=>scrollTo({top:0,behavior:reduce?'auto':'smooth'}));
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>About — Schola Arcana</title>
+<meta name="description" content="The cathedral and its method: the Proof Vault Protocol, the weekly cadence, the commonplace book, and where six months of rigor lead."/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  :root{--brown:#1a1410;--brown-2:#241a12;--brown-3:#3d2817;--rose-gold:#c9956b;--rose-glow:rgba(201,149,107,.22);--gold:#d4a574;--cream-gold:#f0d9b5;--cream:#e8dcc8;--cream-dim:#b8a888;--blush:#d9a8a0;--rose-muted:#a67c6e;--border:#5a4535;--border-soft:rgba(90,69,53,.5);}
+  html{font-size:16px;scroll-behavior:smooth;}
+  body{background:var(--brown);color:var(--cream);font-family:'Inter',sans-serif;font-weight:300;line-height:1.8;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+  body::before{content:'';position:fixed;inset:0;z-index:3000;pointer-events:none;opacity:.5;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");}
+  body::after{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 50% 0%,rgba(201,149,107,.09),transparent 55%),radial-gradient(ellipse at 50% 120%,rgba(61,40,23,.5),transparent 60%);}
+  a{color:inherit;text-decoration:none;}::selection{background:var(--rose-gold);color:var(--brown);}
+  nav{padding:20px 52px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;background:rgba(26,20,16,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--border-soft);}
+  .nav-brand{font-family:'EB Garamond',serif;font-size:1.2rem;letter-spacing:.05em;}.nav-brand span{color:var(--rose-gold);}
+  .nav-links{display:flex;gap:28px;list-style:none;}
+  .nav-links a{font-size:.7rem;color:var(--cream-dim);letter-spacing:.16em;text-transform:uppercase;transition:color .25s;}
+  .nav-links a:hover,.nav-links a.active{color:var(--rose-gold);}
+  .nav-toggle{display:none;background:none;border:none;color:var(--rose-gold);font-size:1.4rem;cursor:pointer;}
+  .page-hero{max-width:820px;margin:0 auto;padding:100px 48px 10px;text-align:center;}
+  .page-hero .eyebrow{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.4em;text-transform:uppercase;color:var(--rose-gold);margin-bottom:22px;}
+  .page-hero h1{font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(2.4rem,6.5vw,4.3rem);line-height:1.05;text-transform:uppercase;}
+  .page-hero h1 em{font-style:italic;color:var(--rose-gold);text-transform:none;}
+  .prose{max-width:720px;margin:0 auto;padding:50px 48px;position:relative;}
+  .prose .lead{font-family:'EB Garamond',serif;font-style:italic;font-size:1.5rem;line-height:1.6;color:var(--cream);text-align:center;margin-bottom:52px;}
+  .prose h2{font-family:'Playfair Display',serif;font-weight:500;font-size:1.7rem;margin:44px 0 14px;color:var(--rose-gold);}
+  .prose p{font-size:1.05rem;color:var(--cream-dim);margin-bottom:20px;}
+  .prose p strong{color:var(--cream);font-weight:500;}
+  .divider{display:flex;align-items:center;justify-content:center;gap:16px;color:var(--rose-gold);margin:42px 0;}
+  .divider::before,.divider::after{content:'';height:1px;flex:1;background:linear-gradient(90deg,transparent,var(--rose-gold));}.divider::after{background:linear-gradient(90deg,var(--rose-gold),transparent);}
+  .block-label{font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--rose-gold);margin-bottom:8px;display:flex;align-items:center;gap:14px;}
+  .block-label::after{content:'';flex:1;height:1px;background:var(--border-soft);}
+  .method{max-width:900px;margin:0 auto;padding:20px 48px 40px;position:relative;}
+  .method .intro{font-family:'EB Garamond',serif;font-style:italic;font-size:1.1rem;color:var(--cream-dim);margin-top:6px;}
+  .method-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:26px;}
+  .mcard{position:relative;background:linear-gradient(160deg,var(--brown-3),var(--brown-2));border:1px solid var(--border);border-radius:5px;padding:28px 28px 22px;transition:border-color .4s,box-shadow .4s;}
+  .mcard:hover{border-color:var(--rose-gold);box-shadow:0 18px 44px -20px rgba(0,0,0,.8);}
+  .mcard h3{font-family:'Playfair Display',serif;font-weight:500;font-size:1.25rem;color:var(--cream-gold);margin-bottom:4px;}
+  .mcard .rule{font-family:'JetBrains Mono',monospace;font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:var(--rose-gold);margin-bottom:14px;}
+  .mcard p{font-size:.92rem;color:var(--cream-dim);margin-bottom:12px;}
+  .mcard ul{list-style:none;margin:0;}
+  .mcard li{font-size:.9rem;color:var(--cream-dim);padding:7px 0 7px 22px;position:relative;border-top:1px solid var(--border-soft);}
+  .mcard li:first-child{border-top:none;}
+  .mcard li::before{content:'✦';position:absolute;left:0;top:8px;color:var(--rose-gold);font-size:.6rem;}
+  .mcard li strong{color:var(--cream);font-weight:500;}
+  .starkey{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.08em;color:var(--cream-dim);}
+  .starkey b{color:var(--rose-gold);font-weight:500;}
+  .dests{max-width:900px;margin:0 auto;padding:20px 48px 50px;position:relative;}
+  .dest-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:22px;}
+  .dest{background:linear-gradient(160deg,var(--brown-3),var(--brown-2));border:1px solid var(--border);border-radius:5px;padding:22px 24px;display:flex;justify-content:space-between;align-items:center;gap:16px;transition:border-color .3s;}
+  .dest:hover{border-color:var(--rose-gold);}
+  .dest h4{font-family:'Playfair Display',serif;font-weight:500;font-size:1.15rem;}
+  .dest h4 .star{color:var(--rose-gold);}
+  .dest p{font-size:.82rem;color:var(--cream-dim);margin-top:2px;}
+  .dest .dl{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--rose-gold);white-space:nowrap;border:1px solid var(--border);border-radius:20px;padding:6px 12px;}
+  .dest .dl.crit{color:var(--blush);border-color:var(--rose-muted);}
+  .produces{background:linear-gradient(180deg,var(--brown-2),var(--brown));border-top:1px solid var(--border-soft);border-bottom:1px solid var(--border-soft);}
+  .prod-inner{max-width:900px;margin:0 auto;padding:56px 48px;}
+  .prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:22px;}
+  .prod{text-align:center;padding:16px;}
+  .prod b{display:block;font-family:'Playfair Display',serif;font-size:2.1rem;color:var(--rose-gold);margin-bottom:8px;}
+  .prod span{font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--cream-dim);}
+  .closing{position:relative;max-width:720px;margin:0 auto;padding:70px 48px;text-align:center;}
+  .closing blockquote{font-family:'EB Garamond',serif;font-style:italic;font-size:clamp(1.5rem,3.6vw,2.2rem);line-height:1.45;color:var(--cream);}
+  .closing cite{display:block;margin-top:20px;font-style:normal;font-family:'JetBrains Mono',monospace;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--rose-gold);}
+  .signature{font-family:'EB Garamond',serif;font-style:italic;font-size:1.15rem;color:var(--rose-muted);margin-top:38px;}
+  footer{border-top:1px solid var(--border-soft);padding:52px;text-align:center;background:var(--brown-2);}
+  footer .fbrand{font-family:'EB Garamond',serif;font-size:1.3rem;margin-bottom:10px;}footer .fbrand span{color:var(--rose-gold);}
+  footer p{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.14em;color:var(--cream-dim);text-transform:uppercase;}
+  @media(max-width:1150px){.nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:var(--brown-2);border-bottom:1px solid var(--border);padding:8px 0;}.nav-links.open{display:flex;}.nav-links li{padding:12px 22px;border-top:1px solid var(--border-soft);}.nav-toggle{display:block;}}
+  @media(max-width:900px){nav{padding:16px 22px;}.nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:var(--brown-2);border-bottom:1px solid var(--border);padding:8px 0;}.nav-links.open{display:flex;}.nav-links li{padding:12px 22px;border-top:1px solid var(--border-soft);}.nav-toggle{display:block;}.prose,.method,.dests,.prod-inner,.closing{padding-left:22px;padding-right:22px;}.dest-grid,.prod-grid,.method-grid{grid-template-columns:1fr;}}
+  /* ═══ ARCANUM IMMERSION LAYER ═══ */
+  #arcMotes{position:fixed;inset:0;z-index:2;pointer-events:none;}
+  #arcCandle{position:fixed;left:0;top:0;width:560px;height:560px;margin:-280px 0 0 -280px;z-index:1;pointer-events:none;border-radius:50%;background:radial-gradient(circle,rgba(224,180,138,.085) 0%,rgba(201,149,107,.05) 38%,transparent 68%);mix-blend-mode:screen;opacity:0;transition:opacity 1.2s ease;will-change:transform;}
+  body.arc-lit #arcCandle{opacity:1;animation:arcFlick 2.8s ease-in-out infinite;}
+  @keyframes arcFlick{0%,100%{filter:brightness(1);}23%{filter:brightness(1.22);}47%{filter:brightness(.9);}71%{filter:brightness(1.12);}}
+  .arc-breath{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse at 50% -10%,rgba(224,180,138,.10),transparent 55%);animation:arcBreathe 7s ease-in-out infinite;}
+  @keyframes arcBreathe{0%,100%{opacity:.55;}50%{opacity:1;}}
+  #arcVeil{position:fixed;inset:0;z-index:6000;background:#0c0906;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;opacity:1;visibility:visible;transition:opacity 1.2s ease,visibility 1.2s ease;}
+  #arcVeil.gone{opacity:0;visibility:hidden;}
+  #arcVeil .v-sigil{color:var(--rose-gold);font-size:1.6rem;animation:veilFlame 1.6s ease-in-out infinite;text-shadow:0 0 24px var(--rose-glow);}
+  @keyframes veilFlame{0%,100%{opacity:.55;transform:scale(1);}50%{opacity:1;transform:scale(1.15);}}
+  #arcVeil .v-name{font-family:'Playfair Display',serif;font-size:clamp(1.3rem,3.4vw,2rem);letter-spacing:.34em;color:var(--cream);text-transform:uppercase;padding-left:.34em;}
+  #arcVeil .v-motto{font-family:'EB Garamond',serif;font-style:italic;font-size:.95rem;color:var(--rose-muted);letter-spacing:.12em;}
+  .marginalia{position:absolute;font-family:'EB Garamond',serif;font-style:italic;color:var(--rose-muted);opacity:0;font-size:.95rem;max-width:170px;line-height:1.5;pointer-events:none;transform:rotate(-4deg) translateY(18px);transition:opacity 1.6s ease,transform 1.6s ease;z-index:3;}
+  .marginalia.in{opacity:.52;transform:rotate(-4deg) translateY(0);}
+  .marginalia.right{right:-190px;}
+  .marginalia.left{left:-190px;transform:rotate(3deg) translateY(18px);}
+  .marginalia.left.in{transform:rotate(3deg) translateY(0);}
+  @media(max-width:1360px){.marginalia{display:none;}}
+  .dropcap::first-letter{font-family:'Playfair Display',serif;font-size:3.3em;float:left;line-height:.82;padding:.05em .14em .02em 0;color:var(--rose-gold);text-shadow:0 0 22px var(--rose-glow);}
+  [data-tip]{position:relative;border-bottom:1px dotted var(--rose-muted);cursor:help;}
+  [data-tip]::after{content:attr(data-tip);position:absolute;left:50%;bottom:calc(100% + 10px);transform:translateX(-50%) translateY(6px);background:linear-gradient(160deg,#2b1f14,#1f160e);color:var(--cream-gold);border:1px solid var(--rose-gold);border-radius:4px;padding:10px 14px;font-family:'EB Garamond',serif;font-style:italic;font-size:.88rem;font-weight:400;letter-spacing:normal;text-transform:none;line-height:1.5;width:max-content;max-width:300px;white-space:normal;opacity:0;pointer-events:none;transition:opacity .35s,transform .35s;z-index:500;box-shadow:0 14px 34px -12px rgba(0,0,0,.85);}
+  [data-tip]:hover::after{opacity:1;transform:translateX(-50%) translateY(0);}
+  [data-tilt]{will-change:transform;transition:transform .35s ease,border-color .4s,box-shadow .4s;}
+  .arc-skip{position:fixed;top:-60px;left:16px;z-index:7000;background:var(--rose-gold);color:var(--brown);font-family:'JetBrains Mono',monospace;font-size:.72rem;padding:10px 16px;border-radius:3px;transition:top .3s;}
+  .arc-skip:focus{top:12px;}
+  @media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;}
+    #arcMotes,#arcCandle{display:none!important;}
+    .reveal,.marginalia,.stagger>*{opacity:1!important;transform:none!important;}
+  }
+  /* ═══ ENCHANTMENT v2 — the Bodleian layer ═══ */
+  /* bookshelf walls */
+  .arc-shelf{position:fixed;top:0;bottom:0;width:150px;z-index:0;pointer-events:none;opacity:.45;background-repeat:repeat-y;background-size:160px 230px;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='230'%3E%3Crect x='6' y='104' width='14' height='102' fill='%233a2416'/%3E%3Crect x='22' y='112' width='11' height='94' fill='%2352301b'/%3E%3Crect x='35' y='96' width='15' height='110' fill='%232c1d10'/%3E%3Crect x='52' y='120' width='12' height='86' fill='%2346331d'/%3E%3Crect x='66' y='102' width='15' height='104' fill='%23573823'/%3E%3Crect x='83' y='116' width='10' height='90' fill='%2333220f'/%3E%3Crect x='95' y='108' width='14' height='98' fill='%234a2c18'/%3E%3Crect x='111' y='98' width='12' height='108' fill='%233f2b15'/%3E%3Crect x='125' y='122' width='13' height='84' fill='%2358402a'/%3E%3Crect x='140' y='110' width='13' height='96' fill='%23352512'/%3E%3Crect x='6' y='112' width='14' height='2' fill='%23c9956b' opacity='.45'/%3E%3Crect x='35' y='104' width='15' height='2' fill='%23c9956b' opacity='.35'/%3E%3Crect x='66' y='110' width='15' height='2' fill='%23c9956b' opacity='.45'/%3E%3Crect x='95' y='116' width='14' height='2' fill='%23c9956b' opacity='.3'/%3E%3Crect x='125' y='130' width='13' height='2' fill='%23c9956b' opacity='.4'/%3E%3Crect y='206' width='160' height='3' fill='%236b4a2f' opacity='.7'/%3E%3Crect y='209' width='160' height='13' fill='%23120b06'/%3E%3C/svg%3E");}
+  .arc-shelf.left{left:0;-webkit-mask-image:linear-gradient(to right,rgba(0,0,0,.95),transparent);mask-image:linear-gradient(to right,rgba(0,0,0,.95),transparent);}
+  .arc-shelf.right{right:0;transform:scaleX(-1);-webkit-mask-image:linear-gradient(to right,rgba(0,0,0,.95),transparent);mask-image:linear-gradient(to right,rgba(0,0,0,.95),transparent);}
+  @media(max-width:1200px){.arc-shelf{display:none;}}
+  /* wall-sconce candle flame */
+  .arc-sconce{display:inline-flex;align-items:center;justify-content:center;gap:18px;}
+  .arc-flame{position:relative;width:13px;height:20px;display:inline-block;flex:none;}
+  .arc-flame::before{content:'';position:absolute;inset:0;background:radial-gradient(closest-side at 50% 72%,#f7e2b0,#e0a45a 52%,rgba(201,110,60,.3) 76%,transparent);border-radius:50% 50% 50% 50%/62% 62% 38% 38%;transform-origin:50% 92%;animation:arcFlameDance 2.1s ease-in-out infinite;filter:drop-shadow(0 0 10px rgba(224,164,90,.55));}
+  .arc-flame::after{content:'';position:absolute;left:50%;bottom:-4px;width:3px;height:6px;margin-left:-1.5px;background:#3a2a1a;border-radius:2px;}
+  .arc-flame.f2::before{animation-delay:-1.1s;}
+  @keyframes arcFlameDance{0%,100%{transform:scaleY(1) skewX(0);opacity:.92;}30%{transform:scaleY(1.14) skewX(2.5deg);opacity:1;}60%{transform:scaleY(.9) skewX(-2.5deg);opacity:.82;}80%{transform:scaleY(1.06) skewX(1.5deg);opacity:.95;}}
+  /* gold-leaf shimmer on display type */
+  .gilt{background:linear-gradient(110deg,var(--cream) 0%,var(--cream-gold) 32%,#f8e6c0 46%,var(--rose-gold-bright,#e0b48a) 50%,#f8e6c0 54%,var(--cream-gold) 68%,var(--cream) 100%);background-size:230% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:none;animation:arcGild 9s ease-in-out infinite;}
+  @keyframes arcGild{0%,100%{background-position:100% 0;}50%{background-position:0% 0;}}
+  /* illuminated-manuscript corner frames: add <i class="arc-corners" aria-hidden="true"></i> inside a position:relative box */
+  .arc-corners{position:absolute;inset:9px;pointer-events:none;font-style:normal;}
+  .arc-corners::before,.arc-corners::after{content:'';position:absolute;width:22px;height:22px;}
+  .arc-corners::before{top:0;left:0;border-top:1px solid rgba(201,149,107,.55);border-left:1px solid rgba(201,149,107,.55);}
+  .arc-corners::after{bottom:0;right:0;border-bottom:1px solid rgba(201,149,107,.55);border-right:1px solid rgba(201,149,107,.55);}
+  /* the scroll astrolabe */
+  #arcAstro{position:fixed;right:24px;bottom:24px;width:54px;height:54px;z-index:450;cursor:pointer;opacity:0;visibility:hidden;transition:opacity .8s,visibility .8s;background:none;border:none;padding:0;}
+  body.arc-scrolled #arcAstro{opacity:1;visibility:visible;}
+  #arcAstro .a-ring{position:absolute;inset:0;border-radius:50%;background:conic-gradient(var(--rose-gold) calc(var(--arc-p,0)*1turn),rgba(90,69,53,.4) 0);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2.5px));mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2.5px));}
+  #arcAstro .a-dial{position:absolute;inset:7px;border-radius:50%;border:1px dashed rgba(201,149,107,.5);animation:arcSpinSlow 70s linear infinite;}
+  #arcAstro .a-star{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--rose-gold);font-size:.85rem;animation:arcAstroTw 3.2s ease-in-out infinite;}
+  @keyframes arcSpinSlow{to{transform:rotate(1turn);}}
+  @keyframes arcAstroTw{0%,100%{opacity:.55;text-shadow:none;}50%{opacity:1;text-shadow:0 0 10px var(--rose-glow);}}
+  @media(max-width:700px){#arcAstro{width:44px;height:44px;right:14px;bottom:14px;}}
+  @media(prefers-reduced-motion:reduce){.arc-flame::before,.gilt,#arcAstro .a-dial,#arcAstro .a-star{animation:none!important;}}
+</style>
+</head>
+<body>
+<a class="arc-skip" href="#main">Skip to content</a>
+<div id="arcVeil" aria-hidden="true"><div class="v-sigil">✦</div><div class="v-name">Schola Arcana</div><div class="v-motto">lucem in tenebris quaerimus</div></div>
+<div class="arc-breath" aria-hidden="true"></div>
+<canvas id="arcMotes" aria-hidden="true"></canvas>
+<div id="arcCandle" aria-hidden="true"></div>
+<div class="arc-shelf left" aria-hidden="true"></div>
+<div class="arc-shelf right" aria-hidden="true"></div>
+<button id="arcAstro" aria-label="Reading progress — return to the top" title="Return to the surface"><span class="a-ring"></span><span class="a-dial"></span><span class="a-star">✦</span></button>
+
+<nav>
+  <a class="nav-brand" href="index.html">Schola <span>Arcana</span></a>
+  <button class="nav-toggle" aria-label="menu" onclick="document.getElementById('nav').classList.toggle('open')">☰</button>
+  <ul class="nav-links" id="nav">
+    <li><a href="index.html">Cathedral</a></li>
+    <li><a href="atlas.html">Atlas</a></li>
+    <li><a href="mathematical_logic.html">Logic</a></li>
+    <li><a href="quantum_computing.html">Quantum</a></li>
+    <li><a href="linear_algebra.html">Linear Algebra</a></li>
+    <li><a href="toc.html">TOC</a></li>
+    <li><a href="physics.html">Physics</a></li>
+    <li><a href="humanities.html">Humanities</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+  </ul>
+</nav>
+
+<header class="page-hero" id="main">
+  <div class="eyebrow arc-sconce"><span class="arc-flame" aria-hidden="true"></span><span>The Cathedral &amp; Its Method</span><span class="arc-flame f2" aria-hidden="true"></span></div>
+  <h1 class="gilt">Why build <em>this?</em></h1>
+</header>
+
+<div class="prose">
+  <span class="marginalia right" style="top:210px">the spire no one<br>will watch you raise</span>
+  <span class="marginalia left" style="top:640px">six months, edged<br>like a blade</span>
+  <p class="lead">Schola Arcana is a school of one. Its student, its architect, and its only rule: study as if the next six months will decide the shape of the mind you carry for the rest of your life. Because they might.</p>
+
+  <h2>What Schola Arcana is</h2>
+  <p class="dropcap">Cathedrals were built by people who knew they might not live to see the spire. They worked anyway, to a standard no one was watching them keep. That is the standard here — <strong>beauty and rigor for their own sake</strong>, whether or not anyone ever grades it. Schola Arcana is a cathedral-structured self-study blueprint: six mathematical logic tracks, quantum computing, linear algebra, theory of computation, physics, and a humanities track running beneath them all like a crypt full of candles.</p>
+  <p>Most study plans are evergreen and therefore never begin. This one has <strong>edges</strong>. It starts on <strong>July 1</strong> and ends in <strong>December 2026</strong>, framed by two application windows that give it consequence: most programs close in <strong>November 2026</strong>, and Amsterdam's Quantum Computing Science master's closes on <strong>January 15</strong>. A deadline is not pressure. It is a promise made to a future version of yourself — the one who opens the application and finds the work already done.</p>
+  <p>The core is rigor: from the <span data-tip="If Γ ⊨ φ then Γ ⊢ φ — every semantic consequence is provable. Proved by the Henkin construction.">completeness theorem</span> to <span data-tip="Gentzen's Hauptsatz: every LK proof transforms into a cut-free proof. The syntax of a proof then reveals its semantics.">cut elimination</span>, from <span data-tip="Truth relative to possible worlds: M, w ⊨ □φ iff φ holds at every world accessible from w.">Kripke semantics</span> to <span data-tip="Propositions are types, proofs are programs, normalization is computation.">Curry–Howard</span>. But rigor without resonance is brittle, so poetry teaches compression, literature teaches attention, and philosophy asks what the theorems are even <em>for</em>. The goal is one coherent thinker: the <strong>poet-mathematician</strong>.</p>
+</div>
+
+<div class="method">
+  <span class="marginalia right" style="top:180px">closed book,<br>or it doesn't count</span>
+  <span class="marginalia left" style="top:560px">nulla dies<br>sine linea</span>
+  <div class="block-label">The Method</div>
+  <p class="intro">A cathedral is not built on inspiration. It is built on protocol — the same four disciplines, every week, for twenty-six weeks.</p>
+  <div class="method-grid">
+    <div class="mcard" data-tilt>
+      <i class="arc-corners" aria-hidden="true"></i>
+      <h3>The Proof Vault Protocol</h3>
+      <div class="rule">Reproduction, not recognition</div>
+      <p>Reading a proof is not knowing it. A theorem enters the vault only under these terms:</p>
+      <ul>
+        <li>A proof is <strong>owned</strong> only when reproduced <strong>closed-book, in LaTeX</strong>, from a blank page.</li>
+        <li>Every vault entry gets two closed-book revisits — at <strong>one week</strong> and at <strong>one month</strong>. Spaced repetition, but for entire proofs.</li>
+        <li>If a revisit fails, the clock resets. The vault does not negotiate.</li>
+      </ul>
+      <div class="starkey"><span><b>★</b> core</span><span><b>★★</b> serious</span><span><b>★★★</b> centerpiece — the <span data-tip="Add a witness constant for every ∃x formula, extend to a maximal consistent set, and build the canonical model from the syntax itself.">Henkin construction</span> and cut elimination live here</span></div>
+    </div>
+    <div class="mcard" data-tilt>
+      <i class="arc-corners" aria-hidden="true"></i>
+      <h3>The Weekly Cadence</h3>
+      <div class="rule">Mon – Fri · 12–15 hours</div>
+      <ul>
+        <li><strong>Monday–Friday:</strong> deep-work blocks — textbook sections, exercises, vault writing. 12–15 hours per week, no more, no less.</li>
+        <li><strong>One artifact per week:</strong> an essay or a poem, finished and dated. The week does not close without it.</li>
+        <li><strong>Sunday colloquium:</strong> a self-review where the week's proofs are <strong>defended aloud</strong> — every step spoken, every objection answered, as if a committee were listening. Because one day, one will be.</li>
+      </ul>
+    </div>
+    <div class="mcard" data-tilt>
+      <h3>The Commonplace Book</h3>
+      <div class="rule">Daily · by hand</div>
+      <p>Every day, a passage worth keeping is <strong>transcribed</strong> — a stanza, a paragraph of philosophy, a sentence that could not have been written any other way. Copying is slow on purpose; the hand teaches what the eye skims.</p>
+      <ul>
+        <li>Feeds the humanities track directly: the week's essay and poem grow out of the book's pages.</li>
+        <li>By December: a private anthology of everything the semester found beautiful.</li>
+      </ul>
+    </div>
+    <div class="mcard" data-tilt>
+      <h3>Artifact Standards</h3>
+      <div class="rule">Finished means finished</div>
+      <ul>
+        <li><strong>Essays:</strong> 1,200–2,000 words, revised at least twice. A first draft is a rumor, not an artifact.</li>
+        <li><strong>Proofs:</strong> typeset in LaTeX — every quantifier, every eigenvariable condition, every step necessary.</li>
+        <li><strong>Code:</strong> runnable, or it is not code. An algorithm that only works on paper stays out of the portfolio.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="dests">
+  <i class="arc-corners" aria-hidden="true"></i>
+  <span class="marginalia right" style="top:140px">ad astra,<br>per syntaxem</span>
+  <div class="block-label">The Destinations</div>
+  <p style="color:var(--cream-dim);font-family:'EB Garamond',serif;font-style:italic;font-size:1.1rem;">The programs this semester is built toward — the doors the cathedral opens onto.</p>
+  <div class="dest-grid">
+    <div class="dest" data-tilt><div><h4>UvA — Quantum Computing Science</h4><p>Primary target · QuSoft corridor — the entire quantum track is engineered for this application.</p></div><span class="dl crit">Jan 15 · Primary</span></div>
+    <div class="dest" data-tilt><div><h4>ILLC — Master of Logic <span class="star">★</span></h4><p>The dream · the world capital of logic — all six logic tracks point at this door.</p></div><span class="dl">★ Dream</span></div>
+    <div class="dest" data-tilt><div><h4>Oxford — MFoCS</h4><p>Mathematics &amp; Foundations of CS · where proof theory and computation meet at full depth.</p></div><span class="dl crit">Nov · 2026</span></div>
+    <div class="dest" data-tilt><div><h4>Cambridge — Part III</h4><p>Mathematical Tripos · the proving ground — a year of pure mathematical altitude.</p></div><span class="dl crit">Nov · 2026</span></div>
+    <div class="dest" data-tilt><div><h4>ETH Zürich</h4><p>Computer Science / Mathematics · engineering rigor at scale, theory that ships.</p></div><span class="dl crit">Dec · 2026</span></div>
+    <div class="dest" data-tilt><div><h4>Selected Others</h4><p>European &amp; UK master's · the portfolio travels — thirty proofs speak every admissions language.</p></div><span class="dl crit">Nov · 2026</span></div>
+  </div>
+</div>
+
+<div class="produces">
+  <div class="prod-inner">
+    <div class="block-label" style="justify-content:center;">What This Semester Produces</div>
+    <div class="prod-grid">
+      <div class="prod"><b>30+</b><span>Formal Proofs</span></div>
+      <div class="prod"><b>2</b><span>Centerpiece Proofs — Henkin &amp; Cut Elimination</span></div>
+      <div class="prod"><b>26</b><span>Weekly Artifacts — Essays &amp; Poems</span></div>
+    </div>
+    <div class="prod-grid" style="margin-top:22px;">
+      <div class="prod"><b>1</b><span>Commonplace Anthology</span></div>
+      <div class="prod"><b>1</b><span>Algorithm Implementation</span></div>
+      <div class="prod"><b>5</b><span>Application Portfolios</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="prose">
+  <h2>The Builder</h2>
+  <p><strong>Ana Paola Oviedo Salgado</strong> — poet-mathematician. She writes proofs the way she writes poems: nothing wasted, every line load-bearing. She built Schola Arcana because no existing program would hold both halves of her at once — the one that needs the <span data-tip="Γ is satisfiable iff every finite subset of Γ is satisfiable — whole worlds conjured from finite evidence.">compactness theorem</span> stated exactly, and the one that needs to know why it feels like grief that first-order logic cannot pin down the size of infinity.</p>
+  <p>This site is her floor plan. It exists so that on the hard days — and there will be hard days — the reason is never more than one click away.</p>
+</div>
+
+<div class="closing">
+  <i class="arc-corners" aria-hidden="true"></i>
+  <blockquote>"Prove it closed-book or you do not own it. Finish the artifact or the week is not over. Build to a standard no one is watching you keep — because the cathedral is the mind, and you live in what you build."</blockquote>
+  <cite>— The Schola Arcana Manifesto</cite>
+  <p class="signature">Built for Ana Paola Oviedo Salgado — and by her.<br>Pink, but lethal. 💗</p>
+</div>
+
+<footer>
+  <div class="fbrand">Schola <span>Arcana</span></div>
+  <p>Ana Paola Oviedo Salgado · July — December 2026</p>
+</footer>
+
+<script>
+(function(){
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine=matchMedia('(pointer: fine)').matches;
+  /* entrance veil — full ritual once per session, quick fade between rooms */
+  const veil=document.getElementById('arcVeil');
+  if(veil){const seen=sessionStorage.getItem('arcVeil');const d=reduce?0:(seen?420:1700);setTimeout(()=>{veil.classList.add('gone');try{sessionStorage.setItem('arcVeil','1');}catch(e){}},d);}
+  /* candlelight follows the cursor */
+  const candle=document.getElementById('arcCandle');
+  if(candle&&!reduce&&fine){
+    let cx=innerWidth/2,cy=innerHeight/3,tx=cx,ty=cy,lit=false;
+    addEventListener('pointermove',e=>{tx=e.clientX;ty=e.clientY;if(!lit){lit=true;document.body.classList.add('arc-lit');}},{passive:true});
+    (function glide(){cx+=(tx-cx)*.07;cy+=(ty-cy)*.07;candle.style.transform='translate('+cx+'px,'+cy+'px)';requestAnimationFrame(glide);})();
+  }
+  /* dust motes + glowing wisps + cursor sparkle-dust */
+  const cv=document.getElementById('arcMotes');
+  if(cv&&!reduce){
+    const ctx=cv.getContext('2d');const dpr=Math.min(devicePixelRatio||1,2);let W,H;
+    function size(){W=cv.width=innerWidth*dpr;H=cv.height=innerHeight*dpr;cv.style.width=innerWidth+'px';cv.style.height=innerHeight+'px';}
+    size();addEventListener('resize',size);
+    const N=innerWidth<900?14:34,P=[];
+    for(let i=0;i<N;i++)P.push({wisp:i<6,ang:Math.random()*6.28,x:Math.random()*innerWidth*dpr,y:Math.random()*innerHeight*dpr,r:(Math.random()*1.5+.5)*dpr*(i<6?2.4:1),s:(Math.random()*.3+.08)*dpr,ph:Math.random()*6.28,a:Math.random()*.3+.1});
+    const S=[];
+    if(fine)addEventListener('pointermove',e=>{if(S.length<70&&Math.random()<.45)S.push({x:e.clientX*dpr,y:e.clientY*dpr,vx:(Math.random()-.5)*.7*dpr,vy:(Math.random()*.5+.15)*dpr,life:1,r:(Math.random()*1.1+.4)*dpr});},{passive:true});
+    (function draw(t){ctx.clearRect(0,0,W,H);
+      for(const p of P){
+        if(p.wisp){p.ang+=(Math.random()-.5)*.05;p.x+=Math.cos(p.ang)*p.s*1.7;p.y+=Math.sin(p.ang)*p.s*1.7;}
+        else{p.y-=p.s;p.x+=Math.sin(t/2600+p.ph)*.16*dpr;}
+        if(p.y<-10)p.y=H+10;if(p.y>H+10)p.y=-10;if(p.x<-10)p.x=W+10;if(p.x>W+10)p.x=-10;
+        const tw=.55+.45*Math.sin(t/900+p.ph);
+        if(p.wisp){const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*5);g.addColorStop(0,'rgba(240,217,181,'+(p.a*tw*.9).toFixed(3)+')');g.addColorStop(.4,'rgba(224,180,138,'+(p.a*tw*.35).toFixed(3)+')');g.addColorStop(1,'rgba(224,180,138,0)');ctx.beginPath();ctx.arc(p.x,p.y,p.r*5,0,6.28);ctx.fillStyle=g;ctx.fill();}
+        else{ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,6.28);ctx.fillStyle='rgba(224,180,138,'+(p.a*tw).toFixed(3)+')';ctx.fill();}
+      }
+      for(let i=S.length-1;i>=0;i--){const s=S[i];s.life-=.016;if(s.life<=0){S.splice(i,1);continue;}
+        s.x+=s.vx;s.y+=s.vy;s.vy+=.008*dpr;
+        ctx.beginPath();ctx.arc(s.x,s.y,s.r*s.life,0,6.28);ctx.fillStyle='rgba(248,230,192,'+(s.life*.7).toFixed(3)+')';ctx.fill();}
+      requestAnimationFrame(draw);})(0);
+  }
+  /* scroll reveal + marginalia */
+  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.1});
+  document.querySelectorAll('.reveal,.stagger,.marginalia').forEach(el=>io.observe(el));
+  /* card tilt */
+  if(fine&&!reduce){document.querySelectorAll('[data-tilt]').forEach(card=>{
+    card.addEventListener('pointermove',e=>{const r=card.getBoundingClientRect();const px=(e.clientX-r.left)/r.width-.5,py=(e.clientY-r.top)/r.height-.5;card.style.transform='perspective(900px) rotateY('+(px*5).toFixed(2)+'deg) rotateX('+(-py*5).toFixed(2)+'deg) translateY(-6px)';});
+    card.addEventListener('pointerleave',()=>{card.style.transform='';});
+  });}
+  /* astrolabe + shelf parallax */
+  const astro=document.getElementById('arcAstro');
+  const shelves=[...document.querySelectorAll('.arc-shelf')];
+  let tk=false;
+  function onArcScroll(){if(tk)return;tk=true;requestAnimationFrame(()=>{
+    const doc=document.documentElement.scrollHeight-innerHeight;const p=doc>0?scrollY/doc:0;
+    document.documentElement.style.setProperty('--arc-p',p.toFixed(4));
+    document.body.classList.toggle('arc-scrolled',scrollY>400);
+    if(!reduce)shelves.forEach(s=>s.style.backgroundPositionY=(-scrollY*.08).toFixed(1)+'px');
+    tk=false;});}
+  addEventListener('scroll',onArcScroll,{passive:true});onArcScroll();
+  if(astro)astro.addEventListener('click',()=>scrollTo({top:0,behavior:reduce?'auto':'smooth'}));
+})();
+</script>
+</body>
+</html>
