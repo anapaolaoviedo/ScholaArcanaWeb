@@ -1,0 +1,974 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>History — Schola Arcana</title>
+<meta name="description" content="A history track for life: Rome and its fall, the Middle Ages, the Renaissance, and Europe up to the summer of 1914 — named sources, exact passages, essays to read and essays to write."/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  :root{--brown:#1a1410;--brown-2:#241a12;--brown-3:#3d2817;--rose-gold:#c9956b;--rose-gold-bright:#e0b48a;--rose-glow:rgba(201,149,107,.22);--gold:#d4a574;--cream-gold:#f0d9b5;--cream:#e8dcc8;--cream-dim:#b8a888;--blush:#d9a8a0;--rose-muted:#a67c6e;--border:#5a4535;--border-soft:rgba(90,69,53,.5);}
+  html{font-size:16px;scroll-behavior:smooth;}
+  body{background:var(--brown);color:var(--cream);font-family:'Inter',sans-serif;font-weight:300;line-height:1.75;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+  body::before{content:'';position:fixed;inset:0;z-index:3000;pointer-events:none;opacity:.5;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");}
+  body::after{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 50% 0%,rgba(201,149,107,.09),transparent 55%),radial-gradient(ellipse at 50% 120%,rgba(61,40,23,.5),transparent 60%);}
+  a{color:inherit;text-decoration:none;}::selection{background:var(--rose-gold);color:var(--brown);}
+  .meter{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--rose-gold),var(--cream-gold));z-index:400;box-shadow:0 0 10px var(--rose-glow);transition:width .1s;}
+  nav{padding:20px 52px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;background:rgba(26,20,16,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--border-soft);}
+  .nav-brand{font-family:'EB Garamond',serif;font-size:1.2rem;letter-spacing:.05em;}.nav-brand span{color:var(--rose-gold);}
+  .nav-links{display:flex;gap:28px;list-style:none;}
+  .nav-links a{font-size:.7rem;color:var(--cream-dim);letter-spacing:.16em;text-transform:uppercase;transition:color .25s;}
+  .nav-links a:hover,.nav-links a.active{color:var(--rose-gold);}
+  .nav-toggle{display:none;background:none;border:none;color:var(--rose-gold);font-size:1.4rem;cursor:pointer;}
+  .page-hero{max-width:900px;margin:0 auto;padding:80px 48px 10px;text-align:center;position:relative;}
+  .page-hero .eyebrow{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.4em;text-transform:uppercase;color:var(--rose-gold);margin-bottom:22px;}
+  .page-hero h1{font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(2.4rem,6.5vw,4.3rem);line-height:1.05;margin-bottom:20px;text-transform:uppercase;}
+  .page-hero .intro{font-family:'EB Garamond',serif;font-style:italic;font-size:1.3rem;color:var(--cream);max-width:680px;margin:0 auto;line-height:1.55;}
+  .page-hero .intro b{color:var(--rose-gold);font-weight:500;}
+  section{max-width:1020px;margin:0 auto;padding:50px 48px;position:relative;}
+  .quote{text-align:center;padding:30px 20px 10px;position:relative;}
+  .quote blockquote{font-family:'EB Garamond',serif;font-style:italic;font-size:clamp(1.3rem,3vw,1.9rem);line-height:1.45;color:var(--cream);}
+  .quote blockquote span{color:var(--rose-gold);}
+  .quote cite{display:block;margin-top:16px;font-style:normal;font-family:'JetBrains Mono',monospace;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--rose-gold);}
+  .block-label{font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--rose-gold);margin-bottom:18px;display:flex;align-items:center;gap:14px;}
+  .block-label::after{content:'';flex:1;height:1px;background:var(--border-soft);}
+  .why{max-width:780px;margin:0 auto;}
+  .why p{font-family:'EB Garamond',serif;font-size:1.28rem;line-height:1.7;color:var(--cream-dim);margin-bottom:20px;}
+  .why strong{color:var(--rose-gold);font-weight:500;font-style:italic;}
+  .practices{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+  .practice{position:relative;background:linear-gradient(160deg,var(--brown-3),var(--brown-2));border:1px solid var(--border);border-radius:5px;padding:24px 22px;transition:border-color .4s,box-shadow .4s;}
+  .practice:hover{border-color:var(--rose-gold);box-shadow:0 18px 40px -22px rgba(0,0,0,.8);}
+  .practice .glyph{color:var(--rose-gold);font-size:1.2rem;margin-bottom:10px;animation:twinkle 3.4s ease-in-out infinite;}
+  .practice:nth-child(2) .glyph{animation-delay:.8s;}.practice:nth-child(3) .glyph{animation-delay:1.6s;}.practice:nth-child(4) .glyph{animation-delay:2.4s;}
+  @keyframes twinkle{0%,100%{opacity:.5;text-shadow:none;}50%{opacity:1;text-shadow:0 0 10px var(--rose-glow);}}
+  .practice h4{font-family:'Playfair Display',serif;font-weight:500;font-size:1.06rem;margin-bottom:8px;}
+  .practice p{font-size:.84rem;color:var(--cream-dim);}
+  .practice p em{color:var(--rose-muted);}
+  .unit{position:relative;border:1px solid var(--border);border-radius:5px;margin:18px 0;background:linear-gradient(160deg,var(--brown-3),var(--brown-2));overflow:hidden;transition:border-color .35s,box-shadow .35s;}
+  .unit:hover{border-color:var(--rose-muted);box-shadow:0 20px 45px -28px rgba(0,0,0,.8);}
+  .unit.fav{border-color:rgba(201,149,107,.75);box-shadow:0 0 34px -14px var(--rose-glow);}
+  .unit-head{display:flex;align-items:center;gap:18px;padding:24px 28px;cursor:pointer;}
+  .unit-head .un{font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--rose-gold);min-width:44px;text-align:center;}
+  .unit-head .uw{font-family:'JetBrains Mono',monospace;font-size:.66rem;color:var(--rose-gold);border:1px solid var(--border);border-radius:20px;padding:4px 12px;white-space:nowrap;}
+  .unit-head .ut{flex:1;}
+  .unit-head h4{font-family:'Playfair Display',serif;font-weight:500;font-size:1.3rem;color:var(--cream);}
+  .unit-head .usub{font-family:'EB Garamond',serif;font-style:italic;font-size:.95rem;color:var(--cream-dim);}
+  .unit-head .tog{color:var(--rose-gold);font-size:1.3rem;transition:transform .35s;}
+  .unit.open .tog{transform:rotate(180deg);}
+  .unit-body{max-height:0;overflow:hidden;transition:max-height .6s ease;}
+  .unit.open .unit-body{max-height:4600px;}
+  .unit-inner{padding:2px 30px 28px 30px;}
+  .u-cols{display:grid;grid-template-columns:1.2fr 1fr;gap:26px;margin-bottom:20px;}
+  .u-label{font-family:'JetBrains Mono',monospace;font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:var(--rose-gold);margin:14px 0 8px;}
+  .u-list{list-style:none;}
+  .u-list li{padding:5px 0 5px 22px;position:relative;font-size:.9rem;color:var(--cream);}
+  .u-list li::before{content:'◆';position:absolute;left:0;color:var(--rose-gold);font-size:.6rem;top:9px;}
+  .u-list li em{color:var(--cream-dim);}
+  .u-list li .au{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--rose-muted);letter-spacing:.04em;}
+  .ledger{border:1px solid var(--border-soft);border-radius:4px;overflow:hidden;margin-top:6px;}
+  .lrow{display:grid;grid-template-columns:74px 1fr 250px;border-bottom:1px solid var(--border-soft);background:rgba(26,20,16,.35);transition:background .3s;}
+  .lrow:last-child{border-bottom:none;}
+  .lrow:hover{background:rgba(201,149,107,.07);}
+  .lrow>div{padding:12px 16px;font-size:.85rem;}
+  .lrow .wk{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--rose-gold);letter-spacing:.08em;padding-top:15px;}
+  .lrow .rd{color:var(--cream);}
+  .lrow .rd em{color:var(--cream-dim);font-style:normal;}
+  .lrow .due{font-family:'EB Garamond',serif;font-style:italic;color:var(--rose-muted);border-left:1px solid var(--border-soft);}
+  .lrow .due b{color:var(--rose-gold);font-weight:500;}
+  .thought{font-family:'EB Garamond',serif;font-style:italic;font-size:1.05rem;color:var(--rose-muted);border-left:2px solid var(--rose-gold);padding-left:16px;margin-top:18px;}
+  .longread{font-family:'EB Garamond',serif;font-style:italic;font-size:.98rem;color:var(--cream-dim);background:rgba(26,20,16,.4);border:1px dashed var(--border);border-radius:4px;padding:14px 18px;margin-top:16px;}
+  .longread b{color:var(--rose-gold);font-weight:500;}
+  .artifacts{background:linear-gradient(180deg,var(--brown-2),var(--brown));border-top:1px solid var(--border-soft);border-bottom:1px solid var(--border-soft);max-width:none;}
+  .art-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;max-width:1020px;margin:0 auto;}
+  .art{text-align:center;}
+  .art b{display:block;font-family:'Playfair Display',serif;font-size:2.4rem;color:var(--rose-gold);line-height:1;margin-bottom:10px;}
+  .art span{font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--cream-dim);}
+  .art small{display:block;font-size:.85rem;color:var(--cream-dim);margin-top:8px;font-family:'EB Garamond',serif;font-style:italic;}
+  .connect{position:relative;background:linear-gradient(160deg,var(--brown-3),var(--brown-2));border:1px solid var(--border);border-radius:5px;padding:30px 32px;}
+  .connect p{font-family:'EB Garamond',serif;font-size:1.2rem;font-style:italic;color:var(--cream);line-height:1.6;}
+  .connect strong{color:var(--rose-gold);font-weight:500;}
+  footer{border-top:1px solid var(--border-soft);padding:52px;text-align:center;background:var(--brown-2);margin-top:30px;}
+  footer .fbrand{font-family:'EB Garamond',serif;font-size:1.3rem;margin-bottom:10px;}footer .fbrand span{color:var(--rose-gold);}
+  footer p{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.14em;color:var(--cream-dim);text-transform:uppercase;}
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .8s,transform .8s;}.reveal.in{opacity:1;transform:none;}
+  @media(max-width:1150px){.nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:var(--brown-2);border-bottom:1px solid var(--border);padding:8px 0;}.nav-links.open{display:flex;}.nav-links li{padding:12px 22px;border-top:1px solid var(--border-soft);}.nav-toggle{display:block;}}
+  @media(max-width:900px){
+    nav{padding:16px 22px;}
+    .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:var(--brown-2);border-bottom:1px solid var(--border);padding:8px 0;}
+    .nav-links.open{display:flex;}.nav-links li{padding:12px 22px;border-top:1px solid var(--border-soft);}
+    .nav-toggle{display:block;}section{padding:40px 22px;}
+    .practices{grid-template-columns:1fr 1fr;}
+    .u-cols{grid-template-columns:1fr;}
+    .lrow{grid-template-columns:60px 1fr;}
+    .lrow .due{grid-column:2;border-left:none;border-top:1px dotted var(--border-soft);}
+    .art-grid{grid-template-columns:1fr;gap:26px;}
+    .unit-inner{padding:2px 20px 24px;}
+  }
+
+  /* ═══ ARCANUM IMMERSION LAYER ═══ */
+  #arcMotes{position:fixed;inset:0;z-index:2;pointer-events:none;}
+  #arcCandle{position:fixed;left:0;top:0;width:560px;height:560px;margin:-280px 0 0 -280px;z-index:1;pointer-events:none;border-radius:50%;background:radial-gradient(circle,rgba(224,180,138,.085) 0%,rgba(201,149,107,.05) 38%,transparent 68%);mix-blend-mode:screen;opacity:0;transition:opacity 1.2s ease;will-change:transform;}
+  body.arc-lit #arcCandle{opacity:1;animation:arcFlick 2.8s ease-in-out infinite;}
+  @keyframes arcFlick{0%,100%{filter:brightness(1);}23%{filter:brightness(1.22);}47%{filter:brightness(.9);}71%{filter:brightness(1.12);}}
+  .arc-breath{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse at 50% -10%,rgba(224,180,138,.10),transparent 55%);animation:arcBreathe 7s ease-in-out infinite;}
+  @keyframes arcBreathe{0%,100%{opacity:.55;}50%{opacity:1;}}
+  #arcVeil{position:fixed;inset:0;z-index:6000;background:#0c0906;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;opacity:1;visibility:visible;transition:opacity 1.2s ease,visibility 1.2s ease;}
+  #arcVeil.gone{opacity:0;visibility:hidden;}
+  #arcVeil .v-sigil{color:var(--rose-gold);font-size:1.6rem;animation:veilFlame 1.6s ease-in-out infinite;text-shadow:0 0 24px var(--rose-glow);}
+  @keyframes veilFlame{0%,100%{opacity:.55;transform:scale(1);}50%{opacity:1;transform:scale(1.15);}}
+  #arcVeil .v-name{font-family:'Playfair Display',serif;font-size:clamp(1.3rem,3.4vw,2rem);letter-spacing:.34em;color:var(--cream);text-transform:uppercase;padding-left:.34em;}
+  #arcVeil .v-motto{font-family:'EB Garamond',serif;font-style:italic;font-size:.95rem;color:var(--rose-muted);letter-spacing:.12em;}
+  .marginalia{position:absolute;font-family:'EB Garamond',serif;font-style:italic;color:var(--rose-muted);opacity:0;font-size:.95rem;max-width:170px;line-height:1.5;pointer-events:none;transform:rotate(-4deg) translateY(18px);transition:opacity 1.6s ease,transform 1.6s ease;z-index:3;}
+  .marginalia.in{opacity:.52;transform:rotate(-4deg) translateY(0);}
+  .marginalia.right{right:-190px;}
+  .marginalia.left{left:-190px;transform:rotate(3deg) translateY(18px);}
+  .marginalia.left.in{transform:rotate(3deg) translateY(0);}
+  @media(max-width:1360px){.marginalia{display:none;}}
+  .dropcap::first-letter{font-family:'Playfair Display',serif;font-size:3.3em;float:left;line-height:.82;padding:.05em .14em .02em 0;color:var(--rose-gold);text-shadow:0 0 22px var(--rose-glow);}
+  [data-tip]{position:relative;border-bottom:1px dotted var(--rose-muted);cursor:help;}
+  [data-tip]::after{content:attr(data-tip);position:absolute;left:50%;bottom:calc(100% + 10px);transform:translateX(-50%) translateY(6px);background:linear-gradient(160deg,#2b1f14,#1f160e);color:var(--cream-gold);border:1px solid var(--rose-gold);border-radius:4px;padding:10px 14px;font-family:'EB Garamond',serif;font-style:italic;font-size:.88rem;font-weight:400;letter-spacing:normal;text-transform:none;line-height:1.5;width:max-content;max-width:300px;white-space:normal;opacity:0;pointer-events:none;transition:opacity .35s,transform .35s;z-index:500;box-shadow:0 14px 34px -12px rgba(0,0,0,.85);}
+  [data-tip]:hover::after{opacity:1;transform:translateX(-50%) translateY(0);}
+  [data-tilt]{will-change:transform;transition:transform .35s ease,border-color .4s,box-shadow .4s;}
+  .arc-skip{position:fixed;top:-60px;left:16px;z-index:7000;background:var(--rose-gold);color:var(--brown);font-family:'JetBrains Mono',monospace;font-size:.72rem;padding:10px 16px;border-radius:3px;transition:top .3s;}
+  .arc-skip:focus{top:12px;}
+  @media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;}
+    #arcMotes,#arcCandle{display:none!important;}
+    .reveal,.marginalia,.stagger>*{opacity:1!important;transform:none!important;}
+  }
+
+  /* ═══ ENCHANTMENT v2 — the Bodleian layer ═══ */
+  .arc-shelf{position:fixed;top:0;bottom:0;width:150px;z-index:0;pointer-events:none;opacity:.45;background-repeat:repeat-y;background-size:160px 230px;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='230'%3E%3Crect x='6' y='104' width='14' height='102' fill='%233a2416'/%3E%3Crect x='22' y='112' width='11' height='94' fill='%2352301b'/%3E%3Crect x='35' y='96' width='15' height='110' fill='%232c1d10'/%3E%3Crect x='52' y='120' width='12' height='86' fill='%2346331d'/%3E%3Crect x='66' y='102' width='15' height='104' fill='%23573823'/%3E%3Crect x='83' y='116' width='10' height='90' fill='%2333220f'/%3E%3Crect x='95' y='108' width='14' height='98' fill='%234a2c18'/%3E%3Crect x='111' y='98' width='12' height='108' fill='%233f2b15'/%3E%3Crect x='125' y='122' width='13' height='84' fill='%2358402a'/%3E%3Crect x='140' y='110' width='13' height='96' fill='%23352512'/%3E%3Crect x='6' y='112' width='14' height='2' fill='%23c9956b' opacity='.45'/%3E%3Crect x='35' y='104' width='15' height='2' fill='%23c9956b' opacity='.35'/%3E%3Crect x='66' y='110' width='15' height='2' fill='%23c9956b' opacity='.45'/%3E%3Crect x='95' y='116' width='14' height='2' fill='%23c9956b' opacity='.3'/%3E%3Crect x='125' y='130' width='13' height='2' fill='%23c9956b' opacity='.4'/%3E%3Crect y='206' width='160' height='3' fill='%236b4a2f' opacity='.7'/%3E%3Crect y='209' width='160' height='13' fill='%23120b06'/%3E%3C/svg%3E");}
+  .arc-shelf.left{left:0;-webkit-mask-image:linear-gradient(to right,rgba(0,0,0,.95),transparent);mask-image:linear-gradient(to right,rgba(0,0,0,.95),transparent);}
+  .arc-shelf.right{right:0;transform:scaleX(-1);-webkit-mask-image:linear-gradient(to right,rgba(0,0,0,.95),transparent);mask-image:linear-gradient(to right,rgba(0,0,0,.95),transparent);}
+  @media(max-width:1200px){.arc-shelf{display:none;}}
+  .arc-sconce{display:inline-flex;align-items:center;justify-content:center;gap:18px;}
+  .arc-flame{position:relative;width:13px;height:20px;display:inline-block;flex:none;}
+  .arc-flame::before{content:'';position:absolute;inset:0;background:radial-gradient(closest-side at 50% 72%,#f7e2b0,#e0a45a 52%,rgba(201,110,60,.3) 76%,transparent);border-radius:50% 50% 50% 50%/62% 62% 38% 38%;transform-origin:50% 92%;animation:arcFlameDance 2.1s ease-in-out infinite;filter:drop-shadow(0 0 10px rgba(224,164,90,.55));}
+  .arc-flame::after{content:'';position:absolute;left:50%;bottom:-4px;width:3px;height:6px;margin-left:-1.5px;background:#3a2a1a;border-radius:2px;}
+  .arc-flame.f2::before{animation-delay:-1.1s;}
+  @keyframes arcFlameDance{0%,100%{transform:scaleY(1) skewX(0);opacity:.92;}30%{transform:scaleY(1.14) skewX(2.5deg);opacity:1;}60%{transform:scaleY(.9) skewX(-2.5deg);opacity:.82;}80%{transform:scaleY(1.06) skewX(1.5deg);opacity:.95;}}
+  .gilt{background:linear-gradient(110deg,var(--cream) 0%,var(--cream-gold) 32%,#f8e6c0 46%,var(--rose-gold-bright) 50%,#f8e6c0 54%,var(--cream-gold) 68%,var(--cream) 100%);background-size:230% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:none;animation:arcGild 9s ease-in-out infinite;}
+  @keyframes arcGild{0%,100%{background-position:100% 0;}50%{background-position:0% 0;}}
+  .arc-corners{position:absolute;inset:9px;pointer-events:none;font-style:normal;}
+  .arc-corners::before,.arc-corners::after{content:'';position:absolute;width:22px;height:22px;}
+  .arc-corners::before{top:0;left:0;border-top:1px solid rgba(201,149,107,.55);border-left:1px solid rgba(201,149,107,.55);}
+  .arc-corners::after{bottom:0;right:0;border-bottom:1px solid rgba(201,149,107,.55);border-right:1px solid rgba(201,149,107,.55);}
+  #arcAstro{position:fixed;right:24px;bottom:24px;width:54px;height:54px;z-index:450;cursor:pointer;opacity:0;visibility:hidden;transition:opacity .8s,visibility .8s;background:none;border:none;padding:0;}
+  body.arc-scrolled #arcAstro{opacity:1;visibility:visible;}
+  #arcAstro .a-ring{position:absolute;inset:0;border-radius:50%;background:conic-gradient(var(--rose-gold) calc(var(--arc-p,0)*1turn),rgba(90,69,53,.4) 0);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2.5px));mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2.5px));}
+  #arcAstro .a-dial{position:absolute;inset:7px;border-radius:50%;border:1px dashed rgba(201,149,107,.5);animation:arcSpinSlow 70s linear infinite;}
+  #arcAstro .a-star{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--rose-gold);font-size:.85rem;animation:arcAstroTw 3.2s ease-in-out infinite;}
+  @keyframes arcSpinSlow{to{transform:rotate(1turn);}}
+  @keyframes arcAstroTw{0%,100%{opacity:.55;text-shadow:none;}50%{opacity:1;text-shadow:0 0 10px var(--rose-glow);}}
+  @media(max-width:700px){#arcAstro{width:44px;height:44px;right:14px;bottom:14px;}}
+  @media(prefers-reduced-motion:reduce){.arc-flame::before,.gilt,#arcAstro .a-dial,#arcAstro .a-star{animation:none!important;}}
+
+  /* ═══ HISTORY TRACK additions ═══ */
+  .unit.open .unit-body{max-height:12000px;}
+  .eras{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;}
+  .era{display:block;border:1px solid var(--border);border-radius:4px;padding:12px 12px 10px;background:rgba(26,20,16,.45);transition:border-color .3s,background .3s;}
+  .era:hover{border-color:var(--rose-gold);background:rgba(201,149,107,.08);}
+  .era.fav{border-color:rgba(201,149,107,.7);box-shadow:0 0 22px -12px var(--rose-glow);}
+  .era .en{font-family:'Playfair Display',serif;color:var(--rose-gold);font-size:1.05rem;line-height:1;}
+  .era .ed{display:block;font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.06em;color:var(--cream-dim);margin:6px 0 4px;}
+  .era .et{display:block;font-family:'EB Garamond',serif;font-size:.98rem;line-height:1.25;color:var(--cream);}
+  .questions{max-width:780px;margin:0 auto;counter-reset:q;list-style:none;}
+  .questions li{counter-increment:q;font-family:'EB Garamond',serif;font-size:1.18rem;color:var(--cream);padding:10px 0 10px 54px;position:relative;border-bottom:1px solid var(--border-soft);}
+  .questions li:last-child{border-bottom:none;}
+  .questions li::before{content:counter(q,upper-roman);position:absolute;left:0;top:10px;font-family:'Playfair Display',serif;color:var(--rose-gold);width:40px;text-align:center;}
+  .questions li em{color:var(--cream-dim);}
+  .trip{font-size:.9rem;color:var(--cream);margin-top:14px;padding-left:22px;position:relative;}
+  .trip::before{content:'⚲';position:absolute;left:0;top:0;color:var(--rose-gold);}
+  .trip b{font-family:'JetBrains Mono',monospace;font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:var(--rose-gold);font-weight:400;margin-right:8px;}
+  @media(max-width:900px){.eras{grid-template-columns:repeat(3,1fr);}}
+  @media(max-width:600px){.unit-head{flex-wrap:wrap;gap:10px 14px;padding:20px 20px;}.unit-head .ut{order:3;flex-basis:100%;}.unit-head .tog{margin-left:auto;}}
+  @media(max-width:520px){.eras{grid-template-columns:repeat(2,1fr);}.questions li{padding-left:40px;font-size:1.08rem;}}
+</style>
+</head>
+<body>
+<a class="arc-skip" href="#main">Skip to content</a>
+<div id="arcVeil" aria-hidden="true"><div class="v-sigil">✦</div><div class="v-name">Schola Arcana</div><div class="v-motto">lucem in tenebris quaerimus</div></div>
+<div class="arc-breath" aria-hidden="true"></div>
+<canvas id="arcMotes" aria-hidden="true"></canvas>
+<div id="arcCandle" aria-hidden="true"></div>
+<div class="arc-shelf left" aria-hidden="true"></div>
+<div class="arc-shelf right" aria-hidden="true"></div>
+<button id="arcAstro" aria-label="Reading progress — return to the top" title="Return to the surface"><span class="a-ring"></span><span class="a-dial"></span><span class="a-star">✦</span></button>
+<div class="meter" id="meter"></div>
+
+<nav>
+  <a class="nav-brand" href="index.html">Schola <span>Arcana</span></a>
+  <button class="nav-toggle" aria-label="menu" onclick="document.getElementById('nav').classList.toggle('open')">☰</button>
+  <ul class="nav-links" id="nav">
+    <li><a href="index.html">Cathedral</a></li>
+    <li><a href="atlas.html">Atlas</a></li>
+    <li><a href="mathematical_logic.html">Logic</a></li>
+    <li><a href="quantum_computing.html">Quantum</a></li>
+    <li><a href="linear_algebra.html">Linear Algebra</a></li>
+    <li><a href="toc.html">TOC</a></li>
+    <li><a href="physics.html">Physics</a></li>
+    <li><a href="humanities.html">Humanities</a></li>
+    <li><a href="history.html" class="active">History</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+</nav>
+
+<header class="page-hero" id="main">
+  <div class="eyebrow arc-sconce"><span class="arc-flame" aria-hidden="true"></span><span>Field VIII · The Memory · A Track for Life</span><span class="arc-flame f2" aria-hidden="true"></span></div>
+  <h1 class="gilt">History</h1>
+  <p class="intro">From the Greeks to the summer of 1914, with Rome, its fall, the Middle Ages and the Renaissance at the heart. Twelve Books with <b>named sources, exact passages, historians to read and essays to write</b>, read like a historian. No calendar: a Book takes as long as it takes.</p>
+</header>
+
+<section class="reveal">
+  <div class="quote">
+    <blockquote>Historia vero testis temporum, lux veritatis, vita memoriae, <span>magistra vitae</span>, nuntia vetustatis.</blockquote>
+    <cite>— Cicero, De Oratore 2.36 · history, the witness of the ages, the light of truth, the life of memory, the teacher of life</cite>
+  </div>
+</section>
+
+<section class="reveal">
+  <span class="marginalia right" style="top:90px">ad fontes: back to the sources</span>
+  <div class="block-label">Why This Track Exists</div>
+  <div class="why">
+    <p class="dropcap">You found out in one lecture that history is not the story of what happened. It is the discipline of <strong>how we know</strong> what happened: who wrote this, when, for whom, and why. A chronicle is an argument. A biography is propaganda until proven otherwise. A king's genealogy tells you more about the man who wrote it than about the king.</p>
+    <p>That is a proof-checker's instinct, applied to the human past. So this track is built like the others: <strong>named sources</strong>, exact passages, historians who disagree, and essays due. It is modelled on a real first-year history module (Edge Hill's HIS1022, <em>The Medieval World</em>), and it keeps that module's habit of setting a primary source beside a modern historian every single time. It has no end date, because it is not for a semester. It is for life.</p>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="block-label">The Long Timeline · Twelve Books</div>
+  <div class="eras">
+    <a class="era" href="#b1"><span class="en">I</span><span class="ed">c. 500 BC – AD 14</span><span class="et">The Craft &amp; the Ancient Inheritance</span></a>
+    <a class="era" href="#b2"><span class="en">II</span><span class="ed">509 BC – AD 180</span><span class="et">SPQR — The Republic &amp; the Empire</span></a>
+    <a class="era fav" href="#b3"><span class="en">III</span><span class="ed">AD 180 – 600</span><span class="et">The Fall of Rome — or Was It?</span></a>
+    <a class="era fav" href="#b4"><span class="en">IV</span><span class="ed">c. 500 – 1000</span><span class="et">The Early Middle Ages</span></a>
+    <a class="era fav" href="#b5"><span class="en">V</span><span class="ed">c. 1000 – 1300</span><span class="et">The High Middle Ages</span></a>
+    <a class="era fav" href="#b6"><span class="en">VI</span><span class="ed">c. 1300 – 1450</span><span class="et">The Autumn of the Middle Ages</span></a>
+    <a class="era fav" href="#b7"><span class="en">VII</span><span class="ed">c. 1340 – 1550</span><span class="et">The Italian Renaissance</span></a>
+    <a class="era fav" href="#b8"><span class="en">VIII</span><span class="ed">c. 1450 – 1600</span><span class="et">Print, the North &amp; the New World</span></a>
+    <a class="era" href="#b9"><span class="en">IX</span><span class="ed">1517 – 1650</span><span class="et">Reformation &amp; the Divided Christendom</span></a>
+    <a class="era" href="#b10"><span class="en">X</span><span class="ed">1543 – 1789</span><span class="et">The New Science &amp; the Enlightenment</span></a>
+    <a class="era" href="#b11"><span class="en">XI</span><span class="ed">1776 – 1848</span><span class="et">The Age of Revolutions</span></a>
+    <a class="era" href="#b12"><span class="en">XII</span><span class="ed">1848 – summer 1914</span><span class="et">The Long Nineteenth Century</span></a>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="block-label">The Historian's Questions · Ask Them of Every Source</div>
+  <ol class="questions">
+    <li><b>Who</b> wrote this, and what do we know about them? <em>(Is the author even who we think? Remember "Nennius".)</em></li>
+    <li><b>When</b> was it written, and how far from the events it describes?</li>
+    <li><b>For whom</b>: a king, a monastery, a patron, posterity?</li>
+    <li><b>Why</b>: to praise, to blame, to legitimise, to console, to warn?</li>
+    <li><b>What is missing</b>, and whose voice is not in the room?</li>
+    <li><b>What do historians say</b> about it, and why do <em>they</em> say that, when they said it?</li>
+  </ol>
+</section>
+
+<section class="reveal">
+  <div class="block-label">Continuous Practices · Every Book</div>
+  <div class="practices">
+    <div class="practice" data-tilt>
+      <div class="glyph">✒</div>
+      <h4>The Source Card</h4>
+      <p>One index card per primary source, answering the six questions above. <em>By the end, a card catalogue of the Western past.</em></p>
+    </div>
+    <div class="practice" data-tilt>
+      <div class="glyph">⌛</div>
+      <h4>The Long Timeline</h4>
+      <p>One running timeline, kept by hand for life. Every person and event you meet goes on it. <em>Chronology is the skeleton everything else hangs on.</em></p>
+    </div>
+    <div class="practice" data-tilt>
+      <div class="glyph">⚖</div>
+      <h4>The Historiography Ledger</h4>
+      <p>For each Book: who argues what, when they wrote, and why they might think so. <em>Historians are sources too.</em></p>
+    </div>
+    <div class="practice" data-tilt>
+      <div class="glyph">⚲</div>
+      <h4>The Pilgrimage</h4>
+      <p>Each Book names a place to stand in. <em>Walls, cathedrals, galleries and archives: the past is still lying around Britain.</em></p>
+    </div>
+  </div>
+  <div class="longread"><b>On the citations:</b> ancient and medieval texts are cited by <em>book · chapter · section</em> (e.g. Bede 2.13, Tacitus, <em>Annals</em> 1.1–10). These numbers are the same in every translation and edition, which is why historians use them instead of page numbers. Modern books are cited by chapter or part, since page numbers change between printings. Any university library search, or a free online translation, will take you straight to the passage.</div>
+</section>
+
+<section class="reveal">
+  <span class="marginalia left" style="top:260px">"ubi solitudinem faciunt, pacem appellant"</span>
+  <span class="marginalia right" style="top:1100px">capitur urbs quae totum cepit orbem</span>
+  <span class="marginalia left" style="top:1900px">the sparrow through the hall</span>
+  <span class="marginalia right" style="top:2700px">Deus vult</span>
+  <span class="marginalia left" style="top:3500px">l'uomo universale</span>
+  <span class="marginalia right" style="top:4300px">sapere aude</span>
+  <span class="marginalia left" style="top:5000px">Calculemus!</span>
+  <div class="block-label">The Twelve Books · Antiquity to the Summer of 1914</div>
+
+  <div class="unit open" id="b1">
+    <div class="unit-head"><span class="un">I</span><span class="uw">c. 500 BC – AD 14 · prologue</span>
+      <div class="ut"><h4>The Craft &amp; the Ancient Inheritance</h4><div class="usub">How historians think — and the Greek inheritance Rome was built on. Short on purpose: a doorway, not a room.</div></div>
+      <span class="tog">▾</span></div>
+    <div class="unit-body"><div class="unit-inner">
+      <div class="u-cols">
+        <div>
+          <div class="u-label">Primary Sources</div>
+          <ul class="u-list">
+            <li>Herodotus, <em>Histories</em> — the proem + <span data-tip="Herodotus opens by collecting Persian and Phoenician versions of who started the quarrel between East and West — then refuses to judge between them. The first historian begins with competing sources.">1.1–5</span> <span class="au">— the first historian, and his sources</span></li>
+            <li>Thucydides, <em>History of the Peloponnesian War</em> <span data-tip="Thucydides on method: why he distrusts poets and storytellers, and how he reconstructed the speeches — 'what was demanded by the occasion.' The founding statement of critical history.">1.20–22</span> <span class="au">— method, not the war</span></li>
+            <li>Plato, <em>Apology</em> (complete) <span class="au">— Socrates on trial, 399 BC</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="u-label">Historians &amp; Essays to Read</div>
+          <ul class="u-list">
+            <li>E. H. Carr, <em>What Is History?</em> (1961), ch. 1 "The Historian and His Facts" <span class="au">— the essay that started every history degree</span></li>
+            <li>Marc Bloch, <em>The Historian's Craft</em>, the chapters on historical observation and criticism <span class="au">— written by a medievalist in wartime, unfinished</span></li>
+            <li>Justin Lake, "Current Approaches to Medieval Historiography" <span class="au">— your Edge Hill week-1 reading; reread it now</span></li>
+          </ul>
+          <div class="u-label">Skills &amp; Questions</div>
+          <ul class="u-list">
+            <li><span data-tip="A primary source was produced in the period you study (a chronicle, a letter, a law). A secondary source is a later historian's interpretation of the primary sources.">Primary vs. secondary</span> sources</li>
+            <li>The five questions: who, when, for whom, why — and what is missing</li>
+            <li>Fact vs. interpretation (Carr's fishmonger's slab)</li>
+            <li>Reading ancient citations: book · chapter · section</li>
+          </ul>
+        </div>
+      </div>
+      <div class="u-label">The Sessions</div>
+      <div class="ledger">
+        <div class="lrow"><div class="wk">S 1</div><div class="rd">Carr, ch. 1 · Lake (reread)</div><div class="due"><b>Due:</b> 300w — "What is a historical fact?" in your own words</div></div>
+        <div class="lrow"><div class="wk">S 2</div><div class="rd">Herodotus 1.1–5 · Thucydides 1.20–22</div><div class="due"><b>Due:</b> source cards for both: what does each claim to know, and how?</div></div>
+        <div class="lrow"><div class="wk">S 3</div><div class="rd">Plato, <em>Apology</em> · Bloch, selected chapters</div><div class="due"><b>Due:</b> <b>Essay I</b> — "Herodotus or Thucydides: who is the better model for a historian today?" 1,500w</div></div>
+      </div>
+      <p class="trip"><b>Pilgrimage</b>The British Museum, London — the Parthenon sculptures, and the argument over where they belong</p>
+      <p class="thought">Herodotus opens his book by admitting his sources disagree. Twenty-five centuries later, that is still the first honest sentence of any history.</p>
+    </div></div>
+  </div>
+
+  <div class="unit" id="b2">
+    <div class="unit-head"><span class="un">II</span><span class="uw">509 BC – AD 180</span>
+      <div class="ut"><h4>SPQR — The Republic &amp; the Empire</h4><div class="usub">The Senate and People of Rome: a republic that conquered the world, destroyed itself, and became an empire that pretended it hadn't.</div></div>
+      <span class="tog">▾</span></div>
+    <div class="unit-body"><div class="unit-inner">
+      <div class="u-cols">
+        <div>
+          <div class="u-label">Primary Sources</div>
+          <ul class="u-list">
+            <li>Livy, <em>History of Rome</em> — Preface + <span data-tip="The rape of Lucretia and the expulsion of the kings (509 BC): Rome's founding myth of liberty — written under Augustus, who was quietly becoming a king.">1.57–60</span> <span class="au">— Livy</span></li>
+            <li>Polybius, <em>Histories</em> 6.11–18 <span class="au">— the "mixed constitution": why Rome worked</span></li>
+            <li>Cicero, <em>First Oration against Catiline</em> (63 BC) <span class="au">— "Quo usque tandem…"</span></li>
+            <li>Suetonius, <em>Lives of the Caesars</em>: Julius Caesar and Augustus <span class="au">— gossip as history</span></li>
+            <li>Augustus, <em>Res Gestae Divi Augusti</em> (complete — about ten pages) <span class="au">— an emperor writes his own record</span></li>
+            <li>Tacitus, <em>Annals</em> 1.1–10 + <em>Agricola</em> <span data-tip="Tacitus gives a Caledonian chief, Calgacus, a speech against Rome: 'they make a desert and call it peace.' A Roman writing the most famous anti-Roman line in history — about Britain.">29–32</span> <span class="au">— Tacitus</span></li>
+            <li>Pliny the Younger, <em>Letters</em> 6.16 + 6.20 (Vesuvius) and 10.96–97 (the Christians) <span class="au">— Pliny</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="u-label">Historians &amp; Essays to Read</div>
+          <ul class="u-list">
+            <li>Mary Beard, <em>SPQR: A History of Ancient Rome</em> (2015) — ch. 1 "Cicero's Finest Hour", then onward through Augustus <span class="au">— your spine for this Book</span></li>
+            <li>Ronald Syme, <em>The Roman Revolution</em> (1939) — Preface + ch. 1 <span class="au">— Augustus read through the dictators of the 1930s</span></li>
+            <li>Edward Gibbon, <em>Decline and Fall</em>, <span data-tip="Gibbon's famous verdict that the age of the 'five good emperors' (96–180) was the happiest period in human history.">ch. 3</span> <span class="au">— the Antonine golden age</span></li>
+            <li><em>Optional long read:</em> Tom Holland, <em>Rubicon</em> <span class="au">— the fall of the Republic as a thriller</span></li>
+          </ul>
+          <div class="u-label">Skills &amp; Questions</div>
+          <ul class="u-list">
+            <li>Republic vs. principate: how a monarchy wears republican clothes</li>
+            <li>Propaganda: the <em>Res Gestae</em> read like Nennius — what it leaves out</li>
+            <li>Tacitus's method: praise and blame of Augustus side by side (<em>Annals</em> 1.9–10)</li>
+            <li>Rome in Britain — and how Britain looked from Rome</li>
+          </ul>
+        </div>
+      </div>
+      <div class="u-label">The Sessions</div>
+      <div class="ledger">
+        <div class="lrow"><div class="wk">S 1</div><div class="rd">Beard, ch. 1 · Livy, Preface + 1.57–60</div><div class="due"><b>Due:</b> source card: what did the Lucretia story mean for readers under Augustus?</div></div>
+        <div class="lrow"><div class="wk">S 2</div><div class="rd">Polybius 6.11–18 · Cicero, <em>First Catilinarian</em></div><div class="due"><b>Due:</b> memorize the opening sentence of the <em>Catilinarian</em> in Latin</div></div>
+        <div class="lrow"><div class="wk">S 3</div><div class="rd">Suetonius, <em>Julius Caesar</em> · Beard, the Late Republic chapters</div><div class="due"><b>Due:</b> timeline: 133–44 BC, the Republic's long collapse</div></div>
+        <div class="lrow"><div class="wk">S 4</div><div class="rd"><em>Res Gestae</em> · Suetonius, <em>Augustus</em> · Syme, Preface + ch. 1</div><div class="due"><b>Due:</b> <b>Essay II</b> — "How reliable is the <em>Res Gestae</em> as a source for the reign of Augustus?" 1,800w</div></div>
+        <div class="lrow"><div class="wk">S 5</div><div class="rd">Tacitus, <em>Annals</em> 1.1–10 + <em>Agricola</em> 29–32 · Pliny's letters · Gibbon, ch. 3</div><div class="due"><b>Due:</b> <b>Essay III</b> — "Was the Principate a restoration of the Republic or its end? Compare the verdicts of Augustus, Tacitus and Syme." 2,000w</div></div>
+      </div>
+      <p class="trip"><b>Pilgrimage</b>Chester (Roman <em>Deva</em>) — under an hour from Ormskirk: the walls and the amphitheatre. Later: Hadrian's Wall and Bath.</p>
+      <p class="thought">Augustus wrote his own history and had it cast in bronze. Tacitus wrote it again a century later. Rome is where you learn that the winners write history, and the losers' historians get the last word.</p>
+    </div></div>
+  </div>
+
+  <div class="unit fav" id="b3">
+    <div class="unit-head"><span class="un">III</span><span class="uw">AD 180 – 600</span>
+      <div class="ut"><h4>The Fall of Rome — or Was It?</h4><div class="usub">The most argued-about ending in history: catastrophe, or slow transformation? The debate you'll carry into the Middle Ages.</div></div>
+      <span class="tog">▾</span></div>
+    <div class="unit-body"><div class="unit-inner">
+      <div class="u-cols">
+        <div>
+          <div class="u-label">Primary Sources</div>
+          <ul class="u-list">
+            <li>Pliny, 10.96–97, revisited · Eusebius, <em>Life of Constantine</em> 1.28–31 <span class="au">— the vision at the Milvian Bridge</span></li>
+            <li>Ammianus Marcellinus, <em>History</em> 31.4 <span class="au">— the Goths cross the Danube, 376</span></li>
+            <li>Priscus of Panium, the embassy to Attila <span data-tip="Priscus meets a Greek merchant living happily among the Huns, who argues that life under Roman law is worse. A Roman historian letting the barbarian side win the argument.">(the Greek merchant)</span> <span class="au">— Priscus</span></li>
+            <li>Jerome, <em>Letter</em> 127.12 <span class="au">— "the city which had taken the whole world was itself taken" (410)</span></li>
+            <li>Augustine, <em>City of God</em>, Book 1, preface + chs. 1–7 <span class="au">— why Rome fell, as a theologian saw it</span></li>
+            <li>Gildas, <em>On the Ruin of Britain</em>, chs. 1–26 <span class="au">— Britain after the legions</span></li>
+            <li>Boethius, <em>The Consolation of Philosophy</em>, Books 1–2 <span class="au">— the last Roman philosopher, in prison, c. 524</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="u-label">Historians &amp; Essays to Read</div>
+          <ul class="u-list">
+            <li>Peter Brown, <em>The World of Late Antiquity</em> (1971) — complete, it's short and illustrated <span class="au">— the "transformation" school begins here</span></li>
+            <li>Bryan Ward-Perkins, <em>The Fall of Rome and the End of Civilization</em> (2005), ch. 1 + the chapters on the loss of comfort <span class="au">— the pushback: it was a catastrophe</span></li>
+            <li>Guy Halsall, "The Barbarian Invasions", <em>New Cambridge Medieval History</em> I <span class="au">— your Edge Hill week-2 reading</span></li>
+            <li>Edward Gibbon, "General Observations on the Fall of the Roman Empire in the West" (end of ch. 38) <span class="au">— the 18th-century verdict</span></li>
+            <li>Peter Heather, <em>The Fall of the Roman Empire</em> (2005) — introduction <span class="au">— the barbarians put back at the centre</span></li>
+          </ul>
+          <div class="u-label">Skills &amp; Questions</div>
+          <ul class="u-list">
+            <li>"Fall" vs. "transformation": two readings of the same evidence</li>
+            <li>Why historians date the end differently: 410, 476, 568… or never</li>
+            <li>Archaeology as a source: pottery, coins, roof tiles (Ward-Perkins)</li>
+            <li>Who counts as a "barbarian", and who decided</li>
+          </ul>
+        </div>
+      </div>
+      <div class="u-label">The Sessions</div>
+      <div class="ledger">
+        <div class="lrow"><div class="wk">S 1</div><div class="rd">Brown, first half · Eusebius 1.28–31</div><div class="due"><b>Due:</b> source card: a miracle told by a bishop-biographer — what can we use?</div></div>
+        <div class="lrow"><div class="wk">S 2</div><div class="rd">Ammianus 31.4 · Priscus · Halsall</div><div class="due"><b>Due:</b> 300w — were the Goths invaders, refugees, or recruits?</div></div>
+        <div class="lrow"><div class="wk">S 3</div><div class="rd">Jerome, <em>Ep.</em> 127.12 · Augustine, <em>City of God</em> 1 · Brown, second half</div><div class="due"><b>Due:</b> map: the Western Empire in 395 and in 500</div></div>
+        <div class="lrow"><div class="wk">S 4</div><div class="rd">Ward-Perkins, ch. 1 + comfort chapters · Gibbon, "General Observations" · Heather, introduction</div><div class="due"><b>Due:</b> historiography ledger: Gibbon → Brown → Ward-Perkins → Heather</div></div>
+        <div class="lrow"><div class="wk">S 5</div><div class="rd">Gildas 1–26 · Boethius, Books 1–2</div><div class="due"><b>Due:</b> <b>Essay IV</b> — "Did the Roman Empire in the West fall, or was it transformed? Answer using both late-Roman sources and modern historians." 2,000w</div></div>
+      </div>
+      <p class="trip"><b>Pilgrimage</b>The British Museum again — the Mildenhall and Hoxne hoards: treasure buried by Romano-Britons who never came back for it</p>
+      <p class="thought">Boethius wrote the most read book of the Middle Ages while waiting to be executed. The Roman world ended, and its last philosopher answered with a dialogue about Fortune.</p>
+    </div></div>
+  </div>
+
+  <div class="unit fav" id="b4">
+    <div class="unit-head"><span class="un">IV</span><span class="uw">c. 500 – 1000 · !!!!</span>
+      <div class="ut"><h4>The Early Middle Ages</h4><div class="usub">Kingdoms from the ruins: monks, missionaries, Charlemagne, Alfred, Beowulf — and the Vikings on the horizon.</div></div>
+      <span class="tog">▾</span></div>
+    <div class="unit-body"><div class="unit-inner">
+      <div class="u-cols">
+        <div>
+          <div class="u-label">Primary Sources</div>
+          <ul class="u-list">
+            <li>Gregory of Tours, <em>History of the Franks</em> 2.27–31 <span class="au">— Clovis, the vase of Soissons, and the conversion</span></li>
+            <li>The <em>Rule of St Benedict</em> — Prologue + chs. 4, 33, 48 <span class="au">— the operating system of medieval monasticism</span></li>
+            <li>Bede, <em>Ecclesiastical History</em> 1.15, 1.30, <span data-tip="Edwin's counsellor compares human life to a sparrow flying through a lit feasting-hall in winter: in from the dark, and out again into the dark. Possibly the most beautiful passage of the early Middle Ages.">2.13</span>, 4.24 <span class="au">— Saxons, Gregory's letter, the sparrow, Cædmon</span></li>
+            <li>Einhard, <em>Life of Charlemagne</em>, chs. 22–27 <span class="au">— the emperor in private</span></li>
+            <li>Asser, <em>Life of King Alfred</em>, chs. 22–25, 74–76 <span class="au">— the king learning to read</span></li>
+            <li><em>Beowulf</em> (Seamus Heaney trans.) <span class="au">— complete</span></li>
+            <li>Anglo-Saxon Chronicle, 793 + Alcuin's letter to King Æthelred on Lindisfarne <span class="au">— the first Viking raid</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="u-label">Historians &amp; Essays to Read</div>
+          <ul class="u-list">
+            <li>Chris Wickham, <em>The Inheritance of Rome</em> (2009), ch. 1 <span class="au">— the best modern overview; keep it open for Books IV–V</span></li>
+            <li>Henri Pirenne, <em>Mohammed and Charlemagne</em> (1937), conclusion <span class="au">— the famous thesis: Islam, not the barbarians, ended the ancient world</span></li>
+            <li>Huw Pryce, "Conversion to Christianity" · Tomás Mario Kalmar, "Asser's <em>Imitatio</em> of Einhard" <span class="au">— your Edge Hill readings</span></li>
+            <li>Caitlin Ellis, "Remembering the Vikings" <span class="au">— your Edge Hill week-5 reading</span></li>
+            <li>J. R. R. Tolkien, "Beowulf: The Monsters and the Critics" (1936) <span class="au">— a lecture that changed how the poem is read</span></li>
+          </ul>
+          <div class="u-label">Skills &amp; Questions</div>
+          <ul class="u-list">
+            <li>Hagiography and royal biography: genre shapes evidence</li>
+            <li>Imitation as a source problem (Asser copying Einhard)</li>
+            <li>Conversion: top-down, bottom-up, or negotiated?</li>
+            <li>Poetry as historical evidence (<em>Beowulf</em>'s uncertain date)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="u-label">The Sessions</div>
+      <div class="ledger">
+        <div class="lrow"><div class="wk">S 1</div><div class="rd">Wickham, ch. 1 · Gregory of Tours 2.27–31</div><div class="due"><b>Due:</b> source card: Clovis's conversion — told how, and why that way?</div></div>
+        <div class="lrow"><div class="wk">S 2</div><div class="rd"><em>Rule of St Benedict</em> · Bede 1.15, 1.30, 2.13, 4.24 · Pryce</div><div class="due"><b>Due:</b> copy the sparrow passage into your commonplace book</div></div>
+        <div class="lrow"><div class="wk">S 3</div><div class="rd">Einhard 22–27 · Asser 22–25, 74–76 · Kalmar</div><div class="due"><b>Due:</b> <b>Essay V</b> — "How accurately do Einhard and Asser depict their kings?" 2,000w <em>(your Edge Hill question, done for love)</em></div></div>
+        <div class="lrow"><div class="wk">S 4</div><div class="rd"><em>Beowulf</em> · Tolkien, "The Monsters and the Critics"</div><div class="due"><b>Due:</b> 500w — what can a poem tell a historian that a chronicle can't?</div></div>
+        <div class="lrow"><div class="wk">S 5</div><div class="rd">ASC 793 · Alcuin's letter · Ellis · Pirenne, conclusion</div><div class="due"><b>Due:</b> <b>Essay VI</b> — "Pirenne argued that without Mohammed, Charlemagne would have been inconceivable. Assess." 1,800w</div></div>
+      </div>
+      <p class="trip"><b>Pilgrimage</b>Sutton Hoo helmet at the British Museum · Lindisfarne, where the raids began · the Book of Kells at Trinity College Dublin</p>
+      <p class="thought">Bede was writing history in a monastery on the edge of the known world, and he still stopped to record where his information came from. Footnotes are older than printing.</p>
+    </div></div>
+  </div>
+
+  <div class="unit fav" id="b5">
+    <div class="unit-head"><span class="un">V</span><span class="uw">c. 1000 – 1300 · !!!!</span>
+      <div class="ut"><h4>The High Middle Ages</h4><div class="usub">Conquest, crusade, cathedrals and universities — and the medieval logicians who are your intellectual ancestors.</div></div>
+      <span class="tog">▾</span></div>
+    <div class="unit-body"><div class="unit-inner">
+      <div class="u-cols">
+        <div>
+          <div class="u-label">Primary Sources</div>
+          <ul class="u-list">
+            <li>Anglo-Saxon Chronicle, 1065–67 + 1086 · the Bayeux Tapestry (the full panel sequence online) <span class="au">— 1066, two ways</span></li>
+            <li>Gregory VII, <em>Dictatus Papae</em> (1075) <span class="au">— the pope claims to judge kings</span></li>
+            <li>Fulcher of Chartres, Urban II's speech at Clermont (1095) · Anna Komnene, <em>Alexiad</em>, Book 10 <span class="au">— the Crusade from the West and from Byzantium</span></li>
+            <li>Usama ibn Munqidh, <em>The Book of Contemplation</em> — the passages on the Franks <span class="au">— a Syrian knight on the crusaders</span></li>
+            <li>Anselm, <em>Proslogion</em> 2–4 + Gaunilo's reply <span class="au">— the ontological argument: a proof you can test</span></li>
+            <li>Abelard, <em>Historia Calamitatum</em> + Heloise's first letter <span class="au">— the most famous love story of the medieval university</span></li>
+            <li>Aquinas, <em>Summa Theologiae</em> I, q.2, a.3 <span class="au">— the five ways, read as argument structure</span></li>
+            <li>Magna Carta (1215), clauses 39–40 · Marie de France, "Lanval" <span class="au">— law and romance</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="u-label">Historians &amp; Essays to Read</div>
+          <ul class="u-list">
+            <li>R. W. Southern, <em>The Making of the Middle Ages</em> (1953) <span class="au">— a classic, and beautifully written</span></li>
+            <li>Charles Homer Haskins, <em>The Renaissance of the Twelfth Century</em> (1927), ch. 1 <span class="au">— a renaissance before the Renaissance</span></li>
+            <li>Elizabeth A. R. Brown, "The Tyranny of a Construct: Feudalism and Historians of Medieval Europe", <em>American Historical Review</em> 79 (1974) <span class="au">— essay: does "feudalism" even exist?</span></li>
+            <li>Jonathan Riley-Smith, "Crusading as an Act of Love", <em>History</em> 65 (1980) <span class="au">— essay: why people really went</span></li>
+            <li>Lynn White Jr., <em>Medieval Technology and Social Change</em> (1962), ch. 1 <span class="au">— the stirrup thesis: engineering as the engine of history (and why historians attacked it)</span></li>
+            <li>R. I. Moore, <em>The Formation of a Persecuting Society</em> (1987) <span class="au">— the darker side of the same centuries</span></li>
+            <li>Monika Otter, "1066" · Richard Abels, "'Feudalism' and the Medieval Historian" <span class="au">— your Edge Hill readings</span></li>
+          </ul>
+          <div class="u-label">Skills &amp; Questions</div>
+          <ul class="u-list">
+            <li>The "watershed" question: was 1066 a turning point, or made one later?</li>
+            <li>One event, three perspectives: Latin, Greek and Arabic sources on the Crusades</li>
+            <li>Scholastic method: <em>quaestio</em>, objections, reply</li>
+            <li>Models vs. reality: "feudalism" as a historian's construct</li>
+          </ul>
+        </div>
+      </div>
+      <div class="u-label">The Sessions</div>
+      <div class="ledger">
+        <div class="lrow"><div class="wk">S 1</div><div class="rd">ASC 1065–67, 1086 · Bayeux Tapestry · Otter</div><div class="due"><b>Due:</b> <b>Essay VII</b> — "How far was the Norman Conquest a watershed in medieval sources, compared with modern historians?" 2,000w <em>(the Edge Hill question)</em></div></div>
+        <div class="lrow"><div class="wk">S 2</div><div class="rd"><em>Dictatus Papae</em> · Southern, first half · Haskins, ch. 1</div><div class="due"><b>Due:</b> timeline: 1050–1200, popes vs. emperors</div></div>
+        <div class="lrow"><div class="wk">S 3</div><div class="rd">Fulcher · Anna Komnene, Book 10 · Usama · Riley-Smith</div><div class="due"><b>Due:</b> source cards ×3 — the same Franks, seen by three civilizations</div></div>
+        <div class="lrow"><div class="wk">S 4</div><div class="rd">Anselm 2–4 + Gaunilo · Abelard + Heloise · Aquinas I q.2 a.3</div><div class="due"><b>Due:</b> formalize Anselm's argument in first-order logic, then say where Gaunilo hits it</div></div>
+        <div class="lrow"><div class="wk">S 5</div><div class="rd">Magna Carta 39–40 · "Lanval" · E. A. R. Brown · Abels · White, ch. 1 · Moore</div><div class="due"><b>Due:</b> <b>Essay VIII</b> — "Is 'feudalism' a useful concept for historians?" 1,800w</div></div>
+      </div>
+      <p class="trip"><b>Pilgrimage</b>Durham Cathedral · Canterbury · Salisbury Cathedral's 1215 Magna Carta · the Bodleian in Oxford</p>
+      <p class="thought">Anselm tried to prove God exists with pure reasoning; a monk called Gaunilo answered with a perfect island. The medieval university was a proof seminar that never adjourned, and you would have fitted right in.</p>
+    </div></div>
+  </div>
+
+  <div class="unit fav" id="b6">
+    <div class="unit-head"><span class="un">VI</span><span class="uw">c. 1300 – 1450 · !!!!</span>
+      <div class="ut"><h4>The Autumn of the Middle Ages</h4><div class="usub">Plague, revolt, schism, Joan of Arc, Chaucer, and the first woman in Europe to live by her pen.</div></div>
+      <span class="tog">▾</span></div>
+    <div class="unit-body"><div class="unit-inner">
+      <div class="u-cols">
+        <div>
+          <div class="u-label">Primary Sources</div>
+          <ul class="u-list">
+            <li>Boccaccio, <em>Decameron</em> — Introduction to Day 1 <span class="au">— the Black Death in Florence, 1348</span></li>
+            <li>Froissart, <em>Chronicles</em> — the Peasants' Revolt of 1381 and John Ball's sermon <span class="au">— "When Adam delved and Eve span…"</span></li>
+            <li>Chaucer, <em>The Canterbury Tales</em> — General Prologue <span class="au">— a portrait of a whole society</span></li>
+            <li>Christine de Pizan, <em>The Book of the City of Ladies</em>, Book 1 <span class="au">— 1405: a woman answers the misogynists</span></li>
+            <li>The trial of Joan of Arc (1431) — the sessions of 21 February to 3 March <span class="au">— her own words, recorded by her enemies</span></li>
+            <li>William of Ockham, <em>Summa Logicae</em>, Part 1, chs. 1–3 <span class="au">— the razor's owner, on terms and signs</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="u-label">Historians &amp; Essays to Read</div>
+          <ul class="u-list">
+            <li>Johan Huizinga, <em>The Autumn of the Middle Ages</em> (1919), ch. 1 "The Passionate Intensity of Life" <span class="au">— the most beautiful book ever written about the period</span></li>
+            <li>Eileen Power, <em>Medieval People</em> (1924) — "The Peasant Bodo", "Madame Eglentyne", "The Ménagier's Wife" <span class="au">— history of ordinary lives, a century early</span></li>
+            <li>Barbara Tuchman, <em>A Distant Mirror</em> (1978), the Black Death chapter <span class="au">— narrative history at its best</span></li>
+            <li>C. N. L. Brooke, "Heresy and Religious Sentiment" <span class="au">— your Edge Hill week-11 reading</span></li>
+          </ul>
+          <div class="u-label">Skills &amp; Questions</div>
+          <ul class="u-list">
+            <li>Social history: recovering people who didn't write</li>
+            <li>Trial records: power shapes the transcript</li>
+            <li>Mentalities: how an age felt, not just what it did (Huizinga)</li>
+            <li>Late-medieval logic as the bridge to modern logic</li>
+          </ul>
+        </div>
+      </div>
+      <div class="u-label">The Sessions</div>
+      <div class="ledger">
+        <div class="lrow"><div class="wk">S 1</div><div class="rd">Boccaccio, Day 1 Introduction · Tuchman, Black Death chapter</div><div class="due"><b>Due:</b> source card: a storyteller as eyewitness</div></div>
+        <div class="lrow"><div class="wk">S 2</div><div class="rd">Froissart on 1381 · Power, the three portraits</div><div class="due"><b>Due:</b> 300w — how can we write the history of people who left no writing?</div></div>
+        <div class="lrow"><div class="wk">S 3</div><div class="rd">Chaucer, General Prologue · Christine, Book 1</div><div class="due"><b>Due:</b> memorize the first 18 lines of the General Prologue in Middle English</div></div>
+        <div class="lrow"><div class="wk">S 4</div><div class="rd">Joan of Arc's trial · Huizinga, ch. 1 · Ockham, <em>Summa Logicae</em> 1.1–3</div><div class="due"><b>Due:</b> <b>Essay IX</b> — "How useful is the record of Joan of Arc's trial as a source for Joan herself?" 1,800w</div></div>
+      </div>
+      <p class="trip"><b>Pilgrimage</b>Canterbury — Chaucer's destination · York Minster · the Tower of London</p>
+      <p class="thought">Christine de Pizan was widowed at twenty-five and wrote to feed her children. She built a city of women out of argument. Some foundations are laid in prose.</p>
+    </div></div>
+  </div>
+
+  <div class="unit fav" id="b7">
+    <div class="unit-head"><span class="un">VII</span><span class="uw">c. 1340 – 1550 · ★ favourite</span>
+      <div class="ut"><h4>The Italian Renaissance</h4><div class="usub">Petrarch climbs a mountain, Valla catches a forgery, Brunelleschi raises a dome, and Machiavelli puts on his good clothes to talk with the ancients.</div></div>
+      <span class="tog">▾</span></div>
+    <div class="unit-body"><div class="unit-inner">
+      <div class="u-cols">
+        <div>
+          <div class="u-label">Primary Sources</div>
+          <ul class="u-list">
+            <li>Petrarch, "The Ascent of Mont Ventoux" (<em>Familiares</em> 4.1) + his letter to Cicero (<em>Fam.</em> 24.3) <span class="au">— the man who invented the "Dark Ages"</span></li>
+            <li>Lorenzo Valla, <em>On the Donation of Constantine</em> (1440) <span data-tip="Valla proved the Donation — the document supposedly giving the popes power over the West — was a forgery, by showing its Latin couldn't be from the 4th century. Historical criticism as a weapon.">— the forgery exposed</span></li>
+            <li>Leon Battista Alberti, <em>On Painting</em>, Book 1 <span class="au">— perspective as geometry</span></li>
+            <li>Pico della Mirandola, <em>Oration on the Dignity of Man</em> (1486) <span class="au">— the manifesto</span></li>
+            <li>Machiavelli, <em>The Prince</em>, chs. 15, 17, 18, 25 + <span data-tip="10 December 1513: in exile, Machiavelli describes changing out of his muddy clothes each evening into court robes, to enter 'the ancient courts of ancient men' — his books. The most beautiful letter about reading ever written.">the letter to Vettori</span> (10 Dec 1513) <span class="au">— Machiavelli</span></li>
+            <li>Castiglione, <em>The Book of the Courtier</em>, Book 1 (esp. 1.26, <em>sprezzatura</em>) <span class="au">— the art of effortless grace</span></li>
+            <li>Vasari, <em>Lives of the Artists</em>: Brunelleschi, Leonardo, Michelangelo <span class="au">— the first art historian, and his favourites</span></li>
+            <li>Leonardo da Vinci, <em>Notebooks</em> (selections) <span class="au">— the engineer's Renaissance</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="u-label">Historians &amp; Essays to Read</div>
+          <ul class="u-list">
+            <li>Jacob Burckhardt, <em>The Civilization of the Renaissance in Italy</em> (1860), Part I "The State as a Work of Art" + Part II "The Development of the Individual" <span class="au">— the book that invented the Renaissance as we imagine it</span></li>
+            <li>Joan Kelly, "Did Women Have a Renaissance?" (1977) <span class="au">— essay: the answer is no, and it changed the field</span></li>
+            <li>Michael Baxandall, <em>Painting and Experience in Fifteenth-Century Italy</em> (1972), chs. 1–2 <span class="au">— contracts, money, and "the period eye"</span></li>
+            <li>Peter Burke, <em>The Italian Renaissance: Culture and Society in Italy</em>, introduction <span class="au">— the sociological view</span></li>
+            <li>Stephen Greenblatt, <em>The Swerve</em> (2011), then medievalists' responses to it, e.g. Jim Hinch in the <em>LA Review of Books</em> (2012) <span class="au">— a prizewinning book, read as a case study in teleology</span></li>
+          </ul>
+          <div class="u-label">Skills &amp; Questions</div>
+          <ul class="u-list">
+            <li>Humanism: <em>ad fontes</em>, back to the sources</li>
+            <li>Philology as proof: Valla's method is textual forensics</li>
+            <li>Burckhardt's thesis and its critics: was the Renaissance a break?</li>
+            <li>Reading art as a historical source (Baxandall)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="u-label">The Sessions</div>
+      <div class="ledger">
+        <div class="lrow"><div class="wk">S 1</div><div class="rd">Petrarch, <em>Fam.</em> 4.1 + 24.3 · Burckhardt, Part I</div><div class="due"><b>Due:</b> 300w — Petrarch called the centuries before him "darkness". What was he doing when he said it?</div></div>
+        <div class="lrow"><div class="wk">S 2</div><div class="rd">Valla, <em>Donation</em> · Alberti, Book 1</div><div class="due"><b>Due:</b> source card for the <em>Donation</em> — then do what Valla did: list the anachronisms</div></div>
+        <div class="lrow"><div class="wk">S 3</div><div class="rd">Pico, <em>Oration</em> · Burckhardt, Part II · Kelly</div><div class="due"><b>Due:</b> <b>Essay X</b> — "Did the Renaissance 'discover the individual'? Assess Burckhardt's thesis in the light of Joan Kelly." 2,000w</div></div>
+        <div class="lrow"><div class="wk">S 4</div><div class="rd">Machiavelli, <em>Prince</em> 15, 17, 18, 25 + letter to Vettori · Castiglione, Book 1</div><div class="due"><b>Due:</b> copy the Vettori letter's key paragraph into your commonplace book</div></div>
+        <div class="lrow"><div class="wk">S 5</div><div class="rd">Vasari, the three lives · Leonardo, <em>Notebooks</em> · Baxandall, chs. 1–2</div><div class="due"><b>Due:</b> timeline: Florence 1400–1530, the Medici to the siege</div></div>
+        <div class="lrow"><div class="wk">S 6</div><div class="rd">Burke, introduction · Greenblatt, <em>The Swerve</em> + the responses</div><div class="due"><b>Due:</b> <b>Essay XI</b> — "'The Middle Ages' was a Renaissance invention. How far did Renaissance writers create the period they claimed to escape?" 2,000w</div></div>
+      </div>
+      <p class="trip"><b>Pilgrimage</b>The National Gallery, London · the Uffizi and Brunelleschi's dome, someday · the Prado in Madrid, for the Renaissance that went south</p>
+      <p class="thought">Every evening in exile, Machiavelli changed into his best clothes to read the ancients. Your Renaissance can start the same way: dress for the conversation.</p>
+    </div></div>
+  </div>
+
+  <div class="unit fav" id="b8">
+    <div class="unit-head"><span class="un">VIII</span><span class="uw">c. 1450 – 1600 · ★</span>
+      <div class="ut"><h4>Print, the North &amp; the New World</h4><div class="usub">Gutenberg, Erasmus, Thomas More, Dürer — and 1492, when Europe met the Americas. The conquest of Mexico, told from three sides.</div></div>
+      <span class="tog">▾</span></div>
+    <div class="unit-body"><div class="unit-inner">
+      <div class="u-cols">
+        <div>
+          <div class="u-label">Primary Sources</div>
+          <ul class="u-list">
+            <li>Erasmus, <em>The Praise of Folly</em> <span class="au">— a satire that shook the Church</span></li>
+            <li>Thomas More, <em>Utopia</em>, Book 1 <span class="au">— the critique of England before the dream</span></li>
+            <li>Columbus, Letter on the first voyage (1493) <span class="au">— first impressions, and first misreadings</span></li>
+            <li>Hernán Cortés, <em>Second Letter</em> (1520) — the description of Tenochtitlan <span class="au">— the conqueror reporting to his king</span></li>
+            <li>Bernal Díaz del Castillo, <em>The True History of the Conquest of New Spain</em> — the entry into Tenochtitlan (Nov 1519) <span class="au">— "like the enchantments in the book of Amadis"</span></li>
+            <li>Miguel León-Portilla, ed., <em>The Broken Spears</em> <span class="au">— the Nahua accounts of the conquest</span></li>
+            <li>Bartolomé de las Casas, <em>A Short Account of the Destruction of the Indies</em> (1552) <span class="au">— the accusation</span></li>
+            <li>Montaigne, "Of Cannibals" (<em>Essays</em> 1.31) + "Of Coaches" (3.6) <span class="au">— who are the barbarians now?</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="u-label">Historians &amp; Essays to Read</div>
+          <ul class="u-list">
+            <li>Elizabeth Eisenstein, <em>The Printing Revolution in Early Modern Europe</em> (1983), chs. 1–3 <span class="au">— print as an agent of change</span></li>
+            <li>Matthew Restall, <em>Seven Myths of the Spanish Conquest</em> (2003) <span class="au">— historiography at its sharpest: how the conquest story was built</span></li>
+            <li>J. H. Elliott, <em>The Old World and the New, 1492–1650</em> (1970) <span class="au">— what America did to Europe's mind</span></li>
+            <li>Anthony Grafton, <em>New Worlds, Ancient Texts</em> (1992) <span class="au">— when the books and the world disagreed</span></li>
+          </ul>
+          <div class="u-label">Skills &amp; Questions</div>
+          <ul class="u-list">
+            <li>Media history: what changes when texts become cheap</li>
+            <li>Contact sources: conquerors, colonized and critics</li>
+            <li>Myth-making in real time (Cortés writing for Charles V)</li>
+            <li>The essay as a form: Montaigne invents your future genre</li>
+          </ul>
+        </div>
+      </div>
+      <div class="u-label">The Sessions</div>
+      <div class="ledger">
+        <div class="lrow"><div class="wk">S 1</div><div class="rd">Eisenstein, chs. 1–3 · Erasmus, <em>Praise of Folly</em></div><div class="due"><b>Due:</b> 300w — was print a revolution or an accelerant?</div></div>
+        <div class="lrow"><div class="wk">S 2</div><div class="rd">More, <em>Utopia</em> Book 1 · Columbus, 1493 letter · Elliott</div><div class="due"><b>Due:</b> source card: Columbus — what did he see, and what did he expect to see?</div></div>
+        <div class="lrow"><div class="wk">S 3</div><div class="rd">Cortés, <em>Second Letter</em> · Bernal Díaz · <em>The Broken Spears</em></div><div class="due"><b>Due:</b> <b>Essay XII</b> — "The fall of Tenochtitlan in Spanish and Nahua sources: how can a historian use accounts written by the winners and the defeated?" 2,000w</div></div>
+        <div class="lrow"><div class="wk">S 4</div><div class="rd">Las Casas · Montaigne, "Of Cannibals" + "Of Coaches" · Restall</div><div class="due"><b>Due:</b> write your own Montaigne-style essay, 1,000w, on something you saw this week</div></div>
+      </div>
+      <p class="trip"><b>Pilgrimage</b>Madrid — the Museo de América and the Prado · the Rijksmuseum in Amsterdam, for the northern painters</p>
+      <p class="thought">When Bernal Díaz first saw Tenochtitlan, he could only compare it to a romance of chivalry. You can stand on the same ground, in the centre of Mexico City. History is also what lies under your own streets.</p>
+    </div></div>
+  </div>
+
+  <div class="unit" id="b9">
+    <div class="unit-head"><span class="un">IX</span><span class="uw">1517 – 1650</span>
+      <div class="ut"><h4>Reformation &amp; the Divided Christendom</h4><div class="usub">Luther, Calvin, the Catholic answer — and the microhistorians who found the ordinary people inside the upheaval.</div></div>
+      <span class="tog">▾</span></div>
+    <div class="unit-body"><div class="unit-inner">
+      <div class="u-cols">
+        <div>
+          <div class="u-label">Primary Sources</div>
+          <ul class="u-list">
+            <li>Martin Luther, <em>Ninety-Five Theses</em> (1517) + <em>The Freedom of a Christian</em> (1520) <span class="au">— Luther</span></li>
+            <li>John Calvin, <em>Institutes</em>, Book 1, chs. 1–2 <span class="au">— knowledge of God and of ourselves</span></li>
+            <li>Ignatius of Loyola, <em>Spiritual Exercises</em>, first week (selections) <span class="au">— the Catholic Reformation from within</span></li>
+            <li>Canons and decrees of the Council of Trent, Session 4 (1546) <span class="au">— scripture and tradition</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="u-label">Historians &amp; Essays to Read</div>
+          <ul class="u-list">
+            <li>Diarmaid MacCulloch, <em>Reformation: Europe's House Divided</em> (2003), introduction + Part I <span class="au">— the standard modern account</span></li>
+            <li>Eamon Duffy, <em>The Stripping of the Altars</em> (1992), introduction <span class="au">— essay-length provocation: English Catholicism was thriving, not dying</span></li>
+            <li>Carlo Ginzburg, <em>The Cheese and the Worms</em> (1976) — complete, it's short <span class="au">— a miller's cosmos from Inquisition records</span></li>
+            <li>Natalie Zemon Davis, <em>The Return of Martin Guerre</em> (1983) — complete <span class="au">— an impostor, a village, and what a historian may invent</span></li>
+            <li>Keith Thomas, <em>Religion and the Decline of Magic</em> (1971), ch. 1 <span class="au">— the world before science took over</span></li>
+          </ul>
+          <div class="u-label">Skills &amp; Questions</div>
+          <ul class="u-list">
+            <li>Microhistory: a whole world from one person</li>
+            <li>Reading the Inquisition's records against the grain</li>
+            <li>Reformation from above vs. from below</li>
+            <li>When may a historian imagine? (the Davis debate)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="u-label">The Sessions</div>
+      <div class="ledger">
+        <div class="lrow"><div class="wk">S 1</div><div class="rd">Luther, both texts · MacCulloch, introduction + Part I</div><div class="due"><b>Due:</b> timeline: 1517–1648, from Wittenberg to Westphalia</div></div>
+        <div class="lrow"><div class="wk">S 2</div><div class="rd">Calvin, <em>Institutes</em> 1.1–2 · Ignatius · Trent, Session 4 · Duffy, introduction</div><div class="due"><b>Due:</b> 300w — did the Reformation start from below or above?</div></div>
+        <div class="lrow"><div class="wk">S 3</div><div class="rd">Ginzburg, <em>The Cheese and the Worms</em> · Thomas, ch. 1</div><div class="due"><b>Due:</b> source card: Menocchio's testimony — whose words are these?</div></div>
+        <div class="lrow"><div class="wk">S 4</div><div class="rd">Davis, <em>The Return of Martin Guerre</em></div><div class="due"><b>Due:</b> <b>Essay XIII</b> — "What can microhistory tell us that grand narrative cannot? Discuss with reference to Ginzburg and Davis." 1,800w</div></div>
+      </div>
+      <p class="trip"><b>Pilgrimage</b>Cambridge — the colleges where English Reformers argued, and King's College Chapel</p>
+      <p class="thought">Menocchio the miller believed the world began like cheese curdling, and worms were the angels. The Inquisition killed him for it; Ginzburg gave him back his voice. That is what historians are for.</p>
+    </div></div>
+  </div>
+
+  <div class="unit" id="b10">
+    <div class="unit-head"><span class="un">X</span><span class="uw">1543 – 1789</span>
+      <div class="ut"><h4>The New Science &amp; the Enlightenment</h4><div class="usub">Galileo, Descartes, Newton, Leibniz's dream of a calculus of reason — then Kant's <em>sapere aude</em>. The century your own field was born.</div></div>
+      <span class="tog">▾</span></div>
+    <div class="unit-body"><div class="unit-inner">
+      <div class="u-cols">
+        <div>
+          <div class="u-label">Primary Sources</div>
+          <ul class="u-list">
+            <li>Galileo, <em>The Starry Messenger</em> (1610) + <em>Letter to the Grand Duchess Christina</em> (1615) <span class="au">— the telescope, and the argument with scripture</span></li>
+            <li>Descartes, <em>Discourse on the Method</em>, Parts 1–2 (the four rules) <span class="au">— Descartes</span></li>
+            <li>Newton, <em>Principia</em>, Book 3, "Rules of Reasoning in Philosophy" <span class="au">— four rules, one page</span></li>
+            <li>Leibniz, on the universal characteristic <span data-tip="Leibniz dreamed of a symbolic language in which disputes would be settled by calculation: 'Let us calculate!' (Calculemus!). The direct ancestor of Boole, Frege, Gödel and Turing, and so of your logic track.">(<em>Calculemus!</em>)</span> — selections in Loemker, ed., <em>Philosophical Papers and Letters</em> <span class="au">— Leibniz</span></li>
+            <li>Hume, <em>Enquiry Concerning Human Understanding</em>, §10 "Of Miracles" <span class="au">— a historian's theory of testimony</span></li>
+            <li>Kant, "An Answer to the Question: What Is Enlightenment?" (1784) <span class="au">— sapere aude</span></li>
+            <li>Voltaire, <em>Candide</em> · Diderot, the article "Encyclopédie" <span class="au">— satire and the project of total knowledge</span></li>
+            <li>Mary Wollstonecraft, <em>A Vindication of the Rights of Woman</em> (1792), ch. 2 <span class="au">— Wollstonecraft</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="u-label">Historians &amp; Essays to Read</div>
+          <ul class="u-list">
+            <li>Steven Shapin, <em>The Scientific Revolution</em> (1996), introduction <span class="au">— "There was no such thing as the Scientific Revolution, and this is a book about it."</span></li>
+            <li>Herbert Butterfield, <em>The Whig Interpretation of History</em> (1931), chs. 1–2 <span class="au">— the essay on teleology we talked about. Read it now.</span></li>
+            <li>Robert Darnton, <em>The Great Cat Massacre</em> (1984), ch. 2 (the title essay) <span class="au">— the joke you don't get is where the history is</span></li>
+            <li>Dava Sobel, <em>Galileo's Daughter</em> (1999) <span class="au">— the trial through a daughter's letters</span></li>
+          </ul>
+          <div class="u-label">Skills &amp; Questions</div>
+          <ul class="u-list">
+            <li>History of science without teleology (Shapin vs. the heroic story)</li>
+            <li>Testimony and evidence: Hume on miracles is also about sources</li>
+            <li>Cultural history: reading the strange (Darnton)</li>
+            <li>Tracing your own discipline's roots: Leibniz → Boole → Frege</li>
+          </ul>
+        </div>
+      </div>
+      <div class="u-label">The Sessions</div>
+      <div class="ledger">
+        <div class="lrow"><div class="wk">S 1</div><div class="rd">Galileo, both texts · Sobel, selections · Shapin, introduction</div><div class="due"><b>Due:</b> source card: the <em>Letter to Christina</em> — who was Galileo really writing to?</div></div>
+        <div class="lrow"><div class="wk">S 2</div><div class="rd">Descartes, Parts 1–2 · Newton, "Rules" · Leibniz selections</div><div class="due"><b>Due:</b> <b>Essay XIV</b> — "Was there a Scientific Revolution? Assess Shapin's claim." 1,800w</div></div>
+        <div class="lrow"><div class="wk">S 3</div><div class="rd">Butterfield, chs. 1–2 · Hume, §10</div><div class="due"><b>Due:</b> rewrite one paragraph of any earlier essay to remove every trace of teleology</div></div>
+        <div class="lrow"><div class="wk">S 4</div><div class="rd">Kant · <em>Candide</em> · Diderot · Wollstonecraft, ch. 2 · Darnton, ch. 2</div><div class="due"><b>Due:</b> 300w — whose enlightenment was it?</div></div>
+      </div>
+      <p class="trip"><b>Pilgrimage</b>Edinburgh — the Scottish Enlightenment: Hume, Adam Smith, and the Old Town they walked · Newton's things in Cambridge</p>
+      <p class="thought">Leibniz imagined settling any dispute by saying: let us calculate. Two centuries later, Turing proved exactly where that dream ends. Your history and your logic meet here.</p>
+    </div></div>
+  </div>
+
+  <div class="unit" id="b11">
+    <div class="unit-head"><span class="un">XI</span><span class="uw">1776 – 1848</span>
+      <div class="ut"><h4>The Age of Revolutions</h4><div class="usub">The French Revolution, the Industrial Revolution — and Ada Lovelace, in the same Britain you're living in, writing the first notes on a computer.</div></div>
+      <span class="tog">▾</span></div>
+    <div class="unit-body"><div class="unit-inner">
+      <div class="u-cols">
+        <div>
+          <div class="u-label">Primary Sources</div>
+          <ul class="u-list">
+            <li>Sieyès, <em>What Is the Third Estate?</em> (1789), ch. 1 <span class="au">— "Everything. What has it been? Nothing."</span></li>
+            <li>Declaration of the Rights of Man and of the Citizen (1789) + Olympe de Gouges, Declaration of the Rights of Woman (1791) <span class="au">— the pair</span></li>
+            <li>Edmund Burke, <em>Reflections on the Revolution in France</em> (selections) vs. Thomas Paine, <em>Rights of Man</em>, Part 1 <span class="au">— the great British debate</span></li>
+            <li>Robespierre, "On the Principles of Political Morality" (5 Feb 1794) <span class="au">— virtue and terror</span></li>
+            <li>Adam Smith, <em>The Wealth of Nations</em>, Book 1, ch. 1 <span class="au">— the pin factory</span></li>
+            <li>Friedrich Engels, <em>The Condition of the Working Class in England</em> (1845), "The Great Towns" <span class="au">— Manchester, an hour from Ormskirk</span></li>
+            <li>Ada Lovelace, Notes on Menabrea's memoir (1843), esp. <span data-tip="In Note G, Lovelace writes out a procedure for the Analytical Engine to compute Bernoulli numbers, and argues the Engine 'has no pretensions to originate anything.' Turing answered her by name in 1950: 'Lady Lovelace's Objection.'">Note G</span> <span class="au">— Lovelace</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="u-label">Historians &amp; Essays to Read</div>
+          <ul class="u-list">
+            <li>Eric Hobsbawm, <em>The Age of Revolution 1789–1848</em> (1962), chs. 2–3 <span class="au">— the "dual revolution": industrial and French</span></li>
+            <li>E. P. Thompson, <em>The Making of the English Working Class</em> (1963), Preface <span class="au">— rescuing the poor "from the enormous condescension of posterity"</span></li>
+            <li>Lynn Hunt, <em>Inventing Human Rights</em> (2007), introduction + ch. 1 <span class="au">— how novels taught Europe empathy</span></li>
+            <li>Simon Schama, <em>Citizens</em> (1989), prologue <span class="au">— the Revolution as tragedy</span></li>
+          </ul>
+          <div class="u-label">Skills &amp; Questions</div>
+          <ul class="u-list">
+            <li>Competing narratives of revolution: liberal, Marxist, revisionist</li>
+            <li>History from below (Thompson)</li>
+            <li>Economic sources and statistics</li>
+            <li>Your own field's history: Babbage, Lovelace and the machine</li>
+          </ul>
+        </div>
+      </div>
+      <div class="u-label">The Sessions</div>
+      <div class="ledger">
+        <div class="lrow"><div class="wk">S 1</div><div class="rd">Sieyès · the two Declarations · Hobsbawm, ch. 3</div><div class="due"><b>Due:</b> source card: de Gouges — who was she answering, and what happened to her?</div></div>
+        <div class="lrow"><div class="wk">S 2</div><div class="rd">Burke vs. Paine · Robespierre · Schama, prologue</div><div class="due"><b>Due:</b> 300w — why did the Revolution turn to terror?</div></div>
+        <div class="lrow"><div class="wk">S 3</div><div class="rd">Smith, <em>WN</em> 1.1 · Engels, "The Great Towns" · Hobsbawm, ch. 2 · Thompson, Preface</div><div class="due"><b>Due:</b> <b>Essay XV</b> — "Was the Industrial Revolution a revolution? Compare contemporary witnesses with modern historians." 2,000w</div></div>
+        <div class="lrow"><div class="wk">S 4</div><div class="rd">Lovelace, Notes (esp. G) · Hunt, introduction + ch. 1 · reread Turing (1950) §6, "Lady Lovelace's Objection"</div><div class="due"><b>Due:</b> <b>Essay XVI</b> — "Lady Lovelace's Objection: a historical reading of an argument about machines, 1843–1950." 1,800w</div></div>
+      </div>
+      <p class="trip"><b>Pilgrimage</b>The Science and Industry Museum, Manchester (the world's oldest passenger railway station) · the Science Museum, London — Babbage's Difference Engine No. 2</p>
+      <p class="thought">Lovelace wrote that the Engine could only do what we know how to order it to do. Turing, a century later, answered her by name. Sometimes history is simply a conversation that took a hundred years.</p>
+    </div></div>
+  </div>
+
+  <div class="unit" id="b12">
+    <div class="unit-head"><span class="un">XII</span><span class="uw">1848 – summer 1914</span>
+      <div class="ut"><h4>The Long Nineteenth Century</h4><div class="usub">Nations imagined, traditions invented, Darwin, Mill, the suffragettes, the great logicians — and a world of security that did not know it was ending.</div></div>
+      <span class="tog">▾</span></div>
+    <div class="unit-body"><div class="unit-inner">
+      <div class="u-cols">
+        <div>
+          <div class="u-label">Primary Sources</div>
+          <ul class="u-list">
+            <li>Marx &amp; Engels, <em>The Communist Manifesto</em> (1848), Part 1 <span class="au">— the most influential pamphlet of the century</span></li>
+            <li>J. S. Mill, <em>On Liberty</em> (1859), ch. 2 <span class="au">— the liberty of thought</span></li>
+            <li>Darwin, <em>On the Origin of Species</em> (1859), final chapter <span class="au">— "endless forms most beautiful"</span></li>
+            <li>Ernest Renan, "What Is a Nation?" (1882) <span class="au">— a nation as a daily plebiscite, and a shared forgetting</span></li>
+            <li>Boole, <em>The Laws of Thought</em> (1854), ch. 1 · Frege, <em>Begriffsschrift</em> (1879), preface <span class="au">— logic becomes mathematics</span></li>
+            <li>Emmeline Pankhurst, "Freedom or Death" (Hartford, 1913) <span class="au">— the suffragette case</span></li>
+            <li>Hilbert, "Mathematical Problems" (Paris, 1900), the opening <span class="au">— "Who of us would not be glad to lift the veil…"</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="u-label">Historians &amp; Essays to Read</div>
+          <ul class="u-list">
+            <li>Eric Hobsbawm, <em>The Age of Capital</em> (1975) and <em>The Age of Empire</em> (1987), the opening chapters <span class="au">— the trilogy closes</span></li>
+            <li>Benedict Anderson, <em>Imagined Communities</em> (1983), ch. 1 <span class="au">— the nation as imagined community</span></li>
+            <li>Hobsbawm &amp; Ranger, eds., <em>The Invention of Tradition</em> (1983) — Hobsbawm's introduction + Hugh Trevor-Roper's essay on the Highland tradition of Scotland <span class="au">— kilts, tartans and the Victorians</span></li>
+            <li>Stefan Zweig, <em>The World of Yesterday</em> (1942), ch. 1 "The World of Security" <span class="au">— the last page of the track</span></li>
+          </ul>
+          <div class="u-label">Skills &amp; Questions</div>
+          <ul class="u-list">
+            <li>Nationalism as a historical construction</li>
+            <li>Invented tradition: spotting the recent behind the "ancient"</li>
+            <li>Ideas as events: Darwin, Mill, Marx</li>
+            <li>A deliberate teleology test: Boole → Frege → Hilbert → you</li>
+          </ul>
+        </div>
+      </div>
+      <div class="u-label">The Sessions</div>
+      <div class="ledger">
+        <div class="lrow"><div class="wk">S 1</div><div class="rd"><em>Manifesto</em>, Part 1 · Mill, ch. 2 · Hobsbawm, <em>Age of Capital</em>, ch. 1</div><div class="due"><b>Due:</b> 300w — 1848: why did so many revolutions happen at once, and why did they fail?</div></div>
+        <div class="lrow"><div class="wk">S 2</div><div class="rd">Darwin, final chapter · Renan · Anderson, ch. 1</div><div class="due"><b>Due:</b> source card: Renan — what does a nation have to forget?</div></div>
+        <div class="lrow"><div class="wk">S 3</div><div class="rd"><em>The Invention of Tradition</em>, the two essays · Pankhurst</div><div class="due"><b>Due:</b> <b>Essay XVII</b> — "How far were the nations of 19th-century Europe 'imagined' or 'invented'? Discuss with one case study." 2,000w</div></div>
+        <div class="lrow"><div class="wk">S 4</div><div class="rd">Boole, ch. 1 · Frege, preface · Hilbert 1900 · Zweig, ch. 1</div><div class="due"><b>Due:</b> <b>Capstone</b> — "The Long Memory": 4,000w on a thread you followed across all twelve Books</div></div>
+      </div>
+      <p class="trip"><b>Pilgrimage</b>The Lake District — the 19th century's own idea of nature, and the poem you owe Wordsworth · Vienna — Zweig's city, the world of yesterday</p>
+      <p class="thought">Zweig called the years before 1914 "the golden age of security". The track ends here, on the last calm summer. The door to what comes next stays closed until you decide to open it.</p>
+    </div></div>
+  </div>
+</section>
+
+<section class="artifacts reveal">
+  <div class="block-label" style="max-width:1020px;margin:0 auto 30px;">Artifact Targets · What Exists at the End</div>
+  <div class="art-grid">
+    <div class="art"><b>17</b><span>Seminar Essays</span><small>1,500–2,000 words each, all built on sources plus historiography.</small></div>
+    <div class="art"><b>1</b><span>Capstone</span><small>"The Long Memory": 4,000 words on one thread across twelve Books.</small></div>
+    <div class="art"><b>60+</b><span>Source Cards</span><small>Every primary source, interrogated.</small></div>
+    <div class="art"><b>12</b><span>Historiography Ledgers</span><small>One per Book: the arguments about the arguments.</small></div>
+    <div class="art"><b>1</b><span>The Long Timeline</span><small>By hand, from Herodotus to 1914, and never finished.</small></div>
+    <div class="art"><b>12</b><span>Pilgrimages</span><small>From Chester's walls to the Lake District.</small></div>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="connect">
+    <i class="arc-corners" aria-hidden="true"></i>
+    <div class="block-label">Where This Fits</div>
+    <p>History is where your two selves meet. Valla catching a forgery by its Latin is <strong>proof by contradiction</strong>. Anselm and Aquinas are logic you can formalize. Leibniz's <em>Calculemus!</em> leads to Boole, Frege, Hilbert and then <strong>Turing</strong>, who answered Ada Lovelace by name. And Butterfield's warning against <strong>teleology</strong> is the discipline you'll need when you write the history of your own field, or when someone someday writes yours. Read the past for what it was, not for what it became. That is the whole craft.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="fbrand">Schola <span>Arcana</span></div>
+  <p>Ana Paola Oviedo Salgado · a track for life · begun at Edge Hill, autumn 2026</p>
+</footer>
+
+<script>
+  document.querySelectorAll('.unit-head').forEach(h=>h.addEventListener('click',()=>h.parentElement.classList.toggle('open')));
+  document.querySelectorAll('.era').forEach(a=>a.addEventListener('click',()=>{const u=document.querySelector(a.getAttribute('href'));if(u)u.classList.add('open');}));
+  const meter=document.getElementById('meter');
+  let t=false;window.addEventListener('scroll',()=>{if(t)return;t=true;requestAnimationFrame(()=>{const h=document.documentElement.scrollHeight-innerHeight;meter.style.width=(h>0?scrollY/h*100:0)+'%';t=false;});},{passive:true});
+</script>
+<script>
+(function(){
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine=matchMedia('(pointer: fine)').matches;
+  /* entrance veil — full ritual once per session, quick fade between rooms */
+  const veil=document.getElementById('arcVeil');
+  if(veil){const seen=sessionStorage.getItem('arcVeil');const d=reduce?0:(seen?420:1700);setTimeout(()=>{veil.classList.add('gone');try{sessionStorage.setItem('arcVeil','1');}catch(e){}},d);}
+  /* candlelight follows the cursor */
+  const candle=document.getElementById('arcCandle');
+  if(candle&&!reduce&&fine){
+    let cx=innerWidth/2,cy=innerHeight/3,tx=cx,ty=cy,lit=false;
+    addEventListener('pointermove',e=>{tx=e.clientX;ty=e.clientY;if(!lit){lit=true;document.body.classList.add('arc-lit');}},{passive:true});
+    (function glide(){cx+=(tx-cx)*.07;cy+=(ty-cy)*.07;candle.style.transform='translate('+cx+'px,'+cy+'px)';requestAnimationFrame(glide);})();
+  }
+  /* dust motes + glowing wisps + cursor sparkle-dust */
+  const cv=document.getElementById('arcMotes');
+  if(cv&&!reduce){
+    const ctx=cv.getContext('2d');const dpr=Math.min(devicePixelRatio||1,2);let W,H;
+    function size(){W=cv.width=innerWidth*dpr;H=cv.height=innerHeight*dpr;cv.style.width=innerWidth+'px';cv.style.height=innerHeight+'px';}
+    size();addEventListener('resize',size);
+    const N=innerWidth<900?14:34,P=[];
+    for(let i=0;i<N;i++)P.push({wisp:i<6,ang:Math.random()*6.28,x:Math.random()*innerWidth*dpr,y:Math.random()*innerHeight*dpr,r:(Math.random()*1.5+.5)*dpr*(i<6?2.4:1),s:(Math.random()*.3+.08)*dpr,ph:Math.random()*6.28,a:Math.random()*.3+.1});
+    const S=[];
+    if(fine)addEventListener('pointermove',e=>{if(S.length<70&&Math.random()<.45)S.push({x:e.clientX*dpr,y:e.clientY*dpr,vx:(Math.random()-.5)*.7*dpr,vy:(Math.random()*.5+.15)*dpr,life:1,r:(Math.random()*1.1+.4)*dpr});},{passive:true});
+    (function draw(t){ctx.clearRect(0,0,W,H);
+      for(const p of P){
+        if(p.wisp){p.ang+=(Math.random()-.5)*.05;p.x+=Math.cos(p.ang)*p.s*1.7;p.y+=Math.sin(p.ang)*p.s*1.7;}
+        else{p.y-=p.s;p.x+=Math.sin(t/2600+p.ph)*.16*dpr;}
+        if(p.y<-10)p.y=H+10;if(p.y>H+10)p.y=-10;if(p.x<-10)p.x=W+10;if(p.x>W+10)p.x=-10;
+        const tw=.55+.45*Math.sin(t/900+p.ph);
+        if(p.wisp){const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*5);g.addColorStop(0,'rgba(240,217,181,'+(p.a*tw*.9).toFixed(3)+')');g.addColorStop(.4,'rgba(224,180,138,'+(p.a*tw*.35).toFixed(3)+')');g.addColorStop(1,'rgba(224,180,138,0)');ctx.beginPath();ctx.arc(p.x,p.y,p.r*5,0,6.28);ctx.fillStyle=g;ctx.fill();}
+        else{ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,6.28);ctx.fillStyle='rgba(224,180,138,'+(p.a*tw).toFixed(3)+')';ctx.fill();}
+      }
+      for(let i=S.length-1;i>=0;i--){const s=S[i];s.life-=.016;if(s.life<=0){S.splice(i,1);continue;}
+        s.x+=s.vx;s.y+=s.vy;s.vy+=.008*dpr;
+        ctx.beginPath();ctx.arc(s.x,s.y,s.r*s.life,0,6.28);ctx.fillStyle='rgba(248,230,192,'+(s.life*.7).toFixed(3)+')';ctx.fill();}
+      requestAnimationFrame(draw);})(0);
+  }
+  /* scroll reveal + marginalia */
+  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.1});
+  document.querySelectorAll('.reveal,.stagger,.marginalia').forEach(el=>io.observe(el));
+  /* card tilt */
+  if(fine&&!reduce){document.querySelectorAll('[data-tilt]').forEach(card=>{
+    card.addEventListener('pointermove',e=>{const r=card.getBoundingClientRect();const px=(e.clientX-r.left)/r.width-.5,py=(e.clientY-r.top)/r.height-.5;card.style.transform='perspective(900px) rotateY('+(px*5).toFixed(2)+'deg) rotateX('+(-py*5).toFixed(2)+'deg) translateY(-6px)';});
+    card.addEventListener('pointerleave',()=>{card.style.transform='';});
+  });}
+  /* astrolabe + shelf parallax */
+  const astro=document.getElementById('arcAstro');
+  const shelves=[...document.querySelectorAll('.arc-shelf')];
+  let tk=false;
+  function onArcScroll(){if(tk)return;tk=true;requestAnimationFrame(()=>{
+    const doc=document.documentElement.scrollHeight-innerHeight;const p=doc>0?scrollY/doc:0;
+    document.documentElement.style.setProperty('--arc-p',p.toFixed(4));
+    document.body.classList.toggle('arc-scrolled',scrollY>400);
+    if(!reduce)shelves.forEach(s=>s.style.backgroundPositionY=(-scrollY*.08).toFixed(1)+'px');
+    tk=false;});}
+  addEventListener('scroll',onArcScroll,{passive:true});onArcScroll();
+  if(astro)astro.addEventListener('click',()=>scrollTo({top:0,behavior:reduce?'auto':'smooth'}));
+})();
+</script>
+</body>
+</html>
